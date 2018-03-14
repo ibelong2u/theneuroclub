@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+    	<referenceContainer name="footer-container">
+        <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="footer content">
+            <block class="Magento\Store\Block\Switcher" name="store_switcher" as="store_switcher" template="Magento_Store::switch/stores.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="custom_footer_links" after="store_switcher" template="Magento_Theme::html/custom_footer_links.phtml"/>
+            <block class="Magento\Theme\Block\Html\Footer" name="copyright" template="Magento_Theme::html/copyright.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="report.bugs" template="Magento_Theme::html/bugreport.phtml" />
+        </container>
+    	</referenceContainer>
+    </body>
+</page>
