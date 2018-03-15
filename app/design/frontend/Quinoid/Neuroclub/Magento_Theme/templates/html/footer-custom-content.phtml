@@ -1,0 +1,36 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaUrl = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<!-- Footer Payments Block -->
+<div class="footer-payments">
+  <?php echo $this->getLayout()
+              ->createBlock('Magento\Cms\Block\Block')
+              ->setBlockId('footer-payments')
+              ->toHtml();
+  ?>
+</div>
+<!-- Footer Logo  -->
+<div class="footer-logo">
+  <img src="<?=$mediaUrl;?>"/>
+</div>
+<!-- Footer Disclaimer Block -->
+<div class="footer-disclaimer">
+  <?php
+      echo $this->getLayout()
+              ->createBlock('Magento\Cms\Block\Block')
+              ->setBlockId('footer-disclaimer')
+              ->toHtml();
+  ?>
+</div>
+<!-- Footer Copyright Block -->
+<div class="footer-copyright">
+  <?php
+    echo $this->getLayout()
+            ->createBlock("Magento\Theme\Block\Html\Footer")
+            ->setTemplate("Magento_Theme::html/copyright.phtml")
+            ->toHtml();
+  ?>
+</div>
