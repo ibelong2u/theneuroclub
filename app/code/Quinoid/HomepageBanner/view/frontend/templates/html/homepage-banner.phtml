@@ -1,0 +1,67 @@
+<?php
+/**
+ * Quinoid_HomepageBanner extension
+ *                     NOTICE OF LICENSE
+ *
+ *                     This source file is subject to the MIT License
+ *                     that is bundled with this package in the file LICENSE.txt.
+ *                     It is also available through the world-wide-web at this URL:
+ *                     http://opensource.org/licenses/mit-license.php
+ *
+ *                     @category  Quinoid
+ *                     @package   Quinoid_HomepageBanner
+ *                     @copyright Copyright (c) 2017
+ *                     @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+$objectManager  =   \Magento\Framework\App\ObjectManager::getInstance();
+$model      = $objectManager->create('\Quinoid\HomepageBanner\Model\ResourceModel\Video');
+$result     = $model->getAllVideos();
+$storeManager   = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$currentStore   = $storeManager->getStore();
+$mediaUrl   = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$isEnable = $this->helper('Quinoid\HomepageBanner\Helper\Data')->getConfig('bannertab/settings/enable');
+$bannerContentType = $this->helper('Quinoid\HomepageBanner\Helper\Data')->getConfig('bannertab/settings/banner_content_type');
+if ($isEnable == 1) { ?>
+    <ul class="home-banner-grid"><?php
+    if ($bannerContentType == 0) {
+        foreach($result as $_result) {
+            $file_extension  = pathinfo( $_result['videofile'], PATHINFO_EXTENSION);
+            switch($file_extension) {
+                case "jpg":
+                case "jpeg":
+                case "png":
+                    if ($_result['show_in_frontend'] == 1 && $_result['upload_type'] == 0) { ?>
+                        <li class="banner-item">
+                          <img src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/file'. $_result['videofile'] ?>">
+                        </li>
+                        <?php
+                    }
+                    break;
+            }
+        }
+    }
+    elseif ($bannerContentType == 1) {
+        foreach($result as $_result)
+        {
+            if ($_result['upload_type'] == 0) {
+                $file_extension  = pathinfo( $_result['videofile'], PATHINFO_EXTENSION);
+                if ($file_extension == "mp4" || $file_extension == "mov") {
+                    if ($_result['show_in_frontend'] == 1) { ?>
+                        <video width="90%" height="300" controls="controls" preload="metadata" poster="" controlslist="nodownload">
+                            <source src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/file'. $_result['videofile'] ?>" type="video/<?=$file_extension;?>">
+                        </video><?php
+                        break;
+                    }
+                }
+            }
+            elseif ($_result['upload_type'] == 1) {
+                if ($_result['show_in_frontend'] == 1) { ?>
+                    <iframe width="560" height="315" src="<?php echo $_result['video_url'] ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe><?php
+                    break;
+                }
+            }
+        }
+    } ?>
+    </ul><?php
+}
+?>

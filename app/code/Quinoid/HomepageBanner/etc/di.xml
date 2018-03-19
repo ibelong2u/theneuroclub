@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Quinoid_HomepageBanner extension
+ *                     NOTICE OF LICENSE
+ *
+ *                     This source file is subject to the MIT License
+ *                     that is bundled with this package in the file LICENSE.txt.
+ *                     It is also available through the world-wide-web at this URL:
+ *                     http://opensource.org/licenses/mit-license.php
+ *
+ *                     @category  Quinoid
+ *                     @package   Quinoid_HomepageBanner
+ *                     @copyright Copyright (c) 2017
+ *                     @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <virtualType name="QuinoidHomepageBannerGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="QuinoidHomepageBannerVideoGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Quinoid\HomepageBanner\Model\ResourceModel\Video\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">QuinoidHomepageBannerGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <type name="Quinoid\HomepageBanner\Model\ResourceModel\Video\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">quinoid_homepagebanner_video</argument>
+            <argument name="eventPrefix" xsi:type="string">quinoid_homepagebanner_video_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">video_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Quinoid\HomepageBanner\Model\ResourceModel\Video</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="quinoid_homepagebanner_video_listing_data_source" xsi:type="string">Quinoid\HomepageBanner\Model\ResourceModel\Video\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
