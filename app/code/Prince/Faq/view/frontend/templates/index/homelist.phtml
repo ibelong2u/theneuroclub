@@ -1,0 +1,33 @@
+<?php $isEnable = $block->getConfig('faqtab/general/enable') ?>
+<?php $showGroup = $block->getConfig('faqtab/general/showgroup') ?>
+<?php //$showGroupTitle = $block->getConfig('faqtab/general/showgrouptitle') ?>
+
+<?php $faqGroupCollection = $block->getFaqGroupCollection() ?>
+<?php if ($faqGroupCollection->getSize()) : ?>
+    <?php if ($isEnable) : ?>
+    <div class="faq-collection">
+        <div class="faq-content">
+            <?php foreach ($faqGroupCollection as $group) : ?>
+                <div class="faq-accordion">
+                <?php $faqLatest = $block->getFaqLatest(); ?>
+                    <?php if (count($faqLatest) > 0) : ?>
+                      <?php //var_dump($faqLatest);?>
+                        <?php foreach ($faqLatest as $faq) : ?>
+                            <h3><?php /* @noEscape */ echo $faq['title']; ?></h3>
+                            <div>
+                                <p><?php /* @noEscape */ echo $block->filterOutputHtml($faq['content']); ?></p>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <div><?php /* @noEscape */ echo __('No FAQ available'); ?></div>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+<?php else : ?>
+    <div>
+        <h1><?php /* @noEscape */ echo __('No FAQ Group available'); ?></h1>
+    </div>
+<?php endif; ?>

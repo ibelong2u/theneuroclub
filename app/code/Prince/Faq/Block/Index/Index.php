@@ -14,7 +14,7 @@ class Index extends \Magento\Framework\View\Element\Template
     private $storeManager;
 
     private $customerSession;
-    
+
     private $templateProcessor;
 
     public function __construct(
@@ -74,7 +74,7 @@ class Index extends \Magento\Framework\View\Element\Template
                 ['finset' => $this->getCurrentStore()]
             ]
         );
-        $faqGroupCollection->setOrder('sortorder', 'ASC');
+        $faqGroupCollection->setOrder('sortorder', 'DESC');
         return $faqGroupCollection;
     }
 
@@ -108,5 +108,20 @@ class Index extends \Magento\Framework\View\Element\Template
     public function getCurrentStore()
     {
         return $this->storeManager->getStore()->getId();
+    }
+
+    /*updated on 13-03-2018
+    * for retrieving the latest 5 faq */
+    public function getFaqLatest(){
+      $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+      $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+      $connection = $resource->getConnection();
+      $tableName = $resource->getTableName('prince_faq'); //gives table name with prefix
+
+      //Select Data from table
+      $sql = "SELECT * FROM " . $tableName." WHERE status =1 ORDER BY faq_id DESC LIMIT 2";
+      $faqCollection = $connection->fetchAll($sql); // gives associated array, table fields as key in array.
+      return $faqCollection;
+
     }
 }
