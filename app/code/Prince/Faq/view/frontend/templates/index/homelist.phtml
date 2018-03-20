@@ -1,11 +1,13 @@
 <?php $isEnable = $block->getConfig('faqtab/general/enable') ?>
 <?php $showGroup = $block->getConfig('faqtab/general/showgroup') ?>
 <?php //$showGroupTitle = $block->getConfig('faqtab/general/showgrouptitle') ?>
-
 <?php $faqGroupCollection = $block->getFaqGroupCollection() ?>
 <?php if ($faqGroupCollection->getSize()) : ?>
     <?php if ($isEnable) : ?>
     <div class="faq-collection">
+    <div class="section-heading">
+      <h2><strong>Frequently </strong>Asked Questions</h2>
+    </div>
         <div class="faq-content">
             <?php foreach ($faqGroupCollection as $group) : ?>
                 <div class="faq-accordion">
@@ -24,6 +26,10 @@
                 </div>
             <?php endforeach; ?>
         </div>
+        <div class="clearfix"></div>
+        <div class="section-button">
+        <button type="button">view all</button>
+      </div>
     </div>
     <?php endif; ?>
 <?php else : ?>

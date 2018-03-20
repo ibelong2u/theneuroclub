@@ -1,0 +1,112 @@
+.page-bottom{
+  width: 100% !important;
+  .faq-collection{
+    .section-heading{
+      text-align: center;
+      h2{
+        font-size: 25px;
+        color: #374076;
+        padding: 20px 0;
+        @media only screen and (min-width: 768px){
+          font-size: 40px;
+        }
+        @media only screen and (min-width: 991px){
+            font-size: 50px;
+            padding: 40px 0;
+        }
+      }
+      strong{
+        color: #000;
+      }
+    }
+    .section-button{
+        padding: 20px 0;
+        text-align: center;
+      @media only screen and (min-width: 991px){
+        padding: 40px 0;
+      }
+      button{
+        background: #374076;
+        border-radius: 20px;
+        box-shadow: none !important;
+        color: #fff;
+        font-size: 14px;
+        letter-spacing: 1px;
+        padding: 10px 20px;
+        text-transform: uppercase;
+        @media only screen and (min-width: 768px){
+          font-size: 16px;
+          padding: 10px 25px;
+        }
+        @media only screen and (min-width: 991px){
+          font-size: 20px;
+          padding: 13px 35px;
+        }
+      }
+    }
+    .faq-content{
+      .ui-accordion{
+          .ui-accordion-header {
+            color: #374076;
+            font-size: 14px;
+      			font-weight: 600;
+            margin: 0;
+            padding: 1.7em .5em 1.7em 1em;
+      			text-transform: uppercase;
+            -webkit-margin-before: 0;
+            -webkit-margin-after: 0;
+      			@media only screen and (min-width: 468px) {
+      				font-size: 16px;
+      			}
+      			@media only screen and (min-width: 768px){
+      				font-size: 18px;
+      			}
+            @media only screen and (min-width: 991px){
+      				font-size: 20px;
+      			}
+            &:hover{
+              background: #ffffff;
+            }
+          }
+          .ui-accordion-content {
+            border-top: 0;
+            padding: 1.7em .5em 1.7em 1em;
+            overflow: auto;
+            p{
+              font-size: 12px;
+              @media only screen and (min-width: 468px) {
+        				font-size: 14px;
+        			}
+        			@media only screen and (min-width: 768px){
+        				font-size: 16px;
+        			}
+            }
+          }
+          .ui-state-default{
+            background: #ffffff;
+            &:after {
+              content: '\002B';
+              font-family: 'luma-icons';
+              font-size: 25px;
+              @media only screen and (min-width: 991px){
+        				  font-size: 35px;
+        			}
+            }
+          }
+          .ui-accordion-header-active{
+            &:after{
+              content: '\2212';
+              font-family: 'luma-icons';
+            }
+          }
+        }
+        .ui-state-default, .ui-widget-content, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+          border: 1px solid rgba(197, 197, 197, 0.21);
+          border-left: none;
+          border-right: none;
+          font-weight: normal;
+          color: #454545;
+        }
+    }
+  }
+}
