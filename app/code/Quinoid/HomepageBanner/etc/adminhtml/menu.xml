@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Quinoid_HomepageBanner extension
+ *                     NOTICE OF LICENSE
+ *
+ *                     This source file is subject to the MIT License
+ *                     that is bundled with this package in the file LICENSE.txt.
+ *                     It is also available through the world-wide-web at this URL:
+ *                     http://opensource.org/licenses/mit-license.php
+ *
+ *                     @category  Quinoid
+ *                     @package   Quinoid_HomepageBanner
+ *                     @copyright Copyright (c) 2017
+ *                     @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Quinoid_HomepageBanner::homepagebanner" title="Homepage Banner" module="Quinoid_HomepageBanner" sortOrder="23" resource="Quinoid_HomepageBanner::homepagebanner"/>
+        <add id="Quinoid_HomepageBanner::video" title="Manage Banners" module="Quinoid_HomepageBanner" sortOrder="10" action="quinoid_homepagebanner/video" resource="Quinoid_HomepageBanner::video" parent="Quinoid_HomepageBanner::homepagebanner"/>
+
+        <add id="Quinoid_HomepageBanner::configuration" title="Settings" module="Quinoid_HomepageBanner" sortOrder="20" action="adminhtml/system_config/edit/section/bannertab" resource="Quinoid_HomepageBanner::video" parent="Quinoid_HomepageBanner::homepagebanner"/>
+    </menu>
+</config>

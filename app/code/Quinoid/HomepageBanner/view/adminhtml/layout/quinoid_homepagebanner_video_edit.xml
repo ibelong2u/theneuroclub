@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Quinoid_HomepageBanner extension
+ *                     NOTICE OF LICENSE
+ *
+ *                     This source file is subject to the MIT License
+ *                     that is bundled with this package in the file LICENSE.txt.
+ *                     It is also available through the world-wide-web at this URL:
+ *                     http://opensource.org/licenses/mit-license.php
+ *
+ *                     @category  Quinoid
+ *                     @package   Quinoid_HomepageBanner
+ *                     @copyright Copyright (c) 2017
+ *                     @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Quinoid\HomepageBanner\Block\Adminhtml\Video\Edit" name="quinoid_homepagebanner_video_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Quinoid\HomepageBanner\Block\Adminhtml\Video\Edit\Tabs" name="quinoid_homepagebanner_video_tabs">
+                <block class="Quinoid\HomepageBanner\Block\Adminhtml\Video\Edit\Tab\Video" name="quinoid_homepagebanner_video_edit_tab_video"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">video</argument>
+                    <argument name="block" xsi:type="string">quinoid_homepagebanner_video_edit_tab_video</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

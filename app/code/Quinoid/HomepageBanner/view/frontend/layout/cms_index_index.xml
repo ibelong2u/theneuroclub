@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Quinoid_HomepageBanner extension
+ *                     NOTICE OF LICENSE
+ *
+ *                     This source file is subject to the MIT License
+ *                     that is bundled with this package in the file LICENSE.txt.
+ *                     It is also available through the world-wide-web at this URL:
+ *                     http://opensource.org/licenses/mit-license.php
+ *
+ *                     @category  Quinoid
+ *                     @package   Quinoid_HomepageBanner
+ *                     @copyright Copyright (c) 2017
+ *                     @license   http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceContainer name="main" >
+            <container name='content.top' htmlTag="div" htmlClass="carousel">
+                <block class="Magento\Framework\View\Element\Template" name="BannerVideos" template="Quinoid_HomepageBanner::html/homepage-banner.phtml"/>
+            </container>
+        </referenceContainer>
+	</body>
+</page>
