@@ -5,6 +5,6 @@
  */
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::THEME,
-    'frontend/Quinoid/Neuroclub',
+    'frontend/Quinoid/neuroclub',
     __DIR__
 );
