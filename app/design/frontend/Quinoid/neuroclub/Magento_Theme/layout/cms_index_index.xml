@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+  <head>
+  <css src="css/source/custom/home.css"/>
+  </head>
   <body>
     <referenceContainer name="main" >
       <container name='content.top'>
         <block class="Magento\Framework\View\Element\Template" name="flagships_static" template="Magento_Theme::html/flagships-static.phtml"/>
+        <block class="Magento\Framework\View\Element\Template" name="allworks_static" after="flagships_static" template="Magento_Theme::html/allworks-static.phtml"/>
       </container>
     </referenceContainer>
   </body>
