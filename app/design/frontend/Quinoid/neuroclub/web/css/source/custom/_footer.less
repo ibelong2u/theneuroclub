@@ -101,33 +101,31 @@
     }
     .footer-payments{
       float: left;
-      h3{
-        font-size: 12px;
-        font-weight: 600;
-        margin-top: 0;
-        @media only screen and (min-width: 768px){
-          font-size: 14px;
-        }
-        @media only screen and (min-width: 991px){
-          font-size: 16px;
-        }
-      }
     }
     .footer-logo{
       float: right;
     }
   }
   .footer-disclaimer{
+    color: #000;
     float: left;
-    font-size: 12px;
-    padding-top: 9px;
-    @media only screen and (min-width: 991px){
-      font-size: 13px;
+    padding-top: 11px;
+    @media only screen and (max-width: 991px){
+      text-align: center;
+      float: none;
+    }
+    p{
+      font-size: 12px;
+      margin-bottom: 0;
     }
   }
   .footer-copyright{
     float: left;
     padding-left: 8px;
+    @media only screen and (max-width: 991px){
+      float: none;
+      text-align: center;
+    }
     .copyright{
       background-color:  #ffffff;
       color: #000000;
