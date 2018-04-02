@@ -13,6 +13,7 @@
  *                     @copyright Copyright (c) 2017
  *                     @license   http://opensource.org/licenses/mit-license.php MIT License
  */
+
 $objectManager  =   \Magento\Framework\App\ObjectManager::getInstance();
 $model      = $objectManager->create('\Quinoid\HomepageBanner\Model\ResourceModel\Video');
 $result     = $model->getAllVideos();
@@ -22,8 +23,20 @@ $mediaUrl   = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYP
 $isEnable = $this->helper('Quinoid\HomepageBanner\Helper\Data')->getConfig('bannertab/settings/enable');
 $bannerContentType = $this->helper('Quinoid\HomepageBanner\Helper\Data')->getConfig('bannertab/settings/banner_content_type');
 if ($isEnable == 1) { ?>
-    <ul class="home-banner-grid"><?php
-    if ($bannerContentType == 0) {
+  <?php
+    if ($bannerContentType == 0) { ?>
+      <div id="owl-demo" data-mage-init='{
+      "OwlCarousel":{
+            "autoPlay": 3000,
+            "items" : 1,
+            "pagination" : false,
+            "itemsDesktop" : [1199,1],
+            "itemsDesktopSmall" : [979,1],
+            "itemsTablet" : [768, 1]
+      }
+    }
+    '>
+  <?php
         foreach($result as $_result) {
             $file_extension  = pathinfo( $_result['videofile'], PATHINFO_EXTENSION);
             switch($file_extension) {
@@ -31,17 +44,34 @@ if ($isEnable == 1) { ?>
                 case "jpeg":
                 case "png":
                     if ($_result['show_in_frontend'] == 1 && $_result['upload_type'] == 0) { ?>
-                        <li class="banner-item">
+                        <div class="item">
                           <img src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/file'. $_result['videofile'] ?>">
-                        </li>
+                        </div>
                         <?php
                     }
                     break;
             }
+        }?>
+        </div>
+        <script type="text/x-magento-init">
+        {
+            "#owl-demo": {
+                "OwlCarousel": {
+                    "autoPlay": 3000,
+                    "items": 1,
+                    "itemsDesktop": [1199, 1],
+                    "itemsDesktopSmall": [979, 1],
+                    "itemsTablet" : [768, 1]
+                }
+            }
         }
-    }
-    elseif ($bannerContentType == 1) {
-        foreach($result as $_result)
+    </script>
+  <?php  }
+    elseif ($bannerContentType == 1) {?>
+
+      <ul class="home-banner-grid">
+      <?php
+      foreach($result as $_result)
         {
             if ($_result['upload_type'] == 0) {
                 $file_extension  = pathinfo( $_result['videofile'], PATHINFO_EXTENSION);
@@ -56,12 +86,14 @@ if ($isEnable == 1) { ?>
             }
             elseif ($_result['upload_type'] == 1) {
                 if ($_result['show_in_frontend'] == 1) { ?>
-                    <iframe width="560" height="315" src="<?php echo $_result['video_url'] ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe><?php
+                    <iframe src="<?php echo $_result['video_url'] ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe><?php
                     break;
                 }
             }
         }
-    } ?>
-    </ul><?php
-}
+        ?>
+    </ul>
+  <?php
+    }
+  }
 ?>
