@@ -3,10 +3,10 @@
   h2{
     font-size: 25px;
     color: #374076;
-    padding: 20px 0;
+    padding: 10px 0;
     margin-top: 0;
     margin-bottom: 0;
-    @media only screen and (min-width: 768px){
+    @media only screen and (min-width: 468px){
       font-size: 30px;
     }
     @media only screen and (min-width: 768px){
@@ -14,7 +14,7 @@
     }
     @media only screen and (min-width: 991px){
         font-size: 50px;
-        padding: 40px 0;
+        padding: 30px 0;
     }
   }
   strong{
@@ -293,4 +293,18 @@ h3{
     height: 100%;
     max-width: 100%;
 }
+}
+.carousel{
+  .owl-carousel{
+    .owl-wrapper-outer{
+      .owl-item{
+        .item{
+          img, object, video, embed {
+            height: auto;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }

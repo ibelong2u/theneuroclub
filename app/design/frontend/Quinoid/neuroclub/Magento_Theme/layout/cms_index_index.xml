@@ -5,7 +5,7 @@
   </head>
   <body>
     <referenceContainer name="main" >
-      <container name='content.top'>
+      <container name='content'>
         <block class="Magento\Framework\View\Element\Template" name="flagships_static" template="Magento_Theme::html/flagships-static.phtml"/>
         <block class="Magento\Framework\View\Element\Template" name="allworks_static" after="flagships_static" template="Magento_Theme::html/allworks-static.phtml"/>
       </container>
