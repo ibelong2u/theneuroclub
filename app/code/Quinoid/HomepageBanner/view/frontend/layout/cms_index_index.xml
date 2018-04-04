@@ -31,6 +31,6 @@
                 <block class="Magento\Framework\View\Element\Template" name="homepage_banner" template="Quinoid_HomepageBanner::html/homepage-banner.phtml"/>
             </container>
     </referenceContainer>
-		
+
 	</body>
 </page>
