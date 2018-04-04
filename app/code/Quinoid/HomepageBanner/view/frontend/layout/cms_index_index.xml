@@ -18,8 +18,8 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 	<body>
 		<referenceContainer name="main" >
-            <container name='content.top' htmlTag="div" htmlClass="carousel">
-                <block class="Magento\Framework\View\Element\Template" name="BannerVideos" template="Quinoid_HomepageBanner::html/homepage-banner.phtml"/>
+            <container name='home.banner' htmlTag="div" htmlClass="carousel" before="content">
+                <block class="Magento\Framework\View\Element\Template" name="homepage_banner" template="Quinoid_HomepageBanner::html/homepage-banner.phtml"/>
             </container>
         </referenceContainer>
 	</body>
