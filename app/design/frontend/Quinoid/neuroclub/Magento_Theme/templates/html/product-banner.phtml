@@ -1,0 +1,34 @@
+<div id="owl-product" data-mage-init='{
+  "OwlCarousel":{
+      "center": true,
+      "margin":10,
+      "autoPlay": 3000,
+      "items": 1,
+      "itemsDesktop" : [1199,3],
+      "itemsDesktopSmall" : [979,3]
+  }
+}
+'>
+    <div class="item"><img src="<?php echo $block->getViewFileUrl('images/1.jpg'); ?>" />
+    </div>
+    <div class="item"><img src="<?php echo $block->getViewFileUrl('images/1.jpg'); ?>" />
+    </div>
+    <div class="item"><img src="<?php echo $block->getViewFileUrl('images/1.jpg'); ?>" />
+    </div>
+    <div class="item"><img src="<?php echo $block->getViewFileUrl('images/1.jpg'); ?>" />
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "#owl-product": {
+            "OwlCarousel": {
+                "center": true,
+                "margin":10,
+                "autoPlay": 3000,
+                "items": 1,
+                "itemsDesktop": [1199, 3],
+                "itemsDesktopSmall": [979, 3]
+            }
+        }
+    }
+</script>

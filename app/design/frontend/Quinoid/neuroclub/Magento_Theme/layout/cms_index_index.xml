@@ -7,8 +7,10 @@
     <referenceContainer name="main" >
       <container name='content'>
         <block class="Magento\Framework\View\Element\Template" name="flagships_static" template="Magento_Theme::html/flagships-static.phtml"/>
-        <block class="Magento\Framework\View\Element\Template" name="allworks_static" after="flagships_static" template="Magento_Theme::html/allworks-static.phtml"/>
+        <block class="Magento\Framework\View\Element\Template" name="allworks_static" after="homepage_banner" template="Magento_Theme::html/allworks-static.phtml"/>
         <block class="Magento\Framework\View\Element\Template" name="secondary_banner" after="allworks_static" template="Magento_Theme::html/static-banner.phtml"/>
+        <block class="Magento\Framework\View\Element\Template" name="product-banner" after="flagships-static" template="Magento_Theme::html/product-banner.phtml"/>
+        <block class="Magento\Framework\View\Element\Template" name="home-blog" after="product-banner" template="Magento_Theme::html/home-blog.phtml"/>
       </container>
     </referenceContainer>
   </body>

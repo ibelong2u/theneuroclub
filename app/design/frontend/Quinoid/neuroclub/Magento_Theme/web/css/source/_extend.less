@@ -17,6 +17,14 @@
         padding: 30px 0;
     }
   }
+  p
+  {
+    padding-bottom:10px;
+    @media only screen and (min-width: 991px){
+      padding-bottom:30px;
+      margin-bottom:0;
+    }
+  }
   strong{
     color: #000;
   }
@@ -46,6 +54,19 @@ h4{
   @media only screen and (min-width: 991px){
     font-size: 35px;
     margin-bottom: 1rem;
+  }
+}
+h6{
+  color:#fff;
+  font-size: 18px;
+  @media only screen and (min-width: 468px){
+    font-size: 22px;
+  }
+  @media only screen and (min-width: 768px){
+    font-size: 26px;
+  }
+  @media only screen and (min-width: 1024px){
+    font-size: 30px;
   }
 }
 h3{
@@ -164,6 +185,151 @@ h3{
     }
   }
 }
+//Blog Section
+.blog-section{
+  width:100%;
+  margin:0 auto;
+  @media only screen and (min-width:1024px){
+    width:80%;
+  }
+  .blog-container
+  {
+    @media only screen and (max-width: 479px){
+    -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom:30px;
+    }
+    .blog-content{
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      margin-right: -15px;
+      margin-left: -15px;
+      .blog-content-block{
+        text-align: center;
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        margin: 0 15px;
+        margin-bottom: 30px;
+        background-color: #ffffff;
+        border: 1px solid #ffffff;
+        @media all and (max-width:479px){
+          margin-bottom: 0;
+          &:nth-child(2){
+            display: none;
+          }
+        }
+        @media only screen and (min-width: 480px){
+          -ms-flex: 0 0 43.32%;
+          flex: 0 0 43.32%;
+          max-width: 43.32%;
+        }
+        @media only screen and (min-width: 534px){
+          -ms-flex: 0 0 44%;
+          flex: 0 0 44%;
+          max-width: 44%;
+        }
+        @media only screen and (min-width: 640px){
+          -ms-flex: 0 0 45%;
+          flex: 0 0 45%;
+          max-width: 45%;
+        }
+        @media only screen and (min-width: 711px){
+          -ms-flex: 0 0 45.5%;
+          flex: 0 0 45.5%;
+          max-width: 45.5%;
+        }
+        @media only screen and (min-width: 810px){
+          -ms-flex: 0 0 46%;
+          flex: 0 0 46%;
+          max-width: 46%;
+        }
+        @media only screen and (min-width: 1145px){
+          -ms-flex: 0 0 46.5%;
+          flex: 0 0 46.5%;
+          max-width: 46.5%;
+        }
+        img
+        {
+          width:100%;
+        }
+        .blog-content-details
+        {
+          padding:0 15px;
+          @media all and (max-width:1024px) {
+              padding-bottom: 15px;
+          }
+          h4{
+            color:#000000;
+            font-size: 18px;
+            @media only screen and (min-width: 468px){
+              font-size: 22px;
+            }
+            @media only screen and (min-width: 768px){
+              font-size: 26px;
+            }
+            @media only screen and (min-width: 1024px){
+              font-size: 30px;
+            }
+          }
+          p,a{
+            font-size: 13px;
+            @media only screen and (min-width: 468px){
+              font-size: 14px;
+            }
+            @media only screen and (min-width: 768px){
+              font-size: 16px;
+            }
+            @media only screen and (min-width: 1024px){
+              font-size: 18px;
+            }
+          }
+          p
+          {
+            text-align:justify;
+            color:#979797;
+            margin-bottom: 20px;
+          }
+          a{
+            color: #374076;
+            font-weight: 700;
+            border-bottom:1px solid #374076;
+          }
+        }
+      }
+    }
+    .section-button{
+        padding: 30px 0;
+        padding-top: 15px;
+        text-align: center;
+      @media only screen and (min-width: 1024px){
+      
+        padding-top: 40px;
+      }
+      button{
+        background: #374076;
+        border-radius: 20px;
+        box-shadow: none !important;
+        color: #fff;
+        font-size: 14px;
+        letter-spacing: 1px;
+        padding: 10px 20px;
+        text-transform: uppercase;
+        @media only screen and (min-width: 768px){
+          font-size: 16px;
+          padding: 10px 25px;
+        }
+        @media only screen and (min-width: 991px){
+          font-size: 20px;
+          padding: 13px 35px;
+        }
+      }
+    }
+  }
+}
 //FAQ section
 .page-bottom{
   @media only screen and (min-width: 768px){
@@ -253,15 +419,6 @@ h3{
     }
   }
 }
-//Footer
-// .faq-collection {
-//     float: none !important;
-// }
-// .faq-content {
-//     @media only screen and (max-width: 768px){
-//     width: 93% !important;
-//   }
-// }
 .content{
   border-top: none !important;
   }
@@ -280,6 +437,7 @@ h3{
     text-align: center;
   }
 }
+//Hearo banner
 .home-banner-grid{
   position: relative;
   padding-bottom: 50.65%;
@@ -308,25 +466,47 @@ h3{
     }
   }
 }
+//Static banner
+.columns .column.main {
+  padding-bottom: 0;
+  }
 .static-banner{
-  .banner-image{
+    position: relative !important;
+  img{
     width: 100%;
-    position: relative;
-
+    min-height: 200px;
+    position: relative !important;
+  }
+  h4{
+    color: #fff;
+    text-transform: uppercase;
   }
   .banner-content{
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
     color: #FFF;
+    left: 0%;
+    position: absolute;
+    text-align: center;
+    top: 5%;
+    width: 100%;
+    @media only screen and (min-width: 768px){
+      top: 20%;
+      left: 0;
+      width: 100%;
+
+    }
+    @media only screen and (min-width: 991px){
+      top: 25%;
+      left: 10%;
+      width: 50%;
+      text-align: left;
+    }
   }
   .banner-button{
     button{
       background: #e66698;
       border-radius: 20px;
       box-shadow: none !important;
+      border: 1px solid #e66698;
       color: #fff;
       font-size: 14px;
       letter-spacing: 1px;
@@ -339,9 +519,7 @@ h3{
       @media only screen and (min-width: 991px){
         font-size: 20px;
         padding: 13px 35px;
-      }  
+      }
     }
-
-
   }
 }
