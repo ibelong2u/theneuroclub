@@ -100,8 +100,119 @@
                         </div>
                         <?php echo($iterator == count($items)+1) ? '</li>' : '' ?>
                         <?php endforeach ?>
-                </ol>
-            </div>
+                        <?php if ($block->getProductCollection()->getSize() < 3): ?>
+                          <li class="product-item">
+                          <div class="product-item-info">
+                              <a href="http://neuroclub.local/performance.html" class="product-item-photo">
+
+  <span class="product-image-container" style="width:240px;">
+      <span class="product-image-wrapper" style="padding-bottom: 125%;">
+          <img class="product-image-photo" src="http://neuroclub.local/pub/media/catalog/product/cache/f073062f50e48eb0f0998593e568d857/c/_/c_users_sun_appdata_local_packages_microsoft.skypeapp_kzf8qxf38zg5c_localstate_f898bced-21fa-4d07-b7d3-f2965ed39768.png" width="240" height="300" alt="Performance"></span>
+  </span>
+                              </a>
+                              <div class="product-item-details">
+                                  <strong class="product-item-name">
+                                      <a title="Performance" href="http://neuroclub.local/performance.html" class="product-item-link">
+                                          Performance                                    </a>
+                                  </strong>
+                                  <div class="product-item-content">
+                                    <p><span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</span></p><br>                                </div>
+
+
+                                                                      <div class="product-item-actions">
+                                                                                      <div class="actions-primary">
+                                                                                                                                                              <button class="action tocart primary" type="button" title="Subscribe">
+                                                              <span>Subscribe</span>
+                                                          </button>
+                                                                                                          <div class="product-item-price">
+                                                        <div class="price-box price-final_price" data-role="priceBox" data-product-id="6">
+              <p class="price-from">
+
+
+  <span class="price-container price-final_price tax weee">
+              <span class="price-label">From</span>
+          <span id="old-price-6-widget-product-grid" data-price-amount="10.99" data-price-type="minPrice" class="price-wrapper ">
+          <span class="price">₹10.99</span>    </span>
+          </span>
+                      </p>
+          <p class="price-to">
+
+
+  <span class="price-container price-final_price tax weee">
+              <span class="price-label">To</span>
+          <span id="old-price-6-widget-product-grid" data-price-amount="12.99" data-price-type="maxPrice" class="price-wrapper ">
+          <span class="price">₹12.99</span>    </span>
+          </span>
+                      </p>
+      </div>                                                    </div>
+                                                                                              </div>
+                                                                                                                              <div class="child-item-info">
+                                                <div class="child-item-image">
+
+  <span class="product-image-container" style="width:240px;">
+      <span class="product-image-wrapper" style="padding-bottom: 125%;">
+          <img class="product-image-photo" src="http://neuroclub.local/pub/media/catalog/product/cache/f073062f50e48eb0f0998593e568d857/1/_/1.png" width="240" height="300" alt="Agilin"></span>
+  </span>
+                                                </div>
+                                                <div class="child-item-name">
+                                                  Agilin                                              </div>
+                                                <div class="child-item-price">
+                                                  <div class="price-box price-final_price" data-role="priceBox" data-product-id="1">
+
+
+  <span class="price-container price-final_price tax weee">
+          <span id="old-price-1-widget-product-grid" data-price-amount="10.99" data-price-type="finalPrice" class="price-wrapper ">
+          <span class="price">₹10.99</span>    </span>
+          </span>
+
+  </div>                                              </div>
+                                              </div>                                            <div class="child-item-info">
+                                                <div class="child-item-image">
+
+  <span class="product-image-container" style="width:240px;">
+      <span class="product-image-wrapper" style="padding-bottom: 125%;">
+          <img class="product-image-photo" src="http://neuroclub.local/pub/media/catalog/product/cache/f073062f50e48eb0f0998593e568d857/2/_/2.png" width="240" height="300" alt="Enkodin"></span>
+  </span>
+                                                </div>
+                                                <div class="child-item-name">
+                                                  Enkodin                                              </div>
+                                                <div class="child-item-price">
+                                                  <div class="price-box price-final_price" data-role="priceBox" data-product-id="2">
+
+
+  <span class="price-container price-final_price tax weee">
+          <span id="old-price-2-widget-product-grid" data-price-amount="10.99" data-price-type="finalPrice" class="price-wrapper ">
+          <span class="price">₹10.99</span>    </span>
+          </span>
+
+  </div>                                              </div>
+                                              </div>                                            <div class="child-item-info">
+                                                <div class="child-item-image">
+
+  <span class="product-image-container" style="width:240px;">
+      <span class="product-image-wrapper" style="padding-bottom: 125%;">
+          <img class="product-image-photo" src="http://neuroclub.local/pub/media/catalog/product/cache/f073062f50e48eb0f0998593e568d857/3/_/3.png" width="240" height="300" alt="Metanine"></span>
+  </span>
+                                                </div>
+                                                <div class="child-item-name">
+                                                  Metanine                                              </div>
+                                                <div class="child-item-price">
+                                                  <div class="price-box price-final_price" data-role="priceBox" data-product-id="3">
+
+
+  <span class="price-container price-final_price tax weee">
+          <span id="old-price-3-widget-product-grid" data-price-amount="10.99" data-price-type="finalPrice" class="price-wrapper ">
+          <span class="price">₹10.99</span>    </span>
+          </span>
+
+  </div>                                              </div>
+                                              </div>                                    </div>
+                                                              </div>
+                          </div>
+                                                                      </li>
+                          <?php endif; ?>
+                  </ol>
+              </div>
             <?php echo $block->getPagerHtml() ?>
         </div>
     </div>
