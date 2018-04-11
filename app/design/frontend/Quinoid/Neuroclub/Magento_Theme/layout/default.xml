@@ -2,6 +2,7 @@
 <page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 <body>
 <move element="minicart" destination="catalog.topnav" />
+<move element="top.links" destination="navigation.sections"/>
 <referenceContainer name="page.top">
     <block class="Magento\Framework\View\Element\Template" name="navigation.sections" before="-" template="Magento_Theme::html/sections.phtml">
         <arguments>
