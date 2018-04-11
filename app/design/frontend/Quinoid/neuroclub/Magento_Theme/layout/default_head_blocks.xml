@@ -13,13 +13,6 @@
         <script src="requirejs/require.js"/>
     </head> -->
     <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <css src="css/source/custom/common.css"/>
     </head>
-    <body>
-        <referenceContainer name="after.body.start">
-            <block class="Magento\Framework\View\Element\Template" name="head.polyfill" as="polyfill" template="Magento_Theme::js/polyfill.phtml" before="-"/>
-            <block class="Magento\Framework\View\Element\Js\Components" name="head.components" as="components" template="Magento_Theme::js/components.phtml" before="-"/>
-        </referenceContainer>
-    </body>
 </page>
