@@ -22,9 +22,21 @@ h1,h2,h3,h4,h5,h6,p{
     margin: 35px 0;
   }
 }
+.navigation {
+  .level0{
+    .active{
+      .level-top{
+        @media only screen and (min-width: 768px){
+          border-color: #e66698;
+        }
+      }
+    }
+  }
+}
 .section-heading{
   text-align: center;
   p{
+    color: #6e6e6e;
     padding-bottom:10px;
     @media only screen and (min-width: 991px){
       padding-bottom:30px;
@@ -33,6 +45,7 @@ h1,h2,h3,h4,h5,h6,p{
   }
   strong{
     color: #000;
+    font-weight: 600;
   }
 }
 .section-button{
@@ -97,6 +110,7 @@ h6{
 }
 p{
   font-size: 14px;
+  color: #6e6e6e;
   @media only screen and (min-width: 468px){
     font-size: 15px;
   }
@@ -228,11 +242,11 @@ button{
           }
         }
         .product-title{
-          padding: 60px 0 15px 0;
+          padding: 60px 0 30px 0;
           a{
-            color:#374076;
+            color:#000;
             font-size: 23px;
-            font-weight: 700;
+            font-weight: 500;
             text-transform:uppercase;
             &:hover , &:focus, &:active {
                 color: #374076;
@@ -246,7 +260,7 @@ button{
           }
         }
         .actions-primary{
-          margin: 15px 0;
+          margin: 30px 0;
           p{
             color:#374076;
             font-weight: 600;
@@ -254,17 +268,21 @@ button{
           }
         }
         h5{
+          color: #6e6e6e;
           font-size: 14px;
-          font-weight: 400;
+          font-weight: 500;
           margin-bottom: 25px;
           @media only screen and (min-width: 468px){
             font-size: 15px;
+            margin-bottom: 30px;
           }
           @media only screen and (min-width: 768px){
             font-size: 16px;
+            margin-bottom: 35px;
           }
           @media only screen and (min-width: 991px){
             font-size: 17px;
+            margin-bottom: 40px;
           }
         }
         .product-row{
@@ -285,23 +303,40 @@ button{
               width: 70%;
             }
             h4{
+              color: #000;
               font-size: 14px;
-              font-weight: 700;
-              margin-bottom: 5px;
+              font-weight: 500;
+              margin: 10px 0;
               @media only screen and (min-width: 468px){
-                font-size: 16px;
+                font-size: 15px;
               }
               @media only screen and (min-width: 768px){
-                font-size: 18px;
+                font-size: 16px;
               }
               @media only screen and (min-width: 991px){
-                font-size: 20px;
+                font-size: 18px;
               }
             }
             p{
-              font-weight: 600;
+              font-weight: 500;
               color: #374076;
               margin: 10px 0;
+            }
+            .price-box{
+              color: #374076;
+              font-weight: 600;
+              span{
+                font-size: 18px;
+                @media only screen and (min-width: 468px){
+                  font-size: 20px;
+                }
+                @media only screen and (min-width: 768px){
+                  font-size: 23px;
+                }
+                @media only screen and (min-width: 991px){
+                  font-size: 23px;
+                }
+              }
             }
           }
         }
@@ -546,8 +581,7 @@ button{
             }
             p{
               text-align:justify;
-              // color:#979797;
-              color:#000;
+              color:#6e6e6e;
               margin-bottom: 20px;
             }
             a{
@@ -623,6 +657,7 @@ button{
             border: 1px solid rgba(197, 197, 197, 0.21);
             border-left: none;
             border-right: none;
+            border-bottom: none;
             font-weight: normal;
             color: #454545;
           }
@@ -699,10 +734,7 @@ button{
         }
       }
       }
-
-
-
-    .footer-bottom{
+.footer-bottom{
       border-top: 1px solid #cccccc;
       margin-top: 20px;
       padding-top: 20px;
@@ -767,8 +799,17 @@ button{
   .page-footer{
     .footer-links{
       display: none !important;
-      a{
-        color: #000;
+      ul{
+        li{
+          a{  font-size: 18px;
+              color: #6e6e6e;
+          }
+          &:first-child{
+            a{
+              color: #000;
+            }
+          }
+        }
       }
       @media only screen and (min-width: 991px){
        display: flex !important;
