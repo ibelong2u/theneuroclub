@@ -22,19 +22,17 @@
         <!-- <?= /* @escapeNotVerified */ $_menu ?>
         <?= /* @escapeNotVerified */ $block->getChildHtml() ?> -->
         <li class="level0 nav-1 first last level-top ui-menu-item" role="presentation">
-          <a href="#" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
+          <a href="<?php echo $block->getBaseUrl(); ?>get-started" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
             <span>get started</span>
           </a>
         </li>
         <li class="level0 nav-1 first last level-top ui-menu-item" role="presentation">
-          <a href="#" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
+          <a href="<?php echo $block->getBaseUrl(); ?>how-it-works" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
             <span>how it works</span>
           </a>
         </li>
         <li class="level0 nav-1 first last level-top ui-menu-item">
-          <a href="#" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
-          <!-- <img src="http://neuroclub.local/pub/static/version1520851555/frontend/Quinoid/Neuroclub/en_US/images/logo.svg"/> -->
-
+          <a href="<?php echo $block->getBaseUrl(); ?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
           <img src="<?php echo $block->getViewFileUrl('images/logo.png'); ?>" />
         </a>
         </li>
