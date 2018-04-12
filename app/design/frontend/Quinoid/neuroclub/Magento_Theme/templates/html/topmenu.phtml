@@ -19,6 +19,8 @@
 <?php
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB);
 ?>
 
 <nav class="navigation" data-action="navigation">
@@ -34,16 +36,24 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
           </a>
         </li>
         <li class="level0 nav-3 first level-top ui-menu-item">
-          <a href="#" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
+          <a href="<?php echo $baseUrl;?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
               <img src="<?php echo $block->getViewFileUrl('images/logo.png'); ?>" />
           </a>
         </li>
         <li class="level0 nav-4 first level-top ui-menu-item" role="presentation">
-          <a href="#" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
+          <a href="<?php echo $baseUrl.'customer/account/login/';?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
             <span>products</span>
           </a>
         </li>
+        <?php if(!$customerSession->isLoggedIn()) { echo $customerSession->isLoggedIn(); ?>
+          <li class="level0 nav-5 first last level-top ui-menu-item" role="presentation">
+            <a href="#" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
+              <span>Sign In</span>
+            </a>
+          </li>
+         <?php } else {?>
         <?php echo $this->getChildHtml('customer') ?>
+          <?php } ?>
         <li class="level0 nav-6 first last level-top ui-menu-item" role="presentation">
             <?php echo $this->getChildHtml('minicart') ?>
         </li>
