@@ -4,7 +4,6 @@
   <!-- <css src="css/source/custom/home.css"/> -->
   </head>
   <body>
-    <referenceBlock name="logo" remove="true"/>
     <referenceContainer name="main">
       <container name='content'>
         <block class="Magento\Framework\View\Element\Template" name="flagships.static" template="Magento_Theme::html/flagships-static.phtml"/>
