@@ -27,6 +27,7 @@
         </referenceContainer>
 
        <move element="customer" destination="catalog.topnav"/>
-       <!--referenceBlock name="register-link" remove="true" /-->
+       <referenceBlock name="register-link" remove="true" />
+       <referenceBlock name="top.search" remove="true" />
     </body>
 </page>
