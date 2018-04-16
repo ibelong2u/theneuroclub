@@ -22,6 +22,41 @@ h1,h2,h3,h4,h5,h6,p{
     margin: 35px 0;
   }
 }
+.page-header
+{
+  @media all and (max-width: 768px)
+  {
+    margin-bottom:0;
+  }
+  .header
+  {
+    position: relative;
+    .logo
+    {
+      @media all and (min-width: 768px)
+      {
+        display:none;
+      }
+    }
+    .minicart-wrapper
+    {
+      @media all and (min-width:991px)
+      {
+        position:absolute;
+        z-index:11;
+        top:18px;
+        right:20px;
+      }
+      @media all and (min-width:768px) and (max-width:990px)
+      {
+        position:absolute;
+        z-index:11;
+        top:24px;
+        right:15px;
+      }
+    }
+  }
+}
 
 .navigation {
   .level-top {
