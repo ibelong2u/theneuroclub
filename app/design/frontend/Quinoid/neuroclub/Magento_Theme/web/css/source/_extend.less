@@ -24,9 +24,22 @@ h1,h2,h3,h4,h5,h6,p{
 }
 .page-header
 {
+  position: fixed;
+  width:100%;
+  z-index: 11;
   @media all and (max-width: 768px)
   {
     margin-bottom:0;
+  }
+  .panel
+  {
+    &.wrapper
+    {
+      @media all and (min-width:768px)
+      {
+        display:none;
+      }
+    }
   }
   .header
   {
@@ -38,13 +51,30 @@ h1,h2,h3,h4,h5,h6,p{
         display:none;
       }
     }
+    .customer-welcome
+    {
+      @media all and (min-width:991px)
+      {
+        position:absolute;
+        z-index:11;
+        top:-6px;
+        right:20px;
+      }
+      @media all and (min-width:768px) and (max-width:990px)
+      {
+        position:absolute;
+        z-index:11;
+        top:-3px;
+        right:15px;
+      }
+    }
     .minicart-wrapper
     {
       @media all and (min-width:991px)
       {
         position:absolute;
         z-index:11;
-        top:18px;
+        top:17px;
         right:20px;
       }
       @media all and (min-width:768px) and (max-width:990px)
