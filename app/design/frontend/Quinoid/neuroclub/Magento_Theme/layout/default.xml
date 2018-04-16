@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+      <!--move element="minicart" destination="catalog.topnav"/-->
+      <move element="header.links" destination="header-wrapper" after="logo"/>
+      <!--move element="minicart" destination="header.wrapper" after="customer"/-->
+       <referenceBlock name="header" remove="true" />
+       <referenceBlock name="authorization-link-login" remove="true" />
+       <referenceBlock name="register-link" remove="true" />
+       <referenceBlock name="top.search" remove="true" />
     	<referenceContainer name="footer-container">
         <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="footer content">
             <block class="Magento\Store\Block\Switcher" name="store_switcher" as="store_switcher" template="Magento_Store::switch/stores.phtml"/>
@@ -9,25 +16,6 @@
             <block class="Magento\Framework\View\Element\Template" name="report.bugs" template="Magento_Theme::html/bugreport.phtml" />
         </container>
     	</referenceContainer>
-      <move element="minicart" destination="catalog.topnav"/>
-      <referenceContainer name="page.top">
-            <block class="Magento\Framework\View\Element\Template" name="navigation.sections" before="-" template="Magento_Theme::html/sections.phtml">
-                <arguments>
-                    <argument name="group_name" xsi:type="string">navigation-sections</argument>
-                    <argument name="group_css" xsi:type="string">nav-sections</argument>
-                </arguments>
-                <block class="Magento\Framework\View\Element\Template" name="store.menu" group="navigation-sections" template="Magento_Theme::html/container.phtml">
-                    <arguments>
-                        <argument name="title" translate="true" xsi:type="string">Menu</argument>
-                    </arguments>
-                    <block class="Magento\Theme\Block\Html\Topmenu" name="catalog.topnav" template="html/topmenu.phtml" before="-">
-                    </block>
-                </block>
-            </block>
-        </referenceContainer>
 
-       <move element="customer" destination="catalog.topnav"/>
-       <referenceBlock name="register-link" remove="true" />
-       <referenceBlock name="top.search" remove="true" />
     </body>
 </page>
