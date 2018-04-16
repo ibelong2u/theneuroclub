@@ -27,23 +27,15 @@ h1,h2,h3,h4,h5,h6,p{
   position: fixed;
   width:100%;
   z-index: 11;
+  background: white;
   @media all and (max-width: 768px)
   {
     margin-bottom:0;
   }
-  .panel
-  {
-    &.wrapper
-    {
-      @media all and (min-width:768px)
-      {
-        display:none;
-      }
-    }
-  }
   .header
   {
     position: relative;
+    top:21px;
     .logo
     {
       @media all and (min-width: 768px)
@@ -51,21 +43,56 @@ h1,h2,h3,h4,h5,h6,p{
         display:none;
       }
     }
-    .customer-welcome
+    &.links
     {
+      border:solid;
       @media all and (min-width:991px)
       {
-        position:absolute;
-        z-index:11;
-        top:-6px;
-        right:20px;
+        position: absolute;
+        z-index: 11;
+        top: 8px;
+        right: 40px;
+        height: 49px;
+        padding-left: 0;
+        margin-bottom: 0;
+        line-height: 49px;
+        width: 108px;
       }
       @media all and (min-width:768px) and (max-width:990px)
       {
-        position:absolute;
-        z-index:11;
-        top:-3px;
-        right:15px;
+        position: absolute;
+        z-index: 11;
+        top: 11px;
+        right: 25px;
+        height: 53px;
+        padding-left: 0;
+        margin-bottom: 0;
+        line-height: 53px;
+        width: 96px;
+      }
+      .customer-welcome
+      {
+        font-size: 12px;
+  			font-weight: 600;
+  			text-transform: uppercase;
+        color: #575757;
+  			@media only screen and (min-width: 468px) {
+  				font-size: 14px;
+  			}
+  			@media only screen and (min-width: 768px){
+  				font-size: 16px;
+  			}
+        .customer-name
+        {
+          button
+          {
+            color: #575757;
+            &:after
+            {
+              vertical-align:middle;
+            }
+          }
+        }
       }
     }
     .minicart-wrapper
@@ -81,7 +108,7 @@ h1,h2,h3,h4,h5,h6,p{
       {
         position:absolute;
         z-index:11;
-        top:24px;
+        top:22px;
         right:15px;
       }
     }
