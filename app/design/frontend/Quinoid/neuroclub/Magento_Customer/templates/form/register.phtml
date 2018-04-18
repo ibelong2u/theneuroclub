@@ -129,11 +129,20 @@
             </div>
         </div>
 
+
         <div class="field telephone required">
             <label for="telephone" class="label"><span><?php /* @escapeNotVerified */ echo __('Mobile Number') ?></span></label>
             <div class="control">
                 <input type="text" name="telephone" id="telephone" value="<?php echo $block->escapeHtml($block->getFormData()->getTelephone()) ?>" title="<?php /* @escapeNotVerified */ echo __('Phone Number') ?>" class="input-text <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('telephone') ?>">
             </div>
+        </div>
+
+        <div class="field phone_number required">
+        	<label class="label" for="phone_number"><span><?php /* @escapeNotVerified */ echo __('Mobile Number') ?></span></label>
+        	<div class="control mobile_number">
+            <span>+91</span>
+        		<input type="tel" id="phone_number" name="phone_number" value="<?php echo $block->escapeHtml($block->getFormData()->getCustomerAttribute()) ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" class="input-text" autocomplete="off" data-validate="{required:true, 'validate-phone':true}">
+        	</div>
         </div>
 
         <div class="field password required">
@@ -164,6 +173,7 @@
             </div>
         </div>
         <?= $block->getChildHtml('form_additional_info') ?>
+
         <?php if ($block->isNewsletterEnabled()): ?>
             <div class="field choice newsletter">
                   <div class="checkboxes">
@@ -175,6 +185,7 @@
             <?php /* Extensions placeholder */ ?>
             <?= $block->getChildHtml('customer.form.register.newsletter') ?>
         <?php endif ?>
+
     </fieldset>
     <div class="actions-toolbar">
         <div class="primary">
