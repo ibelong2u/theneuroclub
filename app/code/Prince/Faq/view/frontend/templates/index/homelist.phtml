@@ -4,6 +4,7 @@
 <?php $faqGroupCollection = $block->getFaqGroupCollection() ?>
 <?php if ($faqGroupCollection->getSize()) : ?>
     <?php if ($isEnable) : ?>
+      <div class="home-container">
     <div class="faq-collection margin">
     <div class="section-heading">
       <h2><strong>Frequently </strong>Asked Questions</h2>
@@ -30,6 +31,7 @@
         <div class="section-button">
         <button type="button">view all</button>
       </div>
+    </div>
     </div>
     <?php endif; ?>
 <?php else : ?>

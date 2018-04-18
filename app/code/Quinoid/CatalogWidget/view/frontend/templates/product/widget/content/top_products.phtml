@@ -13,7 +13,8 @@
     $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
     $description = false;
     ?>
-<div id="owl-product" data-mage-init='{
+    <div class="home-product-slider">
+<div id="owl-product" class="padding-70" data-mage-init='{
   "OwlCarousel":{
       "center": true,
       "margin":10,
@@ -169,6 +170,7 @@
   <?php endforeach; ?>
 <?php endif; ?>
 </div>
+</div>
 <?php endif; ?>
 <script type="text/x-magento-init">
     {
@@ -179,7 +181,7 @@
                 "autoPlay": 3000,
                 "pagination": false,
                 "items": 3,
-                "itemsDesktop": [1199, 1],
+                "itemsDesktop": [1199, 3],
                 "itemsDesktopSmall" : [979,1],
                 "itemsTablet" : [768, 1]
             }
