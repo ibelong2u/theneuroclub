@@ -45,7 +45,12 @@ if ($isEnable == 1) { ?>
                 case "png":
                     if ($_result['show_in_frontend'] == 1 && $_result['upload_type'] == 0) { ?>
                         <div class="item">
-                          <img src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/file'. $_result['videofile'] ?>">
+                          <a href="<?php echo $_result['redirect_url']; ?>">
+                            <img class="" src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/file'. $_result['videofile'] ?>">
+                            <?php if ($_result['videothumbnail']): ?>
+                              <img class="" src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/image'. $_result['videothumbnail'] ?>">
+                            <?php endif; ?>
+                          </a>
                         </div>
                         <?php
                     }
@@ -78,16 +83,20 @@ if ($isEnable == 1) { ?>
                 $file_extension  = pathinfo( $_result['videofile'], PATHINFO_EXTENSION);
                 if ($file_extension == "mp4" || $file_extension == "mov") {
                     if ($_result['show_in_frontend'] == 1) { ?>
+                      <a href="<?php echo $_result['redirect_url']; ?>">
                         <video width="90%" height="300" controls="controls" preload="metadata" poster="" controlslist="nodownload">
                             <source src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/file'. $_result['videofile'] ?>" type="video/<?=$file_extension;?>">
-                        </video><?php
+                        </video>
+                      </a><?php
                         break;
                     }
                 }
             }
             elseif ($_result['upload_type'] == 1) {
                 if ($_result['show_in_frontend'] == 1) { ?>
-                    <iframe src="<?php echo $_result['video_url'] ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe><?php
+                    <a href="<?php echo $_result['redirect_url']; ?>">
+                      <iframe src="<?php echo $_result['video_url'] ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </a><?php
                     break;
                 }
             }
