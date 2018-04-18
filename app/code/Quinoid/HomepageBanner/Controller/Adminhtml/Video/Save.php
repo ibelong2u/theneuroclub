@@ -88,13 +88,14 @@ class Save extends \Quinoid\HomepageBanner\Controller\Adminhtml\Video
             $video = $this->initVideo();
             $video->setData($data);
             if ($data['upload_type'] == 0) {
-                // $videothumbnail = $this->uploadModel->uploadFileAndGetName('videothumbnail', $this->imageModel->getBaseDir(), $data);
-                // $video->setVideothumbnail($videothumbnail);
+                $videothumbnail = $this->uploadModel->uploadFileAndGetName('videothumbnail', $this->imageModel->getBaseDir(), $data);
                 $videofile = $this->uploadModel->uploadFileAndGetName('videofile', $this->fileModel->getBaseDir(), $data);
                 $video['video_url'] = NULL;
             } elseif ($data['upload_type'] == 1) {
                 $videofile = NULL;
+                $videothumbnail = NULL;
             }
+            $video->setVideothumbnail($videothumbnail);
             $video->setVideofile($videofile);
             $this->_eventManager->dispatch(
                 'quinoid_homepagebanner_video_prepare_save',
