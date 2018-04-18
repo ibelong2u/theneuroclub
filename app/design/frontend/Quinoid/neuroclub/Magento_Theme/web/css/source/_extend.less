@@ -1028,13 +1028,24 @@ button{
         padding-top: 40px 0;
       }
       .footer-payments{
-        float: left;
+        text-align: center;
+        float: none;
+        @media only screen and (min-width: 768px){
+            float: left;
+            text-align: left;
+        }
         h3{
           padding-bottom: 15px;
         }
       }
       .footer-logo{
-        float: right;
+        text-align: center;
+        float: none;
+        padding-top: 0;
+        @media only screen and (min-width: 768px){
+          float: right;
+          padding-top: 10px;
+        }
       }
     }
     .footer-disclaimer{
@@ -1061,6 +1072,9 @@ button{
       .copyright{
         background-color:  #ffffff;
         color: #000000;
+        @media only screen and (max-width: 991px){
+          padding: 0;
+        }
       }
     }
   }
