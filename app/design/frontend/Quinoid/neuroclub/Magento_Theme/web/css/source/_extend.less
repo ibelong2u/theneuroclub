@@ -22,16 +22,170 @@ h1,h2,h3,h4,h5,h6,p{
     margin: 35px 0;
   }
 }
-.navigation {
-  .level0{
-    .active{
-      .level-top{
-        @media only screen and (min-width: 768px){
-          border-color: #e66698;
+.page-header
+{
+  position: fixed;
+  width: 100%;
+  right: 0;
+  top: -67px;
+  z-index: 11;
+  background: white;
+  @media all and (max-width: 768px){
+    margin-bottom:0;
+    top: 0;
+  }
+  .header{
+    position: relative;
+    top:21px;
+    @media all and (max-width:768px){
+      top: 0;
+    }
+    .logo{
+      width: 40px;
+      margin-top: 0;
+
+      @media all and (min-width: 768px){
+        display:none;
+      }
+    }
+    > .links{
+      list-style: none;
+      @media all and (min-width:991px){
+        position: absolute;
+        z-index: 11;
+        top: 50px;
+        right: 40px;
+        height: 49px;
+        padding-left: 0;
+        margin-bottom: 0;
+        line-height: 49px;
+        width: 108px;
+      }
+      @media all and (min-width:768px) and (max-width:990px){
+        position: absolute;
+        z-index: 11;
+        top: 56px;
+        right: 25px;
+        height: 53px;
+        padding-left: 0;
+        margin-bottom: 0;
+        line-height: 53px;
+        width: 96px;
+      }
+      @media all and (max-width:768px){
+        top: 28px;
+        right: 60px;
+        margin-bottom: 0;
+        position: absolute;
+      }
+      .customer-signin{
+        @media all and (max-width:991px){
+          margin-bottom: 0;
+        }
+        .account-wrapper{
+          a{
+            span{
+              font-size: 16px;
+              font-weight: 600;
+              text-transform: uppercase;
+              color: #575757;
+            }
+          }
+        }
+      }
+      .customer-welcome{
+        font-size: 12px;
+  			font-weight: 600;
+  			text-transform: uppercase;
+        color: #575757;
+  			@media only screen and (min-width: 468px) {
+  				font-size: 14px;
+  			}
+  			@media only screen and (min-width: 768px){
+  				font-size: 16px;
+  			}
+        .customer-menu{
+          right: -5px;
+          position: absolute;
+          top: 20px;
+          @media all and (max-width:768px){
+            background: white;
+            width: 150px;
+            padding-top: 10px;
+            border: solid 1px;
+          }
+          .header{
+            @media all and (max-width:768px){
+                list-style: none;
+            }
+            li{
+              a{
+                font-size: 14px;
+                text-transform: capitalize;
+                color: #575757;
+              }
+            }
+          }
+        }
+        .customer-name{
+          button{
+            color: #575757;
+            &:after{
+              vertical-align:middle;
+            }
+          }
         }
       }
     }
+    .minicart-wrapper{
+      @media all and (min-width:991px){
+        position:absolute;
+        z-index:11;
+        top: 63px;
+        right:20px;
+      }
+      @media all and (min-width:768px) and (max-width:990px){
+        position:absolute;
+        z-index:11;
+        top: 66px;
+        right:15px;
+      }
+      @media all and (max-width:768px){
+        position:absolute;
+        top: 22px;
+        right: 20px;
+        margin-top:0px;
+      }
+    }
   }
+}
+.navigation {
+  .level-top {
+    border-color:#fff !important;
+    padding: 5px 10px 5px 10px !important;
+    @media only screen and (min-width: 768px){
+    border-color:#e66698 !important;
+    }
+    &.menu-logo{
+      border-bottom: 0 !important;
+      @media all and (max-width:768px)  {
+        display:none;
+      }
+    }
+  }
+  .nav-3, .nav-5, .nav-6{
+  @media all and (max-width:768px)  {
+    display: none !important;
+    }
+  }
+}
+.nav-sections-items{
+  .nav-sections-item-title a{
+      color:#000;
+      }
+     .active a{
+        color: rgb(230, 102, 152);
+      }
 }
 .section-heading{
   text-align: center;
@@ -217,7 +371,7 @@ button{
       margin: 35px 0;
     }
     .owl-wrapper-outer{
-      padding-top: 60px;
+      padding-top: 80px;
       .item{
         position:relative;
         padding: 20px;
@@ -240,6 +394,9 @@ button{
           @media only screen and (min-width: 768px){
             left:32%;
           }
+        }
+        img{
+          width: 60%;
         }
         .product-title{
           padding: 60px 0 30px 0;
@@ -458,6 +615,7 @@ button{
       top: 19%;
       width: 100%;
       p{
+        color: #fff;
         margin: 15px 0;
       }
       .button-style-1 {
