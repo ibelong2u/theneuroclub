@@ -51,8 +51,8 @@ h1,h2,h3,h4,h5,h6,p{
     background: #374076;
     border-radius: 20px;
     color: #fff;
-    padding: 10px 45px;
-    text-transform: capitalize;
+    padding: 12px 55px;
+    text-transform: uppercase;
   }
 }
 h2{
@@ -203,7 +203,7 @@ button{
   -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
   box-shadow: 0px 6px 6px -1px rgba(0, 0, 0, 0.06);
   @media only screen and (min-width: 479px){
-    height: 30px;
+    display: none;
   }
   @media only screen and (min-width: 768px){
     height: 35px;
@@ -226,7 +226,7 @@ button{
   -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
   box-shadow: 0px 6px 6px -1px rgba(0, 0, 0, 0.06);
   @media only screen and (min-width: 479px){
-    height: 30px;
+    display: none;
   }
   @media only screen and (min-width: 768px){
     height: 35px;
@@ -275,13 +275,13 @@ button{
     @media all and (min-width:991px){
       position: absolute;
       z-index: 11;
-      top: 50px;
+      top: 53px;
       right: 40px;
       height: 49px;
       padding-left: 0;
       margin-bottom: 0;
       line-height: 49px;
-      width: 108px;
+      width: 180px;
     }
     @media all and (min-width:768px) and (max-width:990px){
       position: absolute;
@@ -408,6 +408,39 @@ button{
      .active a{
         color: rgb(230, 102, 152);
       }
+}
+//Hearo banner
+.home-banner-grid{
+  position: relative;
+  padding-bottom: 50.65%;
+  height: 0;
+  overflow: hidden;
+   iframe,  object,  embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+}
+}
+.carousel{
+  margin-top: 65px;
+  @media only screen and (min-width: 768px){
+  margin-top: 120px;
+  }
+  .owl-carousel{
+    .owl-wrapper-outer{
+      .owl-item{
+        .item{
+          img, object, video, embed {
+            height: auto;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }
 //Our flagship section
 .flagships-static{
@@ -601,6 +634,22 @@ button{
         }
       }
     }
+    .owl-controls{
+      display: block;
+      .active {
+        span{
+          border: 3px solid #e66698;
+          border-radius: 50%;
+        }
+      }
+      span{
+        background: #6e6e6e;
+      }
+      }
+      @media only screen and (min-width: 991px){
+        display: none;
+      }
+    }
   }
   .padding-70{
     margin-bottom: 0;
@@ -640,11 +689,6 @@ button{
           margin: 0 auto 15px auto;
         }
         @media only screen and (max-width: 990px){
-          background-color: #ffffff;
-          border: 1px solid #ffffff;
-          -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-          -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-          box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
             padding: 15px;
         }
         @media only screen and (min-width: 991px){
@@ -669,35 +713,6 @@ button{
           color: #374076;
           font-weight: 700;
           text-decoration: none;
-        }
-      }
-    }
-  }
-  //Hearo banner
-  .home-banner-grid{
-    position: relative;
-    padding-bottom: 50.65%;
-    height: 0;
-    overflow: hidden;
-     iframe,  object,  embed {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      max-width: 100%;
-  }
-  }
-  .carousel{
-    .owl-carousel{
-      .owl-wrapper-outer{
-        .owl-item{
-          .item{
-            img, object, video, embed {
-              height: auto;
-              width: 100%;
-            }
-          }
         }
       }
     }
@@ -913,7 +928,7 @@ button{
             }
             .ui-accordion-content {
               border-top: 0;
-              padding: 1.7em .5em 1.7em 1em;
+              padding: 34px 10px 34px 20px;
               overflow: auto;
             }
             .ui-widget-content{
@@ -1036,6 +1051,7 @@ button{
         }
         h3{
           padding-bottom: 15px;
+          text-transform: uppercase;
         }
       }
       .footer-logo{
@@ -1058,7 +1074,7 @@ button{
       p{
         font-size: 12px;
         margin-bottom: 0;
-        font-weight: 500;
+        font-weight: 600;
         color: #000;
       }
     }
@@ -1072,6 +1088,7 @@ button{
       .copyright{
         background-color:  #ffffff;
         color: #000000;
+        font-weight: 600;
         @media only screen and (max-width: 991px){
           padding: 0;
         }
@@ -1098,6 +1115,21 @@ button{
   .footer-links{
     display: none !important;
     ul{
+      @media only screen and (min-width: 991px){
+        padding-right: 40px !important;
+      }
+      @media only screen and (min-width: 1100px){
+        padding-right: 50px !important;
+      }
+      @media only screen and (min-width: 1180px){
+        padding-right: 60px !important;
+      }
+      @media only screen and (min-width: 1260px){
+        padding-right: 70px !important;
+      }
+      @media only screen and (min-width: 1230px){
+        padding-right: 90px !important;
+      }
       li{
         padding: 6px 0;
         a{
