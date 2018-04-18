@@ -1,0 +1,147 @@
+.page-wrapper 
+{
+	#maincontent 
+	{
+		margin-top:105px;
+		@media all and (min-width:768px)
+		{
+			margin-top:155px;
+		}
+		.page-title-wrapper 
+		{
+			text-align:center;
+		}
+		.form 
+		{
+			&.form-create-account 
+			{
+				box-shadow:0px 0px 5px 1px #f1f1f1;
+				padding:25px;
+				margin:30px auto;
+				margin-bottom:0;
+				@media all and (min-width:991px)
+				{
+					padding:50px 125px;
+					min-width: 800px;
+				    box-sizing:border-box;
+    				margin: 50px auto;
+				    width: 50%;
+				}
+				@media all and (min-width:768px) and (max-width:990px)
+				{
+				    min-width: 720px;
+				    padding: 50px 75px;
+				    box-sizing:border-box;
+    				margin: 50px auto;
+				    width: 50%;
+				}
+				@media all and (max-width:479px)
+				{
+					padding:25px 15px;
+				}
+				.fieldset 
+				{
+					margin:0;
+					.legend 
+					{
+						display:none;
+					}
+					.field 
+					{
+						@media all and (min-width:768px)
+						{
+							float:left;
+							width:48%;
+						}
+						&.field:nth-child(odd)
+						{
+							@media all and (min-width:768px) 
+							{
+								margin-right:2%;
+							}
+						}
+						&.field:nth-child(even)
+						{
+							@media all and (min-width:768px) 
+							{
+								margin-left:2%;
+							}
+						}
+						&.newsletter 
+						{
+							width:auto;
+							margin:0;
+							margin-top:20px;
+							@media all and (max-width:767px)
+							{
+								margin:0 0 20px;
+							}
+						}
+					}
+				}
+				.actions-toolbar 
+				{
+					margin-top:0;
+					@media all and (min-width:768px)
+					{
+						margin-top:50px;
+					}
+					.primary 
+					{
+						float:none;
+						display:block;
+						@media all and (max-width:767px)
+						{
+							margin:0;
+						}
+						.action 
+						{
+							position:fixed;
+							z-index:10;
+							bottom:0;
+							left:0;
+							width:100%;
+							height:50px;
+							border-radius:0;
+							margin:0 auto;
+							background: #e66698 !important;
+   							border: 1px solid #e66698 !important;
+							@media all and (min-width:768px)
+							{
+								position:static;
+							    min-width: 350px;
+							    width: 50%;
+							    height: 45px;
+							    border-radius: 50px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.page-footer 
+	{
+		.footer-bottom 
+		{
+			@media all and (max-width:767px)
+			{
+				margin-bottom:70px;
+			}
+			.footer-copyright
+			{
+				@media all and (max-width:767px)
+				{
+					padding-left:0;
+				}
+				.copyright 
+				{
+					@media all and (max-width:767px)
+					{
+						padding:10px 0;
+					}
+				}
+			}
+		}
+	}
+}
