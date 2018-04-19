@@ -11,6 +11,7 @@
 <?= $block->getChildHtml('form_fields_before') ?>
 <?php /* Extensions placeholder */ ?>
 <?= $block->getChildHtml('customer.form.register.extra') ?>
+<h1 class="title-heading"><strong>Create New </strong>Account</h1>
 <form class="form create account form-create-account" action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off">
     <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
     <fieldset class="fieldset create info">
@@ -127,12 +128,12 @@
                 <input type="email" name="email" autocomplete="email" id="email_address" value="<?= $block->escapeHtmlAttr($block->getFormData()->getEmail()) ?>" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" class="input-text" data-validate="{required:true, 'validate-email':true}">
             </div>
         </div>
-
-        <div class="field telephone required">
-            <label for="telephone" class="label"><span><?php /* @escapeNotVerified */ echo __('Mobile Number') ?></span></label>
-            <div class="control">
-                <input type="text" name="telephone" id="telephone" value="<?php echo $block->escapeHtml($block->getFormData()->getTelephone()) ?>" title="<?php /* @escapeNotVerified */ echo __('Phone Number') ?>" class="input-text <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('telephone') ?>">
-            </div>
+        <div class="field phone_number required">
+        	<label class="label" for="phone_number"><span><?php /* @escapeNotVerified */ echo __('Mobile Number') ?></span></label>
+        	<div class="control mobile_number">
+            <span>+91</span>
+        		<input type="tel" id="phone_number" name="phone_number" value="<?php echo $block->escapeHtml($block->getFormData()->getCustomerAttribute()) ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" class="input-text" autocomplete="off" data-validate="{required:true, 'validate-number':true}" maxlength="10" minlength="10"/>
+        	</div>
         </div>
 
         <div class="field password required">
@@ -163,14 +164,19 @@
             </div>
         </div>
         <?= $block->getChildHtml('form_additional_info') ?>
+
         <?php if ($block->isNewsletterEnabled()): ?>
             <div class="field choice newsletter">
-                <input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
+                  <div class="checkboxes">
+                    <input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
+                    <label class="blue-background" for="is_subscribed"></label>
+                  </div>
                 <label for="is_subscribed" class="label"><span><?= $block->escapeHtml(__('Sign Up for Newsletter')) ?></span></label>
             </div>
             <?php /* Extensions placeholder */ ?>
             <?= $block->getChildHtml('customer.form.register.newsletter') ?>
         <?php endif ?>
+
     </fieldset>
     <div class="actions-toolbar">
         <div class="primary">
