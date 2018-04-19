@@ -132,7 +132,7 @@
         	<label class="label" for="phone_number"><span><?php /* @escapeNotVerified */ echo __('Mobile Number') ?></span></label>
         	<div class="control mobile_number">
             <span>+91</span>
-        		<input type="tel" id="phone_number" name="phone_number" value="<?php echo $block->escapeHtml($block->getFormData()->getCustomerAttribute()) ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" class="input-text" autocomplete="off" data-validate="{required:true, 'validate-number':true}" maxlength="5"/>
+        		<input type="tel" id="phone_number" name="phone_number" value="<?php echo $block->escapeHtml($block->getFormData()->getCustomerAttribute()) ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" class="input-text" autocomplete="off" data-validate="{required:true, 'validate-number':true}" maxlength="10" minlength="10"/>
         	</div>
         </div>
 
