@@ -75,7 +75,7 @@ class Video extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     public function getVideoDataById($id)
     {
         $adapter = $this->getConnection();
-        $fields = array('videofile','video_url');
+        $fields = array('videofile','videothumbnail','redirect_url','video_url');
         $select = $adapter->select()
             ->from($this->getMainTable(),$fields)
             ->where('video_id = :video_id');
@@ -106,7 +106,7 @@ class Video extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     public function getAllVideos()
     {
         $adapter = $this->getConnection();
-        $fields = array('video_id','title','show_in_frontend','upload_type','videofile','video_url');
+        $fields = array('video_id','title', 'redirect_url','show_in_frontend','upload_type','videofile','videothumbnail','video_url');
         $select = $adapter->select()
             ->from($this->getMainTable(),$fields)
             ->where('status = true');
