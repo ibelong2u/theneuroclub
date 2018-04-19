@@ -85,6 +85,16 @@ class Video extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
             ]
         );
         $fieldset->addField(
+            'redirect_url',
+            'text',
+            [
+                'name'  => 'redirect_url',
+                'label' => __('Redirect URL'),
+                'title' => __('Redirect URL'),
+                'required' => true,
+            ]
+        );
+        $fieldset->addField(
             'show_in_frontend',
             'select',
             [
@@ -130,6 +140,15 @@ class Video extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
             ]
         );
         $fieldset->addField(
+            'videothumbnail',
+            'file',
+            [
+                'name'  => 'videothumbnail',
+                'label' => __('Responsive Image File'),
+                'title' => __('Responsive Image File'),
+            ]
+        );
+        $fieldset->addField(
             'video_url',
             'text',
             [
@@ -152,6 +171,15 @@ class Video extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
             )
             ->addFieldDependence(
                 'videofile',
+                'upload_type',
+                '0'
+            )
+            ->addFieldMap(
+                "{$htmlIdPrefix}videothumbnail",
+                'videothumbnail'
+            )
+            ->addFieldDependence(
+                'videothumbnail',
                 'upload_type',
                 '0'
             )
