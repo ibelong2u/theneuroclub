@@ -1,3 +1,5 @@
+// variables
+@blue-button : #333e74;
 //Commeon styles
 h1,h2,h3,h4,h5,h6,p{
   margin: 0;
@@ -468,6 +470,123 @@ button{
         color: rgb(230, 102, 152);
       }
 }
+// minicart styling
+.minicart-wrapper
+{
+  .action.showcart
+  {
+    .counter.qty
+    {
+      border-radius: 50%;
+      margin-left: -9px;
+      margin-top: -5px;
+      background: #ef4800;
+      .counter-number
+      {
+        background: #ef4800;
+      }
+    }
+  }
+  .block-minicart
+  {
+    padding-bottom: 5px;
+    border: none;
+    border-top: 1px solid #ededee;
+    #minicart-content-wrapper
+    {
+      .block-content
+      {
+        .action.close:hover
+        {
+          color: black;
+        }
+        .items-total
+        {
+          font-size: 16px;
+        }
+        .subtotal
+        {
+          .label
+          {
+            span
+            {
+              font-size: 16px;
+              font-weight: 600;
+            }
+          }
+        }
+        .actions
+        {
+          .primary
+          {
+            .checkout
+            {
+              border-radius: 50px;
+              background: @blue-button;
+              border: none;
+              padding: 10px;
+            }
+          }
+        }
+        .minicart-items-wrapper
+        {
+          border-top: 0;
+          .minicart-items
+          {
+            .product-item
+            {
+              .product
+              {
+                .product-item-details
+                {
+                  .product-item-name
+                  {
+                    a
+                    {
+                      color: #333;
+                    }
+                  }
+                  .product-item-pricing
+                  {
+                    .details-qty
+                    {
+                      .label
+                      {
+                        text-transform: uppercase;
+                      }
+                    }
+                  }
+
+                  .product.actions
+                  {
+                    .primary
+                    {
+                      display: none;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        .actions
+        {
+          .secondary
+          {
+            .viewcart
+            {
+              span
+              {
+                color: #333;
+                font-size: 16px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 //Hearo banner
 .desktop-view{
   display: none;
@@ -757,13 +876,14 @@ button{
       margin: 15px 0;
       .active {
         span{
-          border: 3px solid #e66698;
-          border-radius: 50%;
+          // border: 3px solid #e66698;
+          // border-radius: 50%;
+          background:  #e66698;
         }
       }
       span{
-        background: #6e6e6e;
-        border: 3px solid #fff;
+        background: #6e6e6e82;
+        // border: 3px solid #fff;
       }
       @media only screen and (min-width: 991px){
         display: none !important;
