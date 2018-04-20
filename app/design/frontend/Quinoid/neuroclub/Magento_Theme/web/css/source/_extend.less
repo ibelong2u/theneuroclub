@@ -49,10 +49,19 @@ h1,h2,h3,h4,h5,h6,p{
   }
   button{
     background: #374076;
+    border: 1px solid #374076;
     border-radius: 20px;
     color: #fff;
     padding: 12px 55px;
     text-transform: uppercase;
+    @media all and (max-width:1024px)
+    {
+      &:hover , &:focus, &:active {
+        background: #374076;
+        border: 1px solid #374076;
+        color: #fff;
+      }
+    }
   }
 }
 h2{
@@ -264,6 +273,10 @@ button{
   @media all and (max-width: 767px){
     margin-bottom:0;
     top: 0;
+    -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    border-bottom: none;
   }
 .header{
   position: relative;
@@ -318,7 +331,24 @@ button{
             font-size: 16px;
             font-weight: 600;
             text-transform: uppercase;
-            color:#000;
+            color:#575757;
+          }
+          &:hover
+          {
+            span
+            {
+              color:#374076;
+            }
+          }
+          @media all and (max-width:1024px)
+          {
+            &:hover
+            {
+              span
+              {
+                color:#575757;
+              }
+            }
           }
         }
       }
@@ -397,9 +427,23 @@ button{
   }
 }
 .navigation {
-  .level-top {
+   .level-top:hover a span, .level-top.ui-state-focus a span {
+      color: #374076;
+      @media all and (max-width:1024px)
+      {
+        color:#575757;
+      }
+  }
+.level-top {
     border-color:#fff !important;
     padding: 5px 10px 5px 10px !important;
+    a
+    {
+      span
+      {
+        color:#575757;
+      }
+    }
     @media only screen and (min-width: 768px){
     border-color:#e66698 !important;
     }
@@ -454,7 +498,7 @@ button{
 .carousel{
   margin-top: 65px;
   @media only screen and (min-width: 768px){
-  margin-top: 120px;
+  margin-top: 115px;
   }
   .owl-carousel{
     .owl-wrapper-outer{
@@ -554,9 +598,13 @@ button{
           padding: 30px;
           margin: 10px;
         }
+        @media only screen and (min-width: 768px){
+
+          margin: 30px;
+        }
         .image{
           position: absolute;
-          top:-53px;
+          top:-55px;
           left: 35%;
           width:45%;
           @media only screen and (min-width: 479px){
@@ -569,17 +617,30 @@ button{
           }
           @media only screen and (min-width: 991px){
             width:50%;
-            left:30%;
+            left:22%;
+            top:-43px;
           }
           @media only screen and (min-width: 1200px){
             left:25%;
-            top: -70px;
+            top: -40px;
           }
         }
         .product-title{
-          padding: 70px 0 15px 0;
+          padding: 30px 0 15px 0;
+          @media all and (min-width: 479px) and (max-width:598px){
+            padding: 40px 0 15px 0;
+          }
+          @media all and (min-width: 599px){
+            padding: 50px 0 15px 0;
+          }
+          // @media only screen (min-width:768px) and (max-width: 990px){
+          //   padding: 50px 0 15px 0;
+          // }
           @media only screen and (min-width: 991px){
-            padding: 70px 0 20px 0;
+            padding: 30px 0 20px 0;
+          }
+          @media only screen and (min-width: 1200px){
+            padding: 50px 0 20px 0;
           }
           a{
             color:#000;
@@ -588,6 +649,12 @@ button{
             text-transform:uppercase;
             &:hover , &:focus, &:active {
                 color: #374076;
+            }
+            @media all and (max-width:1024px)
+            {
+              &:hover , &:focus, &:active {
+                  color: #000;
+              }
             }
             @media only screen and (min-width: 468px){
               font-size: 25px;
@@ -647,14 +714,14 @@ button{
             h4{
               color: #000;
               font-size: 14px;
-              font-weight: 500;
+              font-weight: 600;
               margin: 0;
               padding: 5px 0;
               @media only screen and (min-width: 468px){
-                font-size: 15px;
+                font-size: 13px;
               }
               @media only screen and (min-width: 768px){
-                font-size: 16px;
+                font-size: 14px;
               }
               @media only screen and (min-width: 991px){
                 font-size: 18px;
@@ -674,10 +741,10 @@ button{
                   font-size: 16px;
                 }
                 @media only screen and (min-width: 768px){
-                  font-size: 18px;
+                  font-size: 17px;
                 }
                 @media only screen and (min-width: 991px){
-                  font-size: 20px;
+                  font-size: 18px;
                 }
               }
             }
@@ -687,6 +754,7 @@ button{
     }
     .owl-controls{
       display: block;
+      margin: 15px 0;
       .active {
         span{
           border: 3px solid #e66698;
@@ -695,9 +763,10 @@ button{
       }
       span{
         background: #6e6e6e;
+        border: 3px solid #fff;
       }
       @media only screen and (min-width: 991px){
-        display: none;
+        display: none !important;
       }
       }
   }
@@ -781,7 +850,15 @@ button{
           font-weight: 700;
           font-size: 15px;
           text-decoration: none;
-
+          &:hover{
+            color: #e66698;
+          }
+          @media all and (max-width:1024px)
+          {
+            &:hover{
+              color: #374076;
+            }
+          }
         }
       }
     }
