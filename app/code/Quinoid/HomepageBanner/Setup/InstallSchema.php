@@ -74,6 +74,13 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 'Video Video File'
             )
             ->addColumn(
+                'videothumbnail',
+                \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                255,
+                [],
+                'Responsive Thumbnail'
+            )
+            ->addColumn(
                 'show_in_frontend',
                 \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
                 1,
@@ -108,10 +115,10 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 $installer->getTable('quinoid_homepagebanner_video'),
                 $setup->getIdxName(
                     $installer->getTable('quinoid_homepagebanner_video'),
-                    ['title','upload_type','video_url','videofile'],
+                    ['title','upload_type','video_url','videothumbnail','videofile'],
                     \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
                 ),
-                ['title','upload_type','video_url','videofile'],
+                ['title','upload_type','video_url','videothumbnail','videofile'],
                 \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
             );
         }

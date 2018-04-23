@@ -4,6 +4,7 @@
 <?php $faqGroupCollection = $block->getFaqGroupCollection() ?>
 <?php if ($faqGroupCollection->getSize()) : ?>
     <?php if ($isEnable) : ?>
+      <div class="home-container">
     <div class="faq-collection margin">
     <div class="section-heading">
       <h2><strong>Frequently </strong>Asked Questions</h2>
@@ -28,8 +29,9 @@
         </div>
         <div class="clearfix"></div>
         <div class="section-button">
-        <button type="button">view all</button>
+        <a href="<?php echo $block->getBaseUrl(); ?>faq"><button type="button">VIEW ALL</button></a>
       </div>
+    </div>
     </div>
     <?php endif; ?>
 <?php else : ?>
