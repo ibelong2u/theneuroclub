@@ -9,16 +9,16 @@
 
 <div class="company">
   <ul class="company-facts">
-    <li><span>100%:</span> Safe and Secure Payments </li>
-    <li><span>TrustPay:</span> 100% Payment Protection, Easy Returns Policy</li>
-    <li><span>Free &amp; Easy</span> Returns</li>
+    <li><span class="safe"></span><span>100%:</span> Safe and Secure Payments </li>
+    <li><span class="policy"></span><span>TrustPay:</span> 100% Payment Protection, Easy Returns Policy</li>
+    <li><span class="return"></span><span>Free &amp; Easy</span> Returns</li>
   </ul>
 </div>
 <div class="continue-shopping">
   <button type="button" name="button">Continue Shopping</button>
 </div>
 
-<div>
+<div class="order-placed">
 <?php if ($block->isPossibleOnepageCheckout()):?>
     <button type="button"
             data-role="proceed-to-checkout"
