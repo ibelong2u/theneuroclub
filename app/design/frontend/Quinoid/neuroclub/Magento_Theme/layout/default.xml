@@ -2,13 +2,13 @@
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
       <!--move element="minicart" destination="catalog.topnav"/-->
-      <move element="header.links" destination="header-wrapper" after="logo"/>
+      <move element="customer" destination="catalog.topnav"/>
       <!--move element="minicart" destination="header.wrapper" after="customer"/-->
        <referenceBlock name="header" remove="true" />
        <referenceBlock name="authorization-link-login" remove="true" />
        <referenceBlock name="register-link" remove="true" />
        <referenceBlock name="top.search" remove="true" />
-    	<referenceContainer name="footer-container">
+       <referenceContainer name="footer-container">
         <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="footer content">
             <block class="Magento\Store\Block\Switcher" name="store_switcher" as="store_switcher" template="Magento_Store::switch/stores.phtml"/>
             <block class="Magento\Framework\View\Element\Template" name="footer_custom_links" after="store_switcher" template="Magento_Theme::html/footer-custom-links.phtml"/>

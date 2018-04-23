@@ -45,8 +45,21 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
             <span>products</span>
           </a>
         </li>
-        <li class="level0 nav-5 first level-top ui-menu-item" role="presentation">
-        </li>
+        <?php if(!$customerSession->isLoggedIn()) { ?>
+          <li class="level0 nav-5 first level-top ui-menu-item" role="presentation">
+            <a href="<?php echo $baseUrl . 'customer/account/login/'; ?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
+              <span>Sign In</span>
+            </a>
+          <li>
+        <?php } else {?>
+             <?php echo $this->getChildHtml('customer') ?>
+             <li class="logout_hamburger desktop-none">
+               <a href="<?php echo $baseUrl . 'customer/account/logout/'; ?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
+                 <span>Signout</span>
+               </a>
+             </li>
+        <?php } ?>
+
         <li class="level0 nav-6 first level-top ui-menu-item" role="presentation">
         </li>
   </ul>
