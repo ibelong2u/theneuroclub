@@ -1,0 +1,200 @@
+<?php
+/**
+ * Copyright © Quinoid, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+<div class="order-confirm">
+
+  <div class="checkout-success">
+      <div class="order-confirm-success-image">
+        <!-- Insert Image Here -->
+      </div>
+      <div class="order-confirm-heading">
+        <h1>Thank you for your purchase! Your order has been received</h1>
+      </div>
+      <?php if ($block->getOrderId()):?>
+          <?php if ($block->getCanViewOrder()) :?>
+              <p><?= __('Your order number is:  #<span>%1</span>.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?></p>
+          <?php  else :?>
+              <p><?= __('Your order number is: #<span>%1</span>.', $block->escapeHtml($block->getOrderId())) ?></p>
+          <?php endif;?>
+              <p><?= /* @escapeNotVerified */ __('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>
+      <?php endif;?>
+
+      <?= $block->getAdditionalInfoHtml() ?>
+
+      <div class="actions-toolbar">
+          <div class="primary">
+              <a class="action primary continue" href="<?= /* @escapeNotVerified */ $block->getContinueUrl() ?>"><span><?= /* @escapeNotVerified */ __('Continue Shopping') ?></span></a>
+          </div>
+      </div>
+  </div>
+  <!-- Bundle Carousel -->
+  <div class="order-confirm-bundle-carousel">
+    <h1><strong>You may</strong> also like</h1>
+    <div id="owl-product" data-mage-init='{
+      "OwlCarousel":{
+          "center": true,
+          "margin":10,
+          "autoPlay": 3000,
+          "pagination": false,
+          "items": 3,
+          "itemsDesktop" : [1199,3],
+          "itemsDesktopSmall" : [979,1],
+          "itemsTablet" : [768, 1]
+      }
+    }
+    '>
+      <div class="item">
+        <img src="<?php echo $block->getViewFileUrl('images/medicine.png'); ?>" class="image" height="70" alt="docs-org" />
+        <h2>FEEL ALIVE - ENERGY PACK</h2>
+        <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</h5>
+        <a class="button" href="#">Subscribe | ₹ 999.99</a>
+        <h3>Lorem ipsum dolar sit</h3>
+        <div class="product-row">
+          <div class="row">
+            <div class="sub-product">
+              <img src="<?php echo $block->getViewFileUrl('images/product.png'); ?>" height="70" alt="docs-org" />
+              <h4>Metanine </h4>
+              <h4>30 Capsule pack</h4>
+              <h6>Lorem ipsum dolar</h6>
+              <p>₹ 999.99</p>
+            </div>
+            <div class="sub-product">
+              <img src="<?php echo $block->getViewFileUrl('images/product.png'); ?>" height="70" alt="docs-org" />
+              <h4>Metanine </h4>
+              <h4>30 Capsule pack</h4>
+              <h6>Lorem ipsum dolar</h6>
+              <p>₹ 999.99</p>
+            </div>
+            <div class="sub-product">
+              <img src="<?php echo $block->getViewFileUrl('images/product.png'); ?>" height="70" alt="docs-org" />
+              <h4>Metanine </h4>
+              <h4>30 Capsule pack</h4>
+              <h6>Lorem ipsum dolar</h6>
+              <p>₹ 999.99</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <img src="<?php echo $block->getViewFileUrl('images/medicine.png'); ?>" class="image" height="70" alt="docs-org" />
+        <h2>FEEL ALIVE - ENERGY PACK</h2>
+        <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</h5>
+        <a class="button" href="#">Subscribe | ₹ 999.99</a>
+        <h3>Lorem ipsum dolar sit</h3>
+        <div class="product-row">
+          <div class="row">
+            <div class="sub-product">
+              <img src="<?php echo $block->getViewFileUrl('images/product.png'); ?>" height="70" alt="docs-org" />
+              <h4>Metanine </h4>
+              <h4>30 Capsule pack</h4>
+              <h6>Lorem ipsum dolar</h6>
+              <p>₹ 999.99</p>
+            </div>
+            <div class="sub-product">
+              <img src="<?php echo $block->getViewFileUrl('images/product.png'); ?>" height="70" alt="docs-org" />
+              <h4>Metanine </h4>
+              <h4>30 Capsule pack</h4>
+              <h6>Lorem ipsum dolar</h6>
+              <p>₹ 999.99</p>
+            </div>
+            <div class="sub-product">
+              <img src="<?php echo $block->getViewFileUrl('images/product.png'); ?>" height="70" alt="docs-org" />
+              <h4>Metanine </h4>
+              <h4>30 Capsule pack</h4>
+              <h6>Lorem ipsum dolar</h6>
+              <p>₹ 999.99</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <img src="<?php echo $block->getViewFileUrl('images/medicine.png'); ?>" class="image" height="70" alt="docs-org" />
+        <h2>FEEL ALIVE - ENERGY PACK</h2>
+        <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</h5>
+        <a class="button" href="#">Subscribe | ₹ 999.99</a>
+        <h3>Lorem ipsum dolar sit</h3>
+        <div class="product-row">
+          <div class="row">
+            <div class="sub-product">
+              <img src="<?php echo $block->getViewFileUrl('images/product.png'); ?>" height="70" alt="docs-org" />
+              <h4>Metanine </h4>
+              <h4>30 Capsule pack</h4>
+              <h6>Lorem ipsum dolar</h6>
+              <p>₹ 999.99</p>
+            </div>
+            <div class="sub-product">
+              <img src="<?php echo $block->getViewFileUrl('images/product.png'); ?>" height="70" alt="docs-org" />
+              <h4>Metanine </h4>
+              <h4>30 Capsule pack</h4>
+              <h6>Lorem ipsum dolar</h6>
+              <p>₹ 999.99</p>
+            </div>
+            <div class="sub-product">
+              <img src="<?php echo $block->getViewFileUrl('images/product.png'); ?>" height="70" alt="docs-org" />
+              <h4>Metanine </h4>
+              <h4>30 Capsule pack</h4>
+              <h6>Lorem ipsum dolar</h6>
+              <p>₹ 999.99</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <img src="<?php echo $block->getViewFileUrl('images/medicine.png'); ?>" class="image" height="70" alt="docs-org" />
+        <h2>FEEL ALIVE - ENERGY PACK</h2>
+        <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</h5>
+        <a class="button" href="#">Subscribe | ₹ 999.99</a>
+        <h3>Lorem ipsum dolar sit</h3>
+        <div class="product-row">
+          <div class="row">
+            <div class="sub-product">
+              <img src="<?php echo $block->getViewFileUrl('images/product.png'); ?>" height="70" alt="docs-org" />
+              <h4>Metanine </h4>
+              <h4>30 Capsule pack</h4>
+              <h6>Lorem ipsum dolar</h6>
+              <p>₹ 999.99</p>
+            </div>
+            <div class="sub-product">
+              <img src="<?php echo $block->getViewFileUrl('images/product.png'); ?>" height="70" alt="docs-org" />
+              <h4>Metanine </h4>
+              <h4>30 Capsule pack</h4>
+              <h6>Lorem ipsum dolar</h6>
+              <p>₹ 999.99</p>
+            </div>
+            <div class="sub-product">
+              <img src="<?php echo $block->getViewFileUrl('images/product.png'); ?>" height="70" alt="docs-org" />
+              <h4>Metanine </h4>
+              <h4>30 Capsule pack</h4>
+              <h6>Lorem ipsum dolar</h6>
+              <p>₹ 999.99</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "#owl-product": {
+                "OwlCarousel": {
+                    "center": true,
+                    "margin":10,
+                    "autoPlay": 3000,
+                    "pagination": false,
+                    "items": 3,
+                    "itemsDesktop": [1199, 1],
+                    "itemsDesktopSmall" : [979,1],
+                    "itemsTablet" : [768, 1]
+                }
+            }
+        }
+    </script>
+
+  </div>
+</div>
