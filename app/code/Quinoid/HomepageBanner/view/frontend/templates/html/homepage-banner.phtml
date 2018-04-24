@@ -46,9 +46,9 @@ if ($isEnable == 1) { ?>
                     if ($_result['show_in_frontend'] == 1 && $_result['upload_type'] == 0) { ?>
                         <div class="item">
                           <a href="<?php echo $_result['redirect_url']; ?>">
-                            <img class="" src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/file'. $_result['videofile'] ?>">
+                            <img class="desktop-view" src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/file'. $_result['videofile'] ?>">
                             <?php if ($_result['videothumbnail']): ?>
-                              <img class="" src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/image'. $_result['videothumbnail'] ?>">
+                              <img class="mobile-view" src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/image'. $_result['videothumbnail'] ?>">
                             <?php endif; ?>
                           </a>
                         </div>
