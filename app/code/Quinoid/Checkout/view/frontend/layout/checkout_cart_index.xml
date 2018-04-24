@@ -12,6 +12,7 @@
             <block class="Magento\Checkout\Block\Cart\ValidationMessages" name="checkout.cart.validationmessages"/>
         </referenceContainer>
         <referenceContainer name="content">
+          <block class="Magento\Checkout\Block\Cart" name="checkout.title" template="Quinoid_Checkout::heading.phtml" cacheable="false" before="checkout.cart"/>
             <block class="Magento\Checkout\Block\Cart" name="checkout.cart" template="Magento_Checkout::cart.phtml" cacheable="false">
                 <container name="checkout.cart.items" as="with-items">
                     <container name="checkout.cart.container" htmlTag="div" htmlClass="cart-container" before="-">
