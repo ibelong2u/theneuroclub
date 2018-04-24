@@ -26,7 +26,6 @@ $firstName = $customerSession->getCustomer()->getFirstname();
            <span class="label"><?php echo (strlen($firstName) > 10) ? substr($firstName,0,10).'...' : $firstName; ?></span>
          </a>
   <?php } ?>
-
 </div>
 <div data-block="minicart" class="minicart-wrapper">
     <a class="action showcart" href="<?= /* @escapeNotVerified */ $block->getShoppingCartUrl() ?>"
