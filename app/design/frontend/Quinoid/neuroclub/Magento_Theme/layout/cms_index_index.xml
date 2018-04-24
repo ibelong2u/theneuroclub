@@ -6,14 +6,14 @@
   <body>
     <referenceContainer name="main">
       <container name='content'>
-        <block class="Magento\Framework\View\Element\Template" name="flagships.static" template="Magento_Theme::html/flagships-static.phtml"/>
+        <!-- <block class="Magento\Framework\View\Element\Template" name="flagships.static" template="Magento_Theme::html/flagships-static.phtml"/> -->
         <!-- <block class="Magento\Framework\View\Element\Template" name="product.banner" after="flagships.static" before="allworks.static" template="Magento_Theme::html/product-banner.phtml"/> -->
       </container>
-      <container name="content.bottom">
+      <!-- <container name="content.bottom">
         <block class="Magento\Framework\View\Element\Template" name="allworks.static" after="product.banner" before="secondary.banner" template="Magento_Theme::html/allworks-static.phtml"/>
         <block class="Magento\Framework\View\Element\Template" name="secondary.banner" after="allworks_static" before="home.blog" template="Magento_Theme::html/static-banner.phtml"/>
         <block class="Magento\Framework\View\Element\Template" name="home.blog" after="secondary.banner" template="Magento_Theme::html/home-blog.phtml"/>
-      </container>
+      </container> -->
     </referenceContainer>
   </body>
 </page>

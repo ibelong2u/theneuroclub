@@ -15,13 +15,13 @@ $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface'
 $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB);
 $firstName = $customerSession->getCustomer()->getFirstname();
 ?>
-<div class="desktop-none">
+<div class="desktop-none header-account">
   <?php if(!$customerSession->isLoggedIn()) { ?>
-     <a href="<?php echo $baseUrl . 'customer/account/login/'; ?>" class="desktop-none signin">
+     <a href="<?php echo $baseUrl . 'customer/account/login/'; ?>" class="signin">
          <span class="label">Sign In</span>
       </a>
   <?php } else {?>
-        <a href="<?php echo $baseUrl . 'customer/account/'; ?>" class="desktop-none myaccount">
+        <a href="<?php echo $baseUrl . 'customer/account/'; ?>" class="myaccount">
 
            <span class="label"><?php echo (strlen($firstName) > 10) ? substr($firstName,0,10).'...' : $firstName; ?></span>
          </a>
