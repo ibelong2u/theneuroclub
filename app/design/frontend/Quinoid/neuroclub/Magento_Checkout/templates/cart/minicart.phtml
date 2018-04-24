@@ -27,6 +27,7 @@ $firstName = $customerSession->getCustomer()->getFirstname();
          </a>
   <?php } ?>
 </div>
+
 <div data-block="minicart" class="minicart-wrapper">
     <a class="action showcart" href="<?= /* @escapeNotVerified */ $block->getShoppingCartUrl() ?>"
        data-bind="scope: 'minicart_content'">
