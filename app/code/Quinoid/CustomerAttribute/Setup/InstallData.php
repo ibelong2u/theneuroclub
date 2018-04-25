@@ -29,12 +29,12 @@ class InstallData implements InstallDataInterface {
 		$eavSetup->addAttribute(
 		\Magento\Customer\Model\Customer::ENTITY, 'phone_number', [
 			'type' => 'varchar',
-			'label' => 'Phone Number',
+			'label' => 'Mobile Number',
 			'input' => 'text',
 			'required' => true,
-			'system' => 2,
+			'system' => 0,
 			'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_STORE,
-			'sort_order' => '200'
+			'sort_order' => '800'
 		]
 	);
 
