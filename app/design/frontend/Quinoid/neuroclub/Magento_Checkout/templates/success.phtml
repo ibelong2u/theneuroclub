@@ -12,10 +12,15 @@
 
   <div class="checkout-success">
       <div class="order-confirm-success-image">
-        <!-- Insert Image Here -->
+        <div class="order-confirm-img">
+
+        </div>
+        <h1>
+          Order Successfully Placed
+        </h1>
       </div>
       <div class="order-confirm-heading">
-        <h1>Thank you for your purchase! Your order has been received</h1>
+        <h2>Thank you for your purchase! Your order has been received</h2>
       </div>
       <?php if ($block->getOrderId()):?>
           <?php if ($block->getCanViewOrder()) :?>
@@ -44,7 +49,7 @@
           "autoPlay": 3000,
           "pagination": false,
           "items": 3,
-          "itemsDesktop" : [1199,3],
+          "itemsDesktop" : [1199,2],
           "itemsDesktopSmall" : [979,1],
           "itemsTablet" : [768, 1]
       }
