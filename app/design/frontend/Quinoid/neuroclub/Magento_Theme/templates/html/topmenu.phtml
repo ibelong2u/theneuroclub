@@ -57,12 +57,14 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
              </a>
            </li>
           <?php } else {?>
-                <li class="level0 nav-5 first last level-top ui-menu-item" role="presentation">
+                <li class="level0 nav-5 first last level-top ui-menu-item desktop-none" role="presentation">
                   <a href="<?php echo $baseUrl . 'customer/account/logout/'; ?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
                     <span>Sign Out</span>
                   </a>
                 </li>
+                <li class="level0 nav-5 first last level-top ui-menu-item" role="presentation">
                <?php echo $this->getChildHtml('customer') ?>
+             </li>
            <?php } ?>
         <li class="level0 nav-6 first level-top ui-menu-item" role="presentation">
         </li>
