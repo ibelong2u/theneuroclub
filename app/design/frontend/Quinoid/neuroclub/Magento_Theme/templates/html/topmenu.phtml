@@ -35,11 +35,7 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
             <span>how it works</span>
           </a>
         </li>
-        <li class="level0 nav-2 first last level-top ui-menu-item" role="presentation">
-          <a href="<?php echo $block->getBaseUrl(); ?>how-it-works" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
-            <span>club exclusive</span>
-          </a>
-        </li>
+
         <li class="level0 nav-3 first last level-top ui-menu-item">
           <a href="<?php echo $block->getBaseUrl(); ?>" class="level-top ui-corner-all  menu-logo" id="ui-id-3" tabindex="-1" role="menuitem">
           <img src="<?php echo $block->getViewFileUrl('images/logo.png'); ?>" />
@@ -51,7 +47,7 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
           </a>
         </li>
         <?php if(!$customerSession->isLoggedIn()) { echo $customerSession->isLoggedIn(); ?>
-           <li class="level0 nav-5 first last level-top ui-menu-item desktop-none" role="presentation">
+           <li class="level0 nav-5 first last level-top ui-menu-item desktop-only" role="presentation">
              <a href="<?php echo $baseUrl . 'customer/account/login/'; ?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
                <span>Sign In</span>
              </a>
@@ -64,11 +60,11 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
                 </li>
                <?php echo $this->getChildHtml('customer') ?>
            <?php } ?>
-        <li class="level0 nav-6 first level-top ui-menu-item" role="presentation">
+         <li class="level0 nav-6 first level-top ui-menu-item" role="presentation">
+        </li>
+        <!--<li class="level0 nav-6 first level-top ui-menu-item" role="presentation">
         </li>
         <li class="level0 nav-6 first level-top ui-menu-item" role="presentation">
-        </li>
-        <li class="level0 nav-6 first level-top ui-menu-item" role="presentation">
-        </li>
+        </li> -->
   </ul>
 </nav>
