@@ -23,6 +23,25 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty"><div><?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?></div></div>
 <?php else: ?>
+   <?php
+      $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+      $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');//get current category
+      $subcategory = $objectManager->create('Magento\Catalog\Model\Category')->load($category->getId());
+      $subCats = $subcategory->getChildrenCategories();
+      $_helper = $this->helper('Magento\Catalog\Helper\Output');?>
+      <ul class="sub-cat-ul">
+        <?php
+        foreach ($subCats as $subcat) {
+            $_category = $objectManager->create('Magento\Catalog\Model\Category')->load($subcat->getId());
+            $subcaturl = $subcat->getUrl();
+          ?>
+            <li class="cat-li">
+                <div class="info">
+                    <a class="link" href="<?php echo $subcaturl ?>"><?php echo $subcat->getName(); ?></a>
+                </div>
+            </li>
+        <?php } ?>
+    </ul>
     <?= $block->getToolbarHtml() ?>
     <?= $block->getAdditionalHtml() ?>
     <?php
@@ -83,7 +102,9 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                         </strong>
                         <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
                         <?= $block->getProductDetailsHtml($_product) ?>
-                        <?= $_product->getShortDescription(); ?>
+                        <?= $_product->getShortDescription();
+                        $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+                        ?>
 
                         <div class="product-item-inner">
                             <div class="product actions product-item-actions"<?= strpos($pos, $viewMode . '-actions') ? $position : '' ?>>
@@ -98,7 +119,7 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                                                     title="<?= $block->escapeHtml(__('Add to Cart | ')) ?>"
                                                     class="action tocart primary">
                                                 <span><?= /* @escapeNotVerified */ __('Add to Cart | ') ?></span>
-                                                <?= /* @escapeNotVerified */ $_product->getFinalPrice() ?>
+                                                <?= /* @escapeNotVerified */ $priceHelper->currency($_product->getFinalPrice(), true, false); ?>
                                             </button>
                                         </form>
                                     <?php else: ?>
