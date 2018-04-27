@@ -29,7 +29,7 @@
       <field name="category_banner_link" sortOrder="910" formElement="input">
           <settings>
               <dataType>string</dataType>
-              <label translate="true">Meta Title</label>
+              <label translate="true">Banner Redirect URL</label>
           </settings>
       </field>
     </fieldset>
