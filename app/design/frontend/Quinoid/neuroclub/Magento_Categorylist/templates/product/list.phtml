@@ -29,21 +29,6 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
       $subcategory = $objectManager->create('Magento\Catalog\Model\Category')->load($category->getId());
       $subCats = $subcategory->getChildrenCategories();
       $_helper = $this->helper('Magento\Catalog\Helper\Output');?>
-      <ul class="sub-cat-ul">
-        <?php
-        foreach ($subCats as $subcat) {
-            $_category = $objectManager->create('Magento\Catalog\Model\Category')->load($subcat->getId());
-            $subcaturl = $subcat->getUrl();
-          ?>
-            <li class="cat-li">
-                <div class="info">
-                    <a class="link" href="<?php echo $subcaturl ?>"><?php echo $subcat->getName(); ?></a>
-                </div>
-            </li>
-        <?php } ?>
-    </ul>
-    <?= $block->getToolbarHtml() ?>
-    <?= $block->getAdditionalHtml() ?>
     <?php
     if ($block->getMode() == 'grid') {
         $viewMode = 'grid';
@@ -63,6 +48,22 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
     ?>
 <h1 class="title-heading"><strong>Club </strong>Exclusive</h1>
 <div class="home-container">
+    <div class="toolbar-wrapper">
+      <ul class="sub-cat-ul">
+      <?php
+      foreach ($subCats as $subcat) {
+          $_category = $objectManager->create('Magento\Catalog\Model\Category')->load($subcat->getId());
+          $subcaturl = $subcat->getUrl();
+        ?>
+          <li class="cat-li">
+              <div class="info">
+                  <a class="link" href="<?php echo $subcaturl ?>"><?php echo $subcat->getName(); ?></a>
+              </div>
+          </li>
+      <?php } ?>
+   </ul>
+    <?= $block->getToolbarHtml() ?>
+  </div>
     <div class="products wrapper <?= /* @escapeNotVerified */ $viewMode ?> products-<?= /* @escapeNotVerified */ $viewMode ?>">
         <?php $iterator = 1; ?>
         <ol class="products list items product-items">
@@ -139,7 +140,6 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
         </ol>
     </div>
 </div>
-    <?= $block->getToolbarHtml() ?>
     <script type="text/x-magento-init">
     {
         ".product-image-container": {
