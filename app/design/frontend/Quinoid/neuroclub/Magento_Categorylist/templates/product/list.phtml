@@ -50,6 +50,7 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
 <div class="home-container">
     <div class="toolbar-wrapper">
       <ul class="sub-cat-ul">
+        <li class="sub-cat-header">Shop By Condition</li>
       <?php
       foreach ($subCats as $subcat) {
           $_category = $objectManager->create('Magento\Catalog\Model\Category')->load($subcat->getId());

@@ -1,4 +1,4 @@
-.category-club-exclusive 
+.exclusive-catgeory-list
 {
   .breadcrumbs 
   {
@@ -86,6 +86,43 @@
         {
         color: #000;
         font-weight: 600;
+      }
+    }
+    .toolbar-wrapper 
+    {
+      display:flex;
+      align-items:center;
+      position:relative;
+      background:#f7f7f7;
+      margin-bottom:30px;
+      .sub-cat-ul 
+      {
+        list-style-type:none;
+        padding-left:0;
+        margin-bottom:0;
+        li 
+        {
+          display:inline-block;
+          margin:0;
+          padding: 20px 10px;
+          font-size:16px;
+          color:#374076;
+          &.sub-cat-header 
+          {
+            width:100px;
+          }
+        }
+      }
+      .toolbar-products 
+      {
+        right:0;
+        top:12px; 
+        width:auto;
+        margin-bottom:0;
+        .toolbar-amount 
+        {
+          display:none;
+        }
       }
     }
     .products-list 
