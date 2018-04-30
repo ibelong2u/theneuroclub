@@ -107,16 +107,34 @@
           padding: 20px 10px;
           font-size:16px;
           color:#374076;
+          vertical-align:middle;
+          @media all and (max-width:991px)
+          {
+            font-size:15px;
+          }
+          a 
+          {
+            font-size:14px;
+            color:#374076;
+            @media all and (max-width:991px)
+           {
+             font-size:13px;
+           }
+          }
           &.sub-cat-header 
           {
             width:100px;
+            @media all and (max-width:991px)
+            {
+              width:70px;
+            }
           }
         }
       }
       .toolbar-products 
       {
         right:0;
-        top:12px; 
+        top:26px; 
         width:auto;
         margin-bottom:0;
         .toolbar-amount 
