@@ -95,6 +95,10 @@
       position:relative;
       background:#f7f7f7;
       margin-bottom:30px;
+      @media all and (max-width:767px)
+      {
+        display:block;
+      }
       .sub-cat-ul 
       {
         list-style-type:none;
@@ -112,6 +116,14 @@
           {
             font-size:15px;
           }
+          @media all and (max-width:767px)
+          {
+            display:list-item;
+            text-align:center;
+            font-size:16px;
+            padding:0;
+            padding-bottom:15px;
+          }
           a 
           {
             font-size:14px;
@@ -120,6 +132,10 @@
            {
              font-size:13px;
            }
+           @media all and (max-width:767px)
+           {
+             font-size:14px;
+           }
           }
           &.sub-cat-header 
           {
@@ -127,6 +143,11 @@
             @media all and (max-width:991px)
             {
               width:70px;
+            }
+            @media all and (max-width:767px)
+            {
+              width:auto;
+              padding-top:15px;
             }
           }
         }
@@ -140,6 +161,31 @@
         .toolbar-amount 
         {
           display:none;
+        }
+        .toolbar-sorter 
+        {
+          border: 1px solid #374076;
+          border-radius: 50px;
+          padding: 0 10px;
+          margin-right: 10px;
+          @media all and (max-width:767px)
+          {
+            position:static;
+            margin:0 auto;
+            margin-bottom:15px;
+            float:none;
+            width:213px;
+          }
+          label 
+          {
+            color:#374076;
+          }
+          select 
+          {
+            background:transparent;
+            border:none;
+            box-shadow:none;
+          }
         }
       }
     }
