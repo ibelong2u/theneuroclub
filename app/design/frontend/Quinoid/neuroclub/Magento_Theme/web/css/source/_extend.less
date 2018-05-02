@@ -553,10 +553,19 @@ button{
     padding-bottom: 5px;
     border: none;
     border-top: 1px solid #ededee;
+    right:0px;
     #minicart-content-wrapper
     {
       .block-content
       {
+        margin-top:20px;
+        .action.close 
+        {
+          height: 20px;
+          right: 15px;
+          top: 15px;
+          width: 20px;
+        }
         .action.close:hover
         {
           color: black;
@@ -585,7 +594,15 @@ button{
               background: @blue-button;
               border: none;
               padding: 8px;
-
+              text-transform:uppercase;
+              @media all and (max-width:767px)
+              {
+                font-size:18px;
+              }
+              @media all and (max-width:479px)
+              {
+                font-size:16px;
+              }
           }
         }
         .minicart-items-wrapper
@@ -605,6 +622,7 @@ button{
                     a
                     {
                       color: #333;
+                      text-decoration:none !important;
                     }
                   }
                   .product-item-pricing
@@ -638,7 +656,7 @@ button{
             {
               span
               {
-                color: #333;
+                color: #374076;
                 font-size: 16px;
               }
             }

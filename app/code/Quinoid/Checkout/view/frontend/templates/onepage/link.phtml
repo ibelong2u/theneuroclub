@@ -23,7 +23,7 @@
 <?php if ($block->isPossibleOnepageCheckout()):?>
     <button type="button"
             data-role="proceed-to-checkout"
-            title="<?= /* @escapeNotVerified */ __('Proceed to Checkout') ?>"
+            title="<?= /* @escapeNotVerified */ __('Place Order') ?>"
             data-mage-init='{"Magento_Checkout/js/proceed-to-checkout":{"checkoutUrl":"<?= /* @escapeNotVerified */ $block->getCheckoutUrl() ?>"}}'
             class="action primary checkout<?= ($block->isDisabled()) ? ' disabled' : '' ?>"
             <?php if ($block->isDisabled()):?>disabled="disabled"<?php endif; ?>>
@@ -32,3 +32,6 @@
 <?php endif?>
 </div>
 </div>
+<script type="text/javascript">
+  
+</script>

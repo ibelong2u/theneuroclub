@@ -19,13 +19,21 @@ ul, li{
   .page-title-wrapper{
     display: none;
   }
+  .page-footer 
+  {
+    @media all and (max-width:767px)
+    {
+      margin-bottom:48px;
+    }
+  }
 }
 .cart-container{
   .form-cart{
     padding-right: 0;
   }
   .cart-summary{
-      background: #ffffff;
+      background: none;
+      top:0 !important;
       @media only screen and (max-width: 767px){
         padding: 10px;
         }
@@ -227,6 +235,13 @@ ul, li{
       display: flex;
       justify-items: stretch;
       align-items: center;
+      @media all and (max-width:767px)
+      {
+        position:fixed;
+        bottom:0;
+        z-index:999;
+        width:100%;
+      }
       .continue-shopping{
         padding-right: 0;
         background: #999eb9;
