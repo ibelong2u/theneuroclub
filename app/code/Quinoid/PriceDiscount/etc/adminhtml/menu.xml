@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Quinoid. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="Quinoid_PriceDiscount::quinoid_bundlediscount_index" title="Product Discount" module="Quinoid_PriceDiscount"  sortOrder="20" dependsOnModule="Quinoid_PriceDiscount" action="pricediscount/bundlediscount/index" resource="Quinoid_PriceDiscount::quinoid_bundlediscount_index"/>
+<!--AddMenu-->
+    </menu>
+</config>

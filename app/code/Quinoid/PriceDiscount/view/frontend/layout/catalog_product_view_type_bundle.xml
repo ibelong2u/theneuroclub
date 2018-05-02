@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+  <referenceContainer name="content">
+      <block class="Magento\Framework\View\Element\Template" name="flagship" after="requirejs" template="Quinoid_PriceDiscount::js.phtml"/>
+  </referenceContainer>
+  <referenceContainer name="product.info.main">
+      <block class="Magento\Catalog\Block\Product\View" name="customize.button" as="customize_button" template="Quinoid_PriceDiscount::catalog/product/view/customize.phtml" after="product.info.price" />
+  </referenceContainer>
+  <referenceBlock name="backButton" remove="true" />
+  <referenceBlock name="product.info.options.wrapper">
+      <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle" name="product.info.bundle.options" as="type_bundle_options" template="Quinoid_PriceDiscount::catalog/product/view/type/bundle/options.phtml" before="-">
+          <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Select" name="product.info.bundle.options.select" as="select"/>
+          <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Multi" name="product.info.bundle.options.multi" as="multi"/>
+          <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio" name="product.info.bundle.options.radio" as="radio"/>
+          <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox" name="product.info.bundle.options.checkbox" as="checkbox"/>
+      </block>
+  </referenceBlock>
+  <!--referenceBlock name="product.info">
+    <block class="Magento\Catalog\Block\Product\View" name="bundle.items" as="bundle.items" template="Quinoid_PriceDiscount::catalog/product/view/bundleitems.phtml" after="bundle.summary" />
+  </referenceBlock-->
+</page>
