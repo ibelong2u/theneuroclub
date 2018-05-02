@@ -1,0 +1,342 @@
+.inner-container
+{
+  width:70%;
+  margin: 0 auto;
+  max-width:1280px;
+  box-sizing: border-box;
+  &:after
+  {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  @media all and (max-width:1024px)
+  {
+    width:80%;
+  }
+  @media all and (max-width:767px)
+  {
+    width:100%;
+    padding:0 15px;
+  }
+}
+.plp-container
+{
+  .plp-banner
+  {
+    background:url("../images/plp-without-filter-banner.jpg");
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    padding-top: 6em;
+    padding-bottom: 2em;
+    @media all and (max-width:1024px)
+    {
+      background-size:cover;
+    }
+    @media all and (max-width:767px)
+    {
+      background: url(../images/plp-without-filter-banner-mob.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      padding-top:4em;
+      padding-bottom:1em;
+    }
+    .plp-banner-container
+    {
+      align-items:center;
+      margin:0;
+      .banner-content
+      {
+        width:50%;
+        text-align:center;
+        @media all and (max-width:767px)
+        {
+          width:100%;
+        }
+        h4
+        {
+          color: #374076;
+          margin-bottom: 10px;
+          @media all and (max-width:479px)
+          {
+            font-size:24px;
+          }
+        }
+        p
+        {
+          color: #374076;
+          width:60%;
+          margin:0 auto;
+          @media all and (max-width:991px)
+          {
+            width:80%;
+          }
+          @media all and (max-width:767px)
+          {
+            width:90%;
+          }
+        }
+        .section-button
+        {
+          button
+          {
+            font-weight:100;
+            padding:10px 40px;
+            @media all and (max-width:479px)
+            {
+              padding:10px 20px;
+            }
+          }
+        }
+      }
+      .banner-products
+      {
+        width:50%;
+        text-align:center;
+        @media all and (max-width: 767px)
+        {
+          width:200px;
+          margin:0 auto;
+          margin-top:20px;
+        }
+        img
+        {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+  .plp-heading
+  {
+    h4
+    {
+      margin-bottom: 0;
+      padding: 30px 0;
+      @media all and (min-width:991px)
+      {
+        padding:50px 0;
+      }
+    }
+  }
+  .plp-item-container
+  {
+    .plp-item
+    {
+      padding:4em 0;
+      &:nth-child(odd)
+      {
+        .item-image
+        {
+          float: left;
+
+          @media all and (max-width:767px)
+          {
+            float:none;
+          }
+        }
+      }
+      &:nth-child(even)
+      {
+        .item-image
+        {
+          float: right;
+          @media all and (max-width:767px)
+          {
+            float:none;
+          }
+        }
+      }
+      &:nth-child(4n+1)
+      {
+        background: radial-gradient(#ffffff,#ecfcf2);
+      }
+      &:nth-child(4n+2)
+      {
+        background: radial-gradient(#ffffff,#edeffc);
+      }
+      &:nth-child(4n+3)
+      {
+        background: radial-gradient(#ffffff,#d8f0fc);
+      }
+      &:nth-child(4n+4)
+      {
+        background: radial-gradient(#ffffff,#fff1f1);
+      }
+      @media all and (max-width: 767px)
+      {
+        padding:2em 0;
+      }
+      .item-image
+      {
+        width:40%;
+        text-align: center;
+        box-sizing: border-box;
+        padding-left: 5em;
+        @media all and (max-width:1280px)
+        {
+          padding-left: 2em;
+        }
+        @media all and (max-width:767px)
+        {
+          float: none;
+          width: 280px;
+          margin: 0 auto;
+          margin-bottom: 20px;
+          padding:0;
+        }
+        img
+        {
+          max-width: 100%;
+        }
+      }
+      .item-content
+      {
+        float:left;
+        width:60%;
+        box-sizing: border-box;
+        padding-right: 5em;
+        padding-left: 5em;
+        padding-top: 40px;
+        @media all and (max-width:1280px)
+        {
+          padding-right:2em;
+          padding-left: 2em;
+        }
+        @media all and (max-width:1024px)
+        {
+          padding-top:20px;
+        }
+        @media all and (max-width:767px)
+        {
+          float: none;
+          width:100%;
+          text-align: center;
+          padding: 0;
+        }
+        h6
+        {
+          color: #374076;
+          text-transform:uppercase;
+        }
+        .medicine-type
+        {
+          margin:1em 0;
+          color:#374076;
+          text-transform: uppercase;
+          font-size: 14px;
+          @media only screen and (min-width: 768px){
+            font-size: 16px;
+          }
+          @media only screen and (min-width: 991px){
+            font-size: 20px;
+          }
+        }
+        p
+        {
+          color:#434242;
+        }
+        .plp-item-button
+        {
+          text-align: left;
+          @media all and (max-width:767px)
+          {
+            text-align: center;
+          }
+          button
+          {
+            background: #e66698;
+            border: 1px solid #e66698;
+          }
+        }
+      }
+    }
+  }
+  .plp-bottom
+  {
+    padding:50px 0;
+    @media all and (max-width:1024px)
+    {
+      padding:30px 0;
+    }
+    @media all and (max-width:767px)
+    {
+      padding:0;
+    }
+    .plp-bottom-container
+    {
+      background:url(../images/plp-bottom-background.jpg);
+      background-repeat:no-repeat;
+      background-size:cover;
+      padding:10em 0;
+      @media all and (max-width:1280px)
+      {
+        padding:7em 0;
+      }
+      @media all and (max-width:767px)
+      {
+        padding:5em 0;
+      }
+      @media all and (max-width:599px)
+      {
+        padding:4em 0;
+      }
+      @media all and (max-width:479px)
+      {
+        padding:3em 0;
+      }
+      @media all and (max-width:425px)
+      {
+        padding:2em 0;
+      }
+      .bottom-content
+      {
+        width:40%;
+        padding-left:5em;
+        @media all and (max-width:1280px)
+        {
+          padding-left: 2em;
+        }
+        @media all and (max-width:1024px)
+        {
+          width:45%;
+        }
+        @media all and (max-width:767px)
+        {
+          padding-left: 15px;
+          width:50%;
+        }
+        @media all and (max-width:530px)
+        {
+          width:55%;
+        }
+        @media all and (max-width:399px)
+        {
+          width:60%;
+        }
+        @media all and (max-width:345px)
+        {
+          width:65%;
+        }
+        p
+        {
+          color:#fff;
+        }
+        .plp-bottom-button
+        {
+          text-align:left;
+          button
+          {
+            background: #e66698;
+            border: 1px solid #e66698;
+            font-weight:100;
+            padding:10px 40px;
+            @media all and (max-width:479px)
+            {
+              padding:10px 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
