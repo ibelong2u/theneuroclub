@@ -9,8 +9,7 @@
     <referenceContainer name="main">
       <container name='content'>
         <block class="Magento\Framework\View\Element\Template" name="about.intro" template="Magento_Theme::html/about-intro.phtml"/>
-        <block class="Magento\Framework\View\Element\Template" name="flagships.static" after="about.intro" template="Magento_Theme::html/flagships-static.phtml"/>
-        <block class="Magento\Framework\View\Element\Template" name="flagships" after="flagships.static" template="Magento_Theme::html/flagships.phtml"/>
+        <block class="Magento\Framework\View\Element\Template" name="flagships" after="about.intro" template="Magento_Theme::html/flagships.phtml"/>
       </container>
       <container name="content.bottom">
         <block class="Magento\Framework\View\Element\Template" name="allworks.static" after="product.banner" before="secondary.banner" template="Magento_Theme::html/allworks-static.phtml"/>

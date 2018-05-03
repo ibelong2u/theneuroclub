@@ -1,110 +1,11 @@
-<!-- Homepage Flagships Static Block -->
+<!-- Homepage Flagships Block -->
 
-<!-- fdvdfvfdv -->
-<!-- fdvfdvdfvdddddddddddddddddddddddddddddddddddddddddddddddddddddf -->
-<!-- fddvaaaaaaaaaaaaaaaassssssssssssssssssssssssssssssssss -->
-
-<span class="youtube-link" youtubeid="yPu6qV5byu4">Open Video 1 - (dark theme - autoplay enabled)</span><br />
-
-<div class="flagships-static padding-70">
-  <div class="home-container">
-    <div class="section-heading">
-      <h2><strong>Our</strong>Flagships</h2>
-    </div>
-    <div class="row">
-      <div class="section-product">
-        <div class="product-image"><img src="{{media url="wysiwyg/Metanine.png"}}" alt="" /></div>
-        <div class="product-content">
-          <h4>Metanine</h4>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        </div>
-        <div class="overlay">
-          <div class="flag-content">
-            <img src="<?php echo $block->getViewFileUrl('images/video.png'); ?>" height="50" alt="docs-org" />
-            <div class="flag-button">
-            <a class="button-style border-white" href="#">View all</a>
-          </div>
-          </div>
-        </div>
-      </div>
-      <div class="section-product">
-        <div class="product-image"><img src="{{media url="wysiwyg/Enkodin.png"}}" alt="" /></div>
-        <div class="product-content">
-          <h4>Enkodin</h4>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        </div>
-        <div class="overlay">
-          <div class="flag-content">
-            <img src="<?php echo $block->getViewFileUrl('images/video.png'); ?>" height="50" alt="docs-org" />
-            <div class="flag-button">
-            <a class="button-style border-white" href="#">View all</a>
-          </div>
-          </div>
-        </div>
-      </div>
-      <div class="section-product">
-        <div class="product-image"><img src="{{media url="wysiwyg/Xance.png"}}" alt="" /></div>
-        <div class="product-content">
-          <h4>Xance</h4>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        </div>
-        <div class="overlay">
-          <div class="flag-content">
-            <img src="<?php echo $block->getViewFileUrl('images/video.png'); ?>" height="50" alt="docs-org" />
-            <div class="flag-button">
-            <a class="button-style border-white" href="#">View all</a>
-          </div>
-          </div>
-        </div>
-      </div>
-      <div class="section-product">
-        <div class="product-image"><img src="{{media url="wysiwyg/Jubilin.png"}}" alt="" /></div>
-        <div class="product-content">
-          <h4>Jubilin</h4>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        </div>
-        <div class="overlay">
-          <div class="flag-content">
-            <img src="<?php echo $block->getViewFileUrl('images/video.png'); ?>" height="50" alt="docs-org" />
-            <div class="flag-button">
-            <a class="button-style border-white" href="#">View all</a>
-          </div>
-          </div>
-        </div>
-      </div>
-      <div class="section-product">
-        <div class="product-image"><img src="{{media url="wysiwyg/Seraxil.png"}}" alt="" /></div>
-        <div class="product-content">
-          <h4>Seraxil</h4>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-</div>
-<div class="overlay">
-  <div class="flag-content video-link4 demo-link">
-    <img src="<?php echo $block->getViewFileUrl('images/video.png'); ?>" height="50" alt="docs-org" />
-    <div class="flag-button">
-    <a class="button-style border-white" href="#">View all</a>
-  </div>
-  </div>
-</div>
-      </div>
-      <div class="section-product">
-        <div class="product-image"><img src="{{media url="wysiwyg/Myeliv.png"}}" alt="" /></div>
-        <div class="product-content">
-          <h4>Myeliv</h4>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        </div>
-        <div class="overlay">
-          <div class="flag-content">
-            <img src="<?php echo $block->getViewFileUrl('images/video.png'); ?>" height="50" alt="docs-org" />
-            <div class="flag-button">
-            <a class="button-style border-white" href="#">View all</a>
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<?php
+  echo $this->getLayout()
+             ->createBlock('Magento\Cms\Block\Block')
+             ->setBlockId('our-flagships')
+             ->toHtml();
+ ?>
 <div class="curve-white"></div>
 <script>
   require([
@@ -117,5 +18,4 @@
     			});
 
     });
-
 </script>
