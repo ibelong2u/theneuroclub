@@ -12,7 +12,7 @@
         <block class="Magento\Framework\View\Element\Template" name="flagships" after="about.intro" template="Magento_Theme::html/flagships.phtml"/>
       </container>
       <container name="content.bottom">
-        <block class="Magento\Framework\View\Element\Template" name="allworks.static" after="product.banner" before="secondary.banner" template="Magento_Theme::html/allworks-static.phtml"/>
+        <block class="Magento\Framework\View\Element\Template" name="allworks.static" before="secondary.banner" template="Magento_Theme::html/allworks-static.phtml"/>
         <block class="Magento\Framework\View\Element\Template" name="secondary.banner" after="allworks_static" before="home.blog" template="Magento_Theme::html/static-banner.phtml"/>
         <block class="Magento\Framework\View\Element\Template" name="home.blog" after="secondary.banner" template="Magento_Theme::html/home-blog.phtml"/>
       </container>
