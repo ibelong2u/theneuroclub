@@ -34,9 +34,6 @@ ul, li{
   .cart-summary{
       background: none;
       top:0 !important;
-      @media only screen and (max-width: 767px){
-        padding: 10px;
-        }
       .summary{
         font-weight: 600;
         font-size: 1.4rem;
@@ -45,6 +42,16 @@ ul, li{
         @media only screen and (min-width: 991px){
         margin-top: 23px;
           }
+      }
+      #block-shipping 
+      {
+        .title 
+        {
+          @media all and (max-width:767px)
+          {
+            padding-left:15px;
+          }
+        }
       }
      ul{
        li{
@@ -59,6 +66,19 @@ ul, li{
         -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
         -moz-box-shadow:0px 2px 15px 1px rgba(0, 0, 0, 0.1);
         box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+        .totals 
+        {
+          tbody 
+          {
+            .shipping 
+            {
+              .amount 
+              {
+                color:#1a6d00;
+              }
+            }
+          }
+        }
       }
   }
   .cart{
@@ -101,7 +121,11 @@ ul, li{
         }
       }
     }
-    .items{
+    table.items{
+        -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow:0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+        border-collapse:separate !important;
       tbody{
         tr{
           .item{
@@ -110,11 +134,23 @@ ul, li{
             }
               a{
                   @media only screen and (max-width: 767px){
-                    padding-top: 25px;
+                    padding-top: 20px;
                   }
                 .product-image-wrapper{
                     @media only screen and (max-width: 767px){
                       width: 130px;
+                    }
+                    @media only screen and (max-width: 685px){
+                      width: 110px;
+                    }
+                    @media only screen and (max-width: 610px){
+                      width: 90px;
+                    }
+                    @media only screen and (max-width: 560px){
+                      width: 75px;
+                    }
+                    @media only screen and (max-width: 510px){
+                      width: 65px;
                     }
                     img{
                       @media only screen and (max-width: 767px){
@@ -124,10 +160,33 @@ ul, li{
                   }
               }
               .product-item-details{
+                  .item-options 
+                  {
+                    display:none;
+                  }
+                  .product-item-name 
+                  {
+                    @media all and (max-width:767px)
+                    {
+                      padding-right:35px;
+                    }
+                  }
                   @media only screen and (max-width: 767px){
                     padding-top: 17px;
-                    padding-left: 60px;
+                    padding-left: 70px;
                   }
+                  @media only screen and (max-width: 685px){
+                      padding-left:55px;
+                   }
+                   @media only screen and (max-width: 610px){
+                      padding-left:40px;
+                   }
+                   @media only screen and (max-width: 560px){
+                      padding-left:25px;
+                   }
+                   @media only screen and (max-width: 510px){
+                      padding-left:13px;
+                   }
               }
           }
         }
@@ -137,35 +196,83 @@ ul, li{
         th{
           text-align: center !important;
           text-transform: uppercase;
-          border: none !important;
+          border-bottom: 1px solid rgba(204,204,204,0.5) !important;
         }
       }
+      tbody{
+          .item-actions 
+          {
+            td 
+            {
+              border-bottom: 1px solid rgba(204,204,204,0.5) !important;
+            }
+          }
+          &:last-child 
+          {
+            .item-actions 
+            {
+              td 
+              {
+                border-bottom: none !important;
+              }
+            }
+          }
+        }
       tbody.item{
-          border: none;
-          -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-          -moz-box-shadow:0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-          box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
           .item-info{
             td.col{
               text-align: right !important;
-              @media only screen and (max-width: 600px){
+              @media only screen and (max-width: 510px){
                 text-align: center !important;
               }
               @media only screen and (min-width: 991px){
                 text-align: center !important;
               }
+              &:before 
+              {
+                @media all and (max-width:767px)
+                {
+                  padding-right:13px;
+                }
+                @media all and (max-width:510px)
+                {
+                  padding-right:0;
+                }
+              }
+              &.price 
+              {
+                .price-excluding-tax 
+                {
+                  .cart-price 
+                  {
+                    padding-right:0px;
+                  }
+                }
+              }
+              .price-excluding-tax 
+              {
+                .cart-price 
+                {
+                  padding-right:13px;
+                  @media all and (max-width:510px)
+                  {
+                    padding-right:0;
+                  }
+                }
+              }
             }
             td.item{
               text-align: left !important;
+              padding-bottom:0;
             }
           }
           .item-actions{
             .actions-toolbar{
-              padding-bottom: 30px;
-              // @media only screen and (min-width: 450px){
-              //   padding-bottom: 30px;
-              //   margin-top: -50px;
-              // }
+              padding-bottom: 0px;
+              @media all and (max-width:767px)
+              {
+                min-height:25px;
+              }
               .action-edit{
                 display: none;
               }
@@ -298,10 +405,11 @@ ul, li{
     }
   }
   .cart-container .table-wrapper .items tbody.item .item-actions .actions-toolbar .action-delete {
+    top: -25px;
     @media only screen and (max-width: 767px){
-      margin-right: 10px;
+      margin-right: 12px !important;
       position: absolute;
-      top: -160px;
+      top: -163px;
       right: 0;
     }
     }
