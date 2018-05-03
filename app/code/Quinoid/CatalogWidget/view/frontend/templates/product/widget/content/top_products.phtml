@@ -7,6 +7,7 @@
     $image = 'new_products_content_widget_grid';
     $items = $block->getProductCollection()->getItems();
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
     $showWishlist = true;
     $showCompare = true;
     $showCart = true;
@@ -46,7 +47,7 @@
             <?php if ($_item->isSaleable()): ?>
                   <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
                       <button class="button button-style-1" data-mage-init='{"redirectUrl":{"url":"<?php echo $block->escapeUrl($block->getAddToCartUrl($_item)) ?>"}}' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
-                          <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span>
+                          <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span> | <?= /* @escapeNotVerified */ $priceHelper->currency($_item->getPrice(), true, false) ?>
                       </button>
                   <?php else: ?>
                       <?php
@@ -54,13 +55,10 @@
                       $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
                       ?>
                       <button class="button" data-post='<?php /* @noEscape */ echo $postData; ?>' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
-                          <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span>
+                          <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span> | <?= /* @escapeNotVerified */ $priceHelper->currency($_item->getPrice(), true, false) ?>
                       </button>
                   <?php endif; ?>
 
-                  <div class="product-item-price">
-                    <?php echo $block->getProductPriceHtml($_item, $type) ?>
-                  </div>
             <?php else: ?>
                 <?php if ($_item->getIsSalable()): ?>
                     <div class="stock available"><span><?php echo $block->escapeHtml(__('In stock')) ?></span></div>
@@ -70,8 +68,6 @@
             <?php endif; ?>
         </div>
     <?php endif; ?>
-    <!-- <a class="button" href="#">Subscribe | ₹ 999.99</a> -->
-    <!-- <h3>Lorem ipsum dolar sit</h3> -->
     <div class="product-row">
       <div class="row">
         <?php
@@ -83,11 +79,11 @@
             $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId);
             ?>
             <div class="sub-product">
-              <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
-              <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
-              <!-- <h4>30 Capsule pack</h4>
-              <h6>Lorem ipsum dolar</h6> -->
-              <p><?php echo $block->getProductPriceHtml($childItem, $type); ?></p>
+              <a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
+                <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
+                <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
+                <p><?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?></p>
+              </a>
             </div>
             <?php
           }
@@ -117,7 +113,7 @@
               <?php if ($_item->isSaleable()): ?>
                     <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
                         <button class="button button-style-1" data-mage-init='{"redirectUrl":{"url":"<?php echo $block->escapeUrl($block->getAddToCartUrl($_item)) ?>"}}' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
-                            <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span>
+                            <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span> | <?= /* @escapeNotVerified */ $priceHelper->currency($_item->getPrice(), true, false) ?>
                         </button>
                     <?php else: ?>
                         <?php
@@ -125,13 +121,10 @@
                         $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
                         ?>
                         <button class="button" data-post='<?php /* @noEscape */ echo $postData; ?>' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
-                            <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span>
+                            <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span> | <?= /* @escapeNotVerified */ $priceHelper->currency($_item->getPrice(), true, false) ?>
                         </button>
                     <?php endif; ?>
 
-                    <div class="product-item-price">
-                      <?php echo $block->getProductPriceHtml($_item, $type) ?>
-                    </div>
               <?php else: ?>
                   <?php if ($_item->getIsSalable()): ?>
                       <div class="stock available"><span><?php echo $block->escapeHtml(__('In stock')) ?></span></div>
@@ -141,8 +134,6 @@
               <?php endif; ?>
           </div>
       <?php endif; ?>
-      <!-- <a class="button" href="#">Subscribe | ₹ 999.99</a> -->
-      <!-- <h3>Lorem ipsum dolar sit</h3> -->
       <div class="product-row">
         <div class="row">
           <?php
@@ -154,11 +145,11 @@
               $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId);
               ?>
               <div class="sub-product">
-                <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
-                <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
-                <!-- <h4>30 Capsule pack</h4>
-                <h6>Lorem ipsum dolar</h6> -->
-                <p><?php echo $block->getProductPriceHtml($childItem, $type); ?></p>
+                <a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
+                  <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
+                  <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
+                  <p><?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?></p>
+                </a>
               </div>
               <?php
             }

@@ -7,7 +7,6 @@
     <referenceContainer name="main">
       <container name='content'>
         <block class="Magento\Framework\View\Element\Template" name="flagships.static" template="Magento_Theme::html/flagships-static.phtml"/>
-        <!-- <block class="Magento\Framework\View\Element\Template" name="product.banner" after="flagships.static" before="allworks.static" template="Magento_Theme::html/product-banner.phtml"/> -->
       </container>
       <container name="content.bottom">
         <block class="Magento\Framework\View\Element\Template" name="allworks.static" after="product.banner" before="secondary.banner" template="Magento_Theme::html/allworks-static.phtml"/>
