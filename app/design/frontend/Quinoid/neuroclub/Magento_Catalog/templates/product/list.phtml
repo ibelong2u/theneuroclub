@@ -78,7 +78,7 @@ $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
                           <input type="hidden" name="product" value="<?= /* @escapeNotVerified */ $postParams['data']['product'] ?>">
                           <input type="hidden" name="<?= /* @escapeNotVerified */ Action::PARAM_NAME_URL_ENCODED ?>" value="<?= /* @escapeNotVerified */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
                           <?= $block->getBlockHtml('formkey') ?>
-                          <div class="section-button plp-bottom-button">
+                          <div class="section-button plp-item-button">
                             <button type="submit"
                               title="<?= $block->escapeHtml(__('Subscribe')) ?>"
                               class="action tocart primary">
