@@ -106,59 +106,12 @@
   </div>
 </div>
 <div class="curve-white"></div>
-<script type="text/x-magento-init">
-    // {
-    //   videoLightning({
-    //     elements: [
-    //       {
-    //         ".video-link": {
-    //           autoplay: 1,
-    //           easeOut: 1000,
-    //           bdColor: "#ddd",
-    //           bdOpacity: 0.6,
-    //           glow: 20,
-    //           glowColor: "#000"
-    //         }
-    //       },
-    //       {
-    //         "#bare-iframe-link": {
-    //           id: 'f-images/JqueryVideoLightningIconPurple144.png',
-    //           frameColor: '#555',
-    //           frameBorder: '3px solid #3A0372',
-    //           bdOpacity: 0.9,
-    //           glow: 0,
-    //           xBgColor: '#3A0372',
-    //           xColor: '#f5f5f5',
-    //           xBorder: '3px solid #555'
-    //         }
-    //       }
-    //     ]
-    //   });
-    //   // $(function () {
-    //   //     $(".video-link4").jqueryVideoLightning({
-    //   //         id: 'y-26mMPKS83c4',
-    //   //         autoplay: 1,
-    //   //         startTime: 62,
-    //   //         fadeIn: 0,
-    //   //         bdColor: '#f5f5f5',
-    //   //         bdOpacity: 1,
-    //   //         glow: 20,
-    //   //         glowColor: '#000',
-    //   //         controls: 0,
-    //   //         showinfo: 0,
-    //   //         color: "white"
-    //   //     });
-    //   // });
-    // }
-</script>
 <script>
   require([
         'jquery',
         'videopopup'
     ], function($) {
-
-          alert("hi");
-          $(".youtube-link").grtyoutube({
+          jQuery(".youtube-link").grtyoutube({
     				autoPlay:true,
     				theme: "dark"
     			});

@@ -6,8 +6,10 @@
  * Copyright (c) 2017 GRT107
  * Released under the MIT license
 */
-
-(function ( $ ) {
+require([
+			'jquery',
+			'videopopup'
+	], function($) {
 
 	$.fn.grtyoutube = function( options ) {
 
@@ -55,4 +57,4 @@
 		});
 	};
 
-}( jquery ));
+});
