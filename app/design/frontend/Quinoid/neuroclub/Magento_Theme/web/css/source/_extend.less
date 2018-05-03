@@ -79,7 +79,7 @@ h1,h2,h3,h4,h5,h6,p{
 h2{
   font-size: 25px;
   color: #374076;
-  padding: 10px 0 20px 0;
+  padding: 25px 0 20px 0;
   margin-top: 0;
   margin-bottom: 0;
   @media only screen and (min-width: 468px){
@@ -721,6 +721,112 @@ button{
       }
     }
   }
+  //neuroclub static top content
+  .static-neuro-content{
+    h3{
+      text-transform: uppercase;
+      @media only screen and (max-width: 496px){
+      font-size: 12px;
+      }
+      @media only screen and (max-width: 768px){
+      font-size: 14px;
+      }
+      @media only screen and (max-width: 800px){
+      font-size: 15px;
+      }
+      @media only screen and (max-width: 991px){
+      font-size: 16px;
+      }
+    }
+    .neuro-content-head{
+      padding: 15px;
+      .pic-neuro-head{
+        float: none;
+        width: 28%;
+        height: 26%;
+        overflow: hidden;
+        margin: 0 auto;
+        @media only screen and (min-width: 768px){
+          width: 25%;
+          height: 25%;
+          margin:0 0 0 25%;
+          float: left;
+        }
+      }
+      .neuro-desc-head{
+        float: none;
+        width: 76%;
+        margin: 0 auto;
+        text-align: center;
+        @media only screen and (max-width: 467px){
+            padding: 10px 0;
+        }
+        @media only screen and (min-width: 468px){
+              padding: 30px 0;
+        }
+        @media only screen and (min-width: 768px){
+            padding: 10px 0;
+            width: 30%;
+            float: right;
+            text-align: left;
+            margin: 0;
+        }
+        @media only screen and (min-width: 991px){
+            padding: 40px 0;
+        }
+
+      }
+    }
+    .row{
+
+        .col-6{
+          position: relative;
+          width: 100%;
+          min-height: 1px;
+          padding: 15px;
+          @media only screen and (min-width: 768px){
+            -ms-flex: 0 0 45%;
+            flex: 0 0 45%;
+            max-width: 45%;
+          }
+        }
+
+        .neuro-content{
+          .pic-neuro{
+            float: left;
+            width: 20%;
+            height: 20%;
+            overflow: hidden;
+            @media only screen and (max-width: 467px){
+              width: 25%;
+              height: 25%;
+            }
+            @media only screen and (min-width: 768px){
+              width: 25%;
+              height: 25%;
+            }
+          }
+          .neuro-desc{
+            float: right;
+            width: 75%;
+
+            @media only screen and (max-width: 467px){
+                padding: 10px 0;
+            }
+            @media only screen and (min-width: 468px){
+                  padding: 30px 0;
+            }
+            @media only screen and (min-width: 768px){
+                padding: 10px 0;
+            }
+            @media only screen and (min-width: 991px){
+                padding: 40px 0;
+            }
+
+          }
+        }
+    }
+  }
   //Our flagship section
   .flagships-static{
       background: #fff;
@@ -731,11 +837,67 @@ button{
       min-height: 1px;
       padding: 15px;
       margin: 15px;
-      background-color: #ffffff;
-      border: 4px solid #ffffff;
+      border-radius: 3%;
+      background:#fff !important;
       -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
       -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
       box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+      &:hover{
+        .overlay {
+          height: 100%;
+          border-radius: 3%;
+          }
+        }
+        .overlay {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background-color: rgba(92, 92, 92,.9);
+          border-radius: 3%;
+          overflow: hidden;
+          width: 100%;
+          height: 0;
+          transition: .5s ease;
+          .flag-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            text-align: center;
+            img{
+                width: 20%;
+              @media only screen and (min-width:468px){
+                width: 15%;
+              }
+              @media only screen and (min-width:991px){
+                width: 20%;
+              }
+            }
+            .flag-button{
+              padding-top: 15px;
+              @media only screen and (min-width:991px){
+                padding-top: 30px;
+              }
+              a{
+                color: #fff;
+              }
+              .button-style{
+                background: transparent;
+                border: 2px solid #fff;
+                border-radius: 8px;
+                padding: 5px 10px;
+                margin-bottom: 10px;
+                @media only screen and (min-width:991px){
+                  padding: 7px 20px;
+                  margin-bottom: 15px;
+                }
+              }
+            }
+          }
+        }
       @media only screen and (min-width:768px){
         -ms-flex: 0 0 23.8%;
         flex: 0 0 23.8%;
