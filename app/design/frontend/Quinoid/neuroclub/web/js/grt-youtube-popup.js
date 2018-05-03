@@ -16,7 +16,7 @@ require([
 		return this.each(function() {
 
 			// Get video ID
-			var getvideoid = $(this).attr("youtubeid");
+			var getvideoid = $(this).closest('div').attr('id');
 
 			// Default options
 			var settings = $.extend({

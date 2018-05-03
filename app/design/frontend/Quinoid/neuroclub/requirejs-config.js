@@ -8,7 +8,7 @@ var config = {
       "videopopup":        'js/grt-youtube-popup',
     },
     "shim":{
-        "Vmasciotta_OwlCarousel/js/owl.carousel.min": ["jquery"]
-     },
-     "deps":["jquery"]
+        "Vmasciotta_OwlCarousel/js/owl.carousel.min": ["jquery"],
+        "videopopup": ["jquery"]
+     }
 };
