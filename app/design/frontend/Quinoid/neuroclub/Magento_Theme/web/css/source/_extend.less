@@ -470,15 +470,15 @@ button{
 }
 //Hearo banner
 .desktop-view{
-  display: none;
+  display: none !important;
   @media only screen and (min-width: 768px){
-    display: block;
+    display: block !important;
   }
 }
 .mobile-view{
-  display: block;
+  display: block !important;
   @media only screen and (min-width: 768px){
-    display: none;
+    display: none !important;
   }
 }
 .home-banner-grid{
@@ -501,7 +501,7 @@ button{
   margin-top: 115px;
   }
   .owl-carousel{
-    .owl-wrapper-outer{
+    .owl-stage-outer{
       .owl-item{
         .item{
           img, object, video, embed {
@@ -581,21 +581,21 @@ button{
       margin-bottom: 0;
   }
   #owl-product{
-    .owl-wrapper-outer{
+    .owl-stage-outer{
       padding-top: 60px;
       .item{
         position:relative;
-        padding: 20px;
+        padding: 30px;
         margin: 5px;
         text-align: center;
         box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
         -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
         -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
         @media only screen and (min-width: 468px){
-          padding: 25px;
+          padding: 40px;
         }
         @media only screen and (min-width: 768px){
-          padding: 30px;
+          padding: 60px;
           margin: 10px;
         }
         @media only screen and (min-width: 768px){
@@ -606,23 +606,19 @@ button{
           position: absolute;
           top:-55px;
           left: 35%;
-          width:45%;
+          width:220px;
           @media only screen and (min-width: 479px){
               left:40%;
-              width:30%;
+                width:220px;
           }
           @media only screen and (min-width: 768px){
             left:38%;
-            width:30%;
+            width:220px;
           }
           @media only screen and (min-width: 991px){
-            width:50%;
-            left:22%;
+              width:220px;
+            left:40%;
             top:-43px;
-          }
-          @media only screen and (min-width: 1200px){
-            left:25%;
-            top: -40px;
           }
         }
         .product-title{
@@ -707,6 +703,7 @@ button{
             }
             img{
               width: 45%;
+              margin: 0 auto;
               @media only (max-width: 1200px) and (min-width: 768px){
                 width: 25%;
               }
