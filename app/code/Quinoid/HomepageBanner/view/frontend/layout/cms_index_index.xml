@@ -27,7 +27,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 	<body>
 		<referenceContainer name="page.top">
-            <container name='home.banner' htmlTag="div" htmlClass="carousel" after="navigation.sections">
+            <container name='home.banner' htmlTag="div" htmlClass="carousel top-padding" after="navigation.sections">
                 <block class="Magento\Framework\View\Element\Template" name="homepage_banner" template="Quinoid_HomepageBanner::html/homepage-banner.phtml"/>
             </container>
     </referenceContainer>
