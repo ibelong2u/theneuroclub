@@ -1199,12 +1199,19 @@ button{
               }
               .ui-state-default{
                 background: #fcfcfc;
+                padding-right:25px;
                 &:after {
                   content: '\002B';
                   font-family: 'luma-icons';
                   font-size: 25px;
                   line-height: 14px;
-                  float: right;
+                  position:absolute;
+                  top:35px;
+                  right:10px;
+                  @media all and (max-width:767px)
+                  {
+                    top:25px;
+                  }
                   @media only screen and (min-width: 991px){
             				  font-size: 35px;
             			}
