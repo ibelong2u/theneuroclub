@@ -1,5 +1,3 @@
-// variables
-@blue-button : #333e74;
 //Commeon styles
 h1,h2,h3,h4,h5,h6,p{
   margin: 0;
@@ -16,16 +14,6 @@ h1,h2,h3,h4,h5,h6,p{
   // margin-right: -15px;
   // margin-left: -15px;
 }
-.desktop-none
-{
-      display: none !important;
-
-  @media all and (max-width:768px)
-  {
-    display:block !important;
-  }
-}
-
 .margin{
   margin: 15px 0;
   padding: 15px 0;
@@ -79,7 +67,7 @@ h1,h2,h3,h4,h5,h6,p{
 h2{
   font-size: 25px;
   color: #374076;
-  padding: 25px 0 20px 0;
+  padding: 10px 0 20px 0;
   margin-top: 0;
   margin-bottom: 0;
   @media only screen and (min-width: 468px){
@@ -184,10 +172,34 @@ button{
     margin: 60px 0 60px 0;
   }
 }
-.top-padding{
-  margin-top: 65px;
+//Full width container styles
+.page-main,.page-bottom{
+  max-width: 100% !important;
+  background: #fafafa;
+  // background: #fff;
+  padding-left: 1px;
+  padding-right: 1px;
   @media only screen and (min-width: 768px){
-  margin-top: 115px;
+    background: #fff;
+  }
+.home-container{
+  width: 100%;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
+  @media only screen and (min-width: 768px){
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    // max-width: 1280px;
+    max-width: 1350px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width:auto;
+    }
   }
 }
 //Curve styles
@@ -245,19 +257,12 @@ button{
   -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-  .nav-sections-items
-  {
-    .section-item-title
-    {
-          display: none;
-    }
-    .section-item-content
-    {
-        margin-top: 0;
-    }
+}
+.nav-toggle{
+  &::before{
+    color: #e66698;
   }
 }
-
 .page-header{
   position: fixed;
   width: 100%;
@@ -274,30 +279,11 @@ button{
     border-bottom: none;
   }
 .header{
-    position: relative;
-    top:30px;
-    @media all and (max-width:767px){
-      top: 0;
-    }
-    .header.links
-    {
-      display: none;
-    }
-
-.header-account
-{
-  float: right;
-    margin-right: 65px;
-    width: 100px;
-    text-align: center;
-    margin-top: 16px;
-    a
-    {
-      color: #333;
-      font-weight: 600;
-    }
-}
-
+  position: relative;
+  top:30px;
+  @media all and (max-width:767px){
+    top: 0;
+  }
   .logo{
     width: 40px;
     margin-top: 0;
@@ -372,20 +358,11 @@ button{
       font-weight: 600;
       text-transform: uppercase;
       color: #575757;
-      margin-bottom: 0px;
-      padding-top: 7px;
       @media only screen and (min-width: 468px) {
         font-size: 14px;
       }
       @media only screen and (min-width: 768px){
         font-size:16px;
-      }
-      .customer-name
-      {
-        .action
-        {
-          color: #333;
-        }
       }
       .customer-menu{
         right: -5px;
@@ -397,31 +374,9 @@ button{
           padding-top: 10px;
           border: solid 1px;
         }
-        &[aria-hidden="false"]
-        {
-          .header.links
-          {
-              display: block !important;
-              .ui-menu-item
-              {
-                a
-                {
-                  font-size: 14px;
-                }
-                &.active
-                {
-                  background: #f5f5f5;
-                }
-              }
-          }
-        }
         .header{
           @media all and (max-width:768px){
             list-style: none;
-          }
-          &.links
-          {
-            display: none !important;
           }
           li{
             a{
@@ -472,26 +427,6 @@ button{
   }
 }
 .navigation {
-  .customer-welcome
-  {
-    margin-bottom: 0px;
-    .action.switch
-    {
-      color: #333;
-    }
-    .customer-menu
-    {
-      &[aria-hidden="false"]
-      {
-        .ui-corner-all
-        {
-          display: block !important;
-          font-size: 14px;
-          color: #575757;
-        }
-      }
-    }
-  }
    .level-top:hover a span, .level-top.ui-state-focus a span {
       color: #374076;
       @media all and (max-width:1024px)
@@ -533,7 +468,6 @@ button{
         color: rgb(230, 102, 152);
       }
 }
-
 //Hearo banner
 .desktop-view{
   display: none !important;
@@ -573,212 +507,71 @@ button{
           img, object, video, embed {
             height: auto;
             width: 100%;
-// minicart styling
-.minicart-wrapper{
-  .action.showcart{
-    .counter.qty
-    {
-      border-radius: 50%;
-      margin-left: -9px;
-      margin-top: -5px;
-      background: #ef4800;
-      .counter-number
-      {
-        background: #ef4800;
-      }
-    }
-  }
-  .block-minicart
-  {
-    padding-bottom: 5px;
-    border: none;
-    border-top: 1px solid #ededee;
-    #minicart-content-wrapper
-    {
-      .block-content
-      {
-        .action.close:hover
-        {
-          color: black;
-        }
-        .items-total
-        {
-          font-size: 16px;
-        }
-        .subtotal
-        {
-          .label
-          {
-            span
-            {
-              font-size: 16px;
-              font-weight: 600;
-            }
-          }
-        }
-        .actions
-        {
-          .primary
-          {
-            .checkout
-            {
-              border-radius: 50px;
-              background: @blue-button;
-              border: none;
-              padding: 10px;
-            }
-          }
-        }
-        .minicart-items-wrapper
-        {
-          border-top: 0;
-          max-height: 300px;
-          .minicart-items
-          {
-            .product-item
-            {
-              .product
-              {
-                .product-item-details
-                {
-                  .product-item-name
-                  {
-                    a
-                    {
-                      color: #333;
-                    }
-                  }
-                  .product-item-pricing
-                  {
-                    .details-qty
-                    {
-                      .label
-                      {
-                        text-transform: uppercase;
-                      }
-                    }
-                  }
-
-                  .product.actions
-                  {
-                    .primary
-                    {
-                      display: none;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        .actions
-        {
-          .secondary
-          {
-            .viewcart
-            {
-              span
-              {
-                color: #333;
-                font-size: 16px;
-              }
-            }
           }
         }
       }
     }
   }
 }
-.cms-index-index{
-  //Full width container styles
-  .page-main,.page-bottom{
-    max-width: 100% !important;
-    background: #fafafa;
-    // background: #fff;
-    padding-left: 1px;
-    padding-right: 1px;
-    @media only screen and (min-width: 768px){
-      background: #fff;
-    }
-  .home-container{
-    width: 100%;
-    -webkit-flex-grow: 1;
-    flex-grow: 1;
-    -webkit-flex-shrink:0;
-    flex-shrink: 0;
-    -webkit-flex-basis: auto;
-    flex-basis: auto;
-    @media only screen and (min-width: 768px){
-      box-sizing: border-box;
-      margin-left: auto;
-      margin-right: auto;
-      // max-width: 1280px;
-      max-width: 1350px;
-      padding-left: 20px;
-      padding-right: 20px;
-      width:auto;
-      }
-    }
-  }
-  //Hearo banner
-  .desktop-view{
-    display: none;
-    @media only screen and (min-width: 768px){
-      display: block;
-    }
-  }
-  .mobile-view{
-    display: block;
-    @media only screen and (min-width: 768px){
-      display: none;
-    }
-  }
-  .home-banner-grid{
+//Our flagship section
+.flagships-static{
+    background: #fff;
+  .section-product{
+    text-align: center;
     position: relative;
-    padding-bottom: 50.65%;
-    height: 0;
-    overflow: hidden;
-     iframe,  object,  embed {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      max-width: 100%;
-  }
-  }
-  .carousel{
-    .owl-carousel{
-      .owl-wrapper-outer{
-        .owl-item{
-          .item{
-            img, object, video, embed {
-              height: auto;
-              width: 100%;
-            }
-          }
-        }
+    width: 100%;
+    min-height: 1px;
+    padding: 15px;
+    margin: 15px;
+    background-color: #ffffff;
+    border: 4px solid #ffffff;
+    -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    @media only screen and (min-width:768px){
+      -ms-flex: 0 0 23.8%;
+      flex: 0 0 23.8%;
+      max-width:23.8%;
+    }
+    @media only screen and (min-width:859px){
+      -ms-flex: 0 0 25%;
+      flex: 0 0 25%;
+      max-width: 25%;
+    }
+    @media only screen and (min-width: 991px){
+      -ms-flex: 0 0 26%;
+      flex: 0 0 26%;
+      max-width: 27%;
+    }
+    @media only screen and (min-width: 1084px){
+      -ms-flex: 0 0 26.11%;
+      flex: 0 0 26.11%;
+      max-width: 26.11%;
+      padding:45px 15px;
+    }
+    @media only screen and (min-width: 1200px){
+      -ms-flex: 0 0 27.4%;
+      flex: 0 0 27.4%;
+      max-width: 27.4%;
+    }
+    @media only screen and (min-width: 1303px){
+      -ms-flex: 0 0 27.9%;
+      flex: 0 0 27.9%;
+      max-width: 27.9%;
+    }
+    p{
+      width: 240px;
+      margin: 0 auto;
+      @media only screen and (min-width:768px){
+        width: 160px;
+      }
+      @media only screen and (min-width:859px){
+        width: 180px;
+      }
+      @media only screen and (min-width:991px){
+        width: 240px;
       }
     }
-  }
-  //neuroclub static top content
-  .static-neuro-content{
-    h3{
-      text-transform: uppercase;
-      @media only screen and (max-width: 496px){
-      font-size: 12px;
-      }
-      @media only screen and (max-width: 768px){
-      font-size: 14px;
-      }
-      @media only screen and (max-width: 800px){
-      font-size: 15px;
-      }
-      @media only screen and (max-width: 991px){
-      font-size: 16px;
-      }
-    }
-
   }
 }
 //product banner
@@ -794,46 +587,20 @@ button{
         position:relative;
         padding: 30px;
         margin: 5px;
-    .neuro-content-head{
-      padding: 15px;
-      .pic-neuro-head{
-        float: none;
-        width: 28%;
-        height: 26%;
-        overflow: hidden;
-        margin: 0 auto;
-        @media only screen and (min-width: 768px){
-          width: 25%;
-          height: 25%;
-          margin:0 0 0 25%;
-          float: left;
-        }
-      }
-      .neuro-desc-head{
-        float: none;
-        width: 76%;
-        margin: 0 auto;
         text-align: center;
-        @media only screen and (max-width: 467px){
-            padding: 10px 0;
-        }
+        box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
         @media only screen and (min-width: 468px){
           padding: 40px;
         }
         @media only screen and (min-width: 768px){
           padding: 60px;
           margin: 10px;
-              padding: 30px 0;
         }
         @media only screen and (min-width: 768px){
-            padding: 10px 0;
-            width: 30%;
-            float: right;
-            text-align: left;
-            margin: 0;
-        }
-        @media only screen and (min-width: 991px){
-            padding: 40px 0;
+
+          margin: 30px;
         }
         .image{
           position: absolute;
@@ -852,240 +619,87 @@ button{
               width:220px;
             left:40%;
             top:-43px;
-
-      }
-    }
-    .row{
-
-        .col-6{
-          position: relative;
-          width: 100%;
-          min-height: 1px;
-          padding: 15px;
-          @media only screen and (min-width: 768px){
-            -ms-flex: 0 0 45%;
-            flex: 0 0 45%;
-            max-width: 45%;
           }
         }
-
-        .neuro-content{
-          .pic-neuro{
-            float: left;
-            width: 20%;
-            height: 20%;
-            overflow: hidden;
-            @media only screen and (max-width: 467px){
-              width: 25%;
-              height: 25%;
-            }
-            @media only screen and (min-width: 768px){
-              width: 25%;
-              height: 25%;
-            }
+        .product-title{
+          padding: 30px 0 15px 0;
+          @media all and (min-width: 479px) and (max-width:598px){
+            padding: 40px 0 15px 0;
           }
-          .neuro-desc{
-            float: right;
-            width: 75%;
-
-            @media only screen and (max-width: 467px){
-                padding: 10px 0;
+          @media all and (min-width: 599px){
+            padding: 50px 0 15px 0;
+          }
+          // @media only screen (min-width:768px) and (max-width: 990px){
+          //   padding: 50px 0 15px 0;
+          // }
+          @media only screen and (min-width: 991px){
+            padding: 30px 0 20px 0;
+          }
+          @media only screen and (min-width: 1200px){
+            padding: 50px 0 20px 0;
+          }
+          a{
+            color:#000;
+            font-size: 23px;
+            font-weight: 500;
+            text-transform:uppercase;
+            &:hover , &:focus, &:active {
+                color: #374076;
+            }
+            @media all and (max-width:1024px)
+            {
+              &:hover , &:focus, &:active {
+                  color: #000;
+              }
             }
             @media only screen and (min-width: 468px){
-                  padding: 30px 0;
-            }
-            @media only screen and (min-width: 768px){
-                padding: 10px 0;
+              font-size: 25px;
             }
             @media only screen and (min-width: 991px){
-                padding: 40px 0;
-            }
-
-          }
-        }
-    }
-  }
-  //Our flagship section
-  .flagships-static{
-      background: #fff;
-    .section-product{
-      text-align: center;
-      position: relative;
-      width: 100%;
-      min-height: 1px;
-      padding: 15px;
-      margin: 15px;
-      border-radius: 3%;
-      background:#fff !important;
-      -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-      -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-      box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-      &:hover{
-        .overlay {
-          height: 100%;
-          border-radius: 3%;
-          }
-        }
-        .overlay {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          background-color: rgba(92, 92, 92,.9);
-          border-radius: 3%;
-          overflow: hidden;
-          width: 100%;
-          height: 0;
-          transition: .5s ease;
-          .flag-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            text-align: center;
-            img{
-                width: 20%;
-              @media only screen and (min-width:468px){
-                width: 15%;
-              }
-              @media only screen and (min-width:991px){
-                width: 20%;
-              }
-            }
-            .flag-button{
-              padding-top: 15px;
-              @media only screen and (min-width:991px){
-                padding-top: 30px;
-              }
-              a{
-                color: #fff;
-              }
-              .button-style{
-                background: transparent;
-                border: 2px solid #fff;
-                border-radius: 8px;
-                padding: 5px 10px;
-                margin-bottom: 10px;
-                @media only screen and (min-width:991px){
-                  padding: 7px 20px;
-                  margin-bottom: 15px;
-                }
-              }
+              font-size: 30px;
             }
           }
         }
-      @media only screen and (min-width:768px){
-        -ms-flex: 0 0 23.8%;
-        flex: 0 0 23.8%;
-        max-width:23.8%;
-      }
-      @media only screen and (min-width:859px){
-        -ms-flex: 0 0 25%;
-        flex: 0 0 25%;
-        max-width: 25%;
-      }
-      @media only screen and (min-width: 991px){
-        -ms-flex: 0 0 26%;
-        flex: 0 0 26%;
-        max-width: 27%;
-      }
-      @media only screen and (min-width: 1084px){
-        -ms-flex: 0 0 26.11%;
-        flex: 0 0 26.11%;
-        max-width: 26.11%;
-        padding:45px 15px;
-      }
-      @media only screen and (min-width: 1200px){
-        -ms-flex: 0 0 27.4%;
-        flex: 0 0 27.4%;
-        max-width: 27.4%;
-      }
-      @media only screen and (min-width: 1303px){
-        -ms-flex: 0 0 27.9%;
-        flex: 0 0 27.9%;
-        max-width: 27.9%;
-      }
-      p{
-        width: 240px;
-        margin: 0 auto;
-        @media only screen and (min-width:768px){
-          width: 160px;
+        .actions-primary{
+          margin: 1s5px 0;
+          @media only screen and (min-width: 991px){
+            margin: 20px 0;
+          }
+          p{
+            color:#374076;
+            font-weight: 600;
+            font-size: 18px !important;
+          }
         }
-        @media only screen and (min-width:859px){
-          width: 180px;
-        }
-        @media only screen and (min-width:991px){
-          width: 240px;
-        }
-      }
-    }
-  }
-  //product banner
-  .home-product-slider{
-    .padding-70{
-        padding-bottom: 0 !important;
-        margin-bottom: 0;
-    }
-    #owl-product{
-      .owl-wrapper-outer{
-        padding-top: 60px;
-        .item{
-          position:relative;
-          padding: 20px;
-          margin: 5px;
-          text-align: center;
-          box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-          -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-          -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+        h5{
+          color: #6e6e6e;
+          font-size: 14px;
+          font-weight: 500;
+          margin-bottom: 15px;
           @media only screen and (min-width: 468px){
-            padding: 25px;
+            font-size: 15px;
           }
           @media only screen and (min-width: 768px){
-            padding: 30px;
-            margin: 10px;
+            font-size: 16px;
           }
-          @media only screen and (min-width: 768px){
-
-            margin: 30px;
+          @media only screen and (min-width: 991px){
+            font-size: 17px;
+            margin-bottom: 20px;
           }
-          .image{
-            position: absolute;
-            top:-55px;
-            left: 35%;
-            width:45%;
-            @media only screen and (min-width: 479px){
-                left:40%;
-                width:30%;
-            }
-            @media only screen and (min-width: 768px){
-              left:38%;
-              width:30%;
-            }
+        }
+        .product-row{
+          display: none;
+          @media only screen and (min-width: 991px){
+            display: block;
+          }
+          .sub-product{
+            text-align: center;
+            position: relative;
+            width: 100%;
             @media only screen and (min-width: 991px){
-              width:50%;
-              left:22%;
-              top:-43px;
-            }
-            @media only screen and (min-width: 1200px){
-              left:25%;
-              top: -40px;
-            }
-          }
-          .product-title{
-            padding: 30px 0 15px 0;
-            @media all and (min-width: 479px) and (max-width:598px){
-              padding: 40px 0 15px 0;
-            }
-            @media all and (min-width: 599px){
-              padding: 50px 0 15px 0;
-            }
-            // @media only screen (min-width:768px) and (max-width: 990px){
-            //   padding: 50px 0 15px 0;
-            // }
-            @media only screen and (min-width: 991px){
-              padding: 30px 0 20px 0;
+              -ms-flex: 0 0 32.33%;
+              flex: 0 0 32.33%;
+              max-width: 32.33%;
             }
             img{
               width: 45%;
@@ -1093,475 +707,402 @@ button{
               @media only (max-width: 1200px) and (min-width: 768px){
                 width: 25%;
               }
-            @media only screen and (min-width: 1200px){
-              padding: 50px 0 20px 0;
             }
-            a{
-              color:#000;
-              font-size: 23px;
-              font-weight: 500;
-              text-transform:uppercase;
-              &:hover , &:focus, &:active {
-                  color: #374076;
-              }
-              @media all and (max-width:1024px)
-              {
-                &:hover , &:focus, &:active {
-                    color: #000;
-                }
-              }
+            h4{
+              color: #000;
+              font-size: 14px;
+              font-weight: 600;
+              margin: 0;
+              padding: 5px 0;
               @media only screen and (min-width: 468px){
-                font-size: 25px;
+                font-size: 13px;
+              }
+              @media only screen and (min-width: 768px){
+                font-size: 14px;
               }
               @media only screen and (min-width: 991px){
-                font-size: 30px;
+                font-size: 18px;
               }
-            }
-          }
-          .actions-primary{
-            margin: 1s5px 0;
-            @media only screen and (min-width: 991px){
-              margin: 20px 0;
             }
             p{
-              color:#374076;
+              font-weight: 500;
+              color: #374076;
+              margin: 10px 0;
+            }
+            .price-box{
+              color: #374076;
               font-weight: 600;
-              font-size: 18px !important;
-            }
-          }
-          h5{
-            color: #6e6e6e;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 15px;
-            @media only screen and (min-width: 468px){
-              font-size: 15px;
-            }
-            @media only screen and (min-width: 768px){
-              font-size: 16px;
-            }
-            @media only screen and (min-width: 991px){
-              font-size: 17px;
-              margin-bottom: 20px;
-            }
-          }
-          .product-row{
-            display: none;
-            @media only screen and (min-width: 991px){
-              display: block;
-            }
-            .sub-product{
-              text-align: center;
-              position: relative;
-              width: 100%;
-              @media only screen and (min-width: 991px){
-                -ms-flex: 0 0 32.33%;
-                flex: 0 0 32.33%;
-                max-width: 32.33%;
-              }
-              img{
-                width: 45%;
-                @media only (max-width: 1200px) and (min-width: 768px){
-                  width: 25%;
-                }
-              }
-              h4{
-                color: #000;
-                font-size: 14px;
-                font-weight: 600;
-                margin: 0;
-                padding: 5px 0;
+              span{
+                font-size: 15px;
                 @media only screen and (min-width: 468px){
-                  font-size: 13px;
+                  font-size: 16px;
                 }
                 @media only screen and (min-width: 768px){
-                  font-size: 14px;
+                  font-size: 17px;
                 }
                 @media only screen and (min-width: 991px){
                   font-size: 18px;
                 }
               }
-              p{
-                font-weight: 500;
-                color: #374076;
-                margin: 10px 0;
-              }
-              .price-box{
-                color: #374076;
-                font-weight: 600;
-                span{
-                  font-size: 15px;
-                  @media only screen and (min-width: 468px){
-                    font-size: 16px;
-                  }
-                  @media only screen and (min-width: 768px){
-                    font-size: 17px;
-                  }
-                  @media only screen and (min-width: 991px){
-                    font-size: 18px;
-                  }
-                }
-              }
             }
           }
         }
       }
-      .owl-controls{
-        display: block;
-        margin: 15px 0;
-        .active {
-          span{
-            // border: 3px solid #e66698;
-            // border-radius: 50%;
-            background:  #e66698;
-          }
-        }
-        span{
-          background: #6e6e6e82;
-          // border: 3px solid #fff;
-        }
-        @media only screen and (min-width: 991px){
-          display: none !important;
-        }
-        }
     }
-  }
-  //How all it works section
-    .works-section{
-      background: #fafafa;
-      padding-top: 20px;
-      @media only screen and (min-width: 468px){
-        padding-top: 30px;
+    .owl-controls{
+      display: block;
+      margin: 15px 0;
+      .active {
+        span{
+          border: 3px solid #e66698;
+          border-radius: 50%;
+        }
       }
-      @media only screen and (min-width: 768px){
-        padding-top: 35px;
+      span{
+        background: #6e6e6e;
+        border: 3px solid #fff;
       }
       @media only screen and (min-width: 991px){
-        padding-top: 40px;
+        display: none !important;
       }
-      @media only screen and (min-width: 1200px){
-        padding-top: 60px;
       }
-      .work-content{
+  }
+}
+//How all it works section
+  .works-section{
+    background: #fafafa;
+    padding-top: 20px;
+    @media only screen and (min-width: 468px){
+      padding-top: 30px;
+    }
+    @media only screen and (min-width: 768px){
+      padding-top: 35px;
+    }
+    @media only screen and (min-width: 991px){
+      padding-top: 40px;
+    }
+    @media only screen and (min-width: 1200px){
+      padding-top: 60px;
+    }
+    .work-content{
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      // margin-right: -15px;
+      // margin-left: -15px;
+      .work-content-block{
+        text-align: center;
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        margin: 15px;
+        p{
+          width: 240px;
+          margin: 0 auto;
+          padding-bottom: 10px;
+          @media only screen and (min-width:768px){
+            width: 160px;
+          }
+          @media only screen and (min-width:859px){
+            width: 180px;
+          }
+          @media only screen and (min-width:991px){
+            width: 240px;
+          }
+        }
+        @media only screen and (max-width: 990px){
+            padding: 15px;
+        }
+        @media only screen and (min-width: 768px){
+          -ms-flex: 0 0 24.333%;
+          flex: 0 0 24.333%;
+          max-width: 24.333%;
+        }
+        @media only screen and (min-width: 820px){
+          -ms-flex: 0 0 25.333%;
+          flex: 0 0 25.333%;
+          max-width: 25.333%;
+        }
+        @media only screen and (min-width: 991px){
+          -ms-flex: 0 0 29.333%;
+          flex: 0 0 29.333%;
+          max-width: 29.333%;
+        }
+        @media only screen and (min-width: 1020px){
+          -ms-flex: 0 0 30%;
+          flex: 0 0 30%;
+          max-width: 30%;
+        }
+        @media only screen and (min-width: 1050px){
+          -ms-flex: 0 0 30.333%;
+          flex: 0 0 30.333%;
+          max-width: 30.333%;
+        }
+        h4{
+          text-transform: capitalize;
+        }
+        a{
+          color: #374076;
+          font-weight: 700;
+          font-size: 15px;
+          text-decoration: none;
+          &:hover{
+            color: #e66698;
+          }
+          @media all and (max-width:1024px)
+          {
+            &:hover{
+              color: #374076;
+            }
+          }
+        }
+      }
+    }
+  }
+  //Static banner
+  .columns .column.main {
+    padding-bottom: 0;
+    }
+  .static-banner{
+      position: relative !important;
+    img{
+      width: 100%;
+      min-height: 200px;
+      position: relative !important;
+    }
+    h4{
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .banner-content{
+      color: #FFF;
+      left: 0%;
+      position: absolute;
+      text-align: center;
+      top: 19%;
+      width: 100%;
+      p{
+        color: #fff;
+        margin: 15px 0;
+      }
+      .button-style-1 {
+        padding: 5px 25px;
+      }
+      a{
+        color: #fff;
+        &:hover , &:focus, &:active {
+          color: #fff;
+        }
+      }
+      @media only screen and (min-width: 768px){
+        top: 25%;
+        left: 0;
+        width: 100%;
+
+      }
+      @media only screen and (min-width: 991px){
+        top: 30%;
+        left: 20%;
+        width: 50%;
+        text-align: left;
+      }
+    }
+  }
+  //Blog Section
+  .blog-section{
+    display: none;
+    .blog-container{
+      .blog-content{
         display: -ms-flexbox;
         display: flex;
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
         // margin-right: -15px;
         // margin-left: -15px;
-        .work-content-block{
+        .blog-content-block{
           text-align: center;
           position: relative;
           width: 100%;
           min-height: 1px;
-          margin: 15px;
-          p{
-            width: 240px;
-            margin: 0 auto;
-            padding-bottom: 10px;
-            @media only screen and (min-width:768px){
-              width: 160px;
-            }
-            @media only screen and (min-width:859px){
-              width: 180px;
-            }
-            @media only screen and (min-width:991px){
-              width: 240px;
+          margin: 30px 15px;
+          background-color: #ffffff;
+          @media only screen and (min-width: 479px){
+          -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+          -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+          }
+          @media all and (max-width:479px){
+            margin-bottom: 0;
+            &:nth-child(2){
+              display: none;
             }
           }
-          @media only screen and (max-width: 990px){
-              padding: 15px;
+          @media only screen and (min-width: 480px){
+            -ms-flex: 0 0 43.32%;
+            flex: 0 0 43.32%;
+            max-width: 43.32%;
           }
-          @media only screen and (min-width: 768px){
-            -ms-flex: 0 0 24.333%;
-            flex: 0 0 24.333%;
-            max-width: 24.333%;
+          @media only screen and (min-width: 534px){
+            -ms-flex: 0 0 44%;
+            flex: 0 0 44%;
+            max-width: 44%;
           }
-          @media only screen and (min-width: 820px){
-            -ms-flex: 0 0 25.333%;
-            flex: 0 0 25.333%;
-            max-width: 25.333%;
+          @media only screen and (min-width: 640px){
+            -ms-flex: 0 0 45%;
+            flex: 0 0 45%;
+            max-width: 45%;
           }
-          @media only screen and (min-width: 991px){
-            -ms-flex: 0 0 29.333%;
-            flex: 0 0 29.333%;
-            max-width: 29.333%;
+          @media only screen and (min-width: 711px){
+            -ms-flex: 0 0 45.5%;
+            flex: 0 0 45.5%;
+            max-width: 45.5%;
           }
-          @media only screen and (min-width: 1020px){
-            -ms-flex: 0 0 30%;
-            flex: 0 0 30%;
-            max-width: 30%;
+          @media only screen and (min-width: 810px){
+            -ms-flex: 0 0 46%;
+            flex: 0 0 46%;
+            max-width: 46%;
           }
-          @media only screen and (min-width: 1050px){
-            -ms-flex: 0 0 30.333%;
-            flex: 0 0 30.333%;
-            max-width: 30.333%;
+          @media only screen and (min-width: 1145px){
+            -ms-flex: 0 0 46.5%;
+            flex: 0 0 46.5%;
+            max-width: 46.5%;
           }
-          h4{
-            text-transform: capitalize;
+          @media only screen and (min-width: 1242px){
+            -ms-flex: 0 0 46.5%;
+            flex: 0 0 47.5%;
+            max-width: 47.5%;
           }
-          a{
-            color: #374076;
-            font-weight: 700;
-            font-size: 15px;
-            text-decoration: none;
-            &:hover{
-              color: #e66698;
+          img{
+            width:100%;
+          }
+          .blog-content-details{
+            padding: 15px;
+            @media all and (min-width:479px) {
+                padding: 20px;
             }
-            @media all and (max-width:1024px)
-            {
-              &:hover{
-                color: #374076;
+            @media all and (min-width:768px) {
+                padding: 25px;
+            }
+            @media all and (min-width:991px) {
+                  padding: 30px;
+            }
+            h4{
+              color:#000000;
+              font-size: 18px;
+              @media only screen and (min-width: 468px){
+                font-size: 22px;
+              }
+              @media only screen and (min-width: 768px){
+                font-size: 26px;
+              }
+              @media only screen and (min-width: 1024px){
+                font-size: 30px;
               }
             }
-          }
-        }
-      }
-    }
-    //Static banner
-    .columns .column.main {
-      padding-bottom: 0;
-      }
-    .static-banner{
-        position: relative !important;
-      img{
-        width: 100%;
-        min-height: 200px;
-        position: relative !important;
-      }
-      h4{
-        color: #fff;
-        text-transform: uppercase;
-      }
-      .banner-content{
-        color: #FFF;
-        left: 0%;
-        position: absolute;
-        text-align: center;
-        top: 19%;
-        width: 100%;
-        p{
-          color: #fff;
-          margin: 15px 0;
-        }
-        .button-style-1 {
-          padding: 5px 25px;
-        }
-        a{
-          color: #fff;
-          &:hover , &:focus, &:active {
-            color: #fff;
-          }
-        }
-        @media only screen and (min-width: 768px){
-          top: 25%;
-          left: 0;
-          width: 100%;
-
-        }
-        @media only screen and (min-width: 991px){
-          top: 30%;
-          left: 20%;
-          width: 50%;
-          text-align: left;
-        }
-      }
-    }
-    //Blog Section
-    .blog-section{
-      display: none;
-      .blog-container{
-        .blog-content{
-          display: -ms-flexbox;
-          display: flex;
-          -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-          // margin-right: -15px;
-          // margin-left: -15px;
-          .blog-content-block{
-            text-align: center;
-            position: relative;
-            width: 100%;
-            min-height: 1px;
-            margin: 30px 15px;
-            background-color: #ffffff;
-            @media only screen and (min-width: 479px){
-            -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-            -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-            box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-            }
-            @media all and (max-width:479px){
-              margin-bottom: 0;
-              &:nth-child(2){
-                display: none;
+            p{
+              text-align:justify;
+              color:#6e6e6e;
+              margin-bottom: 20px;
+              font-size: 12px;
+              @media only screen and (min-width: 468px){
+                font-size: 13px;
               }
-            }
-            @media only screen and (min-width: 480px){
-              -ms-flex: 0 0 43.32%;
-              flex: 0 0 43.32%;
-              max-width: 43.32%;
-            }
-            @media only screen and (min-width: 534px){
-              -ms-flex: 0 0 44%;
-              flex: 0 0 44%;
-              max-width: 44%;
-            }
-            @media only screen and (min-width: 640px){
-              -ms-flex: 0 0 45%;
-              flex: 0 0 45%;
-              max-width: 45%;
-            }
-            @media only screen and (min-width: 711px){
-              -ms-flex: 0 0 45.5%;
-              flex: 0 0 45.5%;
-              max-width: 45.5%;
-            }
-            @media only screen and (min-width: 810px){
-              -ms-flex: 0 0 46%;
-              flex: 0 0 46%;
-              max-width: 46%;
-            }
-            @media only screen and (min-width: 1145px){
-              -ms-flex: 0 0 46.5%;
-              flex: 0 0 46.5%;
-              max-width: 46.5%;
-            }
-            @media only screen and (min-width: 1242px){
-              -ms-flex: 0 0 46.5%;
-              flex: 0 0 47.5%;
-              max-width: 47.5%;
-            }
-            img{
-              width:100%;
-            }
-            .blog-content-details{
-              padding: 15px;
-              @media all and (min-width:479px) {
-                  padding: 20px;
-              }
-              @media all and (min-width:768px) {
-                  padding: 25px;
-              }
-              @media all and (min-width:991px) {
-                    padding: 30px;
-              }
-              h4{
-                color:#000000;
-                font-size: 18px;
-                @media only screen and (min-width: 468px){
-                  font-size: 22px;
-                }
-                @media only screen and (min-width: 768px){
-                  font-size: 26px;
-                }
-                @media only screen and (min-width: 1024px){
-                  font-size: 30px;
-                }
-              }
-              p{
-                text-align:justify;
-                color:#6e6e6e;
-                margin-bottom: 20px;
-                font-size: 12px;
-                @media only screen and (min-width: 468px){
-                  font-size: 13px;
-                }
-                @media only screen and (min-width: 768px){
-                  font-size: 14px;
-                }
-                @media only screen and (min-width: 1024px){
-                  font-size: 15px;
-                }
-              }
-              a{
-                color: #374076;
-                font-weight: 700;
-                text-decoration: none;
-                border-bottom:1px solid #374076;
-                &:hover,&:focus{
-                    text-decoration: none;
-                }
+              @media only screen and (min-width: 768px){
                 font-size: 14px;
-                @media only screen and (min-width: 1024px){
-                  font-size: 15px;
-                }
+              }
+              @media only screen and (min-width: 1024px){
+                font-size: 15px;
+              }
+            }
+            a{
+              color: #374076;
+              font-weight: 700;
+              text-decoration: none;
+              border-bottom:1px solid #374076;
+              &:hover,&:focus{
+                  text-decoration: none;
+              }
+              font-size: 14px;
+              @media only screen and (min-width: 1024px){
+                font-size: 15px;
               }
             }
           }
         }
       }
     }
-    //FAQ section
-    .page-bottom{
+  }
+  //FAQ section
+  .page-bottom{
+    background: #fcfcfc;
+    @media only screen and (min-width: 768px){
+     width: 100% !important;
+   }
+    .faq-collection{
       background: #fcfcfc;
-      @media only screen and (min-width: 768px){
-       width: 100% !important;
-     }
-      .faq-collection{
-        background: #fcfcfc;
-        .faq-content{
-          .ui-accordion{
-              .ui-accordion-header {
-                color: #374076;
-                font-size: 14px;
-          			font-weight: 600;
-                margin: 0;
-                padding: 1.7em .5em 1.7em 1em;
-                -webkit-margin-before: 0;
-                -webkit-margin-after: 0;
-          			@media only screen and (min-width: 468px) {
-          				font-size: 16px;
-          			}
-          			@media only screen and (min-width: 768px){
-          				font-size: 18px;
-          			}
+      .faq-content{
+        .ui-accordion{
+            .ui-accordion-header {
+              color: #374076;
+              font-size: 14px;
+        			font-weight: 600;
+              margin: 0;
+              padding: 1.7em .5em 1.7em 1em;
+              -webkit-margin-before: 0;
+              -webkit-margin-after: 0;
+        			@media only screen and (min-width: 468px) {
+        				font-size: 16px;
+        			}
+        			@media only screen and (min-width: 768px){
+        				font-size: 18px;
+        			}
+              @media only screen and (min-width: 991px){
+        				font-size: 20px;
+        			}
+              &:hover{
+                background: #fcfcfc;
+              }
+            }
+            .ui-accordion-content {
+              border-top: 0;
+              padding: 0px 10px 34px 20px;
+              overflow: auto;
+            }
+            .ui-widget-content{
+              background: #fcfcfc;
+            }
+            .ui-state-default{
+              background: #fcfcfc;
+              &:after {
+                content: '\002B';
+                font-family: 'luma-icons';
+                font-size: 25px;
+                line-height: 14px;
+                float: right;
                 @media only screen and (min-width: 991px){
-          				font-size: 20px;
+          				  font-size: 35px;
           			}
-                &:hover{
-                  background: #fcfcfc;
-                }
-              }
-              .ui-accordion-content {
-                border-top: 0;
-                padding: 0px 10px 34px 20px;
-                overflow: auto;
-              }
-              .ui-widget-content{
-                background: #fcfcfc;
-              }
-              .ui-state-default{
-                background: #fcfcfc;
-                &:after {
-                  content: '\002B';
-                  font-family: 'luma-icons';
-                  font-size: 25px;
-                  line-height: 14px;
-                  float: right;
-                  @media only screen and (min-width: 991px){
-            				  font-size: 35px;
-            			}
-                }
-              }
-              .ui-accordion-header-active{
-                &:after{
-                  content: '\2212';
-                  font-family: 'luma-icons';
-                }
               }
             }
-            .ui-state-default, .ui-widget-content, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-              border: 1px solid rgba(197, 197, 197, 0.21);
-              border-left: none;
-              border-right: none;
-              border-bottom: none;
-              font-weight: normal;
-              color: #454545;
+            .ui-accordion-header-active{
+              &:after{
+                content: '\2212';
+                font-family: 'luma-icons';
+              }
             }
-        }
+          }
+          .ui-state-default, .ui-widget-content, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+            border: 1px solid rgba(197, 197, 197, 0.21);
+            border-left: none;
+            border-right: none;
+            border-bottom: none;
+            font-weight: normal;
+            color: #454545;
+          }
       }
     }
-}
+  }
   //footer-logo
   .page-footer{
     background: #ffffff !important;
