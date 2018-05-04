@@ -14,16 +14,17 @@
     $description = false;
     ?>
     <div class="home-product-slider">
-<div id="owl-product" class="padding-70" data-mage-init='{
+<div id="owl-product" class="padding-70 loop owl-carousel" data-mage-init='{
   "OwlCarousel":{
-      "center": true,
-      "margin":10,
-      "autoPlay": 3000,
-      "pagination": true,
-      "items": 3,
-      "itemsDesktop" : [1199,3],
-      "itemsDesktopSmall" : [979,1],
-      "itemsTablet" : [768, 1]
+    "center": true,
+    "items": 3,
+    "loop": true,
+    "margin": 10,
+    "responsive": {
+      "600": {
+        "items": 2
+      }
+    }
   }
 }
 '>
@@ -32,7 +33,7 @@
     <a href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>" >
         <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $_item->getData('image'); ?>" class="image" height="70" alt="docs-org" />
     </a>
-    <div class="product-title">
+    <div class="product-title test">
     <a title="<?php echo $block->escapeHtml($_item->getName()) ?>"
           href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>">
           <?php echo $block->escapeHtml($_item->getName()) ?>
@@ -41,7 +42,7 @@
     <h5>
       <?php echo $this->helper('Quinoid\CatalogWidget\Helper\Product\Description')->getProductDescription($_item); ?>
     </h5>
-    <?php if ($showCart): ?>
+    <?php /*if ($showCart): ?>
         <div class="actions-primary">
             <?php if ($_item->isSaleable()): ?>
                   <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
@@ -53,7 +54,7 @@
                       $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
                       $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
                       ?>
-                      <button class="button" data-post='<?php /* @noEscape */ echo $postData; ?>' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
+                      <button class="button" data-post='<?php echo $postData; ?>' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
                           <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span>
                       </button>
                   <?php endif; ?>
@@ -69,10 +70,8 @@
                 <?php endif; ?>
             <?php endif; ?>
         </div>
-    <?php endif; ?>
-    <!-- <a class="button" href="#">Subscribe | ₹ 999.99</a> -->
-    <!-- <h3>Lorem ipsum dolar sit</h3> -->
-    <div class="product-row">
+    <?php endif;*/ ?>
+    <div class="product-row test">
       <div class="row">
         <?php
         $typeInstance = $_item->getTypeInstance();
@@ -85,8 +84,6 @@
             <div class="sub-product">
               <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
               <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
-              <!-- <h4>30 Capsule pack</h4>
-              <h6>Lorem ipsum dolar</h6> -->
               <p><?php echo $block->getProductPriceHtml($childItem, $type); ?></p>
             </div>
             <?php
@@ -97,7 +94,7 @@
     </div>
   </div>
 <?php endforeach; ?>
-<?php if ($block->getProductCollection()->getSize() < 3): ?>
+<?php /*if ($block->getProductCollection()->getSize() < 3): ?>
   <?php foreach ($items as $_item): ?>
     <div class="item">
       <a href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>" >
@@ -124,7 +121,7 @@
                         $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
                         $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
                         ?>
-                        <button class="button" data-post='<?php /* @noEscape */ echo $postData; ?>' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
+                        <button class="button" data-post='<?php echo $postData; ?>' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
                             <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span>
                         </button>
                     <?php endif; ?>
@@ -141,8 +138,6 @@
               <?php endif; ?>
           </div>
       <?php endif; ?>
-      <!-- <a class="button" href="#">Subscribe | ₹ 999.99</a> -->
-      <!-- <h3>Lorem ipsum dolar sit</h3> -->
       <div class="product-row">
         <div class="row">
           <?php
@@ -156,8 +151,6 @@
               <div class="sub-product">
                 <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
                 <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
-                <!-- <h4>30 Capsule pack</h4>
-                <h6>Lorem ipsum dolar</h6> -->
                 <p><?php echo $block->getProductPriceHtml($childItem, $type); ?></p>
               </div>
               <?php
@@ -168,7 +161,7 @@
       </div>
     </div>
   <?php endforeach; ?>
-<?php endif; ?>
+<?php endif;*/ ?>
 </div>
 </div>
 <?php endif; ?>
@@ -176,14 +169,15 @@
     {
         "#owl-product": {
             "OwlCarousel": {
-                "center": true,
-                "margin":10,
-                "autoPlay": 3000,
-                "pagination": true,
-                "items": 3,
-                "itemsDesktop": [1199, 3],
-                "itemsDesktopSmall" : [979,1],
-                "itemsTablet" : [768, 1]
+              "center": true,
+              "items": 3,
+              "loop": true,
+              "margin": 10,
+              "responsive": {
+                "600": {
+                  "items": 2
+                }
+              }
             }
         }
     }
