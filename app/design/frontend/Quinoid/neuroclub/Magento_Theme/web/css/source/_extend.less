@@ -16,12 +16,10 @@ h1,h2,h3,h4,h5,h6,p{
   // margin-right: -15px;
   // margin-left: -15px;
 }
-.desktop-none
-{
+.desktop-none{
       display: none !important;
 
-  @media all and (max-width:768px)
-  {
+  @media all and (max-width:767px){
     display:block !important;
   }
 }
@@ -66,8 +64,7 @@ h1,h2,h3,h4,h5,h6,p{
     color: #fff;
     padding: 12px 55px;
     text-transform: uppercase;
-    @media all and (max-width:1024px)
-    {
+    @media all and (max-width:1024px){
       &:hover , &:focus, &:active {
         background: #374076;
         border: 1px solid #374076;
@@ -245,14 +242,11 @@ button{
   -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-  .nav-sections-items
-  {
-    .section-item-title
-    {
+  .nav-sections-items{
+    .section-item-title{
           display: none;
     }
-    .section-item-content
-    {
+    .section-item-content{
         margin-top: 0;
     }
   }
@@ -279,8 +273,7 @@ button{
     @media all and (max-width:767px){
       top: 0;
     }
-    .header.links
-    {
+    .header.links{
       display: none;
     }
 
@@ -291,8 +284,7 @@ button{
     width: 100px;
     text-align: center;
     margin-top: 16px;
-    a
-    {
+    a{
       color: #333;
       font-weight: 600;
     }
@@ -347,19 +339,14 @@ button{
             text-transform: uppercase;
             color:#575757;
           }
-          &:hover
-          {
-            span
-            {
+          &:hover{
+            span{
               color:#374076;
             }
           }
-          @media all and (max-width:1024px)
-          {
-            &:hover
-            {
-              span
-              {
+          @media all and (max-width:1024px){
+            &:hover{
+              span{
                 color:#575757;
               }
             }
@@ -380,10 +367,8 @@ button{
       @media only screen and (min-width: 768px){
         font-size:16px;
       }
-      .customer-name
-      {
-        .action
-        {
+      .customer-name{
+        .action{
           color: #333;
         }
       }
@@ -397,19 +382,14 @@ button{
           padding-top: 10px;
           border: solid 1px;
         }
-        &[aria-hidden="false"]
-        {
-          .header.links
-          {
+        &[aria-hidden="false"]{
+          .header.links{
               display: block !important;
-              .ui-menu-item
-              {
-                a
-                {
+              .ui-menu-item{
+                a{
                   font-size: 14px;
                 }
-                &.active
-                {
+                &.active{
                   background: #f5f5f5;
                 }
               }
@@ -419,8 +399,7 @@ button{
           @media all and (max-width:768px){
             list-style: none;
           }
-          &.links
-          {
+          &.links{
             display: none !important;
           }
           li{
@@ -472,19 +451,14 @@ button{
   }
 }
 .navigation {
-  .customer-welcome
-  {
+  .customer-welcome{
     margin-bottom: 0px;
-    .action.switch
-    {
+    .action.switch{
       color: #333;
     }
-    .customer-menu
-    {
-      &[aria-hidden="false"]
-      {
-        .ui-corner-all
-        {
+    .customer-menu{
+      &[aria-hidden="false"]{
+        .ui-corner-all{
           display: block !important;
           font-size: 14px;
           color: #575757;
@@ -494,18 +468,15 @@ button{
   }
    .level-top:hover a span, .level-top.ui-state-focus a span {
       color: #374076;
-      @media all and (max-width:1024px)
-      {
+      @media all and (max-width:1024px){
         color:#575757;
       }
   }
 .level-top {
     border-color:#fff !important;
     padding: 5px 10px 5px 10px !important;
-    a
-    {
-      span
-      {
+    a{
+      span{
         color:#575757;
       }
     }
@@ -514,7 +485,7 @@ button{
     }
     &.menu-logo{
       border-bottom: 0 !important;
-      @media all and (max-width:768px)  {
+      @media all and (max-width:767px)  {
         display:none;
       }
     }
@@ -536,52 +507,39 @@ button{
 // minicart styling
 .minicart-wrapper{
   .action.showcart{
-    .counter.qty
-    {
+    .counter.qty{
       border-radius: 50%;
       margin-left: -9px;
       margin-top: -5px;
       background: #ef4800;
-      .counter-number
-      {
+      .counter-number{
         background: #ef4800;
       }
     }
   }
-  .block-minicart
-  {
+  .block-minicart{
     padding-bottom: 5px;
     border: none;
     border-top: 1px solid #ededee;
-    #minicart-content-wrapper
-    {
-      .block-content
-      {
-        .action.close:hover
-        {
+    #minicart-content-wrapper{
+      .block-content{
+        .action.close:hover{
           color: black;
         }
-        .items-total
-        {
+        .items-total{
           font-size: 16px;
         }
-        .subtotal
-        {
-          .label
-          {
-            span
-            {
+        .subtotal{
+          .label{
+            span{
               font-size: 16px;
               font-weight: 600;
             }
           }
         }
-        .actions
-        {
-          .primary
-          {
-            .checkout
-            {
+        .actions{
+          .primary{
+            .checkout{
               border-radius: 50px;
               background: @blue-button;
               border: none;
@@ -589,40 +547,28 @@ button{
             }
           }
         }
-        .minicart-items-wrapper
-        {
+        .minicart-items-wrapper{
           border-top: 0;
           max-height: 300px;
-          .minicart-items
-          {
-            .product-item
-            {
-              .product
-              {
-                .product-item-details
-                {
-                  .product-item-name
-                  {
-                    a
-                    {
+          .minicart-items{
+            .product-item  {
+              .product{
+                .product-item-details{
+                  .product-item-name{
+                    a{
                       color: #333;
                     }
                   }
-                  .product-item-pricing
-                  {
-                    .details-qty
-                    {
-                      .label
-                      {
+                  .product-item-pricing{
+                    .details-qty{
+                      .label{
                         text-transform: uppercase;
                       }
                     }
                   }
 
-                  .product.actions
-                  {
-                    .primary
-                    {
+                  .product.actions{
+                    .primary{
                       display: none;
                     }
                   }
@@ -631,14 +577,10 @@ button{
             }
           }
         }
-        .actions
-        {
-          .secondary
-          {
-            .viewcart
-            {
-              span
-              {
+        .actions{
+          .secondary  {
+            .viewcart{
+              span{
                 color: #333;
                 font-size: 16px;
               }
@@ -774,12 +716,16 @@ button{
         @media only screen and (min-width: 991px){
             padding: 40px 0;
         }
+        .neuro-title-head
+        {
+          text-align: center;
+          margin-top: 20px;
+        }
 
       }
     }
     .row{
-
-        .col-6{
+      .col-6{
           position: relative;
           width: 100%;
           min-height: 1px;
@@ -954,11 +900,13 @@ button{
         margin-bottom: 0;
     }
     #owl-product{
+      margin-top: 0;
       .owl-stage-outer{
         padding-top: 60px;
         .item{
           position:relative;
           padding: 30px;
+          padding-bottom: 90px !important;
           margin: 5px;
           text-align: center;
           box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
@@ -966,14 +914,16 @@ button{
           -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
           @media only screen and (min-width: 468px){
             padding: 40px;
+            padding-left: 20px;
+            padding-right: 20px;
           }
           @media only screen and (min-width: 768px){
             padding: 30px;
             margin: 10px;
           }
-          @media only screen and (min-width: 768px){
-
-            margin: 30px;
+          @media all and (max-width: 1085px)
+          {
+            padding-bottom: 40px !important;
           }
           .image{
             position: absolute;
@@ -1002,8 +952,9 @@ button{
               top:-43px;
             }
             @media only screen and (min-width: 1200px){
-              left:34%;
-              top: -40px;
+              width: 260px;
+              left: 30%;
+              top: -63px;
             }
           }
           .product-title{
@@ -1038,7 +989,7 @@ button{
                 }
               }
               @media only screen and (min-width: 468px){
-                font-size: 25px;
+                font-size: 20px;
               }
               @media only screen and (min-width: 991px){
                 font-size: 30px;
@@ -1061,8 +1012,15 @@ button{
             font-size: 14px;
             font-weight: 500;
             margin-bottom: 15px;
+            width: 460px;
+            margin: 0 auto;
             @media only screen and (min-width: 468px){
               font-size: 15px;
+              min-height: 60px;
+            }
+            @media only screen and (min-width: 600px){
+              font-size: 16px;
+              min-height: 90px;
             }
             @media only screen and (min-width: 768px){
               font-size: 16px;
@@ -1070,12 +1028,20 @@ button{
             @media only screen and (min-width: 991px){
               font-size: 17px;
               margin-bottom: 20px;
+              min-height: 85px;
+            }
+            @media all and (max-width: 1085px)
+            {
+              width: 100%;
             }
           }
           .product-row{
             display: none;
+            width: 90%;
+            margin: 0 auto;
             @media only screen and (min-width: 991px){
               display: block;
+              margin-top: 50px;
             }
             .sub-product{
               text-align: center;
@@ -1087,7 +1053,7 @@ button{
                 max-width: 32.33%;
               }
               img{
-                width: 45%;
+                width: 40%;
                 margin:0 auto;
                 @media only (max-width: 1200px) and (min-width: 768px){
                   width: 25%;
@@ -1099,6 +1065,7 @@ button{
                 font-weight: 600;
                 margin: 0;
                 padding: 5px 0;
+                margin-top: 20px;
                 @media only screen and (min-width: 468px){
                   font-size: 13px;
                 }
@@ -1110,7 +1077,8 @@ button{
                 }
               }
               p{
-                font-weight: 500;
+                font-size: 18px;
+                font-weight: 600;
                 color: #374076;
                 margin: 10px 0;
               }
@@ -1226,7 +1194,7 @@ button{
             max-width: 30.333%;
           }
           h4{
-            text-transform: capitalize;
+            text-transform: uppercase;
           }
           a{
             color: #374076;
@@ -1252,6 +1220,7 @@ button{
       }
     .static-banner{
         position: relative !important;
+        margin-top: 80px;
       img{
         width: 100%;
         min-height: 200px;
@@ -1458,19 +1427,38 @@ button{
               .ui-widget-content{
                 background: #fcfcfc;
               }
+              // .ui-state-default{
+              //   background: #fcfcfc;
+              //   &:after {
+              //     content: '\002B';
+              //     font-family: 'luma-icons';
+              //     font-size: 25px;
+              //     line-height: 14px;
+              //     float: right;
+              //     @media only screen and (min-width: 991px){
+            	// 			  font-size: 35px;
+            	// 		}
+              //   }
+              // }
               .ui-state-default{
-                background: #fcfcfc;
-                &:after {
-                  content: '\002B';
-                  font-family: 'luma-icons';
-                  font-size: 25px;
-                  line-height: 14px;
-                  float: right;
-                  @media only screen and (min-width: 991px){
-            				  font-size: 35px;
-            			}
+               background: #fcfcfc;
+               padding-right:25px;
+               &:after {
+                 content: '\002B';
+                 font-family: 'luma-icons';
+                 font-size: 25px;
+                 line-height: 14px;
+                 position:absolute;
+                 top:35px;
+                 right:10px;
+                 @media all and (max-width:767px){
+                   top:25px;
+                 }
+                 @media only screen and (min-width: 991px){
+                 font-size: 35px;
                 }
-              }
+               }
+             }
               .ui-accordion-header-active{
                 &:after{
                   content: '\2212';
@@ -1708,6 +1696,15 @@ button{
           }
           &:hover{
             background: #ffffff;
+          }
+          &:after
+          {
+            @media all and (max-width: 500px)
+            {
+              position: absolute;
+              right: 0;
+              top: 41%;
+            }
           }
         }
         .ui-accordion-content {
