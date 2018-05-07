@@ -2,7 +2,7 @@
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
       <!--move element="minicart" destination="catalog.topnav"/-->
-      <move element="header.links" destination="header-wrapper" after="logo"/>
+      <move element="customer" destination="catalog.topnav"/>
       <!--move element="minicart" destination="header.wrapper" after="customer"/-->
        <referenceBlock name="header" remove="true" />
        <referenceBlock name="authorization-link-login" remove="true" />

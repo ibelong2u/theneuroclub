@@ -1,7 +1,6 @@
 <?php
-
 \Magento\Framework\Component\ComponentRegistrar::register(
 	\Magento\Framework\Component\ComponentRegistrar::MODULE,
-	'Quinoid_CustomerAttribute',
+	'Quinoid_Checkout',
 	__DIR__
 );
