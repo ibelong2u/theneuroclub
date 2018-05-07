@@ -13,26 +13,26 @@ class InstallData implements InstallDataInterface {
 
 	public function __construct(
 		\Magento\Eav\Setup\EavSetupFactory $eavSetupFactory,
-		\Magento\Eav\Model\AttributeRepository $attributeRepository
-	)
+		\Magento\Eav\Model\AttributeRepository $attributeRepository)
 	{
 		$this->_eavSetupFactory = $eavSetupFactory;
 		$this->_attributeRepository = $attributeRepository;
 	}
 
-	public function install( ModuleDataSetupInterface $setup, ModuleContextInterface $context )
+  public function install( ModuleDataSetupInterface $setup, ModuleContextInterface $context )
 	{
 
 		$eavSetup = $this->_eavSetupFactory->create(['setup' => $setup]);
 
 		// add customer_attribute to customer
+		// $eavSetup->removeAttribute(\Magento\Customer\Model\Customer::ENTITY, 'customer_attribute');
 		$eavSetup->addAttribute(
 		\Magento\Customer\Model\Customer::ENTITY, 'phone_number', [
 			'type' => 'varchar',
 			'label' => 'Phone Number',
 			'input' => 'text',
-			'required' => true,
-			'system' => 2,
+			'required' => false,
+			'system' => 0,
 			'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_STORE,
 			'sort_order' => '200'
 		]

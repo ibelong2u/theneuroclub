@@ -25,17 +25,7 @@ $bannerContentType = $this->helper('Quinoid\HomepageBanner\Helper\Data')->getCon
 if ($isEnable == 1) { ?>
   <?php
     if ($bannerContentType == 0) { ?>
-      <div id="owl-demo" data-mage-init='{
-      "OwlCarousel":{
-            "autoPlay": 3000,
-            "items" : 1,
-            "pagination" : false,
-            "itemsDesktop" : [1199,1],
-            "itemsDesktopSmall" : [979,1],
-            "itemsTablet" : [768, 1]
-      }
-    }
-    '>
+      <div id="owl-demo1" class="owl-carousel">
   <?php
         foreach($result as $_result) {
             $file_extension  = pathinfo( $_result['videofile'], PATHINFO_EXTENSION);
@@ -46,9 +36,9 @@ if ($isEnable == 1) { ?>
                     if ($_result['show_in_frontend'] == 1 && $_result['upload_type'] == 0) { ?>
                         <div class="item">
                           <a href="<?php echo $_result['redirect_url']; ?>">
-                            <img class="" src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/file'. $_result['videofile'] ?>">
+                            <img class="desktop-view" src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/file'. $_result['videofile'] ?>">
                             <?php if ($_result['videothumbnail']): ?>
-                              <img class="" src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/image'. $_result['videothumbnail'] ?>">
+                              <img class="mobile-view" src="<?php echo $mediaUrl.'quinoid/homepagebanner/video/image'. $_result['videothumbnail'] ?>">
                             <?php endif; ?>
                           </a>
                         </div>
@@ -59,19 +49,26 @@ if ($isEnable == 1) { ?>
         }?>
         </div>
         <script type="text/x-magento-init">
-        {
-            "#owl-demo": {
+            {
+            "#owl-demo1": {
                 "OwlCarousel": {
-                    "autoPlay": 3000,
-                    "items": 1,
-                    "pagination" : false,
-                    "itemsDesktop": [1199, 1],
-                    "itemsDesktopSmall": [979, 1],
-                    "itemsTablet" : [768, 1]
+                  "center": false,
+                  "items": 1,
+                  "loop": true,
+                  "margin": 10,
+                  "responsive": {
+                    "0": {
+                      "items": 1
+                    },
+                    "600": {
+                      "items": 1
+                    }
+                  }
+                }
                 }
             }
-        }
-    </script>
+        </script>
+
   <?php  }
     elseif ($bannerContentType == 1) {?>
 
