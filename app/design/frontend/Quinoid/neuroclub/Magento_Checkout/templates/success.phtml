@@ -42,7 +42,7 @@
   <!-- Bundle Carousel -->
   <div class="order-confirm-bundle-carousel">
     <h1><strong>You may</strong> also like</h1>
-    <div id="owl-product" data-mage-init='{
+    <!-- <div id="owl-product" data-mage-init='{
       "OwlCarousel":{
           "center": true,
           "margin":10,
@@ -52,6 +52,24 @@
           "itemsDesktop" : [1199,3],
           "itemsDesktopSmall" : [979,1],
           "itemsTablet" : [768, 1]
+      }
+    }
+    '> -->
+    <div id="owl-product" class="owl-carousel padding-70 loop" data-mage-init='{
+      "OwlCarousel":{
+        "center": true,
+        "items": 3,
+        "dots":true,
+        "loop": true,
+        "margin": 10,
+        "responsive": {
+          "0": {
+            "items": 1
+          },
+          "600": {
+            "items": 2
+          }
+        }
       }
     }
     '>
@@ -200,7 +218,7 @@
         </div>
       </div>
     </div>
-    <script type="text/x-magento-init">
+    <!-- <script type="text/x-magento-init">
         {
             "#owl-product": {
                 "OwlCarousel": {
@@ -213,6 +231,27 @@
                     "itemsDesktopSmall" : [979,1],
                     "itemsTablet" : [768, 1]
                 }
+            }
+        }
+    </script> -->
+    <script type="text/x-magento-init">
+        {
+        "#owl-product": {
+            "OwlCarousel": {
+              "center": true,
+              "items": 3,
+              "dots":true,
+              "loop": true,
+              "margin": 10,
+              "responsive": {
+                "0": {
+                  "items": 1
+                },
+                "600": {
+                  "items": 2
+                }
+              }
+            }
             }
         }
     </script>

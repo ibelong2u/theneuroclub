@@ -953,7 +953,7 @@ button{
             }
             @media only screen and (min-width: 1200px){
               width: 260px;
-              left: 30%;
+              left: 37%;
               top: -63px;
             }
           }
@@ -1102,32 +1102,53 @@ button{
           }
         }
       }
-      .owl-controls{
-        display: block;
+      .owl-dots{
+        text-align: center;
         margin: 15px 0;
-        .active {
-          span{
-            // border: 3px solid #e66698;
-            // border-radius: 50%;
-            background:  #e66698;
+        @media only screen and (min-width: 991px){
+          margin: 35px 0;
+        }
+        -webkit-tap-highlight-color: transparent;
+        .owl-dot {
+          display: inline-block;
+          zoom: 1;
+          cursor: pointer;
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          span {
+            width: 15px;
+            height: 15px;
+            margin: 5px 7px;
+            background: #d7d8dc;
+            display: block;
+            -webkit-backface-visibility: visible;
+            transition: opacity .2s ease;
+            border-radius: 30px;
           }
         }
-        span{
-          background: #6e6e6e82;
-          // border: 3px solid #fff;
-        }
-        @media only screen and (min-width: 991px){
-          display: none !important;
-        }
-        }
+      }
+      .owl-dot.active span{
+        background: #e66698;
+      }
+      button.owl-dot {
+        background: 0 0;
+        color: inherit;
+        border: none;
+        padding: 0!important;
+        font: inherit;
+      }
     }
   }
+
   //How all it works section
     .works-section{
       background: #fafafa;
       padding-top: 20px;
       @media only screen and (min-width: 468px){
-        padding-top: 30px;
+        padding-top:30px;
       }
       @media only screen and (min-width: 768px){
         padding-top: 35px;
