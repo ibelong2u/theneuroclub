@@ -73,7 +73,7 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                 <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li class="item product product-item">' : '</li><li class="item product product-item">' ?>
                 <div class="product-item-info" data-container="product-grid">
                   <div class="product-item-images" style="width:250px">
-                     <div class="product-image-container" id="owl-caurosel" data-mage-init='{
+                     <!-- <div class="product-image-container" id="owl-caurosel" data-mage-init='{
                       "OwlCarousel":{
                             "autoPlay": 3000,
                             "items" : 1,
@@ -81,6 +81,23 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                             "itemsDesktop" : [1199,1],
                             "itemsDesktopSmall" : [979,1],
                             "itemsTablet" : [768, 1]
+                      }
+                    }
+                    '> -->
+                    <div id="owl-product" class="padding-70 loop owl-carousel product-image-container" data-mage-init='{
+                      "OwlCarousel":{
+                        "center": true,
+                        "items": 3,
+                        "loop": true,
+                        "margin": 10,
+                        "responsive": {
+                          "0": {
+                            "items": 1
+                          },
+                          "600": {
+                            "items": 2
+                          }
+                        }
                       }
                     }
                     '>
@@ -141,7 +158,7 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
         </ol>
     </div>
 </div>
-    <script type="text/x-magento-init">
+    <!-- <script type="text/x-magento-init">
     {
         ".product-image-container": {
             "OwlCarousel": {
@@ -155,6 +172,26 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
             }
         }
     }
+  </script> -->
+  <script type="text/x-magento-init">
+      {
+      "#owl-product": {
+          "OwlCarousel": {
+            "center": true,
+            "items": 3,
+            "loop": true,
+            "margin": 10,
+            "responsive": {
+              "0": {
+                "items": 1
+              },
+              "600": {
+                "items": 2
+              }
+            }
+          }
+          }
+      }
   </script>
     <?php if (!$block->isRedirectToCartEnabled()) : ?>
         <script type="text/x-magento-init">
