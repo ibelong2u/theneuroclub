@@ -2,14 +2,17 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
   <head>
   <!-- <css src="css/source/custom/home.css"/> -->
+  <link src="js/grt-youtube-popup.js"/>
+   <css src="css/source/custom/grt-youtube-popup.css"/>
   </head>
   <body>
     <referenceContainer name="main">
       <container name='content'>
-        <block class="Magento\Framework\View\Element\Template" name="flagships.static" template="Magento_Theme::html/flagships-static.phtml"/>
+        <block class="Magento\Framework\View\Element\Template" name="about.intro" template="Magento_Theme::html/about-intro.phtml"/>
+        <block class="Magento\Framework\View\Element\Template" name="flagships" after="about.intro" template="Magento_Theme::html/flagships.phtml"/>
       </container>
       <container name="content.bottom">
-        <block class="Magento\Framework\View\Element\Template" name="allworks.static" after="product.banner" before="secondary.banner" template="Magento_Theme::html/allworks-static.phtml"/>
+        <block class="Magento\Framework\View\Element\Template" name="allworks.static" before="secondary.banner" template="Magento_Theme::html/allworks-static.phtml"/>
         <block class="Magento\Framework\View\Element\Template" name="secondary.banner" after="allworks_static" before="home.blog" template="Magento_Theme::html/static-banner.phtml"/>
         <block class="Magento\Framework\View\Element\Template" name="home.blog" after="secondary.banner" template="Magento_Theme::html/home-blog.phtml"/>
       </container>

@@ -1,4 +1,4 @@
-<?php if ($exist = ($block->getProductCollection() && $block->getProductCollection()->getSize())): ?>
+<?php if ($exist = ($block->getProductCollection() && $block->getProductCollection()->getSize())): ?>
     <?php
     $type = 'widget-product-grid';
 
@@ -15,19 +15,23 @@
     $description = false;
     ?>
     <div class="home-product-slider">
-<div id="owl-product" class="padding-70" data-mage-init='{
-  "OwlCarousel":{
-      "center": true,
-      "margin":10,
-      "autoPlay": 3000,
-      "pagination": true,
-      "items": 3,
-      "itemsDesktop" : [1199,3],
-      "itemsDesktopSmall" : [979,1],
-      "itemsTablet" : [768, 1]
-  }
-}
-'>
+    <div id="owl-product" class="padding-70 loop owl-carousel" data-mage-init='{
+      "OwlCarousel":{
+        "center": true,
+        "items": 3,
+        "loop": true,
+        "margin": 10,
+        "responsive": {
+          "0": {
+            "items": 1
+          },
+          "600": {
+            "items": 2
+          }
+        }
+      }
+    }
+    '>
 <?php foreach ($items as $_item): ?>
   <div class="item">
     <a href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>" >
@@ -165,17 +169,21 @@
 <?php endif; ?>
 <script type="text/x-magento-init">
     {
-        "#owl-product": {
-            "OwlCarousel": {
-                "center": true,
-                "margin":10,
-                "autoPlay": 3000,
-                "pagination": true,
-                "items": 3,
-                "itemsDesktop": [1199, 3],
-                "itemsDesktopSmall" : [979,1],
-                "itemsTablet" : [768, 1]
+    "#owl-product": {
+        "OwlCarousel": {
+          "center": true,
+          "items": 3,
+          "loop": true,
+          "margin": 10,
+          "responsive": {
+            "0": {
+              "items": 1
+            },
+            "600": {
+              "items": 2
             }
+          }
+        }
         }
     }
 </script>
