@@ -4,3 +4,183 @@
   display: block;
   clear: both;
 }
+
+.cms-get-started
+{
+  .page-wrapper
+  {
+    #maincontent
+    {
+      border: solid red;
+      margin-top: 80px;
+      max-width: 2560px !important;
+      .columns
+      {
+        .get-started-container
+        {
+          h2
+          {
+            text-align: center;
+          }
+          .get-started-wrapper
+          {
+            border: 1px solid green;
+            .get-started-kit-block
+            {
+              .kit-image
+              {
+                border: 1px solid yellow;
+                width: 50%;
+                float: left;
+                img
+                {
+                  width: 100%;
+                }
+              }
+              .kit-widget
+              {
+                border: 1px solid orange;
+                width: 50%;
+                float: left;
+                .product-item
+                {
+                  .product-title
+                  {
+                    text-align: center;
+                  }
+                  h5
+                  {
+                    text-align: center;
+                  }
+                  .actions-primary
+                  {
+                    text-align: center;
+                  }
+                  .product-row
+                  {
+                    .sub-product
+                    {
+                      text-align: center;
+                      border: 1px solid red;
+                      float: left;
+                      width: 33.33%;
+                      h4, p
+                      {
+                        width: 80%;
+                        margin: 0 auto;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            .member-wrapper
+            {
+              clear: both;
+              position: relative;
+              .member-image
+              {
+                img
+                {
+                  width: 100%;
+                }
+              }
+              .member-content
+              {
+                position: absolute;
+                top: 35%;
+                border: 1px solid;
+                width: 50%;
+                left: 5%;
+                p
+                {
+                  color: #374076;
+                  font-size: 24px;
+                  &:nth-child(1)
+                  {
+                    margin-bottom: 10px;
+                    strong
+                    {
+                      font-size: 38px;
+                    }
+                  }
+                  &:nth-child(3)
+                  {
+                    strong
+                    {
+                      font-size: 26px;
+                    }
+                  }
+                  &.discount
+                  {
+                    font-size: 58px;
+                  }
+                  &.desc
+                  {
+                    line-height: 15px;
+                  }
+                }
+                @media only screen and (max-width: 1200px)
+                {
+                  top: 32%;
+                }
+                @media only screen and (max-width: 1099px)
+                {
+                  p
+                  {
+                    font-size: 20px;
+                    &:nth-child(1)
+                    {
+                      strong
+                      {
+                        font-size: 34px;
+                      }
+                    }
+                    &:nth-child(3)
+                    {
+                      strong
+                      {
+                        font-size: 22px;
+                      }
+                    }
+                    &.discount
+                    {
+                      font-size: 48px;
+                    }
+                  }
+                }
+                @media only screen and (max-width: 991px)
+                {
+                  top: 30%;
+                  p
+                  {
+                    font-size: 17px;
+                    &:nth-child(1)
+                    {
+                      margin-bottom: 0px;
+                      strong
+                      {
+                        font-size: 26px;
+                      }
+                    }
+                    &:nth-child(3)
+                    {
+                      strong
+                      {
+                        font-size: 19px;
+                      }
+                    }
+                    &.discount
+                    {
+                      font-size: 38px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
