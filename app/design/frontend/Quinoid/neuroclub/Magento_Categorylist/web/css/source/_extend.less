@@ -42,8 +42,8 @@
   }
   .page-main{
     margin-top: 65px;
-    @media only screen and (min-width: 768px){
-    margin-top: 115px;
+    @media only screen and (min-width: 768px){ 
+    margin-top: 115px; 
     }
     .category-view 
     {
@@ -95,7 +95,7 @@
       position:relative;
       background:#f7f7f7;
       margin-bottom:30px;
-      @media all and (max-width:767px)
+      @media all and (max-width:600px)
       {
         display:block;
       }
@@ -116,7 +116,7 @@
           {
             font-size:15px;
           }
-          @media all and (max-width:767px)
+          @media all and (max-width:600px)
           {
             display:list-item;
             text-align:center;
@@ -144,7 +144,7 @@
             {
               width:70px;
             }
-            @media all and (max-width:767px)
+            @media all and (max-width:600px)
             {
               width:auto;
               padding-top:15px;
@@ -154,10 +154,15 @@
       }
       .toolbar-products 
       {
+        position:absolute;
         right:0;
         top:26px; 
         width:auto;
         margin-bottom:0;
+        @media all and (max-width:600px)
+        {
+          position:static;
+        }
         .toolbar-amount 
         {
           display:none;
@@ -168,13 +173,16 @@
           border-radius: 50px;
           padding: 0 10px;
           margin-right: 10px;
-          @media all and (max-width:767px)
+          position: relative;
+          right:0;
+          width: 200px;
+          text-align: left;
+          padding: 5px 12px;
+          @media all and (max-width:600px)
           {
-            position:static;
             margin:0 auto;
             margin-bottom:15px;
             float:none;
-            width:213px;
           }
           label 
           {
@@ -182,9 +190,24 @@
           }
           select 
           {
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding:0;
+            padding-left:10px;
+            text-indent: 55px;
+            width: 200px;
             background:transparent;
             border:none;
             box-shadow:none;
+            color:#374076;
+          }
+          .action 
+          {
+            position: absolute;
+            right: 10px;
+            top: 0;
+            font-size:20px;
           }
         }
       }
@@ -206,7 +229,7 @@
           box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);   
           background: #fff; 
           margin-bottom:30px;
-          @media all and (max-width:767px)
+          @media all and (max-width:600px)
           {
             margin-bottom:20px;
           }
@@ -215,7 +238,7 @@
             display:flex;
             align-items:center;
             width:100%;
-            @media all and (max-width:767px)
+            @media all and (max-width:600px)
             {
               display:block;
             }
@@ -225,7 +248,7 @@
               {
                 width:200px !important;
               }
-              @media all and (max-width:767px)
+              @media all and (max-width:600px)
               {
                 width:100% !important;
                 margin:0 auto;
@@ -233,27 +256,20 @@
               }
               .product-image-container 
               {
-                .owl-controls 
+                .owl-dots 
                 {
-                  .owl-page
+                  text-align:center;
+                  .owl-dot
                   {
+                    background:rgba(204,204,204,0.5);
+                    border-radius:50%;
+                    width:12px;
+                    height:12px;
+                    margin: 10px 5px;
                     &.active 
                     {
-                      span 
-                      {
-                        background: #e66698 !important;
-                      }
+                      background: #e66698 !important;
                     }             
-                    span 
-                    {
-                      width: 15px;
-                      height: 15px;
-                      @media all and (max-width:767px)
-                      {
-                        width:12px;
-                        height:12px;
-                      }
-                    }
                   }
                 }
               }
@@ -285,6 +301,7 @@
               {
                 color:#929292;
                 margin-bottom:1em;
+                font-size:14px;
               }
               ul 
               {
@@ -298,7 +315,7 @@
                 .product-item-actions
                 {
                   display:block !important;
-                  @media all and (max-width:767px)
+                  @media all and (max-width:600px)
                   {
                     text-align:center;
                   }
