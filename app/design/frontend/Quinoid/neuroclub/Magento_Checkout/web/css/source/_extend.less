@@ -1,78 +1,95 @@
-.checkout-onepage-success
-{
-  .page-main
-  {
+.checkout-onepage-success{
+  //Full width container styles
+  .page-main,.page-bottom{
+    max-width: 100% !important;
+    background: #fafafa;
+    // background: #fff;
+    padding-left: 1px;
+    padding-right: 1px;
+    @media only screen and (min-width: 768px){
+      background: #fff;
+    }
+    .home-container{
+    width: 100%;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    -webkit-flex-shrink:0;
+    flex-shrink: 0;
+    -webkit-flex-basis: auto;
+    flex-basis: auto;
+    @media only screen and (min-width: 768px){
+      box-sizing: border-box;
+      margin-left: auto;
+      margin-right: auto;
+      // max-width: 1280px;
+      max-width: 1350px;
+      padding-left: 20px;
+      padding-right: 20px;
+      width:auto;
+      }
+    }
+  }
+  .page-main{
     margin-top:105px;
-    @media all and (min-width:768px)
-    {
+    @media all and (min-width:768px){
       margin-top:155px;
     }
-    .order-confirm
-    {
-      .checkout-success
-      {
+    .order-confirm{
+      .curve-white{
+        background-color: #fff;
+        @media only screen and (max-width:768px){
+          display:block !important;
+          background-color: transparent;
+        }
+      }
+      .checkout-success{
         text-align: center;
-        h1
-        {
+        h1{
           font-size:21px;
           color:#2ca02c;
-          @media all and (max-width:991px)
-          {
+          @media all and (max-width:991px){
             font-size: 20px;
           }
-          @media all and (max-width:767px)
-          {
+          @media all and (max-width:767px){
             font-size: 19px;
           }
-          @media all and (max-width:479px)
-          {
+          @media all and (max-width:479px){
             font-size: 18px;
           }
         }
-          .order-confirm-heading
-          {
-            h2
-            {
+          .order-confirm-heading{
+            h2{
               font-size: 19px;
               font-weight: 600;
               color:#333333;
-              @media all and (max-width:991px)
-              {
+              @media all and (max-width:991px){
                 font-size: 18px;
                 padding:20px 0;
               }
-              @media all and (max-width:767px)
-              {
+              @media all and (max-width:767px){
                 font-size: 17px;
               }
-              @media all and (max-width:479px)
-              {
+              @media all and (max-width:479px){
                 font-size: 16px;
               }
             }
           }
-          p
-          {
+          p{
             font-weight: 500;
-            span
-            {
+            span{
               font-weight: 800;
             }
           }
-          .actions-toolbar
-          {
+          .actions-toolbar{
             text-align: center;
             margin: 30px 0;
-            @media all and (max-width:767px)
-            {
+            @media all and (max-width:767px){
               margin:20px 0;
             }
-            .primary
-            {
+            .primary{
               margin: 0 auto;
               float: none;
-              .continue
-              {
+              .continue{
                 margin: 0 auto;
                 float: none;
                 width: 360px;
@@ -89,426 +106,10 @@
             }
           }
       }
-      .order-confirm-bundle-carousel
-      {
-        h1
-        {
+      .order-confirm-bundle-carousel{
+        h1{
           display:none;
         }
-        #owl-product{
-          margin-top: 0;
-          .owl-stage-outer{
-            padding-top: 60px;
-            .item{
-              position:relative;
-              padding: 30px;
-              padding-bottom: 90px !important;
-              margin: 5px;
-              text-align: center;
-              box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-              -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-              -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-              @media only screen and (min-width: 468px){
-                padding: 40px;
-                padding-left: 20px;
-                padding-right: 20px;
-              }
-              @media only screen and (min-width: 768px){
-                padding: 30px;
-                margin: 10px;
-              }
-              @media all and (max-width: 1085px)
-              {
-                padding-bottom: 40px !important;
-              }
-              .image{
-                position: absolute;
-                top:-55px;
-                left: 35%;
-                width:220px;
-                @media only screen and (min-width: 320px) and (max-width:479px){
-                    left:28%;
-                    width:220px;
-                }
-                @media only screen and (min-width: 479px) and (max-width:599px){
-                    left:34%;
-                    width:220px;
-                }
-                @media only screen and (min-width: 600px) and (max-width:767px){
-                    left:22%;
-                    width:220px;
-                }
-                @media only screen and (min-width: 768px) and (max-width:990px){
-                    left:25%;
-                    width:220px;
-                }
-                @media only screen and (min-width: 991px) and (max-width:1200px){
-                  width:220px;
-                  left:30%;
-                  top:-43px;
-                }
-                @media only screen and (min-width: 1200px){
-                  width: 220px;
-                  left: 37%;
-                  top: -80px;
-                }
-              }
-              .product-title{
-                padding: 30px 0 15px 0;
-                @media all and (min-width: 479px) and (max-width:598px){
-                  padding: 40px 0 15px 0;
-                }
-                @media all and (min-width: 599px){
-                  padding: 50px 0 15px 0;
-                }
-                // @media only screen (min-width:768px) and (max-width: 990px){
-                //   padding: 50px 0 15px 0;
-                // }
-                @media only screen and (min-width: 991px){
-                  padding: 30px 0 20px 0;
-                }
-                @media only screen and (min-width: 1200px){
-                  padding: 50px 0 20px 0;
-                }
-                a{
-                  color:#000;
-                  font-size: 23px;
-                  font-weight: 500;
-                  text-transform:uppercase;
-                  &:hover , &:focus, &:active {
-                      color: #374076;
-                  }
-                  @media all and (max-width:1024px)
-                  {
-                    &:hover , &:focus, &:active {
-                        color: #000;
-                    }
-                  }
-                  @media only screen and (min-width: 468px){
-                    font-size: 20px;
-                  }
-                  @media only screen and (min-width: 991px){
-                    font-size: 30px;
-                  }
-                }
-              }
-              .actions-primary{
-                margin: 15px 0;
-                @media only screen and (min-width: 991px){
-                  margin: 20px 0;
-                }
-                p{
-                  color:#374076;
-                  font-weight: 600;
-                  font-size: 18px !important;
-                }
-              }
-              h5{
-                color: #6e6e6e;
-                font-size: 14px;
-                font-weight: 500;
-                margin-bottom: 15px;
-                width: 460px;
-                margin: 0 auto;
-                @media only screen and (min-width: 468px){
-                  font-size: 15px;
-                  min-height: 60px;
-                }
-                @media only screen and (min-width: 600px){
-                  font-size: 16px;
-                  min-height: 90px;
-                }
-                @media only screen and (min-width: 768px){
-                  font-size: 16px;
-                }
-                @media only screen and (min-width: 991px){
-                  font-size: 17px;
-                  margin-bottom: 20px;
-                  min-height: 85px;
-                }
-                @media all and (max-width: 1085px)
-                {
-                  width: 100%;
-                }
-              }
-              .product-row{
-                display: none;
-                width: 90%;
-                margin: 0 auto;
-                @media only screen and (min-width: 991px){
-                  display: block;
-                  margin-top: 50px;
-                }
-                .sub-product{
-                  text-align: center;
-                  position: relative;
-                  width: 100%;
-                  @media only screen and (min-width: 991px){
-                    -ms-flex: 0 0 32.33%;
-                    flex: 0 0 32.33%;
-                    max-width: 32.33%;
-                  }
-                  img{
-                    width: 40%;
-                    margin:0 auto;
-                    @media only (max-width: 1200px) and (min-width: 768px){
-                      width: 25%;
-                    }
-                  }
-                  h4{
-                    color: #000;
-                    font-size: 14px;
-                    font-weight: 600;
-                    margin: 0;
-                    padding: 5px 0;
-                    margin-top: 20px;
-                    @media only screen and (min-width: 468px){
-                      font-size: 13px;
-                    }
-                    @media only screen and (min-width: 768px){
-                      font-size: 14px;
-                    }
-                    @media only screen and (min-width: 991px){
-                      font-size: 18px;
-                    }
-                  }
-                  p{
-                    font-size: 18px;
-                    font-weight: 600;
-                    color: #374076;
-                    margin: 10px 0;
-                  }
-                  .price-box{
-                    color: #374076;
-                    font-weight: 600;
-                    span{
-                      font-size: 15px;
-                      @media only screen and (min-width: 468px){
-                        font-size: 16px;
-                      }
-                      @media only screen and (min-width: 768px){
-                        font-size: 17px;
-                      }
-                      @media only screen and (min-width: 991px){
-                        font-size: 18px;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-          .owl-dots{
-            text-align: center;
-            margin: 15px 0;
-            @media only screen and (min-width: 991px){
-              margin: 35px 0;
-            }
-            -webkit-tap-highlight-color: transparent;
-            .owl-dot {
-              display: inline-block;
-              zoom: 1;
-              cursor: pointer;
-              -webkit-user-select: none;
-              -khtml-user-select: none;
-              -moz-user-select: none;
-              -ms-user-select: none;
-              user-select: none;
-              span {
-                width: 15px;
-                height: 15px;
-                margin: 5px 7px;
-                background: #d7d8dc;
-                display: block;
-                -webkit-backface-visibility: visible;
-                transition: opacity .2s ease;
-                border-radius: 30px;
-              }
-            }
-          }
-          .owl-dot.active span{
-            background: #e66698;
-          }
-          button.owl-dot {
-            background: 0 0;
-            color: inherit;
-            border: none;
-            padding: 0!important;
-            font: inherit;
-          }
-        }
-        // #owl-product{
-        //   margin: 10px 0;
-        //   @media only screen and (min-width: 468px){
-        //     margin: 15px 0;
-        //   }
-        //   @media only screen and (min-width: 768px){
-        //     margin: 20px 0;
-        //   }
-        //   @media only screen and (min-width: 991px){
-        //     margin: 35px 0;
-        //   }
-        //   .owl-wrapper-outer{
-        //     padding-top: 80px;
-        //     .item{
-        //       position:relative;
-        //       padding: 20px;
-        //       margin: 5px;
-        //       text-align: center;
-        //       box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-        //       -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-        //       -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-        //       @media only screen and (min-width: 468px){
-        //         padding: 25px;
-        //       }
-        //       @media only screen and (min-width: 768px){
-        //         padding: 30px;
-        //         margin: 10px;
-        //       }
-        //       .image{
-        //         position: absolute;
-        //         top:-55px;
-        //         left: 35%;
-        //         width:45%;
-        //         @media only screen and (min-width: 479px){
-        //             left:40%;
-        //             width:30%;
-        //         }
-        //         @media only screen and (min-width: 768px){
-        //           left:38%;
-        //           width:30%;
-        //         }
-        //         @media only screen and (min-width: 991px){
-        //           width:50%;
-        //           left:22%;
-        //           top:-43px;
-        //         }
-        //         @media only screen and (min-width: 1200px){
-        //           left:25%;
-        //           top: -40px;
-        //         }
-        //       }
-        //           .product-title{
-        //         padding: 60px 0 30px 0;
-        //         a{
-        //           color:#000;
-        //           font-size: 23px;
-        //           font-weight: 500;
-        //           text-transform:uppercase;
-        //           &:hover , &:focus, &:active {
-        //               color: #374076;
-        //           }
-        //           @media only screen and (min-width: 468px){
-        //             font-size: 25px;
-        //           }
-        //           @media only screen and (min-width: 991px){
-        //             font-size: 30px;
-        //           }
-        //         }
-        //       }
-        //       .actions-primary{
-        //         margin-top: 30px;
-        //         margin-bottom:15px;
-        //         p{
-        //           color:#374076;
-        //           font-weight: 600;
-        //           font-size: 18px !important;
-        //         }
-        //       }
-        //       h5{
-        //         color: #6e6e6e;
-        //         font-size: 14px;
-        //         font-weight: 500;
-        //         margin-bottom: 25px;
-        //         @media only screen and (min-width: 468px){
-        //           font-size: 15px;
-        //           margin-bottom: 30px;
-        //         }
-        //         @media only screen and (min-width: 768px){
-        //           font-size: 16px;
-        //           margin-bottom: 35px;
-        //         }
-        //         @media only screen and (min-width: 991px){
-        //           font-size: 17px;
-        //           margin-bottom: 40px;
-        //         }
-        //       }
-        //       .product-row{
-        //         display: none;
-        //         @media only screen and (min-width: 1024px){
-        //           display: block;
-        //         }
-        //         h3{
-        //           color: #000000;
-        //           font-size: 14px;
-        //           font-weight: 500;
-        //           margin-bottom: 15px;
-        //           @media only screen and (min-width: 468px){
-        //             font-size: 16px;
-        //             margin-bottom: 20px;
-        //           }
-        //           @media only screen and (min-width: 768px){
-        //             font-size: 18px;
-        //             margin-bottom: 25px;
-        //           }
-        //           @media only screen and (min-width: 991px){
-        //             font-size: 20px;
-        //             margin-bottom: 30px;
-        //           }
-        //         }
-        //         .sub-product{
-        //           text-align: center;
-        //           position: relative;
-        //           width: 100%;
-        //           @media only screen and (min-width: 991px){
-        //             -ms-flex: 0 0 32.33%;
-        //             flex: 0 0 32.33%;
-        //             max-width: 32.33%;
-        //           }
-        //           img{
-        //             width: 70%;
-        //           }
-        //           h4{
-        //             color: #000;
-        //             font-size: 14px;
-        //             font-weight: 600;
-        //             margin: 10px 0;
-        //             @media only screen and (min-width: 468px){
-        //               font-size: 15px;
-        //             }
-        //             @media only screen and (min-width: 768px){
-        //               font-size: 16px;
-        //             }
-        //             @media only screen and (min-width: 991px){
-        //               font-size: 18px;
-        //             }
-        //           }
-        //           p{
-        //             font-weight: 500;
-        //             color: #374076;
-        //             margin: 10px 0;
-        //           }
-        //           .price-box{
-        //             color: #374076;
-        //             font-weight: 600;
-        //             span{
-        //               font-size: 18px;
-        //               @media only screen and (min-width: 468px){
-        //                 font-size: 20px;
-        //               }
-        //               @media only screen and (min-width: 768px){
-        //                 font-size: 23px;
-        //               }
-        //               @media only screen and (min-width: 991px){
-        //                 font-size: 23px;
-        //               }
-        //             }
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }
-        // }
       }
     }
   }

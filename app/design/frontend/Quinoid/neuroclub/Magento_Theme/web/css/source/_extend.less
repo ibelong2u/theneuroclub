@@ -13,64 +13,25 @@ h1,h2,h3,h4,h5,h6,p{
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  // margin-right: -15px;
-  // margin-left: -15px;
 }
 .desktop-none{
-      display: none !important;
-
+  display: none !important;
   @media all and (max-width:767px){
     display:block !important;
   }
 }
-
-.margin{
-  margin: 15px 0;
-  padding: 15px 0;
+//display on desktop
+.desktop-view{
+  display: none !important;
   @media only screen and (min-width: 768px){
-    margin: 20px 0;
-  }
-  @media only screen and (min-width: 991px){
-    margin: 35px 0;
+    display: block !important;
   }
 }
-.section-heading{
-  text-align: center;
-  p{
-    color: #6e6e6e;
-    padding-bottom:10px;
-    @media only screen and (min-width: 991px){
-      padding-bottom:30px;
-      margin-bottom:0;
-    }
-  }
-  strong{
-    color: #000;
-    font-weight: 600;
-  }
-}
-.section-button{
-  padding: 25px 0 0 0;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  text-align: center;
-  @media only screen and (min-width: 1024px){
-    padding-top: 30px;
-  }
-  button{
-    background: #374076;
-    border: 1px solid #374076;
-    border-radius: 20px;
-    color: #fff;
-    padding: 12px 55px;
-    text-transform: uppercase;
-    @media all and (max-width:1024px){
-      &:hover , &:focus, &:active {
-        background: #374076;
-        border: 1px solid #374076;
-        color: #fff;
-      }
-    }
+//display on mobile
+.mobile-view{
+  display: block !important;
+  @media only screen and (min-width: 768px){
+    display: none !important;
   }
 }
 h2{
@@ -165,6 +126,17 @@ button{
     color: #fff;
   }
 }
+//Common margin
+.margin{
+  margin: 15px 0;
+  padding: 15px 0;
+  @media only screen and (min-width: 768px){
+    margin: 20px 0;
+  }
+  @media only screen and (min-width: 991px){
+    margin: 35px 0;
+  }
+}
 //padding and margin between section-button
 .padding-70{
   margin: 20px 0 10px 0;
@@ -237,6 +209,280 @@ button{
     height: 50px;
   }
 }
+// Carousel of bundle product
+  #owl-product, #owl-product1{
+    margin-top: 0;
+    .owl-stage-outer{
+      padding-top: 60px;
+      .item{
+        margin: 5px;
+        position:relative;
+        padding: 30px 30px 90px 30px !important;
+        // padding-bottom: 90px !important;
+        text-align: center;
+        box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+        @media only screen and (min-width: 468px){
+          padding: 40px 20px;
+        }
+        @media only screen and (min-width: 768px){
+          margin: 10px;
+          padding: 30px;
+        }
+        @media all and (max-width: 1085px){
+          padding-bottom: 40px !important;
+        }
+        .image{
+          position: absolute;
+          top:-55px;
+          left: 35%;
+          width:220px;
+          @media only screen and (min-width: 320px) and (max-width:479px){
+            left:28%;
+            width:220px;
+          }
+          @media only screen and (min-width: 479px) and (max-width:599px){
+            left:34%;
+            width:220px;
+          }
+          @media only screen and (min-width: 600px) and (max-width:767px){
+            left:22%;
+            width:220px;
+          }
+          @media only screen and (min-width: 768px) and (max-width:990px){
+            left:25%;
+            width:220px;
+          }
+          @media only screen and (min-width: 991px) and (max-width:1200px){
+            width:220px;
+            left:30%;
+            top:-43px;
+          }
+          @media only screen and (min-width: 1200px){
+            width: 240px;
+            left: 40%;
+            top: -63px;
+          }
+        }
+        .product-title{
+          padding: 30px 0 15px 0;
+          @media all and (min-width: 479px) and (max-width:598px){
+            padding: 40px 0 15px 0;
+          }
+          @media all and (min-width: 599px){
+            padding: 50px 0 15px 0;
+          }
+          @media only screen and (min-width: 991px){
+            padding: 30px 0 20px 0;
+          }
+          @media only screen and (min-width: 1200px){
+            padding: 50px 0 20px 0;
+          }
+          a{
+            color:#000;
+            font-size: 23px;
+            font-weight: 500;
+            text-transform:uppercase;
+            &:hover ,&:focus, &:active {
+              color: #374076;
+            }
+            @media all and (max-width:1024px){
+              &:hover , &:focus, &:active {
+                color: #000;
+              }
+            }
+            @media only screen and (min-width: 468px){
+              font-size: 20px;
+            }
+            @media only screen and (min-width: 991px){
+              font-size: 30px;
+            }
+          }
+        }
+        .actions-primary{
+          margin: 15px 0;
+          @media only screen and (min-width: 991px){
+            margin: 20px 0;
+          }
+          p{
+            color:#374076;
+            font-weight: 600;
+            font-size: 18px !important;
+          }
+        }
+        h5{
+          color: #6e6e6e;
+          font-size: 14px;
+          font-weight: 500;
+          margin-bottom: 15px;
+          width: 460px;
+          margin: 0 auto;
+          @media only screen and (min-width: 468px){
+            font-size: 15px;
+            min-height: 60px;
+          }
+          @media only screen and (min-width: 600px){
+            font-size: 16px;
+            min-height: 90px;
+          }
+          @media only screen and (min-width: 768px){
+            font-size: 16px;
+          }
+          @media only screen and (min-width: 991px){
+            font-size: 17px;
+            margin-bottom: 20px;
+            min-height: 85px;
+          }
+          @media all and (max-width: 1085px){
+            width: 100%;
+          }
+        }
+        .product-row{
+          display: none;
+          width: 90%;
+          margin: 0 auto;
+          @media only screen and (min-width: 991px){
+            display: block;
+            margin-top: 50px;
+          }
+          .sub-product{
+            position: relative;
+            text-align: center;
+            width: 100%;
+            @media only screen and (min-width: 991px){
+              -ms-flex: 0 0 32.33%;
+              flex: 0 0 32.33%;
+              max-width: 32.33%;
+            }
+            img{
+              margin:0 auto;
+              width: 40%;
+              @media only (max-width: 1200px) and (min-width: 768px){
+                width: 25%;
+              }
+            }
+            h4{
+              color: #000;
+              font-size: 14px;
+              font-weight: 600;
+              margin: 0;
+              padding: 5px 0;
+              margin-top: 20px;
+              @media only screen and (min-width: 468px){
+                font-size: 13px;
+                }
+                @media only screen and (min-width: 768px){
+                  font-size: 14px;
+                }
+                @media only screen and (min-width: 991px){
+                    font-size: 18px;
+                  }
+                }
+                p{
+                  font-size: 18px;
+                  font-weight: 600;
+                  color: #374076;
+                  margin: 10px 0;
+                }
+                .price-box{
+                  color: #374076;
+                  font-weight: 600;
+                  span{
+                    font-size: 15px;
+                    @media only screen and (min-width: 468px){
+                      font-size: 16px;
+                    }
+                    @media only screen and (min-width: 768px){
+                      font-size: 17px;
+                    }
+                    @media only screen and (min-width: 991px){
+                      font-size: 18px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .owl-dots{
+            text-align: center;
+            margin: 15px 0;
+            -webkit-tap-highlight-color: transparent;
+            @media only screen and (min-width: 991px){
+              margin: 35px 0;
+            }
+          .owl-dot {
+            display: inline-block;
+            zoom: 1;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            span{
+              width: 15px;
+              height: 15px;
+              margin: 5px 7px;
+              background: #d7d8dc;
+              display: block;
+              -webkit-backface-visibility: visible;
+              transition: opacity .2s ease;
+              border-radius: 30px;
+            }
+          }
+        }
+        .owl-dot.active span{
+          background: #e66698;
+        }
+        button.owl-dot {
+          background: 0 0;
+          color: inherit;
+          border: none;
+          padding: 0!important;
+          font: inherit;
+        }
+  }
+  .section-heading{
+    text-align: center;
+    p{
+      color: #6e6e6e;
+      padding-bottom:10px;
+      @media only screen and (min-width: 991px){
+        padding-bottom:30px;
+        margin-bottom:0;
+      }
+    }
+    strong{
+      color: #000;
+      font-weight: 600;
+    }
+  }
+  .section-button{
+    padding: 25px 0 0 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    @media only screen and (min-width: 1024px){
+      padding-top: 30px;
+    }
+    button{
+      background: #374076;
+      border: 1px solid #374076;
+      border-radius: 20px;
+      color: #fff;
+      padding: 12px 55px;
+      text-transform: uppercase;
+      @media all and (max-width:1024px){
+        &:hover , &:focus, &:active {
+          background: #374076;
+          border: 1px solid #374076;
+          color: #fff;
+        }
+      }
+    }
+  }
 //header
 .nav-sections{
   -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
@@ -251,7 +497,6 @@ button{
     }
   }
 }
-
 .page-header{
   position: fixed;
   width: 100%;
@@ -277,8 +522,7 @@ button{
       display: none;
     }
 
-.header-account
-{
+.header-account{
   float: right;
     margin-right: 65px;
     width: 100px;
@@ -289,7 +533,6 @@ button{
       font-weight: 600;
     }
 }
-
   .logo{
     width: 40px;
     margin-top: 0;
@@ -623,18 +866,6 @@ button{
     }
   }
   //Hearo banner
-  .desktop-view{
-    display: none !important;
-    @media only screen and (min-width: 768px){
-      display: block !important;
-    }
-  }
-  .mobile-view{
-    display: block !important;
-    @media only screen and (min-width: 768px){
-      display: none !important;
-    }
-  }
   .home-banner-grid{
     position: relative;
     padding-bottom: 50.65%;
@@ -899,251 +1130,8 @@ button{
         padding-bottom: 0 !important;
         margin-bottom: 0;
     }
-    #owl-product{
-      margin-top: 0;
-      .owl-stage-outer{
-        padding-top: 60px;
-        .item{
-          position:relative;
-          padding: 30px;
-          padding-bottom: 90px !important;
-          margin: 5px;
-          text-align: center;
-          box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-          -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-          -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-          @media only screen and (min-width: 468px){
-            padding: 40px;
-            padding-left: 20px;
-            padding-right: 20px;
-          }
-          @media only screen and (min-width: 768px){
-            padding: 30px;
-            margin: 10px;
-          }
-          @media all and (max-width: 1085px)
-          {
-            padding-bottom: 40px !important;
-          }
-          .image{
-            position: absolute;
-            top:-55px;
-            left: 35%;
-            width:220px;
-            @media only screen and (min-width: 320px) and (max-width:479px){
-                left:28%;
-                width:220px;
-            }
-            @media only screen and (min-width: 479px) and (max-width:599px){
-                left:34%;
-                width:220px;
-            }
-            @media only screen and (min-width: 600px) and (max-width:767px){
-                left:22%;
-                width:220px;
-            }
-            @media only screen and (min-width: 768px) and (max-width:990px){
-                left:25%;
-                width:220px;
-            }
-            @media only screen and (min-width: 991px) and (max-width:1200px){
-              width:220px;
-              left:30%;
-              top:-43px;
-            }
-            @media only screen and (min-width: 1200px){
-              width: 260px;
-              left: 37%;
-              top: -63px;
-            }
-          }
-          .product-title{
-            padding: 30px 0 15px 0;
-            @media all and (min-width: 479px) and (max-width:598px){
-              padding: 40px 0 15px 0;
-            }
-            @media all and (min-width: 599px){
-              padding: 50px 0 15px 0;
-            }
-            // @media only screen (min-width:768px) and (max-width: 990px){
-            //   padding: 50px 0 15px 0;
-            // }
-            @media only screen and (min-width: 991px){
-              padding: 30px 0 20px 0;
-            }
-            @media only screen and (min-width: 1200px){
-              padding: 50px 0 20px 0;
-            }
-            a{
-              color:#000;
-              font-size: 23px;
-              font-weight: 500;
-              text-transform:uppercase;
-              &:hover , &:focus, &:active {
-                  color: #374076;
-              }
-              @media all and (max-width:1024px)
-              {
-                &:hover , &:focus, &:active {
-                    color: #000;
-                }
-              }
-              @media only screen and (min-width: 468px){
-                font-size: 20px;
-              }
-              @media only screen and (min-width: 991px){
-                font-size: 30px;
-              }
-            }
-          }
-          .actions-primary{
-            margin: 15px 0;
-            @media only screen and (min-width: 991px){
-              margin: 20px 0;
-            }
-            p{
-              color:#374076;
-              font-weight: 600;
-              font-size: 18px !important;
-            }
-          }
-          h5{
-            color: #6e6e6e;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 15px;
-            width: 460px;
-            margin: 0 auto;
-            @media only screen and (min-width: 468px){
-              font-size: 15px;
-              min-height: 60px;
-            }
-            @media only screen and (min-width: 600px){
-              font-size: 16px;
-              min-height: 90px;
-            }
-            @media only screen and (min-width: 768px){
-              font-size: 16px;
-            }
-            @media only screen and (min-width: 991px){
-              font-size: 17px;
-              margin-bottom: 20px;
-              min-height: 85px;
-            }
-            @media all and (max-width: 1085px)
-            {
-              width: 100%;
-            }
-          }
-          .product-row{
-            display: none;
-            width: 90%;
-            margin: 0 auto;
-            @media only screen and (min-width: 991px){
-              display: block;
-              margin-top: 50px;
-            }
-            .sub-product{
-              text-align: center;
-              position: relative;
-              width: 100%;
-              @media only screen and (min-width: 991px){
-                -ms-flex: 0 0 32.33%;
-                flex: 0 0 32.33%;
-                max-width: 32.33%;
-              }
-              img{
-                width: 40%;
-                margin:0 auto;
-                @media only (max-width: 1200px) and (min-width: 768px){
-                  width: 25%;
-                }
-              }
-              h4{
-                color: #000;
-                font-size: 14px;
-                font-weight: 600;
-                margin: 0;
-                padding: 5px 0;
-                margin-top: 20px;
-                @media only screen and (min-width: 468px){
-                  font-size: 13px;
-                }
-                @media only screen and (min-width: 768px){
-                  font-size: 14px;
-                }
-                @media only screen and (min-width: 991px){
-                  font-size: 18px;
-                }
-              }
-              p{
-                font-size: 18px;
-                font-weight: 600;
-                color: #374076;
-                margin: 10px 0;
-              }
-              .price-box{
-                color: #374076;
-                font-weight: 600;
-                span{
-                  font-size: 15px;
-                  @media only screen and (min-width: 468px){
-                    font-size: 16px;
-                  }
-                  @media only screen and (min-width: 768px){
-                    font-size: 17px;
-                  }
-                  @media only screen and (min-width: 991px){
-                    font-size: 18px;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-      .owl-dots{
-        text-align: center;
-        margin: 15px 0;
-        @media only screen and (min-width: 991px){
-          margin: 35px 0;
-        }
-        -webkit-tap-highlight-color: transparent;
-        .owl-dot {
-          display: inline-block;
-          zoom: 1;
-          cursor: pointer;
-          -webkit-user-select: none;
-          -khtml-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-          span {
-            width: 15px;
-            height: 15px;
-            margin: 5px 7px;
-            background: #d7d8dc;
-            display: block;
-            -webkit-backface-visibility: visible;
-            transition: opacity .2s ease;
-            border-radius: 30px;
-          }
-        }
-      }
-      .owl-dot.active span{
-        background: #e66698;
-      }
-      button.owl-dot {
-        background: 0 0;
-        color: inherit;
-        border: none;
-        padding: 0!important;
-        font: inherit;
-      }
-    }
   }
-
-  //How all it works section
+//How all it works section
     .works-section{
       background: #fafafa;
       padding-top: 20px;
@@ -1720,12 +1708,12 @@ button{
           }
           &:after
           {
-            @media all and (max-width: 500px)
-            {
-              position: absolute;
-              right: 0;
-              top: 41%;
-            }
+            // @media all and (max-width: 500px)
+            // {
+            //   position: absolute;
+            //   right: 0;
+            //   top: 41%;
+            // }
           }
         }
         .ui-accordion-content {
