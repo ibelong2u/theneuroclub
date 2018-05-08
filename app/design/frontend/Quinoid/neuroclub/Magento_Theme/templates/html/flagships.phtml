@@ -1,0 +1,21 @@
+<!-- Homepage Flagships Block -->
+
+<?php
+  echo $this->getLayout()
+             ->createBlock('Magento\Cms\Block\Block')
+             ->setBlockId('our-flagships')
+             ->toHtml();
+ ?>
+<div class="curve-white"></div>
+<script>
+  require([
+        'jquery',
+        'videopopup'
+    ], function($) {
+          jQuery(".youtube-link").grtyoutube({
+    				autoPlay:true,
+    				theme: "dark"
+    			});
+
+    });
+</script>

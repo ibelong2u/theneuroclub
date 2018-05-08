@@ -119,7 +119,7 @@ class Index extends \Magento\Framework\View\Element\Template
       $tableName = $resource->getTableName('prince_faq'); //gives table name with prefix
 
       //Select Data from table
-      $sql = "SELECT * FROM " . $tableName." WHERE status =1 ORDER BY faq_id DESC LIMIT 2";
+      $sql = "SELECT * FROM " . $tableName." WHERE status =1 ORDER BY faq_id DESC LIMIT 5";
       $faqCollection = $connection->fetchAll($sql); // gives associated array, table fields as key in array.
       return $faqCollection;
 
