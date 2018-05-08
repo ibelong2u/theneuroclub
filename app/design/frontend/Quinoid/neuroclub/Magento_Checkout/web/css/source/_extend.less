@@ -108,7 +108,10 @@
       }
       .order-confirm-bundle-carousel{
         h1{
-          display:none;
+          display:none !important;
+          @media all and (min-width:767px) {
+            display:block !important;
+          }
         }
       }
     }
