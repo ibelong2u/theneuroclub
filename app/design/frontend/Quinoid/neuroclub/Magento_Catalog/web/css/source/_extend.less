@@ -157,6 +157,40 @@ button{
   }
 }
 
+.breadcrumbs
+{
+  display: none;
+}
+
+.page-main
+{
+  margin-top:115px;
+  @media all and (max-width:767px)
+  {
+    margin-top:76px;
+  }
+  .category-image
+  {
+    margin-bottom: 0;
+    img
+    {
+      width:100%;
+    }
+  }
+  .page-title-wrapper
+  {
+    display: none;
+  }
+  .columns
+  {
+    padding:0;
+    .column
+    {
+      padding:0;
+    }
+  }
+}
+
 .inner-container
 {
   width:70%;
@@ -210,90 +244,6 @@ button{
 }
 .plp-container
 {
-  .plp-banner
-  {
-    background:url("../images/plp-without-filter-banner.jpg");
-    background-size:100% 100%;
-    background-repeat:no-repeat;
-    padding-top: 6em;
-    padding-bottom: 2em;
-    @media all and (max-width:1024px)
-    {
-      background-size:cover;
-    }
-    @media all and (max-width:767px)
-    {
-      background: url(../images/plp-without-filter-banner-mob.jpg);
-      background-repeat: no-repeat;
-      background-size: cover;
-      padding-top:4em;
-      padding-bottom:1em;
-    }
-    .plp-banner-container
-    {
-      align-items:center;
-      margin:0;
-      .banner-content
-      {
-        width:50%;
-        text-align:center;
-        @media all and (max-width:767px)
-        {
-          width:100%;
-        }
-        h4
-        {
-          color: #374076;
-          margin-bottom: 10px;
-          @media all and (max-width:479px)
-          {
-            font-size:24px;
-          }
-        }
-        p
-        {
-          color: #374076;
-          width:60%;
-          margin:0 auto;
-          @media all and (max-width:991px)
-          {
-            width:80%;
-          }
-          @media all and (max-width:767px)
-          {
-            width:90%;
-          }
-        }
-        .section-button
-        {
-          button
-          {
-            font-weight:100;
-            padding:10px 40px;
-            @media all and (max-width:479px)
-            {
-              padding:10px 20px;
-            }
-          }
-        }
-      }
-      .banner-products
-      {
-        width:50%;
-        text-align:center;
-        @media all and (max-width: 767px)
-        {
-          width:200px;
-          margin:0 auto;
-          margin-top:20px;
-        }
-        img
-        {
-          max-width: 100%;
-        }
-      }
-    }
-  }
   .plp-heading
   {
     h4
@@ -359,18 +309,12 @@ button{
         width:40%;
         text-align: center;
         box-sizing: border-box;
-        padding-left: 5em;
-        @media all and (max-width:1280px)
-        {
-          padding-left: 2em;
-        }
         @media all and (max-width:767px)
         {
           float: none;
           width: 280px;
           margin: 0 auto;
           margin-bottom: 20px;
-          padding:0;
         }
         img
         {
@@ -403,128 +347,99 @@ button{
         }
         h6
         {
-          color: #374076;
-          text-transform:uppercase;
+          a
+          {
+            font-size: 18px;
+            color: #374076;
+            text-transform:uppercase;
+            @media only screen and (min-width: 468px){
+              font-size: 22px;
+            }
+            @media only screen and (min-width: 768px){
+              font-size: 26px;
+            }
+            @media only screen and (min-width: 1024px){
+              font-size: 30px;
+            }
+          }
         }
         .medicine-type
         {
-          margin:1em 0;
-          color:#374076;
-          text-transform: uppercase;
-          font-size: 14px;
-          @media only screen and (min-width: 768px){
-            font-size: 16px;
-          }
-          @media only screen and (min-width: 991px){
-            font-size: 20px;
+          p
+          {
+            margin:1em 0;
+            color:#374076;
+            text-transform: uppercase;
+            font-size: 14px;
+            @media only screen and (min-width: 768px){
+              font-size: 16px;
+            }
+            @media only screen and (min-width: 991px){
+              font-size: 20px;
+            }
           }
         }
-        p
+        .description
         {
-          color:#434242;
+          p
+          {
+            color:#434242;
+          }
         }
-        .plp-item-button
+        .product-item-actions
         {
-          text-align: left;
+          display:block !important;
           @media all and (max-width:767px)
           {
             text-align: center;
           }
-          button
+          .actions-primary
           {
-            background: #e66698;
-            border: 1px solid #e66698;
+            @media all and (max-width:767px)
+            {
+              display:block;
+            }
+            .plp-item-button
+            {
+              text-align: left;
+              @media all and (max-width:767px)
+              {
+                text-align: center;
+              }
+              button
+              {
+                background: #e66698;
+                border: 1px solid #e66698;
+                padding:10px 20px;
+                span
+                {
+                  text-transform: capitalize;
+                }
+              }
+            }
           }
         }
       }
     }
   }
-  .plp-bottom
+}
+
+.plp-bottom
+{
+  padding:50px 0;
+  @media all and (max-width:1024px)
   {
-    padding:50px 0;
-    @media all and (max-width:1024px)
+    padding:30px 0;
+  }
+  @media all and (max-width:767px)
+  {
+    padding:0;
+  }
+  .plp-bottom-container
+  {
+    img
     {
-      padding:30px 0;
-    }
-    @media all and (max-width:767px)
-    {
-      padding:0;
-    }
-    .plp-bottom-container
-    {
-      background:url(../images/plp-bottom-background.jpg);
-      background-repeat:no-repeat;
-      background-size:cover;
-      padding:10em 0;
-      @media all and (max-width:1280px)
-      {
-        padding:7em 0;
-      }
-      @media all and (max-width:767px)
-      {
-        padding:5em 0;
-      }
-      @media all and (max-width:599px)
-      {
-        padding:4em 0;
-      }
-      @media all and (max-width:479px)
-      {
-        padding:3em 0;
-      }
-      @media all and (max-width:425px)
-      {
-        padding:2em 0;
-      }
-      .bottom-content
-      {
-        width:40%;
-        padding-left:5em;
-        @media all and (max-width:1280px)
-        {
-          padding-left: 2em;
-        }
-        @media all and (max-width:1024px)
-        {
-          width:45%;
-        }
-        @media all and (max-width:767px)
-        {
-          padding-left: 15px;
-          width:50%;
-        }
-        @media all and (max-width:530px)
-        {
-          width:55%;
-        }
-        @media all and (max-width:399px)
-        {
-          width:60%;
-        }
-        @media all and (max-width:345px)
-        {
-          width:65%;
-        }
-        p
-        {
-          color:#fff;
-        }
-        .plp-bottom-button
-        {
-          text-align:left;
-          button
-          {
-            background: #e66698;
-            border: 1px solid #e66698;
-            font-weight:100;
-            padding:10px 40px;
-            @media all and (max-width:479px)
-            {
-              padding:10px 20px;
-            }
-          }
-        }
-      }
+      width:100%;
     }
   }
 }

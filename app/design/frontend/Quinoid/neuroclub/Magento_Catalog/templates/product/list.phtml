@@ -61,12 +61,12 @@ $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
                     <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
                   </a>
                 </h6>
-                <p class="medicine-type">
+                <div class="medicine-type">
                   <?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
-                </p>
-                <p>
+                </div>
+                <div class="description">
                   <?php echo $_helper->productAttribute($_product, $_product->getDescription(), 'description') ?>
-                </p>
+                </div>
                 <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
                 <?= $block->getProductDetailsHtml($_product) ?>
                 <div class="product-item-inner">
