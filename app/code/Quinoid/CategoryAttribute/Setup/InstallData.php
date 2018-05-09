@@ -23,11 +23,11 @@ class InstallData implements InstallDataInterface
 
         $eavSetup->addAttribute(
             \Magento\Catalog\Model\Category::ENTITY,
-            'category_banner_link',
+            'secondary_banner',
             [
-                'type' => 'varchar',
-                'label' => 'Banner Link',
-                'input' => 'text',
+                'type' => 'text',
+                'label' => 'Secondary Banner',
+                'input' => 'textarea',
                 'required' => false,
                 'sort_order' => 100,
                 'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_STORE,
@@ -36,22 +36,7 @@ class InstallData implements InstallDataInterface
                 'group' => 'Content',
             ]
         );
-        $eavSetup->addAttribute(
-             \Magento\Catalog\Model\Category::ENTITY,
-             'category_banner_image',
-             [
-                 'type' => 'varchar',
-                 'label' => 'Banner Image',
-                 'input' => 'image',
-                 'backend' => \Magento\Catalog\Model\Category\Attribute\Backend\Image::class,
-                 'required' => false,
-                 'sort_order' => 200,
-                 'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_STORE,
-                 'wysiwyg_enabled' => true,
-                 'is_html_allowed_on_front' => true,
-                 'group' => 'Content',
-             ]
-         );
+
         $setup->endSetup();
     }
 }

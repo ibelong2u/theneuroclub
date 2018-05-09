@@ -1,13 +1,13 @@
-<?php
-    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-    $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');
-?>
-<div class="plp-bottom">
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance() ?>
+<?php $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category') ?>
+<?php if (null !== $category->getCustomAttribute('secondary_banner')): ?>
+  <?php $content = $category->getCustomAttribute('secondary_banner')->getValue() ?>
+  <?php $filteredContent = $objectManager->get('Magento\Cms\Model\Template\FilterProvider')->getPageFilter()->filter($content) ?>
+  <div class="plp-bottom">
     <div class="inner-container">
-        <div class="plp-bottom-container">
-            <a href="<?php echo $category->getData('category_banner_link') ?>">
-              <img src='<?php echo  $block->getBaseUrl() . "pub/media/catalog/category/" . $category->getData('category_banner_image'); ?>'/>
-            </a>
-        </div>
+      <div class="plp-bottom-container">
+        <?php echo $filteredContent ?>
+      </div>
     </div>
-</div>
+  </div>
+<?php endif; ?>

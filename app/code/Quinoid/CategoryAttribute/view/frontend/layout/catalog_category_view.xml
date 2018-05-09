@@ -5,7 +5,8 @@
         <referenceBlock name="catalog.compare.sidebar" remove="true" />
         <referenceBlock name="wishlist_sidebar" remove="true" />
         <referenceBlock name="catalog.leftnav" remove="true" />
-        <move element="page.main.title" destination="columns.top" after="category.image"/>
+        <referenceBlock name="page.main.title" remove="true" />
+        <referenceBlock name="category.description" remove="true" />
         <referenceContainer name="content">
             <container name="category.bottom.banner" after="category.products">
                 <block class="Magento\Framework\View\Element\Template" name="category.bottom.image" template="Quinoid_CategoryAttribute::category/bottom_banner_image.phtml"/>
