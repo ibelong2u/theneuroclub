@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="catalog.compare.sidebar" remove="true" />
@@ -7,10 +6,6 @@
         <referenceBlock name="catalog.leftnav" remove="true" />
         <referenceBlock name="page.main.title" remove="true" />
         <referenceBlock name="category.description" remove="true" />
-        <referenceContainer name="content">
-            <container name="category.bottom.banner" after="category.products">
-                <block class="Magento\Framework\View\Element\Template" name="category.bottom.image" template="Quinoid_CategoryAttribute::category/bottom_banner_image.phtml"/>
-            </container>
-        </referenceContainer>
+        <referenceBlock name="category.cms" remove="true" />
     </body>
 </page>

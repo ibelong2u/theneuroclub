@@ -116,3 +116,15 @@ $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
     <?php endif; ?>
   </div>
 <?php endif; ?>
+<div class="plp-bottom">
+  <div class="inner-container">
+    <div class="row plp-bottom-container">
+      <?php
+        echo $this->getLayout()
+                   ->createBlock('Magento\Cms\Block\Block')
+                   ->setBlockId('flagships-listing-page-banner')
+                   ->toHtml();
+       ?>
+    </div>
+  </div>
+</div>
