@@ -25,17 +25,7 @@ $bannerContentType = $this->helper('Quinoid\HomepageBanner\Helper\Data')->getCon
 if ($isEnable == 1) { ?>
   <?php
     if ($bannerContentType == 0) { ?>
-      <div id="owl-demo" data-mage-init='{
-      "OwlCarousel":{
-            "autoPlay": 3000,
-            "items" : 1,
-            "pagination" : false,
-            "itemsDesktop" : [1199,1],
-            "itemsDesktopSmall" : [979,1],
-            "itemsTablet" : [768, 1]
-      }
-    }
-    '>
+      <div id="owl-demo1" class="owl-carousel">
   <?php
         foreach($result as $_result) {
             $file_extension  = pathinfo( $_result['videofile'], PATHINFO_EXTENSION);
@@ -59,19 +49,28 @@ if ($isEnable == 1) { ?>
         }?>
         </div>
         <script type="text/x-magento-init">
-        {
-            "#owl-demo": {
+            {
+            "#owl-demo1": {
                 "OwlCarousel": {
-                    "autoPlay": 3000,
-                    "items": 1,
-                    "pagination" : false,
-                    "itemsDesktop": [1199, 1],
-                    "itemsDesktopSmall": [979, 1],
-                    "itemsTablet" : [768, 1]
+                  "center": false,
+                  "items": 1,
+                  "margin": 0,
+                  "loop": true,
+                  "autoplay":true,
+                  "responsive": {
+                    "0": {
+                      "items": 1
+                    },
+                    "600": {
+                      "items": 1
+                    }
+                  }
+                }
                 }
             }
-        }
-    </script>
+        </script>
+
+
   <?php  }
     elseif ($bannerContentType == 1) {?>
 
