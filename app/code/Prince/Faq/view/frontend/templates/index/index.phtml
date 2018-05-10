@@ -3,8 +3,9 @@
 <?php $showGroupTitle = $block->getConfig('faqtab/general/showgrouptitle') ?>
 <?php $faqGroupCollection = $block->getFaqGroupCollection() ?>
 <?php if ($faqGroupCollection->getSize()) : ?>
+  <div class="home-container top-padding">
     <?php if ($isEnable) : ?>
-    <div class="faq-collection">
+      <div class="faq-collection padding-70">
         <?php if ($showGroup) : ?>
             <div class="faq-groups">
                 <?php foreach ($faqGroupCollection as $group) : ?>
@@ -15,7 +16,7 @@
                                 <img class="group-image"
                                      src="<?php /* @noEscape */ echo $block->getImageUrl($group->getIcon()); ?>" />
                             <?php else : ?>
-                                <img class="group-image" 
+                                <img class="group-image"
                                      src="<?php /* @noEscape */ echo $block->getViewFileUrl('Prince_Faq::images/faq.png'); ?>" />
                             <?php endif; ?>
                             </a>
@@ -39,7 +40,7 @@
                 <div class="faq-accordion">
                 <?php $faqCollection = $block->getFaqCollection($group->getId()); ?>
                     <?php if ($faqCollection->getSize()) : ?>
-                        <?php foreach ($faqCollection as $faq) : ?> 
+                        <?php foreach ($faqCollection as $faq) : ?>
                             <h3><?php /* @noEscape */ echo $faq->getTitle(); ?></h3>
                             <div>
                                 <p><?php /* @noEscape */ echo $block->filterOutputHtml($faq->getContent()); ?></p>
@@ -58,3 +59,4 @@
         <h1><?php /* @noEscape */ echo __('No FAQ Group available'); ?></h1>
     </div>
 <?php endif; ?>
+    </div>

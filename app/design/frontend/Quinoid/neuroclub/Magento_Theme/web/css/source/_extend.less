@@ -834,12 +834,12 @@ button{
     }
   }
 }
-.cms-index-index{
+.cms-index-index, .faq-index-index{
   //Full width container styles
   .page-main,.page-bottom{
     max-width: 100% !important;
-    background: #fafafa;
-    // background: #fff;
+    background: #fafafa !important;;
+    margin-top: 0 !important;
     padding-left: 1px;
     padding-right: 1px;
     @media only screen and (min-width: 768px){
@@ -865,6 +865,77 @@ button{
       }
     }
   }
+  //Common faq sectio in home page and faq view all (FAQ)
+.faq-collection{
+  .faq-content{
+    .ui-accordion{
+      .ui-accordion-header {
+        color: #374076;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0;
+        padding: 1.7em .5em 1.7em 1em;
+        -webkit-margin-before: 0;
+        -webkit-margin-after: 0;
+        @media only screen and (min-width: 468px) {
+          font-size: 16px;
+        }
+        @media only screen and (min-width: 768px){
+          font-size: 18px;
+        }
+        @media only screen and (min-width: 991px){
+          font-size: 20px;
+        }
+        &:hover{
+          background: #fcfcfc;
+        }
+      }
+      .ui-accordion-content {
+        border-top: 0;
+        padding: 0px 10px 34px 20px;
+        overflow: auto;
+      }
+      .ui-widget-content{
+        background: #fcfcfc;
+      }
+      .ui-state-default{
+        background: #fcfcfc;
+        padding-right:25px;
+        &:after {
+          content: '\002B';
+          font-family: 'luma-icons';
+          font-size: 25px;
+          line-height: 14px;
+          position:absolute;
+          top:35px;
+          right:10px;
+          @media all and (max-width:767px){
+            top:25px;
+          }
+          @media only screen and (min-width: 991px){
+            font-size: 35px;
+          }
+        }
+      }
+      .ui-accordion-header-active{
+        &:after{
+          content: '\2212';
+          font-family: 'luma-icons';
+        }
+      }
+    }
+    .ui-state-default, .ui-widget-content, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+      border: 1px solid rgba(197, 197, 197, 0.21);
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      font-weight: normal;
+      color: #454545;
+    }
+  }
+  }
+}
+.cms-index-index{
   //Hearo banner
   .home-banner-grid{
     position: relative;
@@ -1403,88 +1474,9 @@ button{
       @media only screen and (min-width: 768px){
        width: 100% !important;
      }
-      .faq-collection{
-        background: #fcfcfc;
-        .faq-content{
-          .ui-accordion{
-              .ui-accordion-header {
-                color: #374076;
-                font-size: 14px;
-          			font-weight: 600;
-                margin: 0;
-                padding: 1.7em .5em 1.7em 1em;
-                -webkit-margin-before: 0;
-                -webkit-margin-after: 0;
-          			@media only screen and (min-width: 468px) {
-          				font-size: 16px;
-          			}
-          			@media only screen and (min-width: 768px){
-          				font-size: 18px;
-          			}
-                @media only screen and (min-width: 991px){
-          				font-size: 20px;
-          			}
-                &:hover{
-                  background: #fcfcfc;
-                }
-              }
-              .ui-accordion-content {
-                border-top: 0;
-                padding: 0px 10px 34px 20px;
-                overflow: auto;
-              }
-              .ui-widget-content{
-                background: #fcfcfc;
-              }
-              // .ui-state-default{
-              //   background: #fcfcfc;
-              //   &:after {
-              //     content: '\002B';
-              //     font-family: 'luma-icons';
-              //     font-size: 25px;
-              //     line-height: 14px;
-              //     float: right;
-              //     @media only screen and (min-width: 991px){
-            	// 			  font-size: 35px;
-            	// 		}
-              //   }
-              // }
-              .ui-state-default{
-               background: #fcfcfc;
-               padding-right:25px;
-               &:after {
-                 content: '\002B';
-                 font-family: 'luma-icons';
-                 font-size: 25px;
-                 line-height: 14px;
-                 position:absolute;
-                 top:35px;
-                 right:10px;
-                 @media all and (max-width:767px){
-                   top:25px;
-                 }
-                 @media only screen and (min-width: 991px){
-                 font-size: 35px;
-                }
-               }
-             }
-              .ui-accordion-header-active{
-                &:after{
-                  content: '\2212';
-                  font-family: 'luma-icons';
-                }
-              }
-            }
-            .ui-state-default, .ui-widget-content, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-              border: 1px solid rgba(197, 197, 197, 0.21);
-              border-left: none;
-              border-right: none;
-              border-bottom: none;
-              font-weight: normal;
-              color: #454545;
-            }
-        }
-      }
+     .faq-collection{
+       background: #fcfcfc;
+     }
     }
 }
   //footer-logo
@@ -1747,3 +1739,44 @@ button{
        color: #000;
      }
   }
+  .faq-index-index{
+    // .top-padding{
+    //   @media only screen and (max-width: 991px){
+    //     padding-left: 15px;
+    //     padding-right: 15px;
+    //   }
+    // }
+      .faq-collection{
+        .faq-groups{
+          .faq-group{
+            .faq-group-image {
+              border: 1px solid #575757 !important;
+              &:hover {
+                  border: 1px solid #374076 !important;
+              }
+            }
+            a.group-link {
+              color: #575757 !important;
+            }
+            a.group-link:hover {
+              color: #374076 !important;
+            }
+          }
+        }
+        .faq-content{
+          .group-title{
+            color: #575757;
+              border-bottom:none !important;
+              @media only screen and (max-width: 768px){
+                padding: 0 .5em 0 .5em;
+              }
+              i{
+                border-bottom:none !important;
+              }
+          }
+        }
+      }
+  }
+// .group-title{
+//   border-bottom: none !important;
+// }
