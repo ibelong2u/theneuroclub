@@ -1740,26 +1740,40 @@ button{
      }
   }
   .faq-index-index{
-    // .top-padding{
-    //   @media only screen and (max-width: 991px){
-    //     padding-left: 15px;
-    //     padding-right: 15px;
-    //   }
-    // }
+    .page-main,.page-bottom{
+      background: #fff !important;
+      }
       .faq-collection{
         .faq-groups{
           .faq-group{
+            margin: 15px;
+            padding: 15px;
+            @media only screen and (max-width: 768px){
+              margin: 5px;
+              padding: 5px;
+            }
+            -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+            -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
             .faq-group-image {
-              border: 1px solid #575757 !important;
+              margin-right: 0;
+              @media only screen and (max-width: 768px){
+                padding: 10px;
+              }
+              border:none;
               &:hover {
-                  border: 1px solid #374076 !important;
+                  border:none important;
               }
             }
             a.group-link {
               color: #575757 !important;
             }
-            a.group-link:hover {
+          &:hover a.group-link {
               color: #374076 !important;
+            }
+            .faq-groupname{
+              margin:0;
+
             }
           }
         }
@@ -1767,16 +1781,24 @@ button{
           .group-title{
             color: #575757;
               border-bottom:none !important;
-              @media only screen and (max-width: 768px){
-                padding: 0 .5em 0 .5em;
-              }
               i{
-                border-bottom:none !important;
+                float: none;
+                width: 2.15em;
+                border-bottom: none;
+                position: static;
+                bottom: 0;
+                z-index: 0;
+                font-style: normal;
+                @media only screen and (max-width: 768px){
+                  padding: 0 .5em 0 .5em;
+                }
               }
+          }
+          .faq-accordion{
+            .ui-state-default {
+              background: #fff;
+            }
           }
         }
       }
   }
-// .group-title{
-//   border-bottom: none !important;
-// }
