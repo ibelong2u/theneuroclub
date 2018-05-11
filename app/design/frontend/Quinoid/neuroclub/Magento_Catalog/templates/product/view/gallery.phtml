@@ -1,0 +1,44 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product media data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Gallery
+ */
+?>
+<?php $product = $block->getProduct() ?>
+<?php $images = $product->getMediaGalleryImages() ?>
+<div id="owl-product" class="padding-70 loop owl-carousel product-image-container">
+  <?php foreach ($images as $image): ?>
+  <div class="item">
+      <img class="product-image-photo" src="<?php print_r($image['url']) ?>"  alt="<?=$product->getName();?>" title="<?=$product->getName();?>"/>
+  </div>
+<?php endforeach; ?>
+</div>
+<script type="text/x-magento-init">
+    {
+    "#owl-product": {
+        "OwlCarousel": {
+          "center": false,
+          "items": 1,
+          "dots":true,
+          "loop": true,
+          "margin": 10,
+          "responsive": {
+            "0": {
+              "items": 1
+            },
+            "600": {
+              "items": 1
+            }
+          }
+        }
+      }
+    }
+</script>

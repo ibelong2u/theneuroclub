@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <move element="page.main.title" destination="page.top" after="-"/>
+        <move element="product.info.overview" destination="content.top" before="-"/>
+        <move element="product.info.description" destination="content.top" after="product.info.overview"/>
+        <move element="product.info.form.content" destination="content.top" after="product.info.description"/>
+        <move element="product.info.type" destination="content.top" before="product.info.addtocart"/>
+        <block class="Magento\Catalog\Block\Product\View\Gallery" name="product.info.gallery" template="Magento_Catalog::product/view/gallery.phtml" after="product.info.addtocart"/>
+        <referenceBlock name="product.price.final" remove="true"/>
+        <referenceBlock name="product.price.tier" remove="true"/>
+        <referenceBlock name="product.info.sku" remove="true"/>
+        <referenceBlock name="product.info.review" remove="true"/>
+        <referenceBlock name="product.info.details" remove="true"/>
+        <referenceBlock name="product.info.extrahint" remove="true"/>
+        <referenceBlock name="alert_urls" remove="true"/>
+        <referenceContainer name="content.bottom">
+          <block class="Magento\Catalog\Block\Product\AbstractProduct" name="product.info.video" template="Magento_Catalog::product/view/video.phtml" after="product.info.gallery"/>
+        </referenceContainer>
+        <referenceContainer name="content.bottom">
+          <block class="Magento\Framework\View\Element\Template" name="product.additional.info" template="Magento_Catalog::product/view/additional-info.phtml" after="additional.info"/>
+        </referenceContainer>
+        <move element="product.info.upsell" destination="page.bottom.container" before="-"/>
+    </body>
+</page>
