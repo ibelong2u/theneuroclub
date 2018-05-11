@@ -7,6 +7,7 @@
     $image = 'new_products_content_widget_grid';
     $items = $block->getProductCollection()->getItems();
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
     $showWishlist = true;
     $showCompare = true;
     $showCart = true;
@@ -30,7 +31,7 @@
                     <?php if ($_item->isSaleable()): ?>
                         <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
                             <button class="button button-style-1" data-mage-init='{"redirectUrl":{"url":"<?php echo $block->escapeUrl($block->getAddToCartUrl($_item)) ?>"}}' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
-                                <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span>
+                                <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span> | <?= /* @escapeNotVerified */ $priceHelper->currency($_item->getFinalPrice(), true, false) ?>
                             </button>
                         <?php else: ?>
                             <?php
@@ -38,7 +39,7 @@
                             $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
                             ?>
                             <button class="button" data-post='<?php /* @noEscape */ echo $postData; ?>' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
-                                <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span>
+                                <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span> | <?= /* @escapeNotVerified */ $priceHelper->currency($_item->getFinalPrice(), true, false) ?>
                             </button>
                         <?php endif; ?>
                         <div class="product-item-price">
