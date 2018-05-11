@@ -4,7 +4,7 @@
 
 define([
     "jquery",
-    "Vmasciotta_OwlCarousel/js/owl.carousel.min"
+    "Vmasciotta_OwlCarousel/js/owl.carousel"
 ], function($){
     return function (config, element) {
         return $(element).owlCarousel(config);
