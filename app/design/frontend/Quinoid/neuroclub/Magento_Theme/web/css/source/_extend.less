@@ -524,13 +524,26 @@ button{
 
 .header-account{
   float: right;
-    margin-right: 65px;
+    margin-right: 45px;
     width: 100px;
     text-align: center;
-    margin-top: 16px;
+    margin-top: 14px;
     a{
       color: #333;
       font-weight: 600;
+      span
+      {
+        display: none;
+      }
+      .account-icon
+      {
+        float: right;
+        width:50px;
+        height:22px;
+        background-image: url("@{baseDir}images/cart-stripe.png");
+        background-position:-20px;
+        background-size: 400px;
+      }
     }
 }
   .logo{
@@ -666,9 +679,14 @@ button{
     }
     .minicart-wrapper{
       .action{
-        .showcart{
-          &::before{
-            color: #000;
+        &.showcart{
+          width:22px;
+          height:28px;
+          background-image: url("@{baseDir}images/cart-stripe.png");
+          background-position: -60px;
+          margin-right:8px;
+          &:before{
+            content: '';
           }
         }
       }
@@ -750,21 +768,29 @@ button{
 // minicart styling
 .minicart-wrapper{
   .action.showcart{
+    position: relative;
     .counter.qty{
       border-radius: 50%;
-      margin-left: -9px;
-      margin-top: -5px;
+      line-height:20px;
       background: #ef4800;
+      position: absolute;
+      right:-13px;
+      top:-13px;
+      @media all and (max-width:767px)
+      {
+        line-height:24px;
+      }
       .counter-number{
         background: #ef4800;
+        font-size: 14px;
       }
     }
   }
   .block-minicart{
     padding-bottom: 5px;
     border: none;
-    border-top: 1px solid #ededee;
-    right:0px;
+    border: 1px solid #ededee;
+    right:-8px;
     #minicart-content-wrapper
     {
       .block-content
@@ -786,6 +812,9 @@ button{
         }
         .subtotal{
           .label{
+            &:after{
+              content:'';
+            }
             span{
               font-size: 16px;
               font-weight: 600;
@@ -796,17 +825,12 @@ button{
         {
           .primary
           {
-
               border-radius: 50px;
               background: @blue-button;
               border: none;
-              padding: 8px;
+              padding: 5px 8px;
               text-transform:uppercase;
-              @media all and (max-width:767px)
-              {
-                font-size:18px;
-              }
-              @media all and (max-width:479px)
+              button
               {
                 font-size:16px;
               }
@@ -849,6 +873,15 @@ button{
           {
             .viewcart
             {
+              &:hover
+              {
+                text-decoration: underline;
+                color:#374076;
+                @media all and (max-width:1024px)
+                {
+                  text-decoration:none;
+                }
+              }
               span
               {
                 color: #374076;
@@ -1772,6 +1805,6 @@ button{
       border: none;
        background:#fff;
        color: #000;
-       
+
      }
   }
