@@ -80,15 +80,27 @@ class Save implements ObserverInterface
                                 __('Some plan options are missing or incorrect. Please try again.')
                             );
                         }
-
-                        $request = [
+/*== Original text for Stripe ====*/
+                      /*  $request = [
                             'id' => $option['plan_id'],
                             'currency' => strtolower($currency),
                             'name' => $productName,
                             'interval' => $option['unit_id'],
                             'interval_count' => $option['frequency'],
                             'amount' => round($price * 100)
-                        ];
+                        ];*/
+/*=== Updated fix on 12-05-2018==*/
+                      $request = [
+                         'id' => $option['plan_id'],
+                         'currency' => strtolower($currency),
+                         'interval' => $option['unit_id'],
+                         'interval_count' => $option['frequency'],
+                         'amount' => round($price * 100),
+                         'product'        => array(
+                            'name' => $productName
+                          )
+                      ];
+
                         if ($option['is_trial_enabled'] == 'yes') {
                             $request['trial_period_days'] = $option['trial_day'];
                         }
@@ -129,13 +141,25 @@ class Save implements ObserverInterface
 
                             $is_plan_exist_before = $this->checkPlanExistBefore($option, $options_before);
                             if ($is_plan_exist_before == 0) {
-                                $request = [
+                          /*      $request = [
                                     'id' => $option['plan_id'],
                                     'currency' => strtolower($currency),
                                     'name' => $productName,
                                     'interval' => strtolower($option['unit_id']),
                                     'interval_count' => $option['frequency'],
                                     'amount' => round($price * 100)
+                                ];*/
+
+                                /*=== Updated fix on 12-05-2018==*/
+                                $request = [
+                                     'id' => $option['plan_id'],
+                                     'currency' => strtolower($currency),
+                                     'interval' => $option['unit_id'],
+                                     'interval_count' => $option['frequency'],
+                                     'amount' => round($price * 100),
+                                     'product'        => array(
+                                          'name' => $productName
+                                      )
                                 ];
                                 if ($option['is_trial_enabled'] == 'yes') {
                                     $request['trial_period_days'] = $option['trial_day'];
