@@ -1,0 +1,21 @@
+<!-- Message in account Dashboard -->
+<?php
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+if ($customerSession->isLoggedIn()) {
+    $customerSession->getCustomerId();  // get Customer Id
+    $customerSession->getCustomerGroupId();
+    $customerSession->getCustomer();
+    $customerSession->getCustomerData();
+
+    $customer_name = $customerSession->getCustomer()->getName();  // get  Full Name
+
+}
+?>
+
+<div class="dashboard_msg">
+  <h3>Hello, <?= $customer_name; ?> !</h3>
+  <p>From your My Account Dashboard you have the ability to view snapshot of your recent activity and update your account information. Select a link below to view or edit information.</p>
+</div>

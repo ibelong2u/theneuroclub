@@ -26,10 +26,10 @@
         <?php if ($_gender->isEnabled()): ?>
             <?= $_gender->setGender($block->getCustomer()->getGender())->toHtml() ?>
         <?php endif ?>
-        <div class="field phone_number required">
-        	<label class="label" for="phone_number"><span><?php /* @escapeNotVerified */ echo __('Mobile Number') ?></span></label>
+        <div class="field custom_attribute">
+        	<label class="label" for="customer_attribute"><span><?php /* @escapeNotVerified */ echo __('Custom Attribute') ?></span></label>
         	<div class="control">
-        		<input type="text" id="phone_number" name="phone_number" value="<?php echo $block->escapeHtml($block->getCustomer()->getCustomAttribute('phone_number')->getValue()) ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" class="input-text" autocomplete="off" />
+        		<input type="text" id="customer_attribute" name="customer_attribute" value="<?php echo $block->escapeHtml($block->getCustomer()->getCustomAttribute('customer_attribute')->getValue()) ?>" title="<?php /* @escapeNotVerified */ echo __('Custom Attribute') ?>" class="input-text" autocomplete="off" />
         	</div>
         </div>
         <div class="field choice">
@@ -92,7 +92,7 @@
         <div class="secondary">
             <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>"><span><?= $block->escapeHtml(__('Go back')) ?></span></a>
         </div>
-    </div>
+      </div>
 </form>
 <script>
     require([
