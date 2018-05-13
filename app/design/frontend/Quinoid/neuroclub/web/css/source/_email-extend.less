@@ -47,9 +47,10 @@
 .footer
 {
   background: #fff;
+  border-top: 1px solid #ececec;
   .closing
   {
-    margin-top: 0;
+    margin-top: 20px;
     margin-bottom: 30px;
   }
   .email-store
@@ -64,6 +65,32 @@
 }
 table
 {
+  &.button
+  {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    tbody
+    {
+      tr
+      {
+        td
+        {
+          padding-bottom: 0;
+        }
+      }
+    }
+    .inner-wrapper-button
+    {
+      .button-outer-td
+      {
+        background-color: #e66698;
+        .action-button
+        {
+          border: 1px solid #e66698;
+        }
+      }
+    }
+  }
   tr
   {
     td
@@ -87,13 +114,23 @@ table
       }
       .greeting
       {
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         margin-top: 20px;
         line-height: 30px;
+      }
+      .content-email
+      {
+        margin-bottom: 10px;
+        margin-top: 10px;
       }
       ul
       {
         list-style: none;
+      }
+      ul.listed-items
+      {
+        list-style: square;
+        margin-left: 25px;
       }
       p, li, a
       {
