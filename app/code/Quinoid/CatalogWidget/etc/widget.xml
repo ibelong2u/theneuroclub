@@ -39,6 +39,9 @@
                     <option name="top_products" value="Quinoid_CatalogWidget::product/widget/content/top_products.phtml">
                         <label translate="true">Top Products Template</label>
                     </option>
+                    <option name="get_started" value="Quinoid_CatalogWidget::product/widget/content/get_started.phtml">
+                        <label translate="true">Get Started Template</label>
+                    </option>
                 </options>
             </parameter>
             <parameter name="cache_lifetime" xsi:type="text" visible="true">
