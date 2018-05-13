@@ -400,38 +400,45 @@ ul, li{
           height: 40px;
         }
       }
-      .opc-progress-bar-item > span:before, .opc-progress-bar-item > span:after {
+     .opc-progress-bar-item > span:after {
         @media (min-width: 768px){
           left: 100%;
-          top: 10px;
+          top: 20px;
+          width: 60px;
+          height: 60px;
           z-index: 100;
         }
       }
       .opc-progress-bar-item > span:before {
         @media (min-width: 768px){
-          border: 6px solid #374076;
+          border: 6px solid #E66698;
           width: 60px;
           height: 60px;
           top: 15px;
+          left: 100%;
+          z-index: 100;
         }
       }
-      .opc-progress-bar-item._active > span:after {
+      .opc-progress-bar-item> span:after {
         border-color: #fff;
         content: '1';
+        color: #E66698;
+        line-height: 52px;
+        font-size: 30px;
+        margin-left: -14px;
       }
       .opc-progress-bar-item._active:before {
         border-color:#374076;
         background: #374076; /* Old browsers */
-        background: -moz-linear-gradient(left, #374076 0%, #e66698 50%); /* FF3.6-15 */
-        background: -webkit-linear-gradient(left, #374076 0%,#e66698 50%); /* Chrome10-25,Safari5.1-6 */
-        background: linear-gradient(to right, #374076 0%,#e66698 50%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        background: -moz-linear-gradient(left, #374076 36%, #374076 36%, #374076 38%, #374076 38%, #e66698 72%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(left, #374076 36%,#374076 36%,#374076 38%,#374076 38%,#e66698 72%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, #374076 36%,#374076 36%,#374076 38%,#374076 38%,#e66698 72%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#374076', endColorstr='#e66698',GradientType=1 ); /* IE6-9 */
-    
       }
       .opc-progress-bar-item._active > span:before {
         @media (min-width: 768px){
           background: #fff;
-          border-color:#374076;
+          border-color:#E66698;
         }
       }
       .opc-progress-bar-item:first-child:before {
