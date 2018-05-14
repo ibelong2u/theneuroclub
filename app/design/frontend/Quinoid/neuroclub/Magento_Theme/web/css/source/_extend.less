@@ -153,12 +153,6 @@ button{
     margin: 60px 0 60px 0;
   }
 }
-.top-padding{
-  margin-top: 65px;
-  @media only screen and (min-width: 768px){
-  margin-top: 115px;
-  }
-}
 //Curve styles
 .curve{
   display:block;
@@ -836,12 +830,22 @@ button{
     }
   }
 }
+.page-main{
+  margin-top:79px;
+  @media all and (min-width:640px)
+  {
+    margin-top:76px;
+  }
+  @media all and (min-width:768px)
+  {
+    margin-top:115px;
+  }
+}
 .cms-index-index, .faq-index-index{
   //Full width container styles
   .page-main,.page-bottom{
     max-width: 100% !important;
     background: #fafafa !important;;
-    margin-top: 0 !important;
     padding-left: 1px;
     padding-right: 1px;
     @media only screen and (min-width: 768px){

@@ -12,15 +12,6 @@
 	{
 		#maincontent
 		{
-			margin-top:79px;
-			@media all and (min-width:640px)
-			{
-				margin-top:76px;
-			}
-			@media all and (min-width:768px)
-			{
-				margin-top:115px;
-			}
 			.page-title-wrapper
 			{
 				text-align:center;
@@ -303,15 +294,6 @@
 	{
 		#maincontent
 		{
-			margin-top:79px;
-			@media all and (min-width:640px)
-			{
-				margin-top:76px;
-			}
-			@media all and (min-width:768px)
-			{
-				margin-top:115px;
-			}
 			.page-title-wrapper
 			{
 				text-align:center;
@@ -657,14 +639,23 @@
       font-size: 15px !important;
     }
     .page-main{
-      margin-top: 0;
+      .messages{
+        margin-bottom: 0;
+      }
+      .columns{
+        margin-top:50px;
+        @media all and (max-width:767px){
+          margin-top:0;
+        }
+        .column{
+          &.main{
+            @media all and (max-width:767px){
+              margin-top:40px;
+            }
+          }
+        }
+      }
     }
-  .page-wrapper{
-    margin-top:65px;
-    @media only screen and (min-width: 768px){
-      margin-top:150px;
-    }
-  }
   button,.action.primary{
     background: #e66698;
     border-color: #e66698;
