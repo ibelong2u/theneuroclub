@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="checkout" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+
         <referenceContainer name="content">
             <block class="Magento\Framework\View\Element\Template" name="checkout.heading" template="Magento_Checkout::html/heading.phtml" before="checkout.root"/>
+            <block class="Magento\Framework\View\Element\Template" name="checkout.footer.note" template="Magento_Checkout::html/footer-note.phtml" after="checkout.root"/>
+            <block class="Magento\Framework\View\Element\Template" name="footer_custom_content" after="checkout.footer.note" template="Magento_Theme::html/footer-custom-content.phtml"/>
         </referenceContainer>
+
         <referenceBlock name="checkout.root">
             <arguments>
                 <argument name="jsLayout" xsi:type="array">
@@ -213,7 +217,7 @@
                                               </item>
                                           </item>
                                         </item>
-                                        
+
 
                                     </item>
                                 </item>
@@ -222,6 +226,7 @@
                     </item>
                 </argument>
             </arguments>
+
         </referenceBlock>
     </body>
 </page>
