@@ -13,11 +13,9 @@ class InstallData implements InstallDataInterface
 {
     private $eavSetupFactory;
 
-    public function __construct(EavSetupFactory $eavSetupFactory, AttributeSetFactory $attributeSetFactory, CategorySetupFactory $categorySetupFactory)
+    public function __construct(EavSetupFactory $eavSetupFactory)
     {
         $this->eavSetupFactory = $eavSetupFactory;
-        $this->attributeSetFactory = $attributeSetFactory;
-        $this->categorySetupFactory = $categorySetupFactory;
     }
 
     public function install( ModuleDataSetupInterface $setup, ModuleContextInterface $context )
@@ -26,27 +24,12 @@ class InstallData implements InstallDataInterface
 
         $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
 
-        $categorySetup = $this->categorySetupFactory->create(['setup' => $setup]);
-        $attributeSet = $this->attributeSetFactory->create();
-        $entityTypeId = $categorySetup->getEntityTypeId(\Magento\Catalog\Model\Product::ENTITY);
-        $attributeSetId = $categorySetup->getDefaultAttributeSetId($entityTypeId);
-        $data = [
-           'attribute_set_name' => 'Simple Product',
-           'entity_type_id' => $entityTypeId,
-           'sort_order' => 200,
-        ];
-        $attributeSet->setData($data);
-        $attributeSet->validate();
-        $attributeSet->save();
-        $attributeSet->initFromSkeleton($attributeSetId);
-        $attributeSet->save();
-
         $eavSetup->addAttribute(
             \Magento\Catalog\Model\Product::ENTITY,
             'primary_banner',
             [
                 'label' => 'Primary Banner',
-                'type' => 'varchar',
+                'type' => 'text',
                 'input' => 'textarea',
                 'required' => false,
                 'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
@@ -55,7 +38,6 @@ class InstallData implements InstallDataInterface
                 'unique' => false,
                 'is_used_in_grid' => false,
                 'is_filterable_in_grid' => false,
-                'attribute_set' => 'Simple Product',
                 'group' => 'Attributes',
             ]
         );
@@ -64,7 +46,7 @@ class InstallData implements InstallDataInterface
             'secondary_banner',
             [
                 'label' => 'Secondary Banner',
-                'type' => 'varchar',
+                'type' => 'text',
                 'input' => 'textarea',
                 'required' => false,
                 'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
@@ -73,7 +55,6 @@ class InstallData implements InstallDataInterface
                 'unique' => false,
                 'is_used_in_grid' => false,
                 'is_filterable_in_grid' => false,
-                'attribute_set' => 'Simple Product',
                 'group' => 'Attributes',
             ]
         );
@@ -81,8 +62,9 @@ class InstallData implements InstallDataInterface
             \Magento\Catalog\Model\Product::ENTITY,
             'product_video',
             [
-                'label' => 'Product Video URL (EmbeddedYoutube/Vimeo)',
-                'type' => 'varchar','description' => 'Embedded Vimeo/Youtube URL',
+                'label' => 'Product Video URL (Embedded Youtube/Vimeo)',
+                'type' => 'varchar',
+                'description' => 'Embedded Vimeo/Youtube URL',
                 'input' => 'text',
                 'required' => false,
                 'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
@@ -91,7 +73,6 @@ class InstallData implements InstallDataInterface
                 'unique' => false,
                 'is_used_in_grid' => false,
                 'is_filterable_in_grid' => false,
-                'attribute_set' => 'Simple Product',
                 'group' => 'Attributes',
 
             ]
@@ -101,7 +82,7 @@ class InstallData implements InstallDataInterface
             'additional_info',
             [
                 'group' => 'Content',
-                'type' => 'varchar',
+                'type' => 'text',
                 'label' => 'Additional Information',
                 'input' => 'textarea',
                 'required' => false,
@@ -111,7 +92,6 @@ class InstallData implements InstallDataInterface
                 'unique' => false,
                 'is_used_in_grid' => false,
                 'is_filterable_in_grid' => false,
-                'attribute_set' => 'Simple Product',
                 'group' => 'Content',
             ]
         );
