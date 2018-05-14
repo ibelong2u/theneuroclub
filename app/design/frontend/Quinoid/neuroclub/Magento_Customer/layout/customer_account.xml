@@ -51,5 +51,6 @@
                 </block>
             </block>
         </referenceContainer>
+        <!-- <referenceBlock name="customer-account-navigation-wish-list-link" remove="true" /> -->
     </body>
 </page>
