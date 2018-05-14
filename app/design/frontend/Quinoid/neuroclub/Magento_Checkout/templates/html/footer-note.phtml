@@ -1,1 +1,14 @@
-<p><strong>Lorem Ipsum:</strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<div class="footer-block">
+  <div class="home-container">
+    <!-- <p>
+      <strong>Lorem Ipsum:</strong>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+    </p> -->
+    <p>
+    <?php echo $this->getLayout()
+                ->createBlock('Magento\Cms\Block\Block')
+                ->setBlockId('checkout-footer-note')
+                ->toHtml();
+    ?>
+  </p>
+  </div>
+</div>
