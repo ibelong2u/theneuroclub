@@ -6,7 +6,9 @@
              ->setBlockId('our-flagships')
              ->toHtml();
  ?>
-<div class="curve-white"></div>
+<div class="curve-white">
+  <img src="<?php echo $block->getViewFileUrl('images/curve.jpg'); ?>" alt="Shadow" />
+</div>
 <script>
   require([
         'jquery',
