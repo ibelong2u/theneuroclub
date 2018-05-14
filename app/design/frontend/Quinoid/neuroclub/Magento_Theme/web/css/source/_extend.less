@@ -506,13 +506,26 @@ button{
 
 .header-account{
   float: right;
-    margin-right: 65px;
+    margin-right: 45px;
     width: 100px;
     text-align: center;
-    margin-top: 16px;
+    margin-top: 14px;
     a{
       color: #333;
       font-weight: 600;
+      span
+      {
+        display: none;
+      }
+      .account-icon
+      {
+        float: right;
+        width:50px;
+        height:22px;
+        background-image: url("@{baseDir}images/cart-stripe.png");
+        background-position:-20px;
+        background-size: 400px;
+      }
     }
 }
   .logo{
@@ -648,9 +661,14 @@ button{
     }
     .minicart-wrapper{
       .action{
-        .showcart{
-          &::before{
-            color: #000;
+        &.showcart{
+          width:22px;
+          height:28px;
+          background-image: url("@{baseDir}images/cart-stripe.png");
+          background-position: -60px;
+          margin-right:8px;
+          &:before{
+            content: '';
           }
         }
       }
@@ -746,23 +764,43 @@ button{
 // minicart styling
 .minicart-wrapper{
   .action.showcart{
+    position: relative;
     .counter.qty{
       border-radius: 50%;
-      margin-left: -9px;
-      margin-top: -5px;
+      line-height:20px;
       background: #ef4800;
+      position: absolute;
+      right:-13px;
+      top:-13px;
+      @media all and (max-width:767px)
+      {
+        line-height:24px;
+      }
       .counter-number{
         background: #ef4800;
+        font-size: 14px;
       }
     }
   }
   .block-minicart{
     padding-bottom: 5px;
     border: none;
-    border-top: 1px solid #ededee;
-    #minicart-content-wrapper{
-      .block-content{
-        .action.close:hover{
+    border: 1px solid #ededee;
+    right:-8px;
+    #minicart-content-wrapper
+    {
+      .block-content
+      {
+        margin-top:20px;
+        .action.close
+        {
+          height: 20px;
+          right: 15px;
+          top: 15px;
+          width: 20px;
+        }
+        .action.close:hover
+        {
           color: black;
         }
         .items-total{
@@ -770,20 +808,28 @@ button{
         }
         .subtotal{
           .label{
+            &:after{
+              content:'';
+            }
             span{
               font-size: 16px;
               font-weight: 600;
             }
           }
         }
-        .actions{
-          .primary{
-            .checkout{
+        .actions
+        {
+          .primary
+          {
               border-radius: 50px;
               background: @blue-button;
               border: none;
-              padding: 10px;
-            }
+              padding: 5px 8px;
+              text-transform:uppercase;
+              button
+              {
+                font-size:16px;
+              }
           }
         }
         .minicart-items-wrapper{
@@ -796,6 +842,7 @@ button{
                   .product-item-name{
                     a{
                       color: #333;
+                      text-decoration:none !important;
                     }
                   }
                   .product-item-pricing{
@@ -816,11 +863,24 @@ button{
             }
           }
         }
-        .actions{
-          .secondary  {
-            .viewcart{
-              span{
-                color: #333;
+        .actions
+        {
+          .secondary
+          {
+            .viewcart
+            {
+              &:hover
+              {
+                text-decoration: underline;
+                color:#374076;
+                @media all and (max-width:1024px)
+                {
+                  text-decoration:none;
+                }
+              }
+              span
+              {
+                color: #374076;
                 font-size: 16px;
               }
             }
@@ -1780,6 +1840,7 @@ button{
       border: none;
        background:#fff;
        color: #000;
+
      }
   }
   .faq-index-index{
