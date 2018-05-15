@@ -1,8 +1,6 @@
 <?php $product = $block->getProduct() ?>
 <?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance() ?>
 <?php if (null !== $product->getCustomAttribute('bundle_items_features')): ?>
-	<div class="pdp-bundle-description">
-		<?php $content = $product->getCustomAttribute('bundle_items_features')->getValue() ?>
-		<?php echo $objectManager->get('Magento\Cms\Model\Template\FilterProvider')->getPageFilter()->filter($content) ?>
-	</div>
+	<?php $content = $product->getCustomAttribute('bundle_items_features')->getValue() ?>
+	<?php echo $objectManager->get('Magento\Cms\Model\Template\FilterProvider')->getPageFilter()->filter($content) ?>
 <?php endif; ?>
