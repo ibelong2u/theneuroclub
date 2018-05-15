@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="customer_account_dashboard_top_msg" template="Magento_Sales::dashboard_msg.phtml" before="customer_account_dashboard_top" />
+            <block class="Magento\Sales\Block\Order\Recent" name="customer_account_dashboard_top" template="Magento_Sales::order/recent.phtml" before="customer_account_dashboard_info" />
+        </referenceContainer>
+    </body>
+</page>
