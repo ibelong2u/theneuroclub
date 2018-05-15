@@ -22,7 +22,7 @@ $firstName = $customerSession->getCustomer()->getFirstname();
       </a>
   <?php } else {?>
         <a href="<?php echo $baseUrl . 'customer/account/'; ?>" class="myaccount">
-
+          <div class="account-icon"></div>
            <span class="label"><?php echo (strlen($firstName) > 10) ? substr($firstName,0,10).'...' : $firstName; ?></span>
          </a>
   <?php } ?>
