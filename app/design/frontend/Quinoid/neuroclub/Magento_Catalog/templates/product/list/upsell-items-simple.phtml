@@ -1,3 +1,5 @@
+
+<div class="pdp-bundle-suggestion">
 <?php
 /**
  * Copyright © Magento, Inc. All rights reserved.
@@ -62,11 +64,14 @@ switch ($type = $block->getType()) {
         <?php foreach ($items as $_item): ?>
             <?php $product = $objectManager->create('Magento\Catalog\Model\Product')->load($_item->getId()) ?>
             <?php $images = $product->getMediaGalleryImages() ?>
+            <div id="owl-product" class="padding-70 loop owl-carousel product-image-container">
             <?php foreach ($images as $image): ?>
-              <div class="">
+              <div class="item">
                 <img src="<?= $image['url'] ?>"/>
               </div>
             <?php endforeach; ?>
+            </div>
+
             <div class="product details product-item-details">
                 <strong class="product name product-item-name"><a class="product-item-link" title="<?= $block->escapeHtml($_item->getName()) ?>" href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>">
                     <?= $block->escapeHtml($_item->getName()) ?></a>
@@ -129,3 +134,25 @@ switch ($type = $block->getType()) {
         <?php endforeach; ?>
     </div>
 <?php endif;?>
+</div>
+<script type="text/x-magento-init">
+    {
+    "#owl-product": {
+        "OwlCarousel": {
+          "center": false,
+          "items": 1,
+          "dots":true,
+          "loop": true,
+          "margin": 10,
+          "responsive": {
+            "0": {
+              "items": 1
+            },
+            "600": {
+              "items": 1
+            }
+          }
+        }
+      }
+    }
+</script>

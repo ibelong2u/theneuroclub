@@ -1,7 +1,9 @@
-<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance() ?>
-<?php $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product') ?>
-<?php if (null !== $product->getCustomAttribute('additional_info')): ?>
-  <?php $content = $product->getCustomAttribute('additional_info')->getValue() ?>
-  <?php $filteredContent = $objectManager->get('Magento\Cms\Model\Template\FilterProvider')->getPageFilter()->filter($content) ?>
-  <?php echo $filteredContent ?>
-<?php endif; ?>
+<div class="pdp-additional-info">
+  <?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance() ?>
+  <?php $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product') ?>
+  <?php if (null !== $product->getCustomAttribute('additional_info')): ?>
+    <?php $content = $product->getCustomAttribute('additional_info')->getValue() ?>
+    <?php $filteredContent = $objectManager->get('Magento\Cms\Model\Template\FilterProvider')->getPageFilter()->filter($content) ?>
+    <?php echo $filteredContent ?>
+  <?php endif; ?>
+</div>

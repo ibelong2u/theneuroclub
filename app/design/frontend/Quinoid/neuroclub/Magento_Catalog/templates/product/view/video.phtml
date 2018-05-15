@@ -1,5 +1,9 @@
 <?php $product = $block->getProduct() ?>
 <?php if (null !== $product->getCustomAttribute('product_video')): ?>
-  <h4>How It Works</h4>
-  <iframe src="<?php echo $product->getCustomAttribute('product_video')->getValue() ?>" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  <div class="pdp-video-container">
+    <h4>How It Works</h4>
+    <iframe src="<?php echo $product->getCustomAttribute('product_video')->getValue() ?>" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <h6>Lorem Ipsum</h6>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+  </div>
 <?php endif; ?>
