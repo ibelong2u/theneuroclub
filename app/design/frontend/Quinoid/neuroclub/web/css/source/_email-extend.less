@@ -4,46 +4,99 @@
     .email-social-share
     {
       float: right !important;
+      width:140px;
+      text-align: right;
       h4
       {
         margin-top: 0 !important;
-        margin-bottom: 5px !important;
+        margin-bottom: 0px !important;
+        text-align: right;
       }
       ul
       {
         list-style: none;
         margin-bottom: 0;
         text-align: center;
+        width: 100%;
+        text-align: right;
         li
         {
           display: inline;
+          font-size: 18px;
+          a:hover, a:visited, a:active
+          {
+            text-decoration: none !important;
+            color: rgba(0, 0, 0, 0) !important;
+          }
           a
           {
-            &:hover
+            &.email-fb
             {
+              background: url('http://neuroclub.local/pub/static/frontend/Quinoid/neuroclub/en_US/images/facebook.png');
+              background-repeat:no-repeat;
+              background-position:center;
+              font-size: 19px;
+              color: transparent !important;
               text-decoration: none !important;
+              padding: 0 0 0 3px;
+              &:hover, &:visited, &:active
+              {
+                text-decoration: none !important;
+                color: rgba(0, 0, 0, 0) !important;
+              }
             }
-            // &.email-fb
-            // {
-            //   background: url('@{baseDir}images/email-fa.png');
-            // }
-            // &.email-twtr
-            // {
-            //   background: url('@{baseDir}images/email-twitter.png');
-            // }
-            // &.email-ggl
-            // {
-            //   background: url('@{baseDir}images/email-google.png');
-            // }
-            // &.email-linkn
-            // {
-            //   background: url('@{baseDir}images/email-linkdin.png');
-            // }
+            &.email-twtr
+            {
+              background: url('http://neuroclub.local/pub/static/frontend/Quinoid/neuroclub/en_US/images/twitter.png');
+              background-repeat:no-repeat;
+              background-position:center;
+              font-size: 19px;
+              color: transparent !important;
+              text-decoration: none !important;
+              padding: 0 0 0 5px;
+              &:hover, &:visited, &:active
+              {
+                text-decoration: none !important;
+                color: rgba(0, 0, 0, 0) !important;
+              }
+            }
+            &.email-ggl
+            {
+              background: url('http://neuroclub.local/pub/static/frontend/Quinoid/neuroclub/en_US/images/google.png');
+              background-repeat:no-repeat;
+              background-position:center;
+              color: transparent !important;
+              text-decoration: none !important;
+              font-size: 19px;
+              padding: 0 0 0 8px;
+              &:hover, &:visited, &:active
+              {
+                text-decoration: none !important;
+                color: rgba(0, 0, 0, 0) !important;
+              }
+            }
+            &.email-linkn
+            {
+              background: url('http://neuroclub.local/pub/static/frontend/Quinoid/neuroclub/en_US/images/linkedin.png');
+              background-repeat:no-repeat;
+              background-position:center;
+              color: transparent !important;
+              text-decoration: none !important;
+              font-size: 21px;
+              padding: 0 0 0 5px;
+              &:hover, &:visited, &:active
+              {
+                text-decoration: none !important;
+                color: rgba(0, 0, 0, 0) !important;
+              }
+            }
           }
         }
       }
     }
 }
+
+
 .footer
 {
   background: #fff;
