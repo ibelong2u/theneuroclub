@@ -23,24 +23,43 @@ class UpgradeData implements UpgradeDataInterface {
 			
 			$eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
 
+            $eavSetup->addAttribute(
+                \Magento\Catalog\Model\Product::ENTITY,
+                'product_video_description',
+                [
+                    'label' => 'Product Video Description',
+                    'type' => 'text',
+                    'input' => 'textarea',
+                        'required' => false,
+                        'sort_order' => 2,
+                    'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+                    'wysiwyg_enabled' => true,
+                    'is_html_allowed_on_front' => true,
+                    'unique' => false,
+                    'is_used_in_grid' => false,
+                    'is_filterable_in_grid' => false,
+                    'group' => 'Attributes',
+                ]
+            );
+            
 			$eavSetup->addAttribute(
-            \Magento\Catalog\Model\Product::ENTITY,
-            'bundle_items_features',
-            [
-                'label' => 'Bundle Items Features',
-                'type' => 'text',
-                'input' => 'textarea',
-					 'required' => false,
-					 'sort_order' => 2,
-                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-                'wysiwyg_enabled' => true,
-                'is_html_allowed_on_front' => true,
-                'unique' => false,
-                'is_used_in_grid' => false,
-                'is_filterable_in_grid' => false,
-                'group' => 'Attributes',
-            ]
-        );
+                \Magento\Catalog\Model\Product::ENTITY,
+                'bundle_items_features',
+                [
+                    'label' => 'Bundle Items Features',
+                    'type' => 'text',
+                    'input' => 'textarea',
+                        'required' => false,
+                        'sort_order' => 2,
+                    'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+                    'wysiwyg_enabled' => true,
+                    'is_html_allowed_on_front' => true,
+                    'unique' => false,
+                    'is_used_in_grid' => false,
+                    'is_filterable_in_grid' => false,
+                    'group' => 'Attributes',
+                ]
+            );
 		}
 	}
 }
