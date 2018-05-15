@@ -153,66 +153,91 @@ switch ($type = $block->getType()) {
     break;
 }
 ?>
-
 <?php if ($exist):?>
     <div class="product-item-info">
         <?php foreach ($items as $_item): ?>
-            <div class="product details product-item-details">
-                <strong class="product name product-item-name"><a class="product-item-link" title="<?= $block->escapeHtml($_item->getName()) ?>" href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>">
-                    <?= $block->escapeHtml($_item->getName()) ?></a>
-                </strong>
-            </div>
-            <div class="product-item short-description">
-                <?= /* @escapeNotVerified */ $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
-            </div>
+          <div id="owl-product" class="padding-70 loop owl-carousel product-image-container">
+            <div class="item">
+              <div class="product-bundle-item">
+                <div class="product details product-item-details">
+                    <strong class="product name product-item-name"><a class="product-item-link" title="<?= $block->escapeHtml($_item->getName()) ?>" href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>">
+                        <?= $block->escapeHtml($_item->getName()) ?></a>
+                    </strong>
+                </div>
+                <div class="product-item short-description">
+                    <?= /* @escapeNotVerified */ $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
+                </div>
 
-            <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>" class="product photo product-item-photo">
-                <?= $block->getImage($_item, $image)->toHtml() ?>
-            </a>
-            <div>
-                <?php
-                $typeInstance = $_item->getTypeInstance();
-                $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
-                $childItemNames = array();
-                if ($requiredChildrenIds) {
-                    foreach ($requiredChildrenIds as $key => $childIdArr) {}
-                    if ($childIdArr != null) {
-                        foreach ($childIdArr as $childId) {
-                            $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId);
-                            $childItemNames[] = $childItem->getName();
+                <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>" class="product photo product-item-photo">
+                    <?= $block->getImage($_item, $image)->toHtml() ?>
+                </a>
+                <div>
+                    <?php
+                    $typeInstance = $_item->getTypeInstance();
+                    $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
+                    $childItemNames = array();
+                    if ($requiredChildrenIds) {
+                        foreach ($requiredChildrenIds as $key => $childIdArr) {}
+                        if ($childIdArr != null) {
+                            foreach ($childIdArr as $childId) {
+                                $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId);
+                                $childItemNames[] = $childItem->getName();
+                            }
+                            $childItemString = implode(" + ",$childItemNames);
+                            echo $childItemString;
                         }
-                        $childItemString = implode(" + ",$childItemNames);
-                        echo $childItemString;
                     }
-                }
-                ?>
-            </div>
-            <?php if ($_item->isSaleable()): ?>
-                <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
-                    <button class="action tocart primary" data-mage-init='{"redirectUrl": {"url": "<?= /* @escapeNotVerified */ $block->getAddToCartUrl($_item) ?>"}}' type="button" title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>">
-                        <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span> | <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
-                    </button>
-                <?php else: ?>
-                    <?php $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
-                    $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
                     ?>
-                    <button class="action tocart primary"
-                            data-post='<?= /* @escapeNotVerified */ $postData ?>'
-                            type="button" title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>">
-                        <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span> | <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
-                    </button>
-                <?php endif; ?>
-            <?php else: ?>
-                <?php if ($_item->getIsSalable()): ?>
-                    <div class="stock available"><span><?= /* @escapeNotVerified */ __('In stock') ?></span></div>
+                </div>
+                <?php if ($_item->isSaleable()): ?>
+                    <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+                        <button class="action tocart primary" data-mage-init='{"redirectUrl": {"url": "<?= /* @escapeNotVerified */ $block->getAddToCartUrl($_item) ?>"}}' type="button" title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>">
+                            <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span> | <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
+                        </button>
+                    <?php else: ?>
+                        <?php $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+                        $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
+                        ?>
+                        <button class="action tocart primary"
+                                data-post='<?= /* @escapeNotVerified */ $postData ?>'
+                                type="button" title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>">
+                            <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span> | <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
+                        </button>
+                    <?php endif; ?>
                 <?php else: ?>
-                    <div class="stock unavailable"><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span></div>
+                    <?php if ($_item->getIsSalable()): ?>
+                        <div class="stock available"><span><?= /* @escapeNotVerified */ __('In stock') ?></span></div>
+                    <?php else: ?>
+                        <div class="stock unavailable"><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span></div>
+                    <?php endif; ?>
                 <?php endif; ?>
-            <?php endif; ?>
-            <div class="product-row">
-                
+                <div class="product-row">
+
+                </div>
+              </div>
             </div>
+          </div>
         <?php endforeach; ?>
     </div>
 <?php endif;?>
-
+<script type="text/x-magento-init">
+    {
+    "#owl-product": {
+        "OwlCarousel": {
+          "center": false,
+          "items": 1,
+          "dots":true,
+          "loop": true,
+          "margin": 10,
+          "responsive": {
+            "0": {
+              "items": 1
+            },
+            "600": {
+              "items": 1
+            }
+          }
+        }
+      }
+    }
+</script>
