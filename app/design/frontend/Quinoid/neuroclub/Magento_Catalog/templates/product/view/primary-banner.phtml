@@ -1,0 +1,7 @@
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance() ?>
+<?php $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product') ?>
+<?php if (null !== $product->getCustomAttribute('primary_banner')): ?>
+  <?php $content = $product->getCustomAttribute('primary_banner')->getValue() ?>
+  <?php $filteredContent = $objectManager->get('Magento\Cms\Model\Template\FilterProvider')->getPageFilter()->filter($content) ?>
+  <?php echo $filteredContent ?>
+<?php endif; ?>

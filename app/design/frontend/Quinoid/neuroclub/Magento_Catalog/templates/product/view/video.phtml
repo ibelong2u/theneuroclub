@@ -1,0 +1,5 @@
+<?php $product = $block->getProduct() ?>
+<?php if (null !== $product->getCustomAttribute('product_video')): ?>
+  <h4>How It Works</h4>
+  <iframe src="<?php echo $product->getCustomAttribute('product_video')->getValue() ?>" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<?php endif; ?>
