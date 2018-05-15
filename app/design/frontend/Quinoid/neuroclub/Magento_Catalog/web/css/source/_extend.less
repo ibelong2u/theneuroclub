@@ -156,41 +156,38 @@ button{
     color: #fff;
   }
 }
-
-.breadcrumbs
-{
+.catalog-category-view{
+.breadcrumbs{
   display: none;
-}
-
+  }
 .page-main
-{
-  margin-top:115px;
-  @media all and (max-width:767px)
   {
-    margin-top:76px;
-  }
-  .category-image
-  {
-    margin-bottom: 0;
-    img
+    margin-top:115px;
+    @media all and (max-width:767px)
     {
-      width:100%;
+      margin-top:76px;
     }
-  }
-  .page-title-wrapper
-  {
-    display: none;
-  }
-  .columns
-  {
-    padding:0 !important;
-    .column
+    .category-image
+    {
+      margin-bottom: 0;
+      img
+      {
+        width:100%;
+      }
+    }
+    .page-title-wrapper
+    {
+      display: none;
+    }
+    .columns
     {
       padding:0 !important;
+      .column
+      {
+        padding:0 !important;
+      }
     }
   }
-}
-
 .inner-container
 {
   width:70%;
@@ -332,6 +329,7 @@ button{
           {
             font-size: 18px;
             color: #374076;
+            font-weight:600;
             text-transform:uppercase;
             @media only screen and (min-width: 468px){
               font-size: 22px;
@@ -349,6 +347,7 @@ button{
           p
           {
             margin:1em 0;
+            margin-top:10px;
             color:#374076;
             text-transform: uppercase;
             font-size: 14px;
@@ -392,6 +391,16 @@ button{
                 background: #e66698;
                 border: 1px solid #e66698;
                 padding:10px 20px;
+                font-size: 16px;
+                @media only screen and (min-width: 468px){
+                  font-size: 17px;
+                }
+                @media only screen and (min-width: 768px){
+                  font-size: 18px;
+                }
+                @media only screen and (min-width: 991px){
+                  font-size: 20px;
+                }
                 span
                 {
                   text-transform: capitalize;
@@ -408,6 +417,7 @@ button{
 .plp-bottom
 {
   padding:50px 0;
+  border-bottom: 1px solid #ececec;
   @media all and (max-width:1024px)
   {
     padding:30px 0;
@@ -438,23 +448,5 @@ button{
         width:100%;
       }
     }
-  }
-}
-/*Individual PDP*/
-.catalog-product-view{
-  .pdp-primary-banner{
-    margin-top:79px;
-    @media all and (min-width:640px){
-      margin-top:76px;
-    }
-    @media all and (min-width:767px){
-      margin-top:115px;
-    }
-  }
-  .page-title-wrapper{
-    display:none;
-  }
-  .page-main{
-    margin-top:0;
   }
 }

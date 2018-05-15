@@ -2,12 +2,23 @@
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
       <!--move element="minicart" destination="catalog.topnav"/-->
-      <move element="customer" destination="catalog.topnav"/>
+      <move element="customer" destination="menu_links"/>
       <!--move element="minicart" destination="header.wrapper" after="customer"/-->
        <referenceBlock name="header" remove="true" />
        <referenceBlock name="authorization-link-login" remove="true" />
        <referenceBlock name="register-link" remove="true" />
        <referenceBlock name="top.search" remove="true" />
+       <referenceBlock name="catalog.topnav" remove="true" />
+       <referenceContainer name="page.top">
+        <block name="customer.section.config" class="Magento\Customer\Block\SectionConfig"
+               template="Magento_Customer::js/section-config.phtml"/>
+        <block name="customer.customer.data"
+               class="Magento\Customer\Block\CustomerData"
+               template="Magento_Customer::js/customer-data.phtml"/>
+        </referenceContainer>
+      <referenceContainer name="page.wrapper">
+        <block class="Magento\Framework\View\Element\Template" name="menu_links" after="header-wrapper" template="Magento_Theme::html/customnav.phtml"/>
+      </referenceContainer>
     	<referenceContainer name="footer-container">
         <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="footer content">
             <block class="Magento\Store\Block\Switcher" name="store_switcher" as="store_switcher" template="Magento_Store::switch/stores.phtml"/>
@@ -16,6 +27,5 @@
             <block class="Magento\Framework\View\Element\Template" name="report.bugs" template="Magento_Theme::html/bugreport.phtml" />
         </container>
     	</referenceContainer>
-
     </body>
 </page>

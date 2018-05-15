@@ -162,51 +162,22 @@ button{
 //Curve styles
 .curve{
   display:block;
-  background-color: #fafafa;
-  height: 25px;
-  border-bottom-left-radius: 50%;
-  border-bottom-right-radius: 50%;
-  margin-bottom: 20px;
-  -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
-  -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
-  box-shadow: 0px 6px 6px -1px rgba(0, 0, 0, 0.06);
+  img
+  {
+    width: 100%;
+  }
   @media only screen and (max-width:768px){
     display:none;
-  }
-  @media only screen and (min-width:768px){
-    height: 35px;
-    margin-bottom: 40px;
-  }
-  @media only screen and (min-width: 991px){
-      height: 40px;
-  }
-  @media only screen and (min-width: 1200px){
-    height: 50px;
   }
 }
 .curve-white{
   display:block;
-  background-color: #fff;
-  height: 25px;
-  border-bottom-left-radius: 50%;
-  border-bottom-right-radius: 50%;
-  margin-bottom: 20px;
-  -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
-  -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
-  box-shadow: 0px 6px 6px -1px rgba(0, 0, 0, 0.06);
+  img
+  {
+    width: 100%;
+  }
   @media only screen and (max-width:768px){
     display:none;
-  }
-  @media only screen and (min-width: 768px){
-    height: 35px;
-    margin-bottom:40px;
-    background-color: #fff;
-  }
-  @media only screen and (min-width: 991px){
-    height: 40px;
-  }
-  @media only screen and (min-width: 1200px){
-    height: 50px;
   }
 }
 // Carousel of bundle product
@@ -485,12 +456,14 @@ button{
   }
 //header
 .nav-sections{
-  -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+  @media all and (min-width:768px){
+    -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+  }
   .nav-sections-items{
     .section-item-title{
-          display: none;
+          display:none;
     }
     .section-item-content{
         margin-top: 0;
@@ -524,13 +497,26 @@ button{
 
 .header-account{
   float: right;
-    margin-right: 65px;
+    margin-right: 45px;
     width: 100px;
     text-align: center;
-    margin-top: 16px;
+    margin-top: 14px;
     a{
       color: #333;
       font-weight: 600;
+      span
+      {
+        display: none;
+      }
+      .account-icon
+      {
+        float: right;
+        width:50px;
+        height:22px;
+        background-image: url("@{baseDir}images/cart-stripe.png");
+        background-position:-20px;
+        background-size: 400px;
+      }
     }
 }
   .logo{
@@ -666,22 +652,27 @@ button{
     }
     .minicart-wrapper{
       .action{
-        .showcart{
-          &::before{
-            color: #000;
+        &.showcart{
+          width:22px;
+          height:28px;
+          background-image: url("@{baseDir}images/cart-stripe.png");
+          background-position: -60px;
+          margin-right:8px;
+          &:before{
+            content: '';
           }
         }
       }
       @media all and (min-width:991px){
         position:absolute;
         z-index:11;
-        top: 63px;
+        top: 50px;
         right:20px;
       }
       @media all and (min-width:768px) and (max-width:990px){
         position:absolute;
         z-index:11;
-        top: 62px;
+        top: 50px;
         right:15px;
       }
       @media all and (max-width:767px){
@@ -738,6 +729,19 @@ button{
     display: none !important;
     }
   }
+  .nav-3
+  {
+    padding: 0 !important;
+    .menu-logo
+    {
+      padding: 0 !important;
+      img
+      {
+        top: 0;
+        float: left;
+      }
+    }
+  }
 }
 .nav-sections-items{
   .nav-sections-item-title a{
@@ -750,23 +754,43 @@ button{
 // minicart styling
 .minicart-wrapper{
   .action.showcart{
+    position: relative;
     .counter.qty{
       border-radius: 50%;
-      margin-left: -9px;
-      margin-top: -5px;
+      line-height:20px;
       background: #ef4800;
+      position: absolute;
+      right:-13px;
+      top:-13px;
+      @media all and (max-width:767px)
+      {
+        line-height:24px;
+      }
       .counter-number{
         background: #ef4800;
+        font-size: 14px;
       }
     }
   }
   .block-minicart{
     padding-bottom: 5px;
     border: none;
-    border-top: 1px solid #ededee;
-    #minicart-content-wrapper{
-      .block-content{
-        .action.close:hover{
+    border: 1px solid #ededee;
+    right:-8px;
+    #minicart-content-wrapper
+    {
+      .block-content
+      {
+        margin-top:20px;
+        .action.close
+        {
+          height: 20px;
+          right: 15px;
+          top: 15px;
+          width: 20px;
+        }
+        .action.close:hover
+        {
           color: black;
         }
         .items-total{
@@ -774,20 +798,28 @@ button{
         }
         .subtotal{
           .label{
+            &:after{
+              content:'';
+            }
             span{
               font-size: 16px;
               font-weight: 600;
             }
           }
         }
-        .actions{
-          .primary{
-            .checkout{
+        .actions
+        {
+          .primary
+          {
               border-radius: 50px;
               background: @blue-button;
               border: none;
-              padding: 10px;
-            }
+              padding: 5px 8px;
+              text-transform:uppercase;
+              button
+              {
+                font-size:16px;
+              }
           }
         }
         .minicart-items-wrapper{
@@ -800,6 +832,7 @@ button{
                   .product-item-name{
                     a{
                       color: #333;
+                      text-decoration:none !important;
                     }
                   }
                   .product-item-pricing{
@@ -820,11 +853,24 @@ button{
             }
           }
         }
-        .actions{
-          .secondary  {
-            .viewcart{
-              span{
-                color: #333;
+        .actions
+        {
+          .secondary
+          {
+            .viewcart
+            {
+              &:hover
+              {
+                text-decoration: underline;
+                color:#374076;
+                @media all and (max-width:1024px)
+                {
+                  text-decoration:none;
+                }
+              }
+              span
+              {
+                color: #374076;
                 font-size: 16px;
               }
             }
@@ -834,12 +880,12 @@ button{
     }
   }
 }
-.cms-index-index{
+.cms-index-index, .faq-index-index{
   //Full width container styles
   .page-main,.page-bottom{
     max-width: 100% !important;
-    background: #fafafa;
-    // background: #fff;
+    background: #fafafa !important;;
+    margin-top: 0 !important;
     padding-left: 1px;
     padding-right: 1px;
     @media only screen and (min-width: 768px){
@@ -865,6 +911,77 @@ button{
       }
     }
   }
+  //Common faq sectio in home page and faq view all (FAQ)
+.faq-collection{
+  .faq-content{
+    .ui-accordion{
+      .ui-accordion-header {
+        color: #374076;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0;
+        padding: 1.7em .5em 1.7em 1em;
+        -webkit-margin-before: 0;
+        -webkit-margin-after: 0;
+        @media only screen and (min-width: 468px) {
+          font-size: 16px;
+        }
+        @media only screen and (min-width: 768px){
+          font-size: 18px;
+        }
+        @media only screen and (min-width: 991px){
+          font-size: 20px;
+        }
+        &:hover{
+          background: #fcfcfc;
+        }
+      }
+      .ui-accordion-content {
+        border-top: 0;
+        padding: 0px 10px 34px 20px;
+        overflow: auto;
+      }
+      .ui-widget-content{
+        background: #fcfcfc;
+      }
+      .ui-state-default{
+        background: #fcfcfc;
+        padding-right:25px;
+        &:after {
+          content: '\002B';
+          font-family: 'luma-icons';
+          font-size: 25px;
+          line-height: 14px;
+          position:absolute;
+          top:35px;
+          right:10px;
+          @media all and (max-width:767px){
+            top:25px;
+          }
+          @media only screen and (min-width: 991px){
+            font-size: 35px;
+          }
+        }
+      }
+      .ui-accordion-header-active{
+        &:after{
+          content: '\2212';
+          font-family: 'luma-icons';
+        }
+      }
+    }
+    .ui-state-default, .ui-widget-content, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+      border: 1px solid rgba(197, 197, 197, 0.21);
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      font-weight: normal;
+      color: #454545;
+    }
+  }
+  }
+}
+.cms-index-index{
   //Hearo banner
   .home-banner-grid{
     position: relative;
@@ -881,6 +998,11 @@ button{
   }
   }
   .carousel{
+        margin-top: 94px !important;
+        @media all and (max-width: 768px)
+        {
+            margin-top: 75px !important;
+        }
     .owl-carousel{
       .owl-stage-outer{
         .owl-item{
@@ -897,7 +1019,7 @@ button{
   //neuroclub static top content
   .static-neuro-content{
     h3{
-      text-transform: uppercase;
+      text-transform: capitalize;
       @media only screen and (max-width: 496px){
       font-size: 12px;
       }
@@ -951,6 +1073,7 @@ button{
         {
           text-align: center;
           margin-top: 20px;
+          text-transform: capitalize;
         }
 
       }
@@ -1023,6 +1146,8 @@ button{
         .overlay {
           height: 100%;
           border-radius: 3%;
+          opacity: 1;
+          background-color: rgba(92, 92, 92,.9);
           }
         }
         .overlay {
@@ -1030,11 +1155,12 @@ button{
           bottom: 0;
           left: 0;
           right: 0;
-          background-color: rgba(92, 92, 92,.9);
+          background-color: rgba(92, 92, 92,0);
+          opacity: 0;
           border-radius: 3%;
           overflow: hidden;
           width: 100%;
-          height: 0;
+          height: 100%;
           transition: .5s ease;
           .flag-content {
             position: absolute;
@@ -1133,7 +1259,7 @@ button{
   }
 //How all it works section
     .works-section{
-      background: #fafafa;
+      background: white;
       padding-top: 20px;
       @media only screen and (min-width: 468px){
         padding-top:30px;
@@ -1204,6 +1330,7 @@ button{
           }
           h4{
             text-transform: uppercase;
+            font-size: 25px;
           }
           a{
             color: #374076;
@@ -1229,7 +1356,8 @@ button{
       }
     .static-banner{
         position: relative !important;
-        margin-top: 80px;
+        margin-top: 3.1%;
+        background: white;
       img{
         width: 100%;
         min-height: 200px;
@@ -1403,88 +1531,9 @@ button{
       @media only screen and (min-width: 768px){
        width: 100% !important;
      }
-      .faq-collection{
-        background: #fcfcfc;
-        .faq-content{
-          .ui-accordion{
-              .ui-accordion-header {
-                color: #374076;
-                font-size: 14px;
-          			font-weight: 600;
-                margin: 0;
-                padding: 1.7em .5em 1.7em 1em;
-                -webkit-margin-before: 0;
-                -webkit-margin-after: 0;
-          			@media only screen and (min-width: 468px) {
-          				font-size: 16px;
-          			}
-          			@media only screen and (min-width: 768px){
-          				font-size: 18px;
-          			}
-                @media only screen and (min-width: 991px){
-          				font-size: 20px;
-          			}
-                &:hover{
-                  background: #fcfcfc;
-                }
-              }
-              .ui-accordion-content {
-                border-top: 0;
-                padding: 0px 10px 34px 20px;
-                overflow: auto;
-              }
-              .ui-widget-content{
-                background: #fcfcfc;
-              }
-              // .ui-state-default{
-              //   background: #fcfcfc;
-              //   &:after {
-              //     content: '\002B';
-              //     font-family: 'luma-icons';
-              //     font-size: 25px;
-              //     line-height: 14px;
-              //     float: right;
-              //     @media only screen and (min-width: 991px){
-            	// 			  font-size: 35px;
-            	// 		}
-              //   }
-              // }
-              .ui-state-default{
-               background: #fcfcfc;
-               padding-right:25px;
-               &:after {
-                 content: '\002B';
-                 font-family: 'luma-icons';
-                 font-size: 25px;
-                 line-height: 14px;
-                 position:absolute;
-                 top:35px;
-                 right:10px;
-                 @media all and (max-width:767px){
-                   top:25px;
-                 }
-                 @media only screen and (min-width: 991px){
-                 font-size: 35px;
-                }
-               }
-             }
-              .ui-accordion-header-active{
-                &:after{
-                  content: '\2212';
-                  font-family: 'luma-icons';
-                }
-              }
-            }
-            .ui-state-default, .ui-widget-content, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-              border: 1px solid rgba(197, 197, 197, 0.21);
-              border-left: none;
-              border-right: none;
-              border-bottom: none;
-              font-weight: normal;
-              color: #454545;
-            }
-        }
-      }
+     .faq-collection{
+       background: #fcfcfc;
+     }
     }
 }
   //footer-logo
@@ -1745,5 +1794,68 @@ button{
       border: none;
        background:#fff;
        color: #000;
+
      }
+  }
+  .faq-index-index{
+    .page-main,.page-bottom{
+      background: #fff !important;
+      }
+      .faq-collection{
+        .faq-groups{
+          .faq-group{
+            margin: 15px;
+            padding: 15px;
+            @media only screen and (max-width: 768px){
+              margin: 5px;
+              padding: 5px;
+            }
+            -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+            -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+            .faq-group-image {
+              @media only screen and (max-width: 768px){
+                padding: 10px;
+              }
+              border:none;
+              &:hover {
+                  border:none important;
+              }
+            }
+            a.group-link {
+              color: #575757 !important;
+            }
+          &:hover a.group-link {
+              color: #374076 !important;
+            }
+            .faq-groupname{
+              margin:0;
+
+            }
+          }
+        }
+        .faq-content{
+          .group-title{
+            color: #575757;
+              border-bottom:none !important;
+              i{
+                float: none;
+                width: 2.15em;
+                border-bottom: none;
+                position: static;
+                bottom: 0;
+                z-index: 0;
+                font-style: normal;
+                @media only screen and (max-width: 768px){
+                  padding: 0 .5em 0 .5em;
+                }
+              }
+          }
+          .faq-accordion{
+            .ui-state-default {
+              background: #fff;
+            }
+          }
+        }
+      }
   }
