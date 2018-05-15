@@ -7,8 +7,8 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
   <body>
-    <referenceContainer name="page.top">
-      <block class="Magento\Framework\View\Element\Template" name="primary.banner" template="Magento_Catalog::product/view/primary-banner.phtml"/>
+    <referenceContainer name="content.top">
+      <block class="Magento\Framework\View\Element\Template" name="primary.banner" template="Magento_Catalog::product/view/primary-banner.phtml" before="-"/>
     </referenceContainer>
     <referenceContainer name="page.bottom.container">
       <block class="Magento\Framework\View\Element\Template" name="secondary.banner" before="page.bottom" template="Magento_Catalog::product/view/secondary-banner.phtml"/>
