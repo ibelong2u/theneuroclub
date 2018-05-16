@@ -110,15 +110,28 @@
                     <item name="indexField" xsi:type="string">id</item>
                 </item>
             </argument>
-            <action name="delete">
+            <!--<action name="delete">-->
+                <!--<argument name="data" xsi:type="array">-->
+                    <!--<item name="config" xsi:type="array">-->
+                        <!--<item name="type" xsi:type="string">delete</item>-->
+                        <!--<item name="label" xsi:type="string" translate="true">Delete</item>-->
+                        <!--<item name="url" xsi:type="url" path="stripe/subscription/massDelete"/>-->
+                        <!--<item name="confirm" xsi:type="array">-->
+                            <!--<item name="title" xsi:type="string" translate="true">Delete Subscription</item>-->
+                            <!--<item name="message" xsi:type="string" translate="true">Are you sure to delete the selected subscription(s)?</item>-->
+                        <!--</item>-->
+                    <!--</item>-->
+                <!--</argument>-->
+            <!--</action>-->
+            <action name="update">
                 <argument name="data" xsi:type="array">
                     <item name="config" xsi:type="array">
-                        <item name="type" xsi:type="string">delete</item>
-                        <item name="label" xsi:type="string" translate="true">Delete</item>
-                        <item name="url" xsi:type="url" path="stripe/subscription/massDelete"/>
+                        <item name="type" xsi:type="string">update</item>
+                        <item name="label" xsi:type="string" translate="true">Update Data</item>
+                        <item name="url" xsi:type="url" path="stripe/subscription/massUpdate"/>
                         <item name="confirm" xsi:type="array">
-                            <item name="title" xsi:type="string" translate="true">Delete Subscription</item>
-                            <item name="message" xsi:type="string" translate="true">Are you sure to delete the selected subscription(s)?</item>
+                            <item name="title" xsi:type="string" translate="true">Update Subscription Data From Stripe</item>
+                            <item name="message" xsi:type="string" translate="true">Confirm ?</item>
                         </item>
                     </item>
                 </argument>
@@ -186,12 +199,21 @@
                 </item>
             </argument>
         </column>
+        <column name="created_at">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Created At</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </column>
         <column name="period_start">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">date</item>
-                    <item name="label" xsi:type="string" translate="true">Start Date</item>
-                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="label" xsi:type="string" translate="true">Current Period Start</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
                 </item>
             </argument>
         </column>
@@ -199,8 +221,17 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">date</item>
-                    <item name="label" xsi:type="string" translate="true">End Date</item>
-                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="label" xsi:type="string" translate="true">Current Period End</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+        </column>
+        <column name="customer_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Id</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
                 </item>
             </argument>
         </column>
@@ -210,7 +241,16 @@
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
                     <item name="label" xsi:type="string" translate="true">Status</item>
-                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="sortOrder" xsi:type="number">80</item>
+                </item>
+            </argument>
+        </column>
+        <column name="cancel_at_period_end">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Cancel At Period End</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
                 </item>
             </argument>
         </column>

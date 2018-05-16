@@ -13,8 +13,5 @@
                 <argument name="template" xsi:type="string">Magenest_Stripe::payment/info.phtml</argument>
             </action>
         </referenceBlock>
-        <!--<referenceBlock name="content">-->
-            <!--<block name="stripe_payment_script" as="stripe_payment_script" after="billing_method" template="Magenest_Stripe::payment/script.phtml" class="Magenest\Stripe\Block\Payment"/>-->
-        <!--</referenceBlock>-->
     </body>
 </page>

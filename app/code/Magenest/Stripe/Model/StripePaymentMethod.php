@@ -22,10 +22,7 @@ use Magento\Directory\Model\CountryFactory;
 use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Sales\Model\Order\Email\Sender\OrderSender;
-use Magenest\Stripe\Model\ChargeFactory;
-use Magenest\Stripe\Model\CustomerFactory;
 use Magenest\Stripe\Helper\Data as DataHelper;
-use Magenest\Stripe\Model\SubscriptionFactory;
 use Magenest\Stripe\Helper\Config as ConfigHelper;
 
 class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
@@ -40,60 +37,17 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
     protected $_canRefund = true;
     protected $_canRefundInvoicePartial = true;
     protected $_canVoid = true;
-    protected $_countryFactory;
-    protected $_minAmount = null;
-    protected $_maxAmount = null;
-    protected $_testSecret = null;
-    protected $_testPublishable = null;
-    protected $_liveSecret = null;
-    protected $_livePublishable = null;
-    protected $_isTest = null;
-    protected $_sendEmail = null;
-    protected $_planId = '';
-    protected $_totalCycles;
-    protected $_checkoutSession;
-    protected $_encryptor;
-    protected $_chargeFactory;
-    protected $_customerFactory;
     protected $_cardFactory;
     protected $_helper;
-    protected $_subscriptionFactory;
-    protected $_orderSender;
-    public $_config;
-    protected $_isCustomer;
-    protected $_supportedCurrencyCodes = [
-        'AUD',
-        'CAD',
-        'CZK',
-        'DKK',
-        'EUR',
-        'HKD',
-        'HUF',
-        'ILS',
-        'JPY',
-        'MXN',
-        'NOK',
-        'NZD',
-        'PLN',
-        'GBP',
-        'RUB',
-        'SGD',
-        'SEK',
-        'CHF',
-        'TWD',
-        'THB',
-        'USD',
-    ];
-
     /**
      * @var \Magenest\Stripe\Helper\Logger $stripeLogger
      */
     public $stripeLogger;
+    public $_config;
     protected $customerSession;
-    protected $_isInitializeNeeded = true;
-    protected $_canOrder = true;
     protected $_messageManager;
     protected $storeManagerInterface;
+    protected $request;
     protected $subscriptionHelper;
 
     public function __construct(
@@ -106,34 +60,17 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
         Logger $logger,
         ModuleListInterface $moduleList,
         TimezoneInterface $localeDate,
-        CountryFactory $countryFactory,
-        CheckoutSession $checkoutSession,
-        EncryptorInterface $encryptorInterface,
-        ChargeFactory $chargeFactory,
-        CustomerFactory $customerFactory,
         DataHelper $dataHelper,
-        SubscriptionFactory $subscriptionFactory,
-        OrderSender $orderSender,
         ConfigHelper $config,
         \Magenest\Stripe\Helper\Logger $stripeLogger,
         \Magenest\Stripe\Model\CardFactory $cardFactory,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Store\Model\StoreManagerInterface $storeManagerInterface,
+        \Magento\Framework\App\RequestInterface $request,
         \Magenest\Stripe\Helper\SubscriptionHelper $subscriptionHelper,
         $data = []
     ) {
-        $this->_cardFactory = $cardFactory;
-        $this->_countryFactory = $countryFactory;
-        $this->_checkoutSession = $checkoutSession;
-        $this->_encryptor = $encryptorInterface;
-        $this->_chargeFactory = $chargeFactory;
-        $this->_customerFactory = $customerFactory;
-        $this->_helper = $dataHelper;
-        $this->_subscriptionFactory = $subscriptionFactory;
-        $this->_orderSender = $orderSender;
-        $this->_config = $config;
-
         parent::__construct(
             $context,
             $registry,
@@ -149,14 +86,10 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
             $data
         );
 
-        $this->_minAmount = $this->getConfigData('additional_config/min_order_total');
-        $this->_maxAmount = $this->getConfigData('additional_config/max_order_total');
-        $this->_testSecret = $this->_encryptor->decrypt($this->getConfigData('test_secret'));
-        $this->_testPublishable = $this->_encryptor->decrypt($this->getConfigData('test_publishable'));
-        $this->_liveSecret = $this->_encryptor->decrypt($this->getConfigData('live_secret'));
-        $this->_livePublishable = $this->_encryptor->decrypt($this->getConfigData('live_publishable'));
-        $this->_isTest = $this->getConfigData('test');
-        $this->_sendEmail = $this->getConfigData('email_customer');
+        $this->_cardFactory = $cardFactory;
+        $this->_helper = $dataHelper;
+        $this->_config = $config;
+        $this->request = $request;
         $this->stripeLogger = $stripeLogger;
         $this->customerSession = $customerSession;
         $this->_messageManager = $messageManager;
@@ -166,7 +99,7 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
 
     public function canUseInternal()
     {
-        return true;
+        return $this->getConfigData('active_moto');
     }
 
     public function isAvailable(\Magento\Quote\Api\Data\CartInterface $quote = null)
@@ -179,112 +112,104 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
         return \Magento\Payment\Model\Method\AbstractMethod::validate();
     }
 
+    public function isInitializeNeeded()
+    {
+        if ($this->_appState->getAreaCode() == 'adminhtml') {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function hasVerification()
+    {
+        return true;
+    }
+
+    public function getConfigPaymentAction()
+    {
+        /** @var \Magento\Sales\Model\Order $order */
+        $payment = $this->getInfoInstance();
+        $order = $payment->getOrder();
+        $orderItems = $order->getItems();
+        if ($this->subscriptionHelper->isSubscriptionOrder($orderItems)) {
+            return "authorize_capture";
+        }
+        return parent::getConfigPaymentAction(); // TODO: Change the autogenerated stub
+    }
+    public function canRefund()
+    {
+        /** @var \Magento\Sales\Model\Order $order */
+        $payment = $this->getInfoInstance();
+        $order = $payment->getOrder();
+        $orderItems = $order->getItems();
+        if ($this->subscriptionHelper->isSubscriptionOrder($orderItems)) {
+            return false;
+        }
+        return parent::canRefund(); // TODO: Change the autogenerated stub
+    }
+
     public function assignData(\Magento\Framework\DataObject $data)
     {
+        $infoInstance = $this->getInfoInstance();
+        $additionalData = $data->getData('additional_data');
         parent::assignData($data);
-        try {
-            $_tmpData = $data->_data;
-            $_serializedAdditionalData = serialize($_tmpData['additional_data']);
-            $additionalDataRef = $_serializedAdditionalData;
-            $additionalDataRef = unserialize($additionalDataRef);
-            $rawCardData = $additionalDataRef['raw_card_data'];
-            $_paymentToken = $additionalDataRef['stripe_token'];
-            $_cardID = isset($additionalDataRef['card_id']) ? $additionalDataRef['card_id'] : "0";
-            $_saved = isset($additionalDataRef['saved']) ? $additionalDataRef['saved'] : "0";
-            $threeDSecure = isset($additionalDataRef['three_d_secure']) ? $additionalDataRef['three_d_secure'] : "";
-            $infoInstance = $this->getInfoInstance();
-            $infoInstance->setAdditionalInformation('payment_token', $_paymentToken);
-            $infoInstance->setAdditionalInformation('card_id', $_cardID);
-            $infoInstance->setAdditionalInformation('saved', $_saved);
-            $infoInstance->setAdditionalInformation('three_d_secure', $threeDSecure);
-            $infoInstance->setAdditionalInformation('raw_card_data', $rawCardData);
-            $this->addPaymentInfoData($infoInstance, $_cardID, $rawCardData);
-            $this->addSourceToStripe($infoInstance, $_cardID, $_paymentToken);
-        } catch (\Exception $e) {
-            $this->stripeLogger->critical($e->getMessage());
-            throw new \Magento\Framework\Exception\LocalizedException(
-                __('Data error.')
-            );
+        if ($this->_appState->getAreaCode() == 'adminhtml') {
+            $sourceId = isset($additionalData['source_id'])?$additionalData['source_id']:"";
+            $customerId = isset($additionalData['customer_id'])?$additionalData['customer_id']:"";
+            $infoInstance->setAdditionalInformation('source_id', $sourceId);
+            $infoInstance->setAdditionalInformation('customer_id', $customerId);
+            if ($sourceId) {
+                $infoInstance->setAdditionalInformation('db_source', true);
+            }
+            return $this;
         }
 
+        $stripeResponse = isset($additionalData['stripe_response'])?$additionalData['stripe_response']:"";
+        $response = json_decode($stripeResponse, true);
+
+        if ($response) {
+            $thredDSecure = isset($response['card']['three_d_secure'])?$response['card']['three_d_secure']:"";
+            $isSaveOption = isset($additionalData['saved']) ? $additionalData['saved'] : false;
+            $sourceId = isset($response['id']) ? $response['id'] : false;
+            $infoInstance->setAdditionalInformation('stripe_response', $stripeResponse);
+            $infoInstance->setAdditionalInformation('three_d_secure', $thredDSecure);
+            $cardID = "";
+        } else {
+            $sourceId = isset($additionalData['cardId']) ? $additionalData['cardId'] : false;
+            $cardID = $sourceId;
+            $isSaveOption = "0";
+        }
+        $infoInstance->setAdditionalInformation('save_option', $isSaveOption);
+        $infoInstance->setAdditionalInformation('payment_token', $sourceId);
+        $infoInstance->setAdditionalInformation('origin_source', $sourceId);
+
+        $this->addPaymentInfoData($infoInstance, $cardID);
         return $this;
     }
 
-    public function addSourceToStripe($infoInstance, $_cardID, $_paymentToken)
+    public function addPaymentInfoData($infoInstance, $_cardID)
     {
-        if ($this->customerSession->isLoggedIn()) {
-            try {
-                $customerModel = $this->_customerFactory->create();
-                /** @var \Magenest\Stripe\Model\Customer $customer */
-                //find customer in DB
-                $customer = $customerModel->getCollection()
-                    ->addFieldToFilter('magento_customer_id', $this->customerSession->getCustomerId())
-                    ->getFirstItem();
-                /**
-                 * if customer registered and have data in db, get stripe cus_id
-                 * else: create customer data
-                 */
-                $stripeCustomerId = null;
-                if ($customer->getId()) {
-                    //is a customer
-                    $stripeCustomerId = $customer->getData('stripe_customer_id');
-                    //check stripe customer id
-                    $checkResp = $this->_helper->checkStripeCustomerId($stripeCustomerId);
-                    $this->_debug($checkResp);
-                    if (isset($checkResp['error'])) {
-                        //delete old and create new customer
-                        $customer->delete();
-                        $stripeCustomerId = $this->createCustomer();
-                    }
-                } else {
-                    /**
-                     * create stripe customer
-                     */
-                    $stripeCustomerId = $this->createCustomer();
-                }
-                if ($_paymentToken != '0') {
-                    $response = $this->addSourceToCustomer($stripeCustomerId, $_paymentToken);
-                    $this->_debug($response);
-                }
-                if ($_cardID != "0") {
-                    $infoInstance->setAdditionalInformation('payment_token', $_cardID);
-                }
-            } catch (\Exception $e) {
-                throw new \Magento\Framework\Exception\LocalizedException(
-                    __($e->getMessage())
-                );
-            }
-        }
-    }
-
-    public function addPaymentInfoData($infoInstance, $_cardID, $rawCardData)
-    {
-        if ($_cardID == "0") {
-            $cardData = json_decode($rawCardData);
-            try {
-                $infoInstance->addData(
-                    [
-                        'cc_type' => $cardData->brand,
-                        'cc_last_4' => $cardData->last4,
-                        'cc_exp_month' => $cardData->exp_month,
-                        'cc_exp_year' => $cardData->exp_year
-                    ]
-                );
-            } catch (\Exception $e) {
-                $this->stripeLogger->critical($e->getMessage());
-            }
+        if (!$_cardID) {
+            $response = json_decode($infoInstance->getAdditionalInformation('stripe_response'), true);
+            $cardData = isset($response['card'])?$response['card']:"";
         } else {
-            $cardData = $this->getCardInfo($_cardID);
-            $infoInstance->setAdditionalInformation('three_d_secure', $cardData['threed_secure']);
-            $infoInstance->addData(
-                [
-                    'cc_type' => $cardData['brand'],
-                    'cc_last_4' => $cardData['last4'],
-                    'cc_exp_month' => $cardData['exp_month'],
-                    'cc_exp_year' => $cardData['exp_year']
-                ]
-            );
+            $cardData = $this->_cardFactory->create()->getCollection()
+                ->addFieldToFilter('card_id', $_cardID)
+                ->getFirstItem()
+                ->getData();
+            $infoInstance->setAdditionalInformation('three_d_secure', $cardData['three_d_secure']);
+            $infoInstance->setAdditionalInformation('db_source', true);
         }
+
+        $infoInstance->addData(
+            [
+                'cc_type' => $cardData['brand'],
+                'cc_last_4' => $cardData['last4'],
+                'cc_exp_month' => $cardData['exp_month'],
+                'cc_exp_year' => $cardData['exp_year']
+            ]
+        );
     }
 
     public function initialize($paymentAction, $stateObject)
@@ -293,54 +218,33 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
          * @var \Magento\Sales\Model\Order $order
          */
         $payment = $this->getInfoInstance();
+        $payment->setAdditionalInformation(Constant::ADDITIONAL_PAYMENT_ACTION, $paymentAction);
         $order = $payment->getOrder();
+        $orderItems = $order->getItems();
+        if (($this->subscriptionHelper->isSubscriptionOrder($orderItems)) && ($order->getCustomerIsGuest())) {
+            throw new \Magento\Framework\Exception\LocalizedException(
+                __('You need create an account to order subscription product')
+            );
+        }
         $this->_debug("-------Stripe init: orderid: " . $order->getIncrementId());
-        //$stateObject->setData('state', \Magento\Sales\Model\Order::STATE_PROCESSING);
-        //$stateObject->setData('status', \Magento\Sales\Model\Order::STATE_PENDING_PAYMENT);
         $stateObject->setIsNotified($order->getCustomerNoteNotify());
         $amount = $order->getBaseGrandTotal();
-        //if internal order
-        if ($this->_appState->getAreaCode() == 'adminhtml') {
-            $stateObject->setData('state', \Magento\Sales\Model\Order::STATE_PROCESSING);
-            $this->placeOrder($payment, $amount, $paymentAction);
-
-            return parent::initialize($paymentAction, $stateObject);
-        }
         $threeDSecureAction = $this->_config->getThreedsecure();
+        $threeDSecureVerify = $this->_config->getThreeDSecureVerify();
+        $threeDSecureVerify = explode(",", $threeDSecureVerify);
         $threeDSecureStatus = $payment->getAdditionalInformation("three_d_secure");
-        //save payment action
-        $payment->setAdditionalInformation(Constant::ADDITIONAL_PAYMENT_ACTION, $paymentAction);
-        //if admin set not use 3d secure -> normal payment
-        if ($threeDSecureAction == 0) {
-            $stateObject->setData('state', \Magento\Sales\Model\Order::STATE_PROCESSING);
-            //$stateObject->setData('status', \Magento\Sales\Model\Order::STATE_PROCESSING);
-            $this->placeOrder($payment, $amount, $paymentAction);
-        }
-        //if admin set 3d secure is auto
+        //active 3d secure
         if ($threeDSecureAction == 1) {
-            //if card require
-            if ($threeDSecureStatus == 'required') {
-                $this->order($payment, $amount);
-            } else {  //if not require, normal pay
+            if (($threeDSecureStatus == "required") || (in_array($threeDSecureStatus, $threeDSecureVerify))) {
+                $this->perform3dSecure($payment, $amount);
+            } else {
                 $stateObject->setData('state', \Magento\Sales\Model\Order::STATE_PROCESSING);
-                //$stateObject->setData('status', \Magento\Sales\Model\Order::STATE_PROCESSING);
                 $this->placeOrder($payment, $amount, $paymentAction);
             }
-        }
-        //3d secure on
-        if ($threeDSecureAction == 2) {
-            //if card not support, normal pay
-            if ($threeDSecureStatus == 'not_supported') {
-                $stateObject->setData('state', \Magento\Sales\Model\Order::STATE_PROCESSING);
-                //$stateObject->setData('status', \Magento\Sales\Model\Order::STATE_PROCESSING);
-                $this->placeOrder($payment, $amount, $paymentAction);
-            } else { //else, go 3d secure
-                $this->order($payment, $amount);
-            }
-        }
-        //3d secure force require
-        if ($threeDSecureAction == 3) {
-            $this->order($payment, $amount);
+        } else {
+            //not active
+            $stateObject->setData('state', \Magento\Sales\Model\Order::STATE_PROCESSING);
+            $this->placeOrder($payment, $amount, $paymentAction);
         }
 
         return parent::initialize($paymentAction, $stateObject); // TODO: Change the autogenerated stub
@@ -356,25 +260,8 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
     {
         $this->_debug("Place order action");
         $order = $payment->getOrder();
-        //$order->setStatus(\Magento\Sales\Model\Order::STATE_PROCESSING);
-        //$order->setState(\Magento\Sales\Model\Order::STATE_PROCESSING);
         $totalDue = $order->getTotalDue();
         $baseTotalDue = $order->getBaseTotalDue();
-        $_paymentToken = $payment->getAdditionalInformation('payment_token');
-        $cardData = json_decode($payment->getAdditionalInformation('raw_card_data'));
-        $_saved = $payment->getAdditionalInformation('saved');
-        $isSubscriptionOrder = $this->isSubscriptionOrder($payment);
-        if (($isSubscriptionOrder) && ($order->getCustomerIsGuest())) {
-            throw new \Magento\Framework\Exception\LocalizedException(
-                __('You need create an account to order subscription product')
-            );
-        }
-
-//        if ($_saved == "1"){
-//            if(($this->customerSession->isLoggedIn())|($isSubscriptionOrder)) {
-//                $this->saveCard($_paymentToken, $cardData);
-//            }
-//        }
 
         //3d secure: false
         $payment->setAdditionalInformation(Constant::ADDITIONAL_THREEDS, "false");
@@ -394,22 +281,13 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
      * @param float $amount
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function order(\Magento\Payment\Model\InfoInterface $payment, $amount)
+    public function perform3dSecure(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
         $this->_debug("Order action, 3ds on");
-        $threeDSecureAction = $this->_config->getThreedsecure();
         /** @var \Magento\Sales\Model\Order $order */
-//        if($this->isSubscriptionOrder($payment)){
-//            //excfeption when subscription with 3d secure
-//            throw new \Magento\Framework\Exception\LocalizedException(
-//                __('Payment error')
-//            );
-//        }
         $order = $payment->getOrder();
         $order->setCanSendNewEmailFlag(false);
-        //$order->setStatus(\Magento\Sales\Model\Order::STATE_PENDING_PAYMENT);
-        //$order->setState(\Magento\Sales\Model\Order::STATE_PENDING_PAYMENT);
-        $order->addStatusHistoryComment(__("Customer redirect to 3d Secure"));
+        $order->addStatusHistoryComment(__("Stripe 3d Secure"));
         $currency = $order->getBaseCurrencyCode();
         $multiply = 100;
         if ($this->_helper->isZeroDecimal($currency)) {
@@ -418,17 +296,7 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
         $_amount = $amount * $multiply;
         $cardSrc = $payment->getAdditionalInformation('payment_token');
         $returnUrl = $this->storeManagerInterface->getStore()->getBaseUrl() . "stripe/checkout/threedSecureResponse";
-//        $source = \Stripe\Source::create(array(
-//            "amount" => round($_amount),
-//            "currency" => strtoupper($currency),
-//            "type" => "three_d_secure",
-//            "three_d_secure" => array(
-//                "card" => $cardSrc,
-//            ),
-//            "redirect" => array(
-//                "return_url" => $returnUrl
-//            ),
-//        ));
+
         $request = [
             "amount" => round($_amount),
             "currency" => strtoupper($currency),
@@ -440,33 +308,16 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
                 "return_url" => $returnUrl
             ),
         ];
-        $url = "https://api.stripe.com/v1/sources";
-        $source = $this->_helper->sendRequest($request, $url, "post");
+        $source = $this->_helper->sendRequest($request, Constant::SOURCE_ENDPOINT, "post");
         $this->_debug($source);
         $clientSecret = $source['client_secret'];
-        $redirectStatus = $source['redirect']->status;
-        //status = pending ==> card pending 3d secure
-        if ($redirectStatus == 'pending') {
-            $threeDSecureUrl = $source['redirect']->url;
-            //3d secure: true
-            $payment->setAdditionalInformation(Constant::ADDITIONAL_THREEDS, "true");
-            $payment->setAdditionalInformation("threed_secure_url", $threeDSecureUrl);
-            $payment->setAdditionalInformation("client_secret", $clientSecret);
-        } else {
-            if ($threeDSecureAction != 3) {
-                $threeDSecureUrl = $source['redirect']->url;
-                $payment->setAdditionalInformation(Constant::ADDITIONAL_THREEDS, "true");
-                $payment->setAdditionalInformation("threed_secure_url", $threeDSecureUrl);
-                $payment->setAdditionalInformation("client_secret", $clientSecret);
-            } else {
-                throw new \Magento\Framework\Exception\LocalizedException(
-                    __('Something went wrong. Please try again later.')
-                );
-            }
-        }
+        $redirectStatus = $source['redirect']['status'];
 
-
-        return parent::order($payment, $amount); // TODO: Change the autogenerated stub
+        $threeDSecureUrl = $source['redirect']['url'];
+        //3d secure: true
+        $payment->setAdditionalInformation(Constant::ADDITIONAL_THREEDS, "true");
+        $payment->setAdditionalInformation("threed_secure_url", $threeDSecureUrl);
+        $payment->setAdditionalInformation("client_secret", $clientSecret);
     }
 
     /**
@@ -477,388 +328,144 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
     public function authorize(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
         $this->_debug("authorize action");
-        $isSubscriptionOrder = $this->isSubscriptionOrder($payment);
-        //if not check 3ds
-        if ($payment->getAdditionalInformation(Constant::ADDITIONAL_THREEDS) == 'false') {
-            //payment token of new tokenizer card
-            $paymentToken = $payment->getAdditionalInformation('payment_token'); // THIS IS THE TOKEN
-        } else {
-            //3ds card source now working with subscription
-            $paymentToken = $payment->getAdditionalInformation('payment_token_secure');
-        }
-        $originCardId = $payment->getAdditionalInformation('payment_token');
-        //saved card id
-        $cardId = $payment->getAdditionalInformation('card_id');
         /** @var \Magento\Sales\Model\Order $order */
         $order = $payment->getOrder();
-        $chargeModel = $this->_chargeFactory->create();
-        $customerId = $order->getCustomerId();
-        $multiply = 100;
-        if ($this->_helper->isZeroDecimal($order->getBaseCurrencyCode())) {
-            $multiply = 1;
-        }
-        $_amount = $amount * $multiply;
-        // If the order does not contains subscription product
-        if (!$isSubscriptionOrder) {
-            try {
-                //if logged in, pay with customer id
-                if ($this->customerSession->isLoggedIn()) {
-                    $request = [
-                        "amount" => round($_amount),
-                        "currency" => $order->getBaseCurrencyCode(),
-                        'capture' => 'false',
-                        "customer" => $this->getStripeCustomerId(),
-                        "source" => $paymentToken,
-                        "description" => "OrderId: " . $order->getIncrementId(),
-                        "metadata" => [
-                            'order_id' => $order->getIncrementId(),
-                            'magento_customer_id' => $order->getCustomerId(),
-                            'customer_email' => $order->getCustomerEmail()
-                        ]
-                    ];
-                } else {
-                    $request = [
-                        "amount" => round($_amount),
-                        "currency" => $order->getBaseCurrencyCode(),
-                        'capture' => 'false',
-                        "source" => $paymentToken,
-                        "description" => "OrderId: " . $order->getIncrementId(),
-                        "metadata" => [
-                            'order_id' => $order->getIncrementId(),
-                            'magento_customer_id' => $order->getCustomerId(),
-                            'customer_email' => $order->getCustomerEmail()
-                        ]
-                    ];
-                }
-                if ($this->_config->sendMailCustomer()) {
-                    $request['receipt_email'] = $order->getCustomerEmail();
-                }
-                $this->_debug($request);
-                $url = 'https://api.stripe.com/v1/charges';
-                $response = $this->_helper->sendRequest($request, $url, null);
-                $this->_debug($response);
-                if (isset($response['status']) && ($response['status'] == 'succeeded')) {
-                    $order->setCanSendNewEmailFlag(true);
-                    $threeDSecureStatus = $payment->getAdditionalInformation("three_d_secure");
-                    $_saved = $payment->getAdditionalInformation('saved');
-                    $_paymentToken = $payment->getAdditionalInformation('payment_token');
-                    $cardData = json_decode($payment->getAdditionalInformation('raw_card_data'));
-                    if ($_saved == "1") {
-                        if (($this->customerSession->isLoggedIn())) {
-                            $this->saveCard($_paymentToken, $cardData, $threeDSecureStatus);
-                        }
-                    }
-                    $payment->setAmount($amount);
-                    $payment->setTransactionId($response['id'])
-                        ->setParentTransactionId($response['id'])
-                        ->setIsTransactionClosed(false)
-                        ->setShouldCloseParentTransaction(false)
-                        ->setCcTransId($response['id'])
-                        ->setLastTransId($response['id']);
-                    //$payment->setParentTransactionId($response['id']);
-                    $data = [
-                        'charge_id' => $response['id'],
-                        'order_id' => $order->getIncrementId(),
-                        'customer_id' => $customerId,
-                        'status' => 'authorized'
-                    ];
 
-                    $chargeModel->addData($data)->save();
-                } else {
-                    $message = isset($response['error']->message) ? $response['error']->message : "Something went wrong. Please try again later";
-                    $this->_checkoutSession->setMessageError($message);
-                    throw new \Magenest\Stripe\Exception\StripePaymentException(
-                        __($message)
-                    );
-                }
-            } catch (\Magenest\Stripe\Exception\StripePaymentException $e) {
-                $this->stripeLogger->critical($e->getMessage());
-                throw new \Magenest\Stripe\Exception\StripePaymentException(
-                    __($e->getMessage())
-                );
-            } catch (\Exception $e) {
-                $this->stripeLogger->critical($e->getMessage());
-                throw new \Magento\Framework\Exception\LocalizedException(
-                    __($e->getMessage())
-                );
-            }
+        if ($this->_appState->getAreaCode() == 'adminhtml') {
+            $paymentToken = $this->_helper->getDirectSource($order);
         } else {
-            // If the order contains a subscription product
-            if ($this->_planId) {
-                try {
-                    $url = "https://api.stripe.com/v1/customers/" . $this->getStripeCustomerId();
-                    $response = $this->_helper->sendRequest([
-                        'default_source' => $originCardId
-                    ], $url, "post");
-                    //$cu = \Stripe\Customer::retrieve($this->getStripeCustomerId());
-                    $this->_debug($response);
-                    $this->changeCardToDefault($customerId, $originCardId);
-                    $threeDAction = $payment->getAdditionalInformation(Constant::ADDITIONAL_THREEDS);
-                    $subscriptionPlan = $this->subscriptionHelper->retrievePlan($this->_planId);
-                    //3d secure off -> normal pay
-                    if (isset($subscriptionPlan['id'])) {
-                        //if trail period subscription
-                        if (isset($subscriptionPlan['trial_period_days'])) {
-                            // Create subsription
-                            $subscriptionUrl = 'https://api.stripe.com/v1/subscriptions';
-                            $subscriptionRequest = [
-                                'plan' => $this->_planId,
-                                'customer' => $this->getStripeCustomerId(),
-                                "metadata" => [
-                                    'order_id' => $order->getIncrementId(),
-                                    'magento_customer_id' => $order->getCustomerId(),
-                                    'customer_email' => $order->getCustomerEmail()
-                                ]
-                            ];
+            $paymentToken = $payment->getAdditionalInformation('payment_token');
+        }
 
-                            $response = $this->_helper->sendRequest($subscriptionRequest, $subscriptionUrl, 'post');
-                            $this->_debug($response);
-                        } else {
-                            //non trial subsciprion
-                            if ($threeDAction == 'false') {
-                                //3ds off
-                                // Create subsription normally
-                                $subscriptionUrl = 'https://api.stripe.com/v1/subscriptions';
-                                $subscriptionRequest = [
-                                    'plan' => $this->_planId,
-                                    'customer' => $this->getStripeCustomerId(),
-                                    "metadata" => [
-                                        'order_id' => $order->getIncrementId(),
-                                        'magento_customer_id' => $order->getCustomerId(),
-                                        'customer_email' => $order->getCustomerEmail()
-                                    ]
-                                ];
-
-                                $response = $this->_helper->sendRequest($subscriptionRequest, $subscriptionUrl, 'post');
-                                $this->_debug($response);
-                            } else {
-                                //3d secure on
-                                //create first charge
-                                $request = [
-                                    "amount" => round($_amount),
-                                    "currency" => $order->getBaseCurrencyCode(),
-                                    'capture' => 'true',
-                                    "customer" => $this->getStripeCustomerId(),
-                                    "source" => $paymentToken,
-                                    "description" => "OrderId: " . $order->getIncrementId(),
-                                    "metadata" => [
-                                        'order_id' => $order->getIncrementId(),
-                                        'magento_customer_id' => $order->getCustomerId(),
-                                        'customer_email' => $order->getCustomerEmail()
-                                    ]
-                                ];
-                                if ($this->_config->sendMailCustomer()) {
-                                    $request['receipt_email'] = $order->getCustomerEmail();
-                                }
-                                $url = 'https://api.stripe.com/v1/charges';
-                                $response = $this->_helper->sendRequest($request, $url, null);
-                                //create subscription with trial period
-                                if (($response['status'] == 'succeeded') && (isset($response['status']))) {
-                                    $trialDay = $this->subscriptionHelper->calTrialPeriodDay($this->_planId);
-                                    $subscriptionUrl = 'https://api.stripe.com/v1/subscriptions';
-                                    $subscriptionRequest = [
-                                        'plan' => $this->_planId,
-                                        'customer' => $this->getStripeCustomerId(),
-                                        'trial_period_days' => $trialDay,
-                                        "metadata" => [
-                                            'order_id' => $order->getIncrementId(),
-                                            'magento_customer_id' => $order->getCustomerId(),
-                                            'customer_email' => $order->getCustomerEmail()
-                                        ]
-                                    ];
-
-                                    $response = $this->_helper->sendRequest(
-                                        $subscriptionRequest,
-                                        $subscriptionUrl,
-                                        'post'
-                                    );
-                                    $this->_debug($response);
-                                } else {
-                                    throw new \Magento\Framework\Exception\LocalizedException(
-                                        __('Something went wrong. Please try again later.')
-                                    );
-                                }
-                            }
-                        }
-                    } else {
-                        $message = 'Subscription create error';
-                        $this->_checkoutSession->setMessageError("Subscription create error");
-                        throw new \Magento\Framework\Exception\LocalizedException(
-                            __($message)
-                        );
-                    }
-
-                    $threeDSecureStatus = $payment->getAdditionalInformation("three_d_secure");
-                    $_saved = $payment->getAdditionalInformation('saved');
-                    $_paymentToken = $payment->getAdditionalInformation('payment_token');
-                    $cardData = json_decode($payment->getAdditionalInformation('raw_card_data'));
-                    if ($_saved == "1") {
-                        if (($this->customerSession->isLoggedIn())) {
-                            $this->saveCard($_paymentToken, $cardData, $threeDSecureStatus);
-                        }
-                    }
-                    //update payment
-
-                    $payment->setAmount($amount);
-                    $payment->setTransactionId($response['id'])
-                        ->setParentTransactionId($response['id'])
-                        ->setIsTransactionClosed(false)
-                        ->setShouldCloseParentTransaction(false)
-                        ->setCcTransId($response['id'])
-                        ->setLastTransId($response['id']);
-
-                    $subsObj = $this->_subscriptionFactory->create();
-
-                    $subsData = [
-                        'order_id' => $order->getIncrementId(),
-                        'subscription_id' => $response['id'],
-                        'period_start' => date("Y-m-d H:i:s", $response['current_period_start']),
-                        'period_end' => date("Y-m-d H:i:s", $response['current_period_end']),
-                        'customer_id' => $customerId,
-                        'status' => $response['status']
-                    ];
-
-                    $this->_totalCycles = $this->getTotalCycle($payment);
-
-                    if ($this->_totalCycles) {
-                        $subsData['total_cycles'] = $this->_totalCycles;
-                    }
-
-                    $subsObj->addData($subsData)->save();
-                } catch (\Exception $e) {
-                    $this->stripeLogger->critical($e->getMessage());
-                    throw new \Magento\Framework\Exception\LocalizedException(
-                        __('Something went wrong. Please try again later.')
-                    );
-                }
-            } else {
+        try {
+            $dbSource = $payment->getAdditionalInformation('db_source');
+            $customerId = $payment->getAdditionalInformation('customer_id');
+            $stripeCustomerId = $this->_helper->getStripeCustomerId($customerId);
+            $request = $this->_helper->createChargeRequest($order, $amount, $paymentToken, false, $dbSource, $stripeCustomerId);
+            $this->_debug($request);
+            $url = 'https://api.stripe.com/v1/charges';
+            $response = $this->_helper->sendRequest($request, $url, null);
+            $this->_debug($response);
+            if (isset($response['error'])) {
+                $this->_messageManager->addErrorMessage("Message: ".isset($response['error']['message'])?$response['error']['message']:"");
                 throw new \Magento\Framework\Exception\LocalizedException(
-                    __('Plan ID not found.')
+                    __('Payment error')
                 );
             }
+            if (isset($response['status']) && ($response['status'] == 'succeeded')) {
+                $order->setCanSendNewEmailFlag(true);
+                $_saved = $payment->getAdditionalInformation('save_option');
+
+                if ($_saved == "1") {
+                    if (($this->customerSession->isLoggedIn())) {
+                        $stripeResponse = json_decode($payment->getAdditionalInformation('stripe_response'), true);
+                        $this->_helper->saveCard($order->getCustomerId(), $stripeResponse);
+                    }
+                }
+                $payment->setAmount($amount);
+                $payment->setTransactionId($response['id'])
+                    ->setIsTransactionClosed(false)
+                    ->setShouldCloseParentTransaction(false)
+                    ->setCcTransId($response['id']);
+
+                $this->_helper->saveCharge($order, $response, "authorized");
+            } else {
+                throw new \Exception(
+                    __("Payment exception")
+                );
+            }
+        } catch (\Exception $e) {
+            $this->stripeLogger->critical($e->getMessage());
+            throw new \Magento\Framework\Exception\LocalizedException(
+                __($e->getMessage())
+            );
         }
 
         return $this;
-    }
-
-    public function isSubscriptionOrder($payment)
-    {
-        /** @var \Magento\Sales\Model\Order $order */
-        $order = $payment->getOrder();
-
-        $items = $order->getItems();
-
-        foreach ($items as $item) {
-            $buyInfo = $item->getBuyRequest();
-            $options = $buyInfo->getAdditionalOptions();
-            if ($options) {
-                foreach ($options as $key => $value) {
-                    if ($key == 'Plan ID') {
-                        $this->_planId = $value;
-
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public function getTotalCycle($payment)
-    {
-        /** @var \Magento\Sales\Model\Order $order */
-        $order = $payment->getOrder();
-
-        $items = $order->getItems();
-
-        foreach ($items as $item) {
-            $buyInfo = $item->getBuyRequest();
-            $options = $buyInfo->getAdditionalOptions();
-            if ($options) {
-                foreach ($options as $key => $value) {
-                    if ($key == 'Total Cycles') {
-                        return $value;
-                    }
-                }
-            }
-        }
-
-        return 0;
     }
 
     public function capture(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
         try {
             $this->_debug("capture action");
-            /** @var \Magenest\Stripe\Model\Charge $chargeModel */
-            $chargeModel = $this->_chargeFactory->create();
             /** @var \Magento\Sales\Model\Order $order */
             $order = $payment->getOrder();
-            $orderId = $order->getIncrementId();
-            if ($this->_appState->getAreaCode() == 'adminhtml') {
-                if ($this->isSubscriptionOrder($payment)) {
+            $transId = $payment->getCcTransId();
+            if ($transId) {
+                $url = Constant::CHARGE_ENDPOINT.'/' . $transId . '/capture';
+                $request = $this->_helper->createCaptureRequest($order, $amount);
+                $response = $this->_helper->sendRequest($request, $url, null);
+                $this->_debug($response);
+                if (isset($response['error'])) {
+                    $this->_messageManager->addErrorMessage("Message: ".$response['error']['message']);
                     throw new \Magento\Framework\Exception\LocalizedException(
-                        __('Can not capture subscription order')
+                        __('Payment error')
                     );
                 }
-            }
-            $multiply = 100;
-            if ($this->_helper->isZeroDecimal($order->getBaseCurrencyCode())) {
-                $multiply = 1;
-            }
-            $_amount = $amount * $multiply;
-            $charge = $chargeModel->getCollection()->addFieldToFilter('order_id', $orderId)->getFirstItem();
-            if (!$charge->getId()) {
-                $this->authorize($payment, $amount);
-                $charge = $chargeModel->getCollection()->addFieldToFilter('order_id', $orderId)->getFirstItem();
-            }
-
-            if ($charge->getId()) {
-                $status = $charge->getData('status');
-                if ($status != 'captured') {
-                    $url = 'https://api.stripe.com/v1/charges/' . $charge->getData('charge_id') . '/capture';
-                    $request = [
-                        'amount' => round($_amount)
-                    ];
-                    if ($this->_config->sendMailCustomer()) {
-                        $request['receipt_email'] = $order->getCustomerEmail();
-                    }
-                    $response = $this->_helper->sendRequest($request, $url, null);
-                    $this->_debug($response);
-                    if ($response['status'] == 'succeeded') {
-                        $payment->setStatus(\Magento\Payment\Model\Method\AbstractMethod::STATUS_SUCCESS)
-                            ->setShouldCloseParentTransaction(0)
-                            ->setIsTransactionClosed(1);
-                        $payment->setTransactionId($response['id']);
-                        $payment->setParentTransactionId($charge->getData('charge_id'));
-                        $data = [
-                            'status' => 'captured'
-                        ];
-
-                        $charge->addData($data)->save();
-                    } else {
-                        throw new \Magenest\Stripe\Exception\StripePaymentException(
-                            __('Capture fail')
-                        );
-                    }
+                if (isset($response['status'])&&($response['status'] == 'succeeded')) {
+                    $transactionId = isset($response['balance_transaction'])?$response['balance_transaction']:"";
+                    $payment->setStatus(\Magento\Payment\Model\Method\AbstractMethod::STATUS_SUCCESS)
+                        ->setShouldCloseParentTransaction(1)
+                        ->setIsTransactionClosed(1);
+                    $payment->setTransactionId($transactionId);
                 } else {
-                    throw new \Magenest\Stripe\Exception\StripeAlreadyCaptureException(
-                        __('The order has already been captured.')
+                    throw new \Magenest\Stripe\Exception\StripePaymentException(
+                        __('Capture fail')
+                    );
+                }
+            } else {
+                //call capture api
+                if ($this->_appState->getAreaCode() == 'adminhtml') {
+                    $paymentToken = $this->_helper->getDirectSource($order);
+                } else {
+                    $paymentToken = $payment->getAdditionalInformation('payment_token');
+                }
+                $dbSource = $payment->getAdditionalInformation('db_source');
+                $customerId = $payment->getAdditionalInformation('customer_id');
+                $stripeCustomerId = $this->_helper->getStripeCustomerId($customerId);
+                //check subscription order
+                $orderItems = $order->getItems();
+                if ($this->subscriptionHelper->isSubscriptionOrder($orderItems)) {
+                    //call subscription api
+                    $payment->setAdditionalInformation("do_subscription_action", true);
+                    //$this->subscriptionModel->createSubscription($payment, $paymentToken);
+                    return parent::capture($payment, $amount);
+                }
+
+                $request = $this->_helper->createChargeRequest($order, $amount, $paymentToken, true, $dbSource, $stripeCustomerId);
+                $this->_debug($request);
+                $url = 'https://api.stripe.com/v1/charges';
+                $response = $this->_helper->sendRequest($request, $url, null);
+                $this->_debug($response);
+                if (isset($response['error'])) {
+                    $this->_messageManager->addErrorMessage("Message: ".$response['error']['message']);
+                    throw new \Magento\Framework\Exception\LocalizedException(
+                        __('Payment error')
+                    );
+                }
+                if (isset($response['status']) && ($response['status'] == 'succeeded')) {
+                    $order->setCanSendNewEmailFlag(true);
+                    $_saved = $payment->getAdditionalInformation('save_option');
+
+                    if ($_saved == "1") {
+                        if (($this->customerSession->isLoggedIn())) {
+                            $stripeResponse = json_decode($payment->getAdditionalInformation('stripe_response'), true);
+                            $this->_helper->saveCard($order->getCustomerId(), $stripeResponse);
+                        }
+                    }
+                    $payment->setAmount($amount);
+                    $payment->setTransactionId($response['id'])
+                        ->setIsTransactionClosed(false)
+                        ->setShouldCloseParentTransaction(false)
+                        ->setCcTransId($response['id']);
+
+                    $this->_helper->saveCharge($order, $response, "captured");
+                } else {
+                    throw new \Exception(
+                        __("Payment exception")
                     );
                 }
             }
-        } catch (\Magenest\Stripe\Exception\StripePaymentException $e) {
-            $this->stripeLogger->critical($e->getMessage());
-            throw new \Magenest\Stripe\Exception\StripePaymentException(
-                __($e->getMessage())
-            );
-        } catch (\Magenest\Stripe\Exception\StripeAlreadyCaptureException $e) {
-            $this->_messageManager->addErrorMessage(__('The order has already been captured.'));
-            $this->stripeLogger->debug($e->getMessage());
-            throw new \Magenest\Stripe\Exception\StripeAlreadyCaptureException(
-                __($e->getMessage())
-            );
         } catch (\Exception $e) {
             $this->stripeLogger->debug($e->getMessage());
             throw new \Magento\Framework\Exception\LocalizedException(
@@ -872,43 +479,48 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
     {
         $this->_debug("refund action");
         try {
-            /** @var \Magenest\Stripe\Model\Charge $chargeModel */
-            $chargeModel = $this->_chargeFactory->create();
-
+            $refundReason = $this->request->getParam('refund_reason');
             /** @var \Magento\Sales\Model\Order $order */
             $order = $payment->getOrder();
-            $orderId = $order->getIncrementId();
             $multiply = 100;
             if ($this->_helper->isZeroDecimal($order->getBaseCurrencyCode())) {
                 $multiply = 1;
             }
             $_amount = $amount * $multiply;
-            $charge = $chargeModel->getCollection()->addFieldToFilter('order_id', $orderId)->getFirstItem();
-            if ($charge->getId()) {
+            $transId = $payment->getCcTransId();
+            if ($transId) {
                 $url = 'https://api.stripe.com/v1/refunds';
 
                 $request = [
-                    'charge' => $charge->getData('charge_id'),
+                    'charge' => $transId,
                     'amount' => round($_amount)
                 ];
+                if ($refundReason) {
+                    $request['reason'] = $refundReason;
+                }
 
                 $response = $this->_helper->sendRequest($request, $url, null);
                 $this->_debug($response);
+                if (isset($response['error'])) {
+                    $this->_messageManager->addErrorMessage("Message: ".$response['error']['message']);
+                    throw new \Magento\Framework\Exception\LocalizedException(
+                        __('Refund error')
+                    );
+                }
                 if ($response['status'] == 'succeeded') {
-                    $payment->setTransactionId($response['id']);
-                    $payment->setParentTransactionId($charge->getData('charge_id'));
-                    $payment->setShouldCloseParentTransaction(1);
-                } else {
-                    if ($response['status'] == 'pending') {
-                        $payment->setTransactionId($response['id']);
-                        $payment->setParentTransactionId($charge->getData('charge_id'));
-                        $payment->setShouldCloseParentTransaction(1);
-                        $this->_messageManager->addWarningMessage("Refund pending");
-                    } else {
-                        throw new \Magento\Framework\Exception\LocalizedException(
-                            __('Something went wrong while refunding. Please try again.')
-                        );
-                    }
+                    $transactionId = isset($response['balance_transaction'])?$response['balance_transaction']:"";
+                    $payment->setTransactionId($transactionId);
+                    $payment->setShouldCloseParentTransaction(0);
+                    $this->_messageManager->addSuccessMessage("Balance Transaction: ".$transactionId);
+                }
+                if ($response['status'] == 'failed') {
+                    $failTransactionId = isset($response['failure_balance_transaction'])?$response['failure_balance_transaction']:"";
+                    $failReason = isset($response['failure_reason'])?$response['failure_reason']:"";
+                    $this->_messageManager->addErrorMessage("Failure Reason: ".$failReason);
+                    $this->_messageManager->addErrorMessage("Failure Balance Transaction: ".$failTransactionId);
+                    throw new \Magento\Framework\Exception\LocalizedException(
+                        __('Refund error')
+                    );
                 }
             } else {
                 throw new \Magento\Framework\Exception\LocalizedException(
@@ -918,118 +530,54 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
         } catch (\Exception $e) {
             $this->stripeLogger->critical($e->getMessage());
             throw new \Magento\Framework\Exception\LocalizedException(
-                __('Charge doesn\'t exist. Please try again later.')
+                __('Refund exception')
             );
         }
 
         return $this;
     }
 
-    public function changeCardToDefault($customerId, $cardId)
-    {
-        try {
-            $cardModel = $this->_cardFactory->create();
-            $check = $this->_cardFactory->create()
-                ->getCollection()
-                ->addFieldToFilter('card_id', $cardId)
-                ->getFirstItem();
-            if ($check->getId()) {
-                $collections = $cardModel->getCollection()
-                    ->addFieldToFilter("magento_customer_id", $customerId);
-
-                foreach ($collections as $collection) {
-                    if ($collection->getData()['status'] === "default") {
-                        $collection->setData("status", "active");
-                        $collection->save();
-                    }
-                }
-                $check->setData("status", "default");
-                $check->save();
-                $cardModel->save();
-            }
-        } catch (\Exception $e) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Create a stripe customer object
-     *
-     * @param \Magento\Payment\Model\InfoInterface $payment
-     * @param $token
-     * @return mixed
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function createCustomer()
-    {
-        try {
-            $customerModel = $this->_customerFactory->create();
-
-//            $cu = \Stripe\Customer::create(array(
-//                "description" => $this->customerSession->getCustomer()->getEmail(),
-//                "email" => $this->customerSession->getCustomer()->getEmail()
-//            ));
-            $url = 'https://api.stripe.com/v1/customers';
-
-            $request = [
-                "description" => $this->customerSession->getCustomer()->getEmail(),
-                "email" => $this->customerSession->getCustomer()->getEmail()
-            ];
-
-            $cu = $this->_helper->sendRequest($request, $url, null);
-            $customerModel->addData([
-                'magento_customer_id' => $this->customerSession->getCustomerId(),
-                'stripe_customer_id' => $cu['id']
-            ])->save();
-            $stripeCustomerId = $cu['id'];
-        } catch (\Exception $e) {
-            throw new \Magento\Framework\Exception\LocalizedException(
-                __('Create customer fail')
-            );
-        }
-
-        return $stripeCustomerId;
-    }
-
     public function void(\Magento\Payment\Model\InfoInterface $payment)
     {
         $this->_debug("void action");
-        /** @var \Magenest\Stripe\Model\Charge $chargeModel */
-        $chargeModel = $this->_chargeFactory->create();
-
         /** @var \Magento\Sales\Model\Order $order */
-        $order = $payment->getOrder();
-        $orderId = $order->getIncrementId();
+        try {
+            $transId = $payment->getCcTransId();
+            if ($transId) {
+                $url = 'https://api.stripe.com/v1/refunds';
 
-        $charge = $chargeModel->getCollection()->addFieldToFilter('order_id', $orderId)->getFirstItem();
-        if ($charge->getId()) {
-            $url = 'https://api.stripe.com/v1/refunds';
-
-            $request = [
-                'charge' => $charge->getData('charge_id')
-            ];
-
-            $response = $this->_helper->sendRequest($request, $url, null);
-            $this->_debug($response);
-            if ($response['status'] == 'succeeded') {
-                $payment->setTransactionId($response['id']);
-                $payment->setIsTransactionClosed(true);
-
-                $data = [
-                    'status' => 'cancelled'
+                $request = [
+                    'charge' => $transId
                 ];
 
-                $charge->addData($data)->save();
+                $response = $this->_helper->sendRequest($request, $url, null);
+                $this->_debug($response);
+                if (isset($response['error'])) {
+                    $this->_messageManager->addErrorMessage("Message: ".$response['error']['message']);
+                    throw new \Magento\Framework\Exception\LocalizedException(
+                        __('Refund error')
+                    );
+                }
+                if (isset($response['status']) && ($response['status'] == 'succeeded')) {
+                    $payment->setShouldCloseParentTransaction(1);
+                    $payment->setIsTransactionClosed(1);
+                }
+                if (isset($response['status']) && ($response['status'] == 'failed')) {
+                    $failReason = isset($response['failure_reason'])?$response['failure_reason']:"";
+                    $this->_messageManager->addErrorMessage("Failure Reason: ".$failReason);
+                    throw new \Magento\Framework\Exception\LocalizedException(
+                        __('Refund error')
+                    );
+                }
             } else {
                 throw new \Magento\Framework\Exception\LocalizedException(
-                    __('Something went wrong while cancelling. Please try again.')
+                    __('Charge doesn\'t exist. Please try again later.')
                 );
             }
-        } else {
+        } catch (\Exception $e) {
+            $this->stripeLogger->critical($e->getMessage());
             throw new \Magento\Framework\Exception\LocalizedException(
-                __('Charge doesn\'t exist. Please try again later.')
+                __('Void exception')
             );
         }
 
@@ -1038,68 +586,40 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
 
     public function cancel(\Magento\Payment\Model\InfoInterface $payment)
     {
-        $this->void($payment);
-    }
+        $this->_debug("void action");
+        /** @var \Magento\Sales\Model\Order $order */
+        try {
+            $transId = $payment->getCcTransId();
+            if ($transId) {
+                $url = 'https://api.stripe.com/v1/refunds';
 
-    public function canUseForCurrency($currencyCode)
-    {
-        if (!in_array($currencyCode, $this->_supportedCurrencyCodes)) {
-            return false;
+                $request = [
+                    'charge' => $transId
+                ];
+
+                $response = $this->_helper->sendRequest($request, $url, null);
+                $this->_debug($response);
+                if (isset($response['error'])) {
+                    $this->_messageManager->addErrorMessage("Message: ".$response['error']['message']);
+                }
+                if (isset($response['status']) && ($response['status'] == 'succeeded')) {
+                    $payment->setShouldCloseParentTransaction(1);
+                    $payment->setIsTransactionClosed(1);
+                }
+                if (isset($response['status']) && ($response['status'] == 'failed')) {
+                    $failReason = isset($response['failure_reason'])?$response['failure_reason']:"";
+                    $this->_messageManager->addErrorMessage("Failure Reason: ".$failReason);
+                }
+            } else {
+            }
+        } catch (\Exception $e) {
+            $this->stripeLogger->critical($e->getMessage());
+            throw new \Magento\Framework\Exception\LocalizedException(
+                __('Void exception')
+            );
         }
 
-        return true;
-    }
-
-    public function saveCard($sourceId, $cardData, $threeDSecureStatus = null)
-    {
-        $expMonth = $cardData->exp_month;
-        $expYear = $cardData->exp_year;
-        $brand = $cardData->brand;
-        $cardCountry = $cardData->country;
-        $cardLast4 = $cardData->last4;
-        $cardModel = $this->_cardFactory->create();
-        $data = [
-            'magento_customer_id' => $this->customerSession->getCustomerId(),
-            'card_id' => $sourceId,
-            'brand' => $brand,
-            'last4' => (string)$cardLast4,
-            'exp_month' => (string)$expMonth,
-            'exp_year' => (string)$expYear,
-            'status' => "active",
-            'threed_secure' => $threeDSecureStatus
-        ];
-
-        $cardModel->addData($data)->save();
-    }
-
-    public function addSourceToCustomer($stripeCustomerId, $source)
-    {
-        $request = [
-            'source' => $source
-        ];
-        $url = 'https://api.stripe.com/v1/customers/' . $stripeCustomerId . '/sources';
-        $response = $this->_helper->sendRequest($request, $url, 'post');
-    }
-
-    public function getStripeCustomerId()
-    {
-        $customer = $this->_customerFactory->create()->getCollection()
-            ->addFieldToFilter('magento_customer_id', $this->customerSession->getCustomerId())
-            ->getFirstItem();
-
-        /**
-         * if customer registered and have data in db, get stripe cus_id
-         * else: create customer data
-         */
-        return $customer->getData('stripe_customer_id');
-    }
-
-    public function getCardInfo($cardId)
-    {
-        return $this->_cardFactory->create()->getCollection()
-            ->addFieldToFilter('card_id', $cardId)
-            ->getFirstItem()
-            ->getData();
+        return $this;
     }
 
     /**

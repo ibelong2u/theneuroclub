@@ -15,10 +15,11 @@ define(
         'Magento_Checkout/js/model/full-screen-loader',
         'Magento_Checkout/js/action/redirect-on-success',
         'Magento_Checkout/js/model/payment/additional-validators',
-        'Magenest_Stripe/js/model/payment/messages',
+        'Magento_Ui/js/model/messages',
         'Magento_Customer/js/model/customer',
         'Magento_Checkout/js/action/set-billing-address',
-        'https://checkout.stripe.com/checkout.js'
+        'mage/url',
+        'https://js.stripe.com/v2/'
     ],
     function ($,
               ko,
@@ -32,16 +33,13 @@ define(
               additionalValidators,
               messageContainer,
               customer,
-              setBillingAddressAction) {
+              setBillingAddressAction,
+              url
+    ) {
         'use strict';
 
-        var handler = StripeCheckout.configure({
-            key: window.magenest.stripe.publishableKey,
-            locale: 'auto'
-        });
         var quoteData = window.checkoutConfig.quoteData;
         var amount = 0;
-        var a = customer.customerData;
         return Component.extend({
             defaults: {
                 template: 'Magenest_Stripe/payment/stripe-payments-giropay',
@@ -49,69 +47,50 @@ define(
             },
             messageContainer: messageContainer,
 
-            getCode: function () {
-                return 'magenest_stripe_giropay';
-            },
-
-            initStripe: function () {
+            placeOrder: function (data, event) {
+                if (event) {
+                    event.preventDefault();
+                }
                 var self = this;
-                var stripeResponseHandler = function (status, response) {
-                    console.log(response);
-                    if (response.error) {
-                        self.messageContainer.addErrorMessage({
-                            message: response.error.message
-                        });
-                        fullScreenLoader.stopLoader(true);
-                        self.isPlaceOrderActionAllowed(true);
-                    } else {
-                        window.location.href = response.redirect.url;
-                    }
-                };
-
-                return stripeResponseHandler;
-            },
-
-            giropayPlaceOrder: function () {
-                try {
-                    var self = this;
-                    fullScreenLoader.startLoader();
-                    self.isPlaceOrderActionAllowed(false);
-                    setBillingAddressAction();
-                    setPaymentInformationAction(
-                        self.messageContainer,
-                        {
-                            method: this.getCode()
-                        }
-                    );
-                    $.ajax({
-                        url: window.magenest.stripe.giroPayConfigUrl,
-                        dataType: "json",
-                        data: {
-                            billingAddress: ko.toJSON(quote.billingAddress()),
-                            shippingAddress: ko.toJSON(quote.shippingAddress()),
-                            guestEmail: quote.guestEmail
-                        },
-                        type: 'POST',
-                        success: function (response) {
-                            if (!response.errback) {
-                                amount = response.amount;
+                if (this.validate() && additionalValidators.validate()) {
+                    try {
+                        fullScreenLoader.startLoader();
+                        self.isPlaceOrderActionAllowed(false);
+                        setBillingAddressAction();
+                        setPaymentInformationAction(
+                            self.messageContainer,
+                            {
+                                method: this.getCode()
                             }
-                            var firstName = quote.billingAddress().firstname;
-                            var lastName = quote.billingAddress().lastname;
-                            if (amount === 0) {
-                                fullScreenLoader.stopLoader(true);
-                                self.isPlaceOrderActionAllowed(true);
-                                self.messageContainer.addErrorMessage({
-                                    message: 'Unable to get amount, please try again.'
-                                });
-                            }
-                            else {
-                                if (self.validate() && additionalValidators.validate()) {
-                                    var stripeResponseHandler = self.initStripe();
+                        );
+                        $.ajax({
+                            url: url.build('stripe/checkout/giroPayConfig'),
+                            dataType: "json",
+                            data: {
+                                form_key: window.checkoutConfig.formKey,
+                                billingAddress: ko.toJSON(quote.billingAddress()),
+                                shippingAddress: ko.toJSON(quote.shippingAddress()),
+                                guestEmail: quote.guestEmail
+                            },
+                            type: 'POST',
+                            success: function (response) {
+                                if (!response.errback) {
+                                    amount = response.amount;
+                                }
+                                var firstName = quote.billingAddress().firstname;
+                                var lastName = quote.billingAddress().lastname;
+                                if (amount === 0) {
+                                    fullScreenLoader.stopLoader(true);
+                                    self.isPlaceOrderActionAllowed(true);
+                                    self.messageContainer.addErrorMessage({
+                                        message: 'Unable to get amount, please try again.'
+                                    });
+                                }
+                                else {
                                     var address = quote.billingAddress();
                                     Stripe.source.create({
                                         type: 'giropay',
-                                        amount: self.getAmount(amount),
+                                        amount: Math.round(self.getAmount(amount)),
                                         currency: quoteData.base_currency_code,
                                         owner: {
                                             address: {
@@ -127,38 +106,43 @@ define(
                                             phone: address.telephone
                                         },
                                         redirect: {
-                                            return_url: window.magenest.stripe.giroPayChargeUrl
+                                            return_url: url.build('stripe/checkout/giroPayCharge')
                                         }
-                                    }, stripeResponseHandler);
-                                } else {
-                                    fullScreenLoader.stopLoader(true);
-                                    self.isPlaceOrderActionAllowed(true);
+                                    }, function (status, response) {
+                                        if (response.error) {
+                                            self.messageContainer.addErrorMessage({
+                                                message: response.error.message
+                                            });
+                                            fullScreenLoader.stopLoader(true);
+                                            self.isPlaceOrderActionAllowed(true);
+                                        } else {
+                                            window.location.href = response.redirect.url;
+                                        }
+                                    });
+
                                 }
+                            },
+                            error: function () {
+                                fullScreenLoader.stopLoader(true);
+                                self.isPlaceOrderActionAllowed(true);
+                                self.messageContainer.addErrorMessage({
+                                    message: 'Something went wrong, please try again.'
+                                });
                             }
-                        },
-                        error: function () {
-                            fullScreenLoader.stopLoader(true);
-                            self.isPlaceOrderActionAllowed(true);
-                            self.messageContainer.addErrorMessage({
-                                message: 'Something went wrong, please try again.'
-                            });
-                        }
-                    });
-                }
-                catch(err) {
-                    fullScreenLoader.stopLoader(true);
-                    self.isPlaceOrderActionAllowed(true);
-                    self.messageContainer.addErrorMessage({
-                        message: 'Something went wrong, please try again.'
-                    });
+                        });
+                    }
+                    catch (err) {
+                        fullScreenLoader.stopLoader(true);
+                        self.isPlaceOrderActionAllowed(true);
+                        self.messageContainer.addErrorMessage({
+                            message: 'Something went wrong, please try again.'
+                        });
+                    }
                 }
             },
 
             getAmount: function (amount) {
                 var multiply = 100;
-                if (window.magenest.stripe.isZeroDecimal) {
-                    multiply = 1;
-                }
                 return amount * multiply;
             },
 

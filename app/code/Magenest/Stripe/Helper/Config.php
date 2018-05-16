@@ -70,42 +70,19 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->_encryptor->decrypt($configValue);
     }
 
-    public function getIsTotalCycleEnabled()
-    {
-        return $this->scopeConfig->getValue(
-            'payment/magenest_stripe/additional_config/enable_total_cycle',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
-    }
-
-    public function getMaxTotalCycle()
-    {
-        return $this->scopeConfig->getValue(
-            'payment/magenest_stripe/additional_config/max_total_cycle',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
-    }
-
-    public function getIsCancelAtPeriodEnd()
-    {
-        return $this->scopeConfig->getValue(
-            'payment/magenest_stripe/additional_config/cancel_period_end',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
-    }
-
-    public function getCanCreateOrder()
-    {
-        return $this->scopeConfig->getValue(
-            'payment/magenest_stripe/additional_config/create_order',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
-    }
-
+//    BEGIN IFRAME CONFIG
     public function getCheckoutCanCollectBilling()
     {
         return $this->scopeConfig->getValue(
             'payment/magenest_stripe_iframe/collect_billing',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    public function getCheckoutCanCollectShipping()
+    {
+        return $this->scopeConfig->getValue(
+            'payment/magenest_stripe_iframe/collect_shipping',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
@@ -122,6 +99,14 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->scopeConfig->getValue(
             'payment/magenest_stripe_iframe/display_name',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    public function getButtonLabel()
+    {
+        return $this->scopeConfig->getValue(
+            'payment/magenest_stripe_iframe/button_label',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
@@ -162,10 +147,6 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         } else {
             return null;
         }
-//        return $baseUrl . $this->scopeConfig->getValue(
-//            'payment/magenest_stripe_iframe/upload_image_id',
-//            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-//        );
     }
 
     public function isIframeActive()
@@ -175,6 +156,15 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
+
+    public function getLocale()
+    {
+        return $this->scopeConfig->getValue(
+            'payment/magenest_stripe_iframe/locale',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+//    END IFRAME CONFIG
 
     public function isDebugMode()
     {
@@ -205,14 +195,6 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         }
     }
 
-    public function getThreedsecure()
-    {
-        return $this->scopeConfig->getValue(
-            'payment/magenest_stripe/threedsecure',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
-    }
-
     public function getInstructions()
     {
         return preg_replace('/\s+|\n+|\r/', ' ', $this->scopeConfig->getValue(
@@ -236,4 +218,112 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
+
+    public function getApiVersion()
+    {
+        return $this->scopeConfig->getValue(
+            'payment/magenest_stripe/api',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    public function getThreeDSecure()
+    {
+        return $this->scopeConfig->getValue(
+            'payment/magenest_stripe/three_d_secure',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    public function getThreeDSecureVerify()
+    {
+        return $this->scopeConfig->getValue(
+            'payment/magenest_stripe/three_d_secure_verify',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    //apple pay config
+    public function getReplacePlaceOrder()
+    {
+        return $this->scopeConfig->getValue(
+            'payment/magenest_stripe_applepay/replace_placeorder',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+    public function getButtonTheme()
+    {
+        return $this->scopeConfig->getValue(
+            'payment/magenest_stripe_applepay/paybutton_theme',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+    public function getButtonType()
+    {
+        return $this->scopeConfig->getValue(
+            'payment/magenest_stripe_applepay/paybutton_type',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+    //apple pay config
+
+    ////////////////////////////////////SUBSCRIPTION CONFIG
+    /////
+    public function getSubscriptionBilling()
+    {
+        return $this->scopeConfig->getValue(
+            'magenest/stripe_subscription/subscription_billing',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    public function getSubscriptionBillingDayDue()
+    {
+        return $this->scopeConfig->getValue(
+            'magenest/stripe_subscription/days_until_due',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    public function getSubscriptionApplyTax()
+    {
+        return $this->scopeConfig->getValue(
+            'magenest/stripe_subscription/apply_tax',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    public function getCanCreateOrder()
+    {
+        return $this->scopeConfig->getValue(
+            'magenest/stripe_subscription/create_order',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    public function getIsTotalCycleEnabled()
+    {
+        return $this->scopeConfig->getValue(
+            'magenest/stripe_subscription/enable_total_cycle',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    public function getMaxTotalCycle()
+    {
+        return $this->scopeConfig->getValue(
+            'magenest/stripe_subscription/max_total_cycle',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    public function getIsCancelAtPeriodEnd()
+    {
+        return $this->scopeConfig->getValue(
+            'magenest/stripe_subscription/cancel_period_end',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+    /////
+    /////////////////////////////////SUBSCRIPTION CONFIG
 }

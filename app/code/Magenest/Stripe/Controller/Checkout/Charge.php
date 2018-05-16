@@ -106,8 +106,8 @@ class Charge extends Action
                 ];
             } else {
                 if (isset($response['error'])) {
-                    $data['message'] = $response['error']->message;
-                    $data['type'] = $response['error']->type;
+                    $data['message'] = $response['error']['message'];
+                    $data['type'] = $response['error']['type'];
                     $data['code'] = 'error';
                     $data['error'] = true;
                 } else {

@@ -2,7 +2,7 @@
   "name": "magenest/module-stripe",
   "description": "N/A",
   "type": "magento2-module",
-  "version": "100.3.0",
+  "version": "100.4.0",
   "license": [
     "proprietary"
   ],

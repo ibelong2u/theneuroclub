@@ -8,75 +8,97 @@ define(
     [
         'Magento_Payment/js/view/payment/cc-form',
         'jquery',
+        'ko',
         'Magento_Checkout/js/model/quote',
         'Magento_Customer/js/model/customer',
         'Magento_Checkout/js/model/full-screen-loader',
         'Magento_Checkout/js/action/redirect-on-success',
-        'Magenest_Stripe/js/model/payment/messages',
+        'Magento_Ui/js/model/messages',
         'Magento_Checkout/js/model/payment/additional-validators',
-        'Magenest_Stripe/js/model/credit-card-validation/validator'
+        'mage/url'
     ],
-    function (Component, $, quote,customer, fullScreenLoader, redirectOnSuccessAction, messageContainer, additionalValidators) {
+    function (Component, $,ko, quote,customer, fullScreenLoader, redirectOnSuccessAction, messageContainer, additionalValidators, url) {
         'use strict';
 
-        var address = quote.isVirtual() ? quote.billingAddress() : quote.shippingAddress();
         return Component.extend({
             defaults: {
                 template: 'Magenest_Stripe/payment/stripe-payments-method',
-                token: '',
-                isSave: window.magenest.stripe.isSave,
-                hasCard: (window.magenest.stripe.hasCard>0),
-                id: '',
                 redirectAfterPlaceOrder: false,
-                threedsecure: "",
-                rawCardData: ""
+                saveCardConfig: window.checkoutConfig.payment.magenest_stripe.isSave,
+                isLogged: window.checkoutConfig.payment.magenest_stripe_config.isLogin,
+                saveCardOption: "",
+                api_response: "",
+                isCardNumberError: ko.observable(false),
+                isCardExpError: ko.observable(false),
+                isCardCcvError: ko.observable(false),
+                customerCard: ko.observableArray(JSON.parse(window.checkoutConfig.payment.magenest_stripe.saveCards)),
+                cardId: ko.observable(0),
+                isSelectCard: ko.observable(false),
+                hasCard: window.checkoutConfig.payment.magenest_stripe.hasCard,
+                showPaymentField: ko.observable(false)
             },
             messageContainer: messageContainer,
 
-            // Joel: added token function
-            initStripe: function() {
+            initObservable: function () {
                 var self = this;
-
-                var stripeResponseHandler = function (status, response) {
-                    console.log(response);
-                    if (response.error) {
-                        self.messageContainer.addErrorMessage({
-                            message: response.error.message
-                        });
-                        $(".loading-mask").hide();
-                        self.isPlaceOrderActionAllowed(true);
-                    } else {
-                        self.token = response.id;
-                        self.threedsecure = response.card.three_d_secure;
-                        self.rawCardData = response.card;
-                        self.placeOrder();
+                this._super();
+                this.isSelectCard = ko.computed(function () {
+                    if ((typeof self.cardId() !== 'undefined')&&(self.hasCard)){
+                        return true;
+                    }else{
+                        return false;
                     }
-                };
-
-                return stripeResponseHandler;
+                }, this);
+                this.showPaymentField = ko.computed(function () {
+                    if((this.saveCardConfig === "0") || !this.isSelectCard()){
+                        return true;
+                    }
+                }, this);
+                return this;
             },
 
-            createToken: function() {
+            initialize: function () {
+                this._super();
+                if (typeof Stripe === "undefined")
+                {
+                    var script = document.createElement('script');
+                    script.onload = function() {
+                        Stripe.setPublishableKey(window.checkoutConfig.payment.magenest_stripe_config.publishableKey);
+                    };
+                    script.onerror = function(response) {
+                        console.log("stripe js v2 load error");
+                        console.log(response);
+                    };
+                    script.src = "https://js.stripe.com/v2/";
+                    document.head.appendChild(script);
+                }
+                else {
+                    Stripe.setPublishableKey(window.checkoutConfig.payment.magenest_stripe_config.publishableKey);
+                }
+            },
+
+            placeOrder: function(data, event) {
+                if (event) {
+                    event.preventDefault();
+                }
                 var self = this;
-                if (self.getVal() === "0") {
-                    var firstName = quote.billingAddress().firstname;
-                    var lastName = quote.billingAddress().lastname;
-                    //fullScreenLoader.startLoader();
-                    this.isPlaceOrderActionAllowed(false);
-                    if (this.validate()) {
-                        var stripeResponseHandler = this.initStripe();
+                if (this.validate() && additionalValidators.validate()) {
+                    self.isPlaceOrderActionAllowed(false);
+                    if (!self.isSelectCard()) {
+                        var firstName = quote.billingAddress().firstname;
+                        var lastName = quote.billingAddress().lastname;
                         var address = quote.billingAddress();
                         var owner = {
                             address: {
                                 postal_code: address.postcode,
-                                city:address.city,
-                                country:address.countryId,
-                                line1:address.street[0],
-                                line2:address.street[1],
-                                state:address.region
+                                city: address.city,
+                                country: address.countryId,
+                                line1: address.street[0],
+                                line2: address.street[1],
+                                state: address.region
                             },
-                            name: firstName +" "+ lastName,
-                            email: (customer.customerData.email===null)?quote.guestEmail:customer.customerData.email
+                            name: firstName + " " + lastName,
+                            email: (customer.customerData.email === null) ? quote.guestEmail : customer.customerData.email
                         };
 
                         if (address.telephone) {
@@ -92,98 +114,38 @@ define(
                                 exp_year: $('#magenest_stripe_expiration_yr').val()
                             },
                             owner: owner
-                        }, stripeResponseHandler);
-                    } else {
-                        $(".loading-mask").hide();
-                        this.isPlaceOrderActionAllowed(true);
-                    }
-                }
-                else {
-                    self.token = "0";
-                    self.placeOrder();
-                }
-            },
-            addOption: function (id) {
-                var checkFlag = window.magenest.stripe.hasCard;
-                var cards = $.parseJSON(window.magenest.stripe.cards);
-                if (checkFlag>0)
-                {
-                    var i;
-                    $('#'+id).append('<option value="0">Select a saved card</option>');
-                    for (i=0; i<checkFlag; i++){
-                        var option = '<option value="'+cards[i].card_id+'">' +
-                            cards[i].brand + ' xxxxxxxxxxxx'+ cards[i].last4 + '  ' + cards[i].exp_month + '/' + cards[i].exp_year +
-                            '</option>';
-                        $('#'+id).append(option);
-                    }
-                }
-            },
-            initialize: function () {
-                var self = this;
-                this._super();
-                this.isAdd();
-            },
-            isAdd: function() {
-                var self = this;
-                var check = true;
-                var myInterval = setInterval(function() {
-                    self.selectFunc(check);
-                }, 1000);
-            },
-            getVal: function () {
-                var self = this;
-                var card_id = $('#'+ self.getCode() + '-card-id').val();
-                if (typeof (card_id) == 'undefined'){
-                    card_id = "0";
-                }
-                return card_id;
+                        }, function (status, response) {
+                            if (response.error) {
+                                console.log(response);
+                                self.messageContainer.addErrorMessage({
+                                    message: response.error.message
+                                });
+                                self.isPlaceOrderActionAllowed(true);
+                            } else {
+                                self.api_response = response;
+                                self.realPlaceOrder();
+                            }
+                        });
 
-            },
-            selectFunc : function (check) {
-                var self = this;
-                $('#'+self.getCode() + '-card-id').on('change', function () {
-                    var card = this.value;
-                    //console.log(self.getVal());
-                    if (card === "0"){
-                        if (!check)
-                        {
-                            fullScreenLoader.startLoader();
-                            $('#'+self.getCode() + '-form-div').show();
-                            setTimeout(function(){
-                                fullScreenLoader.stopLoader();
-                            }, 700);
-                            check = true;
-                        }
                     }
-                    else{
-                        if (check)
-                        {
-                            fullScreenLoader.startLoader();
-                            $('#'+self.getCode() + '-form-div').hide();
-                            setTimeout(function(){
-                                fullScreenLoader.stopLoader();
-                            }, 700);
-                            check = false;
-                        }
+                    else {
+                        self.realPlaceOrder();
                     }
-                });
+                    return true;
+                }
+                return false;
             },
+
             getData: function() {
-                var self = this;
-                var card_id = self.getVal();
-                var isSave = $('#stripe-save').is(":checked");
                 return {
                     'method': this.item.method,
                     'additional_data': {
-                        'saved': isSave ? "1" : "0",
-                        "stripe_token": this.token,
-                        "card_id": card_id,
-                        "three_d_secure": this.threedsecure,
-                        "raw_card_data": JSON.stringify(this.rawCardData)
+                        'saved': this.saveCardOption,
+                        "stripe_response": JSON.stringify(this.api_response),
+                        'cardId': this.cardId()
                     }
                 }
             },
-            // End of token functions
 
             getCode: function() {
                 return 'magenest_stripe';
@@ -195,61 +157,74 @@ define(
 
             validate: function() {
                 var self = this;
-                if(window.magenest.stripe.publishableKey===""){
+                if(window.checkoutConfig.payment.magenest_stripe_config.publishableKey===""){
                     self.messageContainer.addErrorMessage({
                         message: "Stripe public key error"
                     });
                     return false;
                 }
+                if (typeof Stripe === "undefined"){
+                    self.messageContainer.addErrorMessage({
+                        message: "Stripe js load error"
+                    });
+                    return false;
+                }
+
+                if(!this.isSelectCard()) {
+                    if (!Stripe.card.validateCardNumber(this.creditCardNumber())) {
+                        this.isCardNumberError(true);
+                        return false;
+                    } else {
+                        this.isCardNumberError(false);
+                    }
+                    if (!Stripe.card.validateExpiry(this.creditCardExpMonth(), this.creditCardExpYear())) {
+                        this.isCardExpError(true);
+                        return false;
+                    } else {
+                        this.isCardExpError(false);
+                    }
+                    if (!Stripe.card.validateCVC(this.creditCardVerificationNumber())) {
+                        this.isCardCcvError(true);
+                        return false;
+                    } else {
+                        this.isCardCcvError(false);
+                    }
+                }
+
                 return true;
             },
 
             getInstructions: function () {
-                return window.magenest.stripe.instructions;
+                return window.checkoutConfig.payment.magenest_stripe.instructions;
             },
 
-            placeOrder: function (data, event) {
+            realPlaceOrder: function () {
                 var self = this;
-
-                if (event) {
-                    event.preventDefault();
-                }
-
-                if (this.validate() && additionalValidators.validate()) {
-                    this.isPlaceOrderActionAllowed(false);
-
-                    this.getPlaceOrderDeferredObject()
-                        .fail(
-                            function () {
-                                $(".loading-mask").hide();
-                                self.isPlaceOrderActionAllowed(true);
-                            }
-                        ).done(
+                this.getPlaceOrderDeferredObject()
+                    .fail(
                         function () {
-                            self.afterPlaceOrder();
-
-                            if (self.redirectAfterPlaceOrder) {
-                                redirectOnSuccessAction.execute();
-                            }
+                            self.isPlaceOrderActionAllowed(true);
                         }
-                    );
+                    ).done(
+                    function () {
+                        self.afterPlaceOrder();
 
-                    return true;
-                }
-
-                return false;
+                        if (self.redirectAfterPlaceOrder) {
+                            redirectOnSuccessAction.execute();
+                        }
+                    }
+                );
             },
             
             afterPlaceOrder: function () {
                 var self = this;
-                $.ajax({
-                    url: window.magenest.stripe.threedSecureUrl,
-                    dataType: "json",
-                    type: 'POST',
-                    success: function (response) {
-                        //console.log(response);
+                $.post(
+                    url.build("stripe/checkout/threedSecure"),
+                    {
+                        form_key: window.checkoutConfig.formKey
+                    },
+                    function (response) {
                         if (response.success) {
-                            //default pay -> success page
                             if(response.defaultPay){
                                 redirectOnSuccessAction.execute();
                             }
@@ -259,17 +234,15 @@ define(
 
                         }
                         if (response.error){
+                            self.isPlaceOrderActionAllowed(true);
+                            console.log(response);
                             self.messageContainer.addErrorMessage({
                                 message: response.message
                             });
                         }
                     },
-                    error: function (response) {
-                        self.messageContainer.addErrorMessage({
-                            message: "Error, please try again"
-                        });
-                    }
-                })
+                    "json"
+                );
             }
         });
 

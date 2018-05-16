@@ -24,7 +24,7 @@
             <div class="primary">
                 <button class="action primary checkout"
                         type="submit"
-                        data-bind=" click: requestAlipay, attr: {title: $t('Continue')}, css: {disabled: !isPlaceOrderActionAllowed()}, enable: (getCode() == isChecked()) "
+                        data-bind=" click: placeOrder, attr: {title: $t('Continue')}, css: {disabled: !isPlaceOrderActionAllowed()}, enable: (getCode() == isChecked()) "
                         disabled>
                     <span data-bind="i18n: 'Place Order'"></span>
                 </button>
