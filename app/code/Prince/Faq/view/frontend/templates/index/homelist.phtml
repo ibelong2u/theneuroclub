@@ -10,7 +10,7 @@
       <h2><strong>Frequently </strong>Asked Questions</h2>
     </div>
         <div class="faq-content">
-            <?php foreach ($faqGroupCollection as $group) : ?>
+            <?php //foreach ($faqGroupCollection as $group) : ?>
                 <div class="faq-accordion">
                 <?php $faqLatest = $block->getFaqLatest(); ?>
                     <?php if (count($faqLatest) > 0) : ?>
@@ -25,7 +25,7 @@
                         <div><?php /* @noEscape */ echo __('No FAQ available'); ?></div>
                     <?php endif; ?>
                 </div>
-            <?php endforeach; ?>
+            <?php //endforeach; ?>
         </div>
         <div class="clearfix"></div>
         <div class="section-button">
