@@ -37,7 +37,7 @@
     .order-confirm{
       .curve-white{
         background-color: #fff;
-        @media only screen and (max-width:768px){
+        @media only screen and (max-width:767px){
           display:block !important;
           background-color: transparent;
         }
@@ -699,7 +699,7 @@ ul, li{
   .primary{
     margin: 0 auto;
     float: none;
-    .continue{
+    .continue,button{
       margin: 0 auto;
       float: none;
       width: 360px;
@@ -1102,6 +1102,11 @@ ul, li{
           }
         }
       }
+      .opc-sidebar{
+        @media only screen and (min-width: 767px){
+          margin-top: 120px;
+        }
+      }
       .opc-progress-bar{
         li{
             @media only screen and (min-width: 768px){
@@ -1115,7 +1120,7 @@ ul, li{
               width: 49%;
           }
           @media only screen and (min-width: 1400px){
-              width: 50%;
+              width: 49%;
           }
           span{
             @media only screen and (min-width: 768px){
@@ -1124,7 +1129,7 @@ ul, li{
             }
           }
         }
-      }
+
       .opc-progress-bar-item:before {
         border: 1px solid #cccccc26;
         @media only screen and (min-width: 768px){
@@ -1156,25 +1161,24 @@ ul, li{
           z-index: 1;
         }
       }
-      .opc-progress-bar-item._active > span:after {
-        color: #E66698;
-       }
       .opc-progress-bar-item > span:before {
         @media only screen and (min-width: 768px){
-          border: 6px solid #cccccc7a;
-          width: 60px;
-          height: 60px;
-          top: 15px;
-          left: 93%;
-          z-index: 1;
+          border: 6px solid #cccccc7a !important;
+          width: 60px !important;
+          height: 60px !important;
+          top: 15px !important;
+          left: 93% !important;
+          z-index: 1 !important;
         }
       }
-      .opc-progress-bar-item._active > span:before {
+      .opc-progress-bar-item._active > span:before , .opc-progress-bar-item._complete > span:before{
         @media only screen and (min-width: 768px){
-          border: 6px solid #E66698;
+          border: 6px solid #E66698 !important;
         }
       }
-
+      .opc-progress-bar-item._active > span:after, .opc-progress-bar-item._complete > span:after {
+        color: #E66698 !important;
+       }
       .opc-progress-bar-item._active:before {
         border-color:#ccc;
         background: #374076; /* Old browsers */
@@ -1182,6 +1186,13 @@ ul, li{
         background: -webkit-linear-gradient(left, #374076 36%,#374076 36%,#374076 38%,#374076 38%,#e66698 72%); /* Chrome10-25,Safari5.1-6 */
         background: linear-gradient(to right, #374076 36%,#374076 36%,#374076 38%,#374076 38%,#e66698 72%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#374076', endColorstr='#e66698',GradientType=1 ); /* IE6-9 */
+      }
+      .opc-progress-bar-item._complete:before {
+        background: #23284c; /* Old browsers */
+        background: -moz-linear-gradient(left, #23284c 45%, #374076 100%, #374076 101%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(left, #23284c 45%,#374076 100%,#374076 101%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, #23284c 45%,#374076 100%,#374076 101%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#23284c', endColorstr='#374076',GradientType=1 ); /* IE6-9 */
       }
       .opc-progress-bar-item._active > span:before {
         @media only screen and (min-width: 768px){
@@ -1194,14 +1205,25 @@ ul, li{
           border-radius: 20px 0 0 20px;
         }
       }
-      .opc-block-summary{
+      .opc-progress-bar-item._complete > span {
+        @media only screen and (min-width: 768px){
+            color: #fff;
+            font-weight: 600;
+        }
+      }
+      .opc-progress-bar-item:before {
+        @media only screen and (min-width: 768px){
+            background: #e4e4e4;
+        }
+      }
+    }
+      .opc-block-summary, .opc-block-shipping-information{
         padding: 22px 15px;
         @media only screen and (min-width: 768px){
             -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
             -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
             box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
             background: #fff;
-            margin-top: 75px;
         }
         span.title{
           font-weight: 600;
@@ -1211,13 +1233,59 @@ ul, li{
           border-bottom: 1px solid #cccccc3a;
         }
       }
+      .opc-block-shipping-information{
+        .ship-to, .ship-via{
+          .shipping-information-title{
+            span{
+              font-weight: 600;
+              font-size: 20px;
+              color: #000;
+              text-transform: capitalize;
+            }
+          }
+          .shipping-information-content{
+            font-size: 14px;
+            a{
+              color: #000 !important;
+              font-size: 14px;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      .payment-group{
+        .billing-address-details{
+          a{
+            color: #000 !important;
+            font-size: 14px;
+            text-decoration: underline;
+          }
+          .action-edit-address{
+            color: #006bb4;
+            background: #fff;
+            border: none;
+            font-size: 14px;
+            padding: 0;
+          }
+        }
+      }
+      .checkout-payment-method .payment-method + .payment-method .payment-method-title {
+        border-top: 1px solid transparent;
+      }
+      .checkout-payment-method {
+        .payment-method-title {
+          padding-top: 5px;
+        }
+        }
       .items-in-cart > .title strong {
         font-size: 1.6rem;
         font-weight: 400;
       }
-      .opc-block-summary .items-in-cart > .title {
+      .opc-block-summary{
+        .items-in-cart > .title {
         border-bottom: 1px solid #cccccc3a;
-      }
+          }
+        }
       .opc-wrapper{
         @media only screen and (min-width: 768px){
           margin-top: 120px;
@@ -1339,7 +1407,7 @@ ul, li{
       }
       .actions-toolbar{
       .primary{
-        .continue{
+        .continue,button{
           text-transform: capitalize;
           background: #E66698;
         }
@@ -1351,14 +1419,17 @@ ul, li{
     }
   }
 }
+//footer blocks
 .checkout-index-index{
   .footer-block{
     p{
       font-size: 12px;
       color: #000;
       letter-spacing: 0.7px;
+      padding: 10px 0;
       @media only screen and (min-width: 991px){
         font-size: 14px;
+        padding: 0;
       }
     }
   }
@@ -1368,7 +1439,8 @@ ul, li{
     padding-top: 20px;
     @media only screen and (min-width: 991px){
       margin-top: 40px;
-      padding-top:40px 0;
+      padding-top:40px;
+      padding-bottom:40px;
     }
     .footer-payments{
       text-align: center;
@@ -1392,7 +1464,7 @@ ul, li{
       padding-top: 15px;
     }
     p{
-      font-size: 12px;
+      font-size: 11px;
       margin-bottom: 0;
       font-weight: 600;
       color: #000;
@@ -1407,9 +1479,16 @@ ul, li{
       text-align: center;
     }
     .copyright{
+      font-size: 11px;
       background-color:  #ffffff;
       color: #000000;
       font-weight: 600;
+      p{
+        font-size: 11px;
+      }
+      span{
+        font-size: 11px;
+      }
       @media only screen and (max-width: 990px){
         padding: 0;
       }
