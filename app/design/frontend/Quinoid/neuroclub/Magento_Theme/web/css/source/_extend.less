@@ -920,7 +920,7 @@ button{
         font-size: 14px;
         font-weight: 600;
         margin: 0;
-        padding: 1.7em .5em 1.7em 1em;
+        padding: 39px .5em 39px 1em;
         -webkit-margin-before: 0;
         -webkit-margin-after: 0;
         @media only screen and (min-width: 468px) {
@@ -938,7 +938,7 @@ button{
       }
       .ui-accordion-content {
         border-top: 0;
-        padding: 0px 10px 34px 20px;
+        padding: 0px 10px 39px 20px;
         overflow: auto;
       }
       .ui-widget-content{
@@ -1798,6 +1798,11 @@ button{
      }
   }
   .faq-index-index{
+    .top-padding {
+      @media only screen and (max-width: 767px){
+          margin-top: 78px;
+      }
+    }
     .page-main,.page-bottom{
       background: #fff !important;
       }
@@ -1846,7 +1851,7 @@ button{
                 bottom: 0;
                 z-index: 0;
                 font-style: normal;
-                @media only screen and (max-width: 768px){
+                @media only screen and (max-width: 767px){
                   padding: 0 .5em 0 .5em;
                 }
               }
@@ -1858,4 +1863,16 @@ button{
           }
         }
       }
+  }
+  .Faq-block-element{
+    .section-heading{
+      border-bottom: 1px solid #E4E0DF;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      @media only screen and (min-width: 768px){
+        padding-top: 30px;
+        padding-bottom: 30px;
+      }
+    }
+
   }
