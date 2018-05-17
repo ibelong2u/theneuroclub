@@ -8,11 +8,6 @@
     <type name="Magento\Quote\Model\Quote">
         <plugin name="stripe_check_nominal" type="\Magenest\Stripe\Model\Plugin\Nominal" sortOrder="10" disabled="false" />
     </type>
-
-    <!--<type name="Magento\ConfigurableProduct\Model\Product\Type\Configurable">-->
-        <!--<plugin name="stripe_configurable_product_assign_option" type="\Magenest\Stripe\Model\Plugin\ConfigurableProduct" sortOrder="15" disabled="false"/>-->
-    <!--</type>-->
-
     <virtualType name="SubscriptionGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
         <arguments>
             <argument name="appliers" xsi:type="array">
@@ -55,6 +50,4 @@
         </arguments>
     </type>
 
-    <preference for="Magento\Checkout\Model\PaymentInformationManagement" type="Magenest\Stripe\Model\StripePaymentInformation" />
-    <preference for="Magento\Checkout\Model\GuestPaymentInformationManagement" type="Magenest\Stripe\Model\StripeGuestPaymentInformation" />
 </config>

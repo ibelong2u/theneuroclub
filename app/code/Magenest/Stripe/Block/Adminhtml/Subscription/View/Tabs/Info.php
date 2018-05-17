@@ -33,21 +33,28 @@ class Info extends \Magento\Sales\Block\Adminhtml\Order\AbstractOrder implements
 
     public function getSubscription()
     {
-        /** @var \Magenest\Stripe\Model\Subscription $profile */
-        $subscription = $this->_coreRegistry->registry('stripe_subscription_model');
-
-        return $subscription;
+        return $this->_coreRegistry->registry('stripe_subscription_model');
     }
 
-    public function getSubscriptionDetail()
+    public function getSubsDetail()
     {
+        $sub = $this->getSubscription();
+        return $sub->getData();
+    }
+
+    public function getSubscriptionItem()
+    {
+        /** @var \Magenest\Stripe\Model\ResourceModel\SubscriptionItem\Collection $subscriptionItemCollection */
         $subscription = $this->getSubscription();
-        $subsId = $subscription->getSubscriptionId();
+        $subscriptionId = $subscription->getData('subscription_id');
+        $subscriptionItemCollection = $this->_objectManager->get('Magenest\Stripe\Model\ResourceModel\SubscriptionItem\Collection');
+        $subscriptionItemCollection->addFieldToFilter("subscription_id", ['eq'=>$subscriptionId]);
+        return $subscriptionItemCollection;
+    }
 
-        $url = 'https://api.stripe.com/v1/subscriptions/' . $subsId;
-        $response = $this->_helper->sendRequest(null, $url, 'post');
-
-        return $response;
+    public function getSubscriptionPlanData($subscriptionItem)
+    {
+        return json_decode($subscriptionItem->getData('plan'), true);
     }
 
     public function getOrder()
@@ -81,5 +88,13 @@ class Info extends \Magento\Sales\Block\Adminhtml\Order\AbstractOrder implements
     public function isHidden()
     {
         return false;
+    }
+
+    public function getCancelUrl($subscriptionId)
+    {
+        return $this->getUrl(
+            'stripe/subscription/cancel',
+            ['sub_id' => $subscriptionId]
+        );
     }
 }

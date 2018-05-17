@@ -39,34 +39,35 @@ class Detail extends \Magento\Framework\View\Element\Template
 
     public function getSubscription()
     {
-        $id = $this->_coreRegistry->registry('customer_view_subscription_id');
-
-        $sub = $this->_subscriptionFactory->create()->load($id);
-
-        return $sub;
+        return $this->_coreRegistry->registry('stripe_subscription_model');
     }
 
     public function getSubsDetail()
     {
         $sub = $this->getSubscription();
-        $subsId = $sub->getSubscriptionId();
-
-        $url = 'https://api.stripe.com/v1/subscriptions/' . $subsId;
-        $response = $this->_helper->sendRequest(null, $url, 'post');
-
-        return $response;
+        return $sub->getData();
     }
 
-    public function getCancelUrl()
+    public function getSubscriptionItem()
     {
-        $sub = $this->getSubscription();
-        $subsId = $sub->getSubscriptionId();
+        /** @var \Magenest\Stripe\Model\ResourceModel\SubscriptionItem\Collection $subscriptionItemCollection */
+        $subscription = $this->getSubscription();
+        $subscriptionId = $subscription->getData('subscription_id');
+        $subscriptionItemCollection = $this->_objectManager->get('Magenest\Stripe\Model\ResourceModel\SubscriptionItem\Collection');
+        $subscriptionItemCollection->addFieldToFilter("subscription_id", ['eq'=>$subscriptionId]);
+        return $subscriptionItemCollection;
+    }
 
+    public function getSubscriptionPlanData($subscriptionItem)
+    {
+        return json_decode($subscriptionItem->getData('plan'), true);
+    }
+
+    public function getViewInvoiceUrl($subscriptionId)
+    {
         return $this->getUrl(
-            'stripe/customer/cancel',
-            [
-                'sub_id' => $subsId,
-            ]
+            'stripe/customer/viewinvoices',
+            ['sub_id' => $subscriptionId]
         );
     }
 }

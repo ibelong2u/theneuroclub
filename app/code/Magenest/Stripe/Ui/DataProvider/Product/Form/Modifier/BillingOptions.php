@@ -67,6 +67,7 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
     const FIELD_ENABLE = 'affect_product_custom_options';
     const FIELD_OPTION_ID = 'option_id';
     const FIELD_PLAN_ID = 'plan_id';
+    const FIELD_PLAN_NAME = 'plan_name';
     const FIELD_UNIT_NAME = 'unit_id';
     const FIELD_FREQUENCY_NAME = 'frequency';
     const FIELD_SORT_ORDER_NAME = 'sort_order';
@@ -127,26 +128,17 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
             return $data;
         }
 
-        $billingOptions = unserialize($attr->getValue());
-
-        $data[strval($productId)]['product']['stripe_billing_options'] = $billingOptions;
-
+        $billingOptions = json_decode($attr->getValue(), true);
+        $isEnabled = $attr->getData('is_enabled');
+        $data[strval($productId)]['product']['stripe_billing_options'] = array_values($billingOptions);
+        $data[strval($productId)]['product']['stripe_subscription_enabled'] = $isEnabled;
         return $data;
     }
 
     public function modifyMeta(array $meta)
     {
-        $this->meta = $meta;
-
-        $this->createStripeSubscriptionPanel();
-
-        return $this->meta;
-    }
-
-    protected function createStripeSubscriptionPanel()
-    {
-        $this->meta = array_replace_recursive(
-            $this->meta,
+        $meta = array_replace_recursive(
+            $meta,
             [
                 static::GROUP_BILLING_OPTIONS_NAME => [
                     'arguments' => [
@@ -172,8 +164,7 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
                 ]
             ]
         );
-
-        return $this;
+        return $meta;
     }
 
     protected function getHeaderContainerConfig($sortOrder)
@@ -221,12 +212,16 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'formElement' => Field::NAME,
-                        'componentType' => Input::NAME,
-                        'dataScope' => static::FIELD_ENABLE,
-                        'dataType' => Number::NAME,
-                        'visible' => false,
+                        'label' => __('Enabled'),
+                        'componentType' => Field::NAME,
+                        'formElement' => Select::NAME,
+                        'dataScope' => 'stripe_subscription_enabled',
+                        'dataType' => Text::NAME,
                         'sortOrder' => $sortOrder,
+                        'options' => [
+                            ['value' => '1', 'label' => __('Yes')],
+                            ['value' => '0', 'label' => __('No')]
+                        ],
                     ],
                 ],
             ],
@@ -330,12 +325,18 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
             ],
             'children' => [
                 static::FIELD_OPTION_ID => $this->getOptionIdFieldConfig(10),
-                static::FIELD_PLAN_ID => $this->getInputFieldConfig(
-                    20,
-                    __('Plan ID'),
+                static::FIELD_PLAN_ID => $this->getInputPlanIdFieldConfig(
+                    15,
+                    __('Plan Id'),
                     static::FIELD_PLAN_ID,
+                    Text::NAME
+                ),
+                static::FIELD_PLAN_NAME => $this->getInputFieldConfig(
+                    20,
+                    __('Plan name'),
+                    static::FIELD_PLAN_NAME,
                     Text::NAME,
-                    true
+                    false
                 ),
                 static::FIELD_UNIT_NAME => $this->getUnitFieldConfig(
                     30,
@@ -347,7 +348,7 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
                     __('Billing Frequency'),
                     static::FIELD_FREQUENCY_NAME,
                     Number::NAME,
-                    true
+                    false
                 ),
                 static::FIELD_IS_TRIAL_ENABLED => $this->getIsTrialEnabledFieldConfig(50),
             ]
@@ -382,6 +383,40 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
                 ],
             ],
         ];
+    }
+
+    protected function getInputPlanIdFieldConfig($sortOrder, $label, $scope, $type)
+    {
+        $options = [
+            'arguments' => [
+                'data' => [
+                    'config' => [
+                        'label' => $label,
+                        'component' => 'Magento_Catalog/component/static-type-input',
+                        'valueUpdate' => 'input'
+                    ],
+                ],
+            ],
+        ];
+
+        return array_replace_recursive(
+            [
+                'arguments' => [
+                    'data' => [
+                        'config' => [
+                            'label' => $label,
+                            'componentType' => Field::NAME,
+                            'formElement' => Input::NAME,
+                            'dataScope' => $scope,
+                            'dataType' => $type,
+                            'sortOrder' => $sortOrder,
+                            'visible' => false
+                        ],
+                    ],
+                ],
+            ],
+            $options
+        );
     }
 
     protected function getInputFieldConfig($sortOrder, $label, $scope, $type, $isRequired)
@@ -489,7 +524,7 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
                         ],
                         'groupsConfig' => [
                             'options' => [
-                                'values' => ['yes'],
+                                'values' => ['1'],
                                 'indexes' => [
                                     static::CONTAINER_TYPE_TRIAL_NAME,
                                     static::FIELD_TRIAL_DAY_NAME
@@ -550,18 +585,12 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
     {
         return [
             [
-                'value' => 0,
-                'label' => 'Options',
-                'optgroup' => [
-                    [
-                        'label' => 'Yes',
-                        'value' => 'yes'
-                    ],
-                    [
-                        'label' => 'No',
-                        'value' => 'no'
-                    ]
-                ]
+                'label' => 'Yes',
+                'value' => '1'
+            ],
+            [
+                'label' => 'No',
+                'value' => '0'
             ]
         ];
     }

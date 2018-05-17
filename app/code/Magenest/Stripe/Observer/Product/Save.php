@@ -17,8 +17,6 @@ use Psr\Log\LoggerInterface;
 
 class Save implements ObserverInterface
 {
-    protected $_logger;
-
     protected $_request;
 
     protected $_storeManager;
@@ -27,18 +25,20 @@ class Save implements ObserverInterface
 
     protected $_helper;
 
+    protected $subscriptionHelper;
+
     public function __construct(
-        LoggerInterface $loggerInterface,
         RequestInterface $requestInterface,
         StoreManagerInterface $storeManagerInterface,
         AttributeFactory $attributeFactory,
-        HelperData $helperData
+        HelperData $helperData,
+        \Magenest\Stripe\Helper\SubscriptionHelper $subscriptionHelper
     ) {
-        $this->_logger = $loggerInterface;
         $this->_request = $requestInterface;
         $this->_storeManager = $storeManagerInterface;
         $this->_attributeFactory = $attributeFactory;
         $this->_helper = $helperData;
+        $this->subscriptionHelper = $subscriptionHelper;
     }
 
     public function execute(\Magento\Framework\Event\Observer $observer)
@@ -49,159 +49,76 @@ class Save implements ObserverInterface
         $productName = $product->getName();
         $price = $product->getPrice();
         $currency = $this->_storeManager->getStore()->getCurrentCurrency()->getCode();
-
-        if (array_key_exists('product', $data)) {
-            if (array_key_exists('stripe_billing_options', $data['product'])) {
-                $billing = $data['product']['stripe_billing_options'];
-
-                /** @var \Magenest\Stripe\Model\Attribute $model */
-                $model = $this->_attributeFactory->create();
-                $object = $model->getCollection()->addFieldToFilter('entity_id', $productId)->getFirstItem();
-
-                // existed plans
-                $options_before = unserialize($object->getData('value'));
-
-                // new plans
-                $options_after = $billing;
-
-                // if no plan existed for this product
-                if ((!isset($options_before) || empty($options_before)) && is_array($options_after)) {
-                    foreach ($options_after as $option) {
-                        $option = (array)$option;
-
-                        if (array_key_exists('is_delete', $option)) {
-                            if ($option['is_delete']) {
-                                continue;
-                            }
-                        }
-
-                        if (!is_array($option)) {
-                            throw new \Magento\Framework\Exception\LocalizedException(
-                                __('Some plan options are missing or incorrect. Please try again.')
-                            );
-                        }
-
-                        $request = [
-                            'id' => $option['plan_id'],
-                            'currency' => strtolower($currency),
-                            'name' => $productName,
-                            'interval' => $option['unit_id'],
-                            'interval_count' => $option['frequency'],
-                            'amount' => round($price * 100)
-                        ];
-                        if ($option['is_trial_enabled'] == 'yes') {
-                            $request['trial_period_days'] = $option['trial_day'];
-                        }
-
-                        $response = $this->_helper->sendRequest($request, 'https://api.stripe.com/v1/plans', null);
-
-                        if (!isset($response['id'])) {
-                            $errorMsg = isset($response['error']->message) ? $response['error']->message :
-                                "Something went wrong while creating plans. Please try again later.";
-                            throw new \Magento\Framework\Exception\LocalizedException(__($errorMsg));
-                        }
+        $subscriptionOptions = isset($data['product']['stripe_billing_options']) ? $data['product']['stripe_billing_options'] : [];
+        $subscriptionActive = isset($data['product']['stripe_subscription_enabled']) ? $data['product']['stripe_subscription_enabled'] : "0";
+        $attribute = $this->_attributeFactory->create()->load($productId, "entity_id");
+        $value = [];
+        if ($attribute->getId()) {
+            $value = json_decode($attribute->getData('value'), true);
+            $stripeProductId = $attribute->getData('product_id');
+        } else {
+            //create product
+            $createProductResponse = $this->subscriptionHelper->createProduct($productName);
+            $stripeProductId = isset($createProductResponse['id']) ? $createProductResponse['id'] : "";
+            $attribute->setData('product_id', $stripeProductId);
+            $attribute->setData('entity_id', $productId);
+        }
+        if ($stripeProductId) {
+            $planCurrentListId = [];
+            foreach ($subscriptionOptions as $option) {
+                $planId = isset($option['plan_id']) ? $option['plan_id'] : "";
+                if ($planId && array_key_exists($planId, $value)) {
+                    $planCurrentListId[] = $planId;
+                }
+                $unitId = isset($option['unit_id']) ? $option['unit_id'] : "";
+                $frequency = isset($option['frequency']) ? $option['frequency'] : "";
+                $trialDay = false;
+                $nickName = isset($option['plan_name']) ? $option['plan_name'] : "";
+                if (isset($option['is_trial_enabled']) && ($option['is_trial_enabled'] == "1")) {
+                    $trialDay = isset($option['trial_day']) ? $option['trial_day'] : false;
+                }
+                if (!$planId) {
+                    //create plan
+                    $createPlanResponse = $this->subscriptionHelper->createPlan(
+                        $currency,
+                        $unitId,
+                        $frequency,
+                        $stripeProductId,
+                        $price,
+                        $nickName,
+                        $trialDay
+                    );
+                    $planId = isset($createPlanResponse['id']) ? $createPlanResponse['id'] : "";
+                    if ($planId) {
+                        $planCurrentListId[] = $planId;
+                        $option['plan_id'] = $planId;
+                        $value[$planId] = $option;
                     }
                 } else {
-                    // delete removed plans
-                    if (is_array($options_before)) {
-                        foreach ($options_before as $option) {
-                            $is_plan_exist_after = $this->checkPlanExistAfter($option, $options_after);
-                            if ($is_plan_exist_after == 0) {
-                                $this->_helper->deletePlan($option['plan_id']);
-                            }
-                        }
-                    }
-
-                    // add new plan
-                    if (is_array($options_after)) {
-                        foreach ($options_after as $option) {
-                            if (!is_array($option)) {
-                                throw new \Magento\Framework\Exception\LocalizedException(
-                                    __('Some plan options are missing or incorrect. Please try again.')
-                                );
-                            }
-
-                            if (array_key_exists('is_delete', $option)) {
-                                if ($option['is_delete']) {
-                                    continue;
-                                }
-                            }
-
-                            $is_plan_exist_before = $this->checkPlanExistBefore($option, $options_before);
-                            if ($is_plan_exist_before == 0) {
-                                $request = [
-                                    'id' => $option['plan_id'],
-                                    'currency' => strtolower($currency),
-                                    'name' => $productName,
-                                    'interval' => strtolower($option['unit_id']),
-                                    'interval_count' => $option['frequency'],
-                                    'amount' => round($price * 100)
-                                ];
-                                if ($option['is_trial_enabled'] == 'yes') {
-                                    $request['trial_period_days'] = $option['trial_day'];
-                                }
-
-                                $response = $this->_helper->sendRequest(
-                                    $request,
-                                    'https://api.stripe.com/v1/plans',
-                                    null
-                                );
-                                if (!$response['id']) {
-                                    throw new \Magento\Framework\Exception\LocalizedException(
-                                        __('Something went wrong while creating plans. Please try again later.')
-                                    );
-                                }
-                            }
+                    //update plan
+                    $valueData = $value[$planId];
+                    if (($valueData['plan_name'] != $nickName) || ($valueData['trial_day'] != $trialDay)) {
+                        $updatePlanResponse = $this->subscriptionHelper->updatePlan($planId, $nickName, $trialDay);
+                        $planId = isset($updatePlanResponse['id']) ? $updatePlanResponse['id'] : "";
+                        if ($planId) {
+                            //if update done
+                            $value[$planId] = $option;
                         }
                     }
                 }
-
-                $finalBilling = [];
-                foreach ($billing as $item) {
-                    if (array_key_exists('is_delete', $item)) {
-                        if ($item['is_delete']) {
-                            continue;
-                        }
-                    }
-
-                    array_push($finalBilling, $item);
-                }
-
-                // Save new billing options
-                if ($object->getId()) {
-                    $object->setValue(serialize($finalBilling))->save();
-                } else {
-                    $data = [
-                        'entity_id' => $productId,
-                        'value' => serialize($finalBilling)
-                    ];
-                    $model->setData($data)->save();
+            }
+            $oldPlanIdList = array_keys($value);
+            $listIdDel = array_diff($oldPlanIdList, $planCurrentListId);
+            foreach ($listIdDel as $_planId) {
+                $delResponse = $this->subscriptionHelper->deletePlan($_planId);
+                if (isset($delResponse) && ($delResponse['deleted'] == true)) {
+                    unset($value[$_planId]);
                 }
             }
         }
-    }
-
-    public function checkPlanExistBefore($option, $options_before)
-    {
-        $is_exist_before = 0;
-        foreach ($options_before as $option_before) {
-            if ($option['plan_id'] == $option_before['plan_id']) {
-                $is_exist_before = 1;
-            }
-        }
-
-        return $is_exist_before;
-    }
-
-    public function checkPlanExistAfter($option, $options_after)
-    {
-        $is_exist_after = 0;
-        foreach ($options_after as $option_after) {
-            if ($option['plan_id'] == $option_after['plan_id']) {
-                $is_exist_after = 1;
-            }
-        }
-
-        return $is_exist_after;
+        $attribute->setData('is_enabled', $subscriptionActive);
+        $attribute->setData('value', json_encode($value));
+        $attribute->save();
+        return;
     }
 }

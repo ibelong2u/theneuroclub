@@ -16,21 +16,13 @@ class ThreedSecureAction implements ArrayInterface
     {
         return [
             [
-                'value' => '0',
-                'label' => __('Off'),
+                'value' => 'recommended',
+                'label' => __('3D Secure is recommended')
             ],
             [
-                'value' => '1',
-                'label' => __('Check when required')
+                'value' => 'optional',
+                'label' => __('3D Secure is optional')
             ],
-            [
-                'value' => '2',
-                'label' => __('Optional 3D Secure')
-            ],
-            [
-                'value' => '3',
-                'label' => __('Required 3D Secure')
-            ]
         ];
     }
 }

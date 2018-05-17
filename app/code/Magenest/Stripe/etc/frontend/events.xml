@@ -13,9 +13,9 @@
         <observer name="stripe_product_load_after" instance="Magenest\Stripe\Observer\Layout\Add"/>
     </event>
 
-    <event name="checkout_cart_product_add_after">
-        <observer name="stripe_cart_add_after" instance="Magenest\Stripe\Observer\Option\Cart" />
-    </event>
+    <!--<event name="checkout_cart_product_add_after">-->
+        <!--<observer name="stripe_cart_add_after" instance="Magenest\Stripe\Observer\Option\Cart" />-->
+    <!--</event>-->
 
     <!--<event name="checkout_onepage_controller_success_action">-->
         <!--<observer name="magenest_stripe_order_success_action" instance="Magenest\Stripe\Observer\AfterOrderEvent" />-->

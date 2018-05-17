@@ -27,6 +27,7 @@ class GiroPayConfig extends Action
      * @var \Magento\Quote\Model\Quote\Address\BillingAddressPersister
      */
     private $billingAddressPersister;
+    protected $_formKeyValidator;
 
     public function __construct(
         Context $context,
@@ -34,7 +35,8 @@ class GiroPayConfig extends Action
         \Magento\Quote\Model\QuoteFactory $quoteFactory,
         \Magento\Quote\Model\Quote\Address\BillingAddressPersister $billingAddressPersister,
         Config $config,
-        \Magenest\Stripe\Helper\Data $stripeHelper
+        \Magenest\Stripe\Helper\Data $stripeHelper,
+        \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
     ) {
         parent::__construct($context);
         $this->billingAddressPersister = $billingAddressPersister;
@@ -42,12 +44,18 @@ class GiroPayConfig extends Action
         $this->_checkoutSession = $checkoutSession;
         $this->_config = $config;
         $this->stripeHelper = $stripeHelper;
+        $this->_formKeyValidator = $formKeyValidator;
     }
 
     public function execute()
     {
         $result = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-
+        if (!$this->_formKeyValidator->validate($this->getRequest())) {
+            return $result->setData([
+                'error' => true,
+                'message' => "Invalid Form Key"
+            ]);
+        }
         try {
             /**
              * @var \Magento\Quote\Model\Quote $quote

@@ -2,6 +2,29 @@
 All notable changes to this extension will be documented in this file.
 This extension adheres to [Magenest](http://magenest.com/).
 
+Stripe compatible with 
+```
+Magento Commerce 2.1.x, 2.2.x, 
+Magento OpenSource 2.1.x, 2.2.x
+```
+
+## [100.4.0] - 2018-05-10
+### Added
+-   Upgrade API to lastest version 2018-02-28
+-   Working with all One Step Checkout
+-   Stripe Element 
+-   Stripe direct API
+-   Stripe Microsoft Pay
+-   Multiple language for stripe iframe
+-   Option for Use customer save card in Backend order
+### Fixed
+-   Minify js library error
+-   Fix bug Terms and Conditions at payment page 
+-   Upgrade subscription API
+-   error show save card section in customer_account
+### Removed
+-   Remove Bitcoin payment
+
 ## [100.3.0] - 2017-12-27
 Stripe now compatible with 
 ```
