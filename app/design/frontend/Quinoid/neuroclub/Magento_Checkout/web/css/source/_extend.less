@@ -1339,7 +1339,8 @@ ul, li{
           .field{
             @media only screen and (min-width: 768px){
               display: inline-block;
-              width: 50%;
+              width: 49%;
+              float: left;
               .control{
                 input,select{
                 margin-right: 10px;
@@ -1379,6 +1380,7 @@ ul, li{
                 }
                 @media only screen and (min-width: 1100px){
                   width: 49.7%;
+                  margin-top: 0;
                 }
               }
             }
@@ -1386,12 +1388,26 @@ ul, li{
         }
       .form-login{
         #customer-email-fieldset{
+          .field{
+            &:nth-child(2){
+              .control{
+                @media only screen and (min-width: 768px){
+                  margin-top: 40px;
+                }
+              }
+            }
+          }
           #newsletter-subscribe{
             width: auto !important;
           }
 
         }
       }
+      }
+      .checkout-shipping-method, .step-content{
+        @media only screen and (min-width: 768px){
+          clear: both;
+        }
       }
       .opc{
         webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
