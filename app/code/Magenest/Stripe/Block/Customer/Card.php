@@ -17,7 +17,7 @@ class Card extends \Magento\Framework\View\Element\Template
 
     protected $_cardFactory;
 
-    protected $_Config;
+    protected $_config;
 
     protected $_customerSession;
 
@@ -48,5 +48,10 @@ class Card extends \Magento\Framework\View\Element\Template
         $this->checkFlag = count($model);
 
         return $model;
+    }
+
+    public function getStripePublickey()
+    {
+        return $this->_config->getPublishableKey();
     }
 }

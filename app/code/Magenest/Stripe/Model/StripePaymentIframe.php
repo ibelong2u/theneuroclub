@@ -26,18 +26,19 @@ class StripePaymentIframe extends AbstractMethod
     protected $_canUseCheckout = true;
     protected $_canRefund = true;
     protected $_canRefundInvoicePartial = true;
-
-    protected $stripeCard;
-    protected $_chargeFactory;
-    protected $_helper;
-
     protected $_isInitializeNeeded = true;
     protected $_canOrder = true;
 
+    protected $stripeCard;
+    protected $_helper;
+    public $_config;
+    public $stripeLogger;
+
     public function __construct(
         \Magenest\Stripe\Helper\Data $dataHelper,
-        ChargeFactory $chargeFactory,
         StripePaymentMethod $stripePaymentMethod,
+        \Magenest\Stripe\Helper\Logger $stripeLogger,
+        \Magenest\Stripe\Helper\Config $config,
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Api\ExtensionAttributesFactory $extensionFactory,
@@ -50,7 +51,6 @@ class StripePaymentIframe extends AbstractMethod
         array $data = []
     ) {
         $this->_helper = $dataHelper;
-        $this->_chargeFactory = $chargeFactory;
         $this->stripeCard = $stripePaymentMethod;
         parent::__construct(
             $context,
@@ -64,44 +64,39 @@ class StripePaymentIframe extends AbstractMethod
             $resourceCollection,
             $data
         );
+        $this->_config = $config;
+        $this->stripeLogger = $stripeLogger;
     }
 
     public function validate()
     {
-        return true;
+        return \Magento\Payment\Model\Method\AbstractMethod::validate();
     }
 
     public function assignData(\Magento\Framework\DataObject $data)
     {
         parent::assignData($data);
-        try {
-            $_tmpData = $data->_data;
-            $_serializedAdditionalData = serialize($_tmpData['additional_data']);
-            $additionalDataRef = $_serializedAdditionalData;
-            $additionalDataRef = unserialize($additionalDataRef);
-            $rawCardData = $additionalDataRef['raw_card_data'];
-            $_paymentToken = $additionalDataRef['stripe_token'];
-            $payType = $additionalDataRef['pay_type'];
-            $_cardID = "0";
-            $_saved = "0";
-            $threeDSecure = isset($additionalDataRef['three_d_secure']) ? $additionalDataRef['three_d_secure'] : "";
-            $infoInstance = $this->getInfoInstance();
-            $infoInstance->setAdditionalInformation('payment_token', $_paymentToken);
-            $infoInstance->setAdditionalInformation('card_id', $_cardID);
-            $infoInstance->setAdditionalInformation('saved', $_saved);
-            $infoInstance->setAdditionalInformation('three_d_secure', $threeDSecure);
-            $infoInstance->setAdditionalInformation('raw_card_data', $rawCardData);
-            $infoInstance->setAdditionalInformation('pay_type', $payType);
-        } catch (\Exception $e) {
+        $additionalData = $data->getData('additional_data');
+        $stripeResponse = isset($additionalData['stripe_response'])?$additionalData['stripe_response']:"";
+        $response = json_decode($stripeResponse, true);
+        $infoInstance = $this->getInfoInstance();
+        if ($response) {
+            $thredDSecure = isset($response['card']['three_d_secure'])?$response['card']['three_d_secure']:"";
+            $sourceId = isset($response['id']) ? $response['id'] : false;
+            $payType = isset($response['type']) ? $response['type'] : "";
+            if ($payType != 'card') {
+                throw new \Exception(
+                    __("Operation not allowed")
+                );
+            }
+            $infoInstance->setAdditionalInformation('stripe_response', $stripeResponse);
+            $infoInstance->setAdditionalInformation('three_d_secure', $thredDSecure);
+        } else {
             throw new \Magento\Framework\Exception\LocalizedException(
-                __('Data error.')
+                __('Something went wrong. Please try again later.')
             );
         }
-
-        if ($payType == 'card') {
-            $this->stripeCard->addPaymentInfoData($infoInstance, $_cardID, $rawCardData);
-            $this->stripeCard->addSourceToStripe($infoInstance, $_cardID, $_paymentToken);
-        }
+        $infoInstance->setAdditionalInformation('payment_token', $sourceId);
 
         return $this;
     }
@@ -112,53 +107,27 @@ class StripePaymentIframe extends AbstractMethod
          * @var \Magento\Sales\Model\Order $order
          */
         $payment = $this->getInfoInstance();
+        $payment->setAdditionalInformation(Constant::ADDITIONAL_PAYMENT_ACTION, $paymentAction);
         $order = $payment->getOrder();
-//        $stateObject->setData('state', \Magento\Sales\Model\Order::STATE_PROCESSING);
-        //$stateObject->setData('status', \Magento\Sales\Model\Order::STATE_PENDING_PAYMENT);
+        $this->_debug("-------Stripe checkout.js init: orderid: " . $order->getIncrementId());
         $stateObject->setIsNotified($order->getCustomerNoteNotify());
         $amount = $order->getBaseGrandTotal();
-        $threeDSecureAction = $this->stripeCard->_config->getThreedsecure();
+        $threeDSecureAction = $this->_config->getThreedsecure();
+        $threeDSecureVerify = $this->_config->getThreeDSecureVerify();
+        $threeDSecureVerify = explode(",", $threeDSecureVerify);
         $threeDSecureStatus = $payment->getAdditionalInformation("three_d_secure");
-        //save payment action
-        $payment->setAdditionalInformation(Constant::ADDITIONAL_PAYMENT_ACTION, $paymentAction);
-        $payType = $payment->getAdditionalInformation("pay_type");
-
-        //bitcoin
-        if ($payType == "source_bitcoin") {
-            $stateObject->setData('state', \Magento\Sales\Model\Order::STATE_PROCESSING);
-            $this->bitcoinPlaceOrder($payment);
-        }
-
-        //card pay
-        if ($payType == "card") {
-            //if admin set not use 3d secure -> normal payment
-            if ($threeDSecureAction == 0) {
+        //active 3d secure
+        if ($threeDSecureAction == 1) {
+            if (($threeDSecureStatus == "required") || (in_array($threeDSecureStatus, $threeDSecureVerify))) {
+                $this->order($payment, $amount);
+            } else {
                 $stateObject->setData('state', \Magento\Sales\Model\Order::STATE_PROCESSING);
-                //$stateObject->setData('status', \Magento\Sales\Model\Order::STATE_PROCESSING);
                 $this->stripeCard->placeOrder($payment, $amount, $paymentAction);
             }
-            //if admin set 3d secure is auto
-            if ($threeDSecureAction == 1) {
-                //if card require
-                if ($threeDSecureStatus == 'required') {
-                    $this->order($payment, $amount);
-                } else {  //if not require, normal pay
-                    $stateObject->setData('state', \Magento\Sales\Model\Order::STATE_PROCESSING);
-                    //$stateObject->setData('status', \Magento\Sales\Model\Order::STATE_PROCESSING);
-                    $this->stripeCard->placeOrder($payment, $amount, $paymentAction);
-                }
-            }
-            //3d secure on
-            if ($threeDSecureAction == 2) {
-                //if card not support, normal pay
-                if ($threeDSecureStatus == 'not_supported') {
-                    $stateObject->setData('state', \Magento\Sales\Model\Order::STATE_PROCESSING);
-                    //$stateObject->setData('status', \Magento\Sales\Model\Order::STATE_PROCESSING);
-                    $this->stripeCard->placeOrder($payment, $amount, $paymentAction);
-                } else { //else, go 3d secure
-                    $this->order($payment, $amount);
-                }
-            }
+        } else {
+            //not active
+            $stateObject->setData('state', \Magento\Sales\Model\Order::STATE_PROCESSING);
+            $this->stripeCard->placeOrder($payment, $amount, $paymentAction);
         }
 
         return parent::initialize($paymentAction, $stateObject);
@@ -166,9 +135,7 @@ class StripePaymentIframe extends AbstractMethod
 
     public function order(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
-        $this->stripeCard->order($payment, $amount);
-
-        return parent::order($payment, $amount); // TODO: Change the autogenerated stub
+        return $this->stripeCard->order($payment, $amount);
     }
 
     /**
@@ -178,9 +145,7 @@ class StripePaymentIframe extends AbstractMethod
      */
     public function authorize(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
-        $this->stripeCard->authorize($payment, $amount);
-
-        return parent::authorize($payment, $amount);
+        return $this->stripeCard->authorize($payment, $amount);
     }
 
     /**
@@ -190,17 +155,7 @@ class StripePaymentIframe extends AbstractMethod
      */
     public function capture(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
-        $payType = $payment->getAdditionalInformation("pay_type");
-        if ($payType == 'source_bitcoin') {
-            $this->bitcoinCapture($payment, $amount);
-            $order = $payment->getOrder();
-            $order->addStatusHistoryComment("This order use bitcoin to capture");
-        }
-        if ($payType == 'card') {
-            $this->stripeCard->capture($payment, $amount);
-        }
-
-        return parent::capture($payment, $amount);
+        return $this->stripeCard->capture($payment, $amount);
     }
 
     /**
@@ -210,27 +165,22 @@ class StripePaymentIframe extends AbstractMethod
      */
     public function refund(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
-        $this->stripeCard->refund($payment, $amount);
-
-        return parent::refund($payment, $amount);
+        return $this->stripeCard->refund($payment, $amount);
     }
 
     public function void(\Magento\Payment\Model\InfoInterface $payment)
     {
-        $this->stripeCard->void($payment);
-
-        return parent::void($payment);
+        return $this->stripeCard->void($payment);
     }
 
     public function cancel(\Magento\Payment\Model\InfoInterface $payment)
     {
-        $this->void($payment);
-
-        return parent::cancel($payment);
+        return $this->stripeCard->cancel($payment);
     }
 
     /**
      * Function place order bitcoin
+     * @deprecated
      * @param \Magento\Payment\Model\InfoInterface|\Magento\Sales\Model\Order\Payment $payment
      * @param float $amount
      * @throws \Magento\Framework\Exception\LocalizedException
@@ -238,8 +188,6 @@ class StripePaymentIframe extends AbstractMethod
     public function bitcoinPlaceOrder($payment)
     {
         $order = $payment->getOrder();
-//        $order->setStatus(\Magento\Sales\Model\Order::STATE_PROCESSING);
-//        $order->setState(\Magento\Sales\Model\Order::STATE_PROCESSING);
         $totalDue = $order->getTotalDue();
         $baseTotalDue = $order->getBaseTotalDue();
         $isSubscriptionOrder = $this->stripeCard->isSubscriptionOrder($payment);
@@ -249,8 +197,6 @@ class StripePaymentIframe extends AbstractMethod
                 __('Place order fail')
             );
         }
-        $payment->setCcType("Bitcoin");
-        $payment->setAdditionalInformation(Constant::ADDITIONAL_THREEDS, "false");
         $payment->setAmountAuthorized($totalDue);
         $payment->setBaseAmountAuthorized($baseTotalDue);
         $payment->capture(null);
@@ -258,6 +204,7 @@ class StripePaymentIframe extends AbstractMethod
 
     /**
      * Function capture bitcoin payment
+     * @deprecated
      * @param \Magento\Payment\Model\InfoInterface|\Magento\Sales\Model\Order\Payment $payment
      * @param float $amount
      * @throws \Magento\Framework\Exception\LocalizedException
@@ -267,11 +214,8 @@ class StripePaymentIframe extends AbstractMethod
         $paymentToken = $payment->getAdditionalInformation('payment_token'); // THIS IS THE TOKEN
         /** @var \Magento\Sales\Model\Order $order */
         $order = $payment->getOrder();
-        $chargeModel = $this->_chargeFactory->create();
-        $customerId = $order->getCustomerId();
 
         try {
-            //if logged in, pay with customer id
             $request = [
                 "amount" => round($amount * 100),
                 "currency" => $order->getBaseCurrencyCode(),
@@ -290,15 +234,6 @@ class StripePaymentIframe extends AbstractMethod
                     ->setShouldCloseParentTransaction(false)
                     ->setCcTransId($response['id'])
                     ->setLastTransId($response['id']);
-
-                $data = [
-                    'charge_id' => $response['id'],
-                    'order_id' => $order->getIncrementId(),
-                    'customer_id' => $customerId,
-                    'status' => 'captured'
-                ];
-
-                $chargeModel->addData($data)->save();
             } else {
                 throw new \Magento\Framework\Exception\LocalizedException(
                     __('Something went wrong. Please try again later.')
@@ -309,6 +244,14 @@ class StripePaymentIframe extends AbstractMethod
             throw new \Magento\Framework\Exception\LocalizedException(
                 __('Something went wrong. Please try again later.')
             );
+        }
+    }
+
+    protected function _debug($debugData)
+    {
+        $debugOn = $this->getDebugFlag();
+        if ($debugOn === true) {
+            $this->stripeLogger->debug(var_export($debugData, true));
         }
     }
 }

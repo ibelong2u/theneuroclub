@@ -36,10 +36,16 @@ class Detail extends Action
 
     public function execute()
     {
+        $customerSession = $this->_objectManager->create('\Magento\Customer\Model\Session');
         $id = $this->getRequest()->getParam('id');
-
-        $this->_coreRegistry->register('customer_view_subscription_id', $id);
-        $sub_id = $this->_objectManager->get('\Magenest\Stripe\Model\Subscription')->load($id)->getSubscriptionId();
+        $subscriptionModel = $this->_objectManager->get('\Magenest\Stripe\Model\Subscription')->load($id);
+        $reqCustomerId = $subscriptionModel->getData('customer_id');
+        $customerId = $customerSession->getCustomerId();
+        if ($reqCustomerId != $customerId) {
+            return $this->_redirect('stripe/customer/subscription');
+        }
+        $this->_coreRegistry->register('stripe_subscription_model', $subscriptionModel);
+        $sub_id = $subscriptionModel->getSubscriptionId();
 
         $this->_view->loadLayout();
         if ($block = $this->_view->getLayout()->getBlock('stripe_customer_subs_detail')) {

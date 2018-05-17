@@ -8,6 +8,7 @@
 
 namespace Magenest\Stripe\Model;
 
+use Magenest\Stripe\Helper\Constant;
 use Magenest\Stripe\Model\ResourceModel\Subscription as Resource;
 use Magenest\Stripe\Model\ResourceModel\Subscription\Collection as Collection;
 use Magento\Framework\Model\AbstractModel;
@@ -28,6 +29,14 @@ class Subscription extends AbstractModel
 
     protected $_orderManagement;
 
+    protected $stripeHelperData;
+
+    protected $subscriptionHelper;
+
+    protected $stripeConfig;
+
+    protected $stripeLogger;
+
     public function __construct(
         Context $context,
         Registry $registry,
@@ -35,11 +44,19 @@ class Subscription extends AbstractModel
         Collection $resourceCollection,
         OrderFactory $orderFactory,
         OrderManagementInterface $orderManagement,
+        \Magenest\Stripe\Helper\Data $stripeHelperData,
+        \Magenest\Stripe\Helper\SubscriptionHelper $subscriptionHelper,
+        \Magenest\Stripe\Helper\Config $stripeConfig,
+        \Magenest\Stripe\Helper\Logger $stripeLogger,
         $data = []
     ) {
         $this->orderFactory = $orderFactory;
         $this->_orderManagement = $orderManagement;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
+        $this->stripeHelperData = $stripeHelperData;
+        $this->subscriptionHelper = $subscriptionHelper;
+        $this->stripeConfig = $stripeConfig;
+        $this->stripeLogger = $stripeLogger;
     }
 
     public function placeOrder()
@@ -198,5 +215,134 @@ class Subscription extends AbstractModel
                 "sequence_order_ids" => serialize($sequenceOrderIds)
             ])->save();
         }
+    }
+
+    /**
+     * @param \Magento\Sales\Model\Order\Payment $payment
+     */
+    public function createSubscription($payment, $sourceId, $dbSource = false)
+    {
+        $payment->setAdditionalInformation("do_subscription_action", false);
+        $order = $payment->getOrder();
+        $stripeResponse = json_decode($payment->getAdditionalInformation('stripe_response'), true);
+        $stripeCustomerId = $this->stripeHelperData->getStripeCustomerId();
+        $originSourceId = $payment->getAdditionalInformation('origin_source');
+        if (!$dbSource) {
+            //new customer
+            $stripeCustomerId = $this->stripeHelperData->saveCard($order->getCustomerId(), $stripeResponse);
+        } else {
+            //old customer
+            //check customer
+            if ($stripeCustomerId) {
+                if (!$this->stripeHelperData->checkStripeCustomerId($stripeCustomerId)) {
+                    $this->stripeHelperData->deleteStripeCustomerId($stripeCustomerId);
+                    $stripeCustomerId = $this->stripeHelperData->createCustomer($sourceId);
+                }
+            }
+        }
+        $_res = $this->stripeHelperData->changeCustomerSourceToDefault($stripeCustomerId, $originSourceId);
+        $subscriptionBilling = $this->stripeConfig->getSubscriptionBilling();
+        $subscriptionDayDue = $this->stripeConfig->getSubscriptionBillingDayDue();
+        $subscriptionApplyTax = $this->stripeConfig->getSubscriptionApplyTax();
+        $items = $order->getAllVisibleItems();
+        if (count($items)>1) {
+            throw new \Exception(
+                __("Item with subscription option can be purchased standalone only.")
+            );
+        }
+        $item = reset($items);
+        $taxPercent = $item->getData('tax_percent');
+        $qtyOrder = $item->getData('qty_ordered');
+        $productOptions = $item->getData('product_options');
+        $stripeSubscription = isset($productOptions['info_buyRequest']['stripe_subscription'])?$productOptions['info_buyRequest']['stripe_subscription']:[];
+        $planId = "";
+        if (isset($stripeSubscription['plan_id']) && $stripeSubscription['plan_id']) {
+            $planId = $stripeSubscription['plan_id'];
+        } else {
+            throw new \Exception(
+                __("Subscription Plan is not existed")
+            );
+        }
+        $subscriptionMetadata = [
+            'order_id' => $order->getIncrementId(),
+            'magento_customer_id' => $order->getCustomerId(),
+            'customer_email' => $order->getCustomerEmail()
+        ];
+        $request = [
+            'customer' => $stripeCustomerId,
+            'billing' => $subscriptionBilling,
+            'items[0][plan]' => $planId,
+            'items[0][quantity]' => intval($qtyOrder),
+            'source' => $originSourceId,
+        ];
+        if ($subscriptionBilling == 'send_invoice') {
+            $request['days_until_due'] = $subscriptionDayDue;
+        }
+        if ($subscriptionApplyTax) {
+            $request['tax_percent'] = $taxPercent;
+        }
+        $is3DSecure = $payment->getAdditionalInformation(Constant::ADDITIONAL_THREEDS);
+        $planData = $this->subscriptionHelper->getPlanDataFromPlanId($planId);
+        $firstChargeId = false;
+        if (!$planData['trial_period_days']) {
+            if ($is3DSecure == "true") {
+                //additional step to subscription
+                //normal charge
+                $amount = $order->getBaseGrandTotal();
+                $url = 'https://api.stripe.com/v1/charges';
+                $requestCharge = $this->stripeHelperData->createChargeRequest($order, $amount, $sourceId, true, true);
+                $requestCharge['metadata']['subscription_charge'] = 1;
+                $response = $this->stripeHelperData->sendRequest($requestCharge, $url, null);
+                $this->_debug($response);
+                if (isset($response['error'])) {
+                    throw new \Magento\Framework\Exception\LocalizedException(
+                        __('Payment error')
+                    );
+                }
+                if (isset($response['status'])&&($response['status'] == 'succeeded')) {
+                    $transactionId = isset($response['balance_transaction'])?$response['balance_transaction']:"";
+                    $payment->setStatus(\Magento\Payment\Model\Method\AbstractMethod::STATUS_SUCCESS)
+                        ->setShouldCloseParentTransaction(1)
+                        ->setIsTransactionClosed(1);
+                    $payment->setTransactionId($transactionId);
+
+                    //convert subscription to trial
+                    $intervalCount = $planData['interval_count'];
+                    $intervalDay = $this->subscriptionHelper->convertIntervalToDay($planData['interval']);
+                    $trialDays = $intervalDay*$intervalCount;
+
+                    $request['trial_period_days'] = $trialDays;
+                    $firstChargeId = $response['id'];
+                    $subscriptionMetadata['first_charge_id'] = $firstChargeId;
+                } else {
+                    throw new \Magento\Framework\Exception\LocalizedException(
+                        __('Capture fail')
+                    );
+                }
+            }
+        }
+        $request['metadata'] = $subscriptionMetadata;
+        $subscriptionResponse = $this->subscriptionHelper->createSubscription($request);
+        $this->_debug($subscriptionResponse);
+        if (isset($subscriptionResponse['error'])) {
+            //refund charge if exist.
+            if ($firstChargeId) {
+                $response = $this->stripeHelperData->sendRequest([
+                    'charge' => $firstChargeId
+                ], 'https://api.stripe.com/v1/refunds', null);
+            }
+            throw new \Magento\Framework\Exception\LocalizedException(
+                __('Subscription error')
+            );
+        }
+        if (isset($subscriptionResponse['id'])) {
+            //add subscription record to system
+            $this->subscriptionHelper->saveSubscriptionData($order, $subscriptionResponse);
+        }
+    }
+
+    protected function _debug($debugData)
+    {
+        $this->stripeLogger->debug(var_export($debugData, true));
     }
 }

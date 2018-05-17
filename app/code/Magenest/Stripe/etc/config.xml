@@ -9,69 +9,74 @@
     <default>
         <payment>
             <magenest_stripe>
-                <active>1</active>
+                <test>0</test>
+                <api>v3</api>
+                <active>0</active>
                 <save>0</save>
-                <title>Stripe Credit Card Payment</title>
+                <title>Stripe Payment</title>
+                <three_d_secure>0</three_d_secure>
                 <order_status>processing</order_status>
                 <payment_action>authorize_capture</payment_action>
-                <test>0</test>
+                <active_moto>0</active_moto>
                 <email_customer>0</email_customer>
                 <cctypes>AE,VI,MC,DI,JCB</cctypes>
                 <useccv>1</useccv>
                 <allowspecific>0</allowspecific>
-                <additional_config>
-                    <create_order>1</create_order>
-                    <cancel_period_end>1</cancel_period_end>
-                    <enable_total_cycle>0</enable_total_cycle>
-                    <max_total_cycle>20</max_total_cycle>
-                </additional_config>
 
                 <model>Magenest\Stripe\Model\StripePaymentMethod</model>
             </magenest_stripe>
 
             <magenest_stripe_iframe>
-                <active>1</active>
-                <title>Stripe Checkout Iframe</title>
+                <active>0</active>
+                <title>Stripe IFrame Checkout Form</title>
                 <allow_bitcoin>0</allow_bitcoin>
                 <payment_action>authorize_capture</payment_action>
                 <allow_alipay>0</allow_alipay>
-                <collect_billing>0</collect_billing>
+                <collect_billing>1</collect_billing>
+                <collect_shipping>0</collect_shipping>
                 <order_status>processing</order_status>
-                <collect_zip>0</collect_zip>
+                <collect_zip>1</collect_zip>
                 <display_name>Demo Site</display_name>
+                <button_label>Pay now</button_label>
                 <allow_remember>0</allow_remember>
+                <locale>auto</locale>
                 <model>Magenest\Stripe\Model\StripePaymentIframe</model>
             </magenest_stripe_iframe>
 
             <magenest_stripe_applepay>
-                <active>1</active>
-                <title>Stripe Payment</title>
-                <payment_action>capture</payment_action>
-                <collect_billing>0</collect_billing>
+                <active>0</active>
+                <title>Apple Pay, Google Pay, Microsoft Pay</title>
+                <payment_action>authorize_capture</payment_action>
+                <replace_placeorder>0</replace_placeorder>
+                <paybutton_type>default</paybutton_type>
+                <paybutton_theme>dark</paybutton_theme>
                 <order_status>processing</order_status>
-                <collect_zip>0</collect_zip>
-                <display_name>Stripe Payment</display_name>
-                <allow_remember>0</allow_remember>
                 <model>Magenest\Stripe\Model\ApplePay</model>
             </magenest_stripe_applepay>
 
             <magenest_stripe_giropay>
-                <active>1</active>
-                <title>GiroPay</title>
+                <active>0</active>
+                <title>Stripe GiroPay</title>
                 <payment_action>authorize_capture</payment_action>
                 <order_status>processing</order_status>
-                <display_name>Demo Site</display_name>
                 <model>Magenest\Stripe\Model\GiroPay</model>
             </magenest_stripe_giropay>
 
             <magenest_stripe_alipay>
-                <active>1</active>
-                <title>Alipay</title>
+                <active>0</active>
+                <title>Stripe Alipay</title>
                 <payment_action>authorize_capture</payment_action>
                 <order_status>processing</order_status>
                 <model>Magenest\Stripe\Model\Alipay</model>
             </magenest_stripe_alipay>
-
         </payment>
+        <magenest>
+            <stripe_subscription>
+                <subscription_billing>charge_automatically</subscription_billing>
+                <days_until_due>3</days_until_due>
+                <apply_tax>1</apply_tax>
+                <cancel_period_end>1</cancel_period_end>
+            </stripe_subscription>
+        </magenest>
     </default>
 </config>
