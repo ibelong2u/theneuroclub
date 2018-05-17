@@ -23,6 +23,7 @@ class ThreedSecure extends \Magento\Framework\App\Action\Action
     protected $stripeConfig;
     protected $storeManagerInterface;
     protected $stripeLogger;
+    protected $_formKeyValidator;
 
     public function __construct(
         Context $context,
@@ -34,7 +35,8 @@ class ThreedSecure extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
         \Magenest\Stripe\Helper\Config $stripeConfig,
         \Magento\Store\Model\StoreManagerInterface $storeManagerInterface,
-        \Magenest\Stripe\Helper\Logger $stripeLogger
+        \Magenest\Stripe\Helper\Logger $stripeLogger,
+        \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
     ) {
         parent::__construct($context);
         $this->_checkoutSession = $session;
@@ -46,11 +48,18 @@ class ThreedSecure extends \Magento\Framework\App\Action\Action
         $this->stripeConfig = $stripeConfig;
         $this->storeManagerInterface = $storeManagerInterface;
         $this->stripeLogger = $stripeLogger;
+        $this->_formKeyValidator = $formKeyValidator;
     }
 
     public function execute()
     {
         $result = $this->jsonFactory->create();
+        if (!$this->_formKeyValidator->validate($this->getRequest())) {
+            return $result->setData([
+                'error' => true,
+                'message' => "Invalid Form Key"
+            ]);
+        }
         if ($this->getRequest()->isAjax()) {
             try {
                 $order = $this->_checkoutSession->getLastRealOrder();

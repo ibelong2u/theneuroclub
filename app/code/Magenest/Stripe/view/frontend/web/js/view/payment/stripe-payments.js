@@ -8,8 +8,7 @@ define(
     [
         'jquery',
         'uiComponent',
-        'Magento_Checkout/js/model/payment/renderer-list',
-        'https://js.stripe.com/v2/'
+        'Magento_Checkout/js/model/payment/renderer-list'
     ],
     function (
         $,
@@ -18,14 +17,29 @@ define(
     ) {
         'use strict';
 
-        var publishableKey = window.magenest.stripe.publishableKey;
-        Stripe.setPublishableKey(publishableKey);
-
-        var methods = [
-            {
+        var api = window.checkoutConfig.payment.magenest_stripe.api;
+        var stripeMethod;
+        if(api === "v2") {
+            stripeMethod = {
                 type: 'magenest_stripe',
                 component: 'Magenest_Stripe/js/view/payment/method-renderer/stripe-payments-method'
-            },
+            }
+        }
+        if(api === "direct") {
+            stripeMethod = {
+                type: 'magenest_stripe',
+                component: 'Magenest_Stripe/js/view/payment/method-renderer/stripe-payments-direct'
+            }
+        }
+        if(api === "v3") {
+            stripeMethod = {
+                type: 'magenest_stripe',
+                component: 'Magenest_Stripe/js/view/payment/method-renderer/stripe-payments-element'
+            }
+        }
+
+        var methods = [
+            stripeMethod,
             {
                 type: 'magenest_stripe_iframe',
                 component: 'Magenest_Stripe/js/view/payment/method-renderer/stripe-payments-iframe'

@@ -18,6 +18,8 @@ class View extends \Magento\Catalog\Block\Product\AbstractProduct
 
     protected $_config;
 
+    protected $attributeModel;
+
     public function __construct(
         Context $context,
         AttributeFactory $attributeFactory,
@@ -27,42 +29,41 @@ class View extends \Magento\Catalog\Block\Product\AbstractProduct
         $this->_attributeFactory = $attributeFactory;
         $this->_config = $config;
         parent::__construct($context, $data);
+        $this->getProductAttributeData();
     }
 
     public function getIsSubscriptionProduct()
     {
-        $product = $this->_coreRegistry->registry('current_product');
-        $value = $product->getData('stripe_enable');
-
-        return $value;
+        return $this->attributeModel->getData('is_enabled');
     }
 
     public function getBillingOptions()
     {
-        $product = $this->_coreRegistry->registry('current_product');
-        $model = $this->_attributeFactory->create();
-
-        $productId = $product->getId();
-
-        /** @var \Magenest\Stripe\Model\Attribute $model */
-        $modelCollection = $model->getCollection();
-        $modelCollection->addFieldToFilter('entity_id', $productId);
-        $object = $modelCollection->getFirstItem();
-
-        if ($object->getId()) {
-            return unserialize($object->getValue());
-        } else {
-            return '';
+        $value = $this->attributeModel->getData('value');
+        $value = json_decode($value, true);
+        if (!$value) {
+            $value = [];
         }
+        return $value;
     }
 
     public function isTotalCycleEnabled()
     {
+        return false;
         return $this->_config->getIsTotalCycleEnabled();
     }
 
     public function getMaxTotalCycle()
     {
         return $this->_config->getMaxTotalCycle();
+    }
+
+    private function getProductAttributeData()
+    {
+        $product = $this->_coreRegistry->registry('current_product');
+        $productId = $product->getId();
+        if ($productId) {
+            $this->attributeModel = $this->_attributeFactory->create()->load($productId, "entity_id");
+        }
     }
 }

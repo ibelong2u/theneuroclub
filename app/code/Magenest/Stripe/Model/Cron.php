@@ -23,24 +23,43 @@ class Cron
 
     protected $logger;
 
+    protected $subscriptionHelper;
+
     public function __construct(
         SubscriptionFactory $subscriptionFactory,
         DataHelper $dataHelper,
         \Magenest\Stripe\Helper\Config $config,
         \Magento\Sales\Model\Order\Email\Sender\OrderSender $orderSender,
-        \Magenest\Stripe\Helper\Logger $logger
+        \Magenest\Stripe\Helper\Logger $logger,
+        \Magenest\Stripe\Helper\SubscriptionHelper $subscriptionHelper
     ) {
         $this->_helper = $dataHelper;
         $this->_config = $config;
         $this->_subscriptionFactory = $subscriptionFactory;
         $this->_orderSender = $orderSender;
         $this->logger = $logger;
+        $this->subscriptionHelper = $subscriptionHelper;
     }
 
     public function execute()
     {
         $this->logger->debug("Cron job run daily");
-        $this->syncEveryTwoMins();
+        $this->syncPaymentData();
+    }
+
+    public function syncPaymentData()
+    {
+        /** @var \Magenest\Stripe\Model\Subscription $subsModel */
+        $subscriptionCollection = $this->_subscriptionFactory->create()->getCollection();
+        $subscriptionCollection->addFieldToFilter('status', [['eq'=>'active'],['eq'=>'trialing'],['eq'=>'past_due']]);
+        foreach ($subscriptionCollection as $item) {
+            $subscriptionId = $item->getData('subscription_id');
+            $subscriptionResponse = $this->subscriptionHelper->getSubscriptionData($subscriptionId);
+            if (isset($subscriptionResponse['id'])) {
+                $this->subscriptionHelper->updateSubscriptionObjData($item, $subscriptionResponse);
+                $item->save();
+            }
+        }
     }
 
     public function syncEveryTwoMins()

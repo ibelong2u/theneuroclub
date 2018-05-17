@@ -25,7 +25,7 @@
                                                                 <item name="magenest_stripe" xsi:type="array">
                                                                     <item name="component" xsi:type="string">Magenest_Stripe/js/view/payment/stripe-payments</item>
                                                                     <item name="methods" xsi:type="array">
-																		 <item name="magenest_stripe" xsi:type="array">
+                                                                        <item name="magenest_stripe" xsi:type="array">
                                                                             <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
                                                                         </item>
                                                                         <item name="magenest_stripe_iframe" xsi:type="array">
@@ -56,8 +56,5 @@
                 </argument>
             </arguments>
         </referenceBlock>
-        <referenceContainer name="root">
-            <block class="Magenest\Stripe\Block\Checkout\View\Config" template="Magenest_Stripe::checkout/view/config.phtml" cacheable="false"/>
-        </referenceContainer>
     </body>
 </page>
