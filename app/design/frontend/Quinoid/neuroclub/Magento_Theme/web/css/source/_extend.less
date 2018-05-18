@@ -34,6 +34,15 @@ h1,h2,h3,h4,h5,h6,p{
     display: none !important;
   }
 }
+
+.visibile-on-hover
+{
+    opacity: 0;
+}
+.invisibile-on-hover
+{
+    opacity: 1;
+}
 h2{
   font-size: 25px;
   color: #374076;
@@ -733,6 +742,7 @@ button{
     .menu-logo
     {
       padding: 0 !important;
+      display: inline-block;
       img
       {
         top: 0;
@@ -897,6 +907,38 @@ button{
     }
   }
 }
+.cms-index-index{
+  //Full width container styles
+  .page-main,.page-bottom{
+    max-width: 100% !important;
+    background: white !important;;
+    margin-top: 0 !important;
+    padding-left: 1px;
+    padding-right: 1px;
+    @media only screen and (min-width: 768px){
+      background: #fff;
+    }
+  .home-container{
+    width: 100%;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    -webkit-flex-shrink:0;
+    flex-shrink: 0;
+    -webkit-flex-basis: auto;
+    flex-basis: auto;
+    @media only screen and (min-width: 768px){
+      box-sizing: border-box;
+      margin-left: auto;
+      margin-right: auto;
+      // max-width: 1280px;
+      max-width: 1350px;
+      padding-left: 20px;
+      padding-right: 20px;
+      width:auto;
+      }
+    }
+  }
+  //Common faq sectio in home page and faq view all (FAQ)
 .faq-collection{
   .faq-content{
     .ui-accordion{
@@ -1051,6 +1093,40 @@ button{
       font-size: 16px;
       }
     }
+    div[class*="neuro-content"]
+    {
+      .invisibile-on-hover
+      {
+          position: absolute;
+          transition: all ease 0.5s;
+      }
+      &:hover
+      {
+        .visibile-on-hover
+        {
+          opacity: 1;
+          transition: all ease 0.5s;
+        }
+        .invisibile-on-hover
+        {
+          opacity: 0;
+          transition: all ease 0.5s;
+        }
+        @media all and (max-width:1080px)
+        {
+          .visibile-on-hover
+          {
+            opacity: 0;
+            transition: all ease 0.5s;
+          }
+          .invisibile-on-hover
+          {
+            opacity: 1;
+            transition: all ease 0.5s;
+          }
+        }
+      }
+    }
     .neuro-content-head{
       padding: 15px;
       .pic-neuro-head{
@@ -1065,6 +1141,7 @@ button{
           margin:0 0 0 25%;
           float: left;
         }
+
       }
       .neuro-desc-head{
         float: none;
@@ -1097,15 +1174,19 @@ button{
       }
     }
     .row{
+      @media all and (max-width:767px){
+        margin:0;
+      }
       .col-6{
           position: relative;
           width: 100%;
           min-height: 1px;
           padding: 15px;
+          box-sizing: border-box;
           @media only screen and (min-width: 768px){
-            -ms-flex: 0 0 45%;
-            flex: 0 0 45%;
-            max-width: 45%;
+            -ms-flex: 0 0 50%;
+            flex: 0 0 50%;
+            max-width: 50%;
           }
         }
 
@@ -1143,18 +1224,27 @@ button{
 
           }
         }
+
     }
   }
   //Our flagship section
   .flagships-static{
       background: #fff;
+      .row{
+        justify-content: space-around;
+        @media all and (max-width:767px){
+          margin:0;
+          padding: 0 15px;
+        }
+      }
     .section-product{
       text-align: center;
       position: relative;
       width: 100%;
       min-height: 1px;
       padding: 15px;
-      margin: 15px;
+      margin: 15px 0;
+      box-sizing: border-box;
       border-radius: 3%;
       background:#fff !important;
       -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
@@ -1223,35 +1313,12 @@ button{
           }
         }
       @media only screen and (min-width:768px){
-        -ms-flex: 0 0 23.8%;
-        flex: 0 0 23.8%;
-        max-width:23.8%;
-      }
-      @media only screen and (min-width:859px){
-        -ms-flex: 0 0 25%;
-        flex: 0 0 25%;
-        max-width: 25%;
-      }
-      @media only screen and (min-width: 991px){
-        -ms-flex: 0 0 26%;
-        flex: 0 0 26%;
-        max-width: 27%;
+        -ms-flex: 0 0 30%;
+        flex: 0 0 30%;
+        max-width:30%;
       }
       @media only screen and (min-width: 1084px){
-        -ms-flex: 0 0 26.11%;
-        flex: 0 0 26.11%;
-        max-width: 26.11%;
         padding:45px 15px;
-      }
-      @media only screen and (min-width: 1200px){
-        -ms-flex: 0 0 27.4%;
-        flex: 0 0 27.4%;
-        max-width: 27.4%;
-      }
-      @media only screen and (min-width: 1303px){
-        -ms-flex: 0 0 27.9%;
-        flex: 0 0 27.9%;
-        max-width: 27.9%;
       }
       p{
         width: 240px;
@@ -1369,6 +1436,9 @@ button{
       }
     }
     //Static banner
+    .cms-index-index .columns{
+      display:block;
+    }
     .columns .column.main {
       padding-bottom: 0;
       }
@@ -1979,3 +2049,82 @@ button{
     }
 
   }
+
+
+// Scroll animations start
+
+.nav-sections
+{
+  &.scrollDown
+  {
+    top: -100px;
+    box-shadow: none;
+    transition: all 0.5s ease;
+    .navigation
+    {
+        background: white !important;
+
+        transition: all 0.5s ease;
+        .logo-header
+        {
+          // margin-top: 116px;
+          margin-top: 80px;
+          top: 20px;
+          right: 47.5%;
+          width: 100px;
+          height: 100px;
+          border-bottom-left-radius: 50%;
+          border-bottom-right-radius: 50%;
+          text-align: center;
+          transition: all 0.5s ease 0.2s;
+          background: white;
+          position: absolute;
+          box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+          @media all and (max-width: 1200px)
+          {
+            right: 46.5%;
+          }
+          @media all and (max-width: 1100px)
+          {
+            right: 45.5%;
+          }
+          @media all and (max-width: 1050px)
+          {
+            right: 44.5%;
+          }
+          @media all and (max-width: 991px)
+          {
+            right: 43.5%;
+          }
+        }
+    }
+  }
+  &.scrollUp
+  {
+    transition: all 0.5s ease;
+    .navigation
+    {
+      width: 100%;
+      transition: all 0.5s ease;
+      .nav-link
+      {
+        transition: all 0.6s ease;
+      }
+    }
+  }
+}
+.minicart-wrapper
+{
+  @media all and (min-width: 768px)
+  {
+    &.scrollDown
+    {
+      top: -100px !important;
+      transition: all 0.5s ease;
+    }
+    &.scrollUp
+    {
+      transition: all 0.5s ease;
+    }
+  }
+}

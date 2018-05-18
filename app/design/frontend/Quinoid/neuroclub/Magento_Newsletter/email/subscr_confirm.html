@@ -1,0 +1,29 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Newsletter subscription confirmation"}} @-->
+<!--@vars {
+"var customer.name":"Customer Name",
+"var subscriber.getConfirmationLink()":"Subscriber Confirmation URL"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<h2 class="company-name">Welcome to <span>Neuroclub</span></h2>
+
+<p class="greet-customer">Dear Customer,</p>
+<p class="greeting">{{trans "Thank you for signing up to our newsletter. We are excited to have you as part of the Neuroclub community. From now on, you will receive periodic updates about our offers, latest news, new product additions, special pricing and much more.."}}</p>
+<p class="greeting">{{trans "To ensure delivery of our emails to your inbox (not junk folders), Please add <br>
+  newsletters@neuroclub.com to your address book. If you have any queries, do call our help desk </br>
+  at our toll-free number 1800-645-8540, email us at sales@neuroclub.com </br>
+  trans "or contact our customer support executives through online chat. "}}</p>
+
+<p class="greeting">{{trans "We look forward to serving you soon! "}}</p>
+
+
+<p><a href="{{var subscriber.getConfirmationLink()}}">{{var subscriber.getConfirmationLink()}}</a></p>
+
+{{template config_path="design/email/footer_template"}}
