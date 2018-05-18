@@ -44,3 +44,22 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
     </div>
   </div>
 </div>
+<script>
+require([
+      'jquery',
+  ], function($) {
+    var lastScrollTop = 0;
+    $(window).scroll(function(event){
+       var st = $(this).scrollTop();
+       if (st > lastScrollTop){
+           // downscroll code
+               $(".sections.nav-sections,.minicart-wrapper").addClass("scrollDown").removeClass("scrollUp");
+       }
+       else {
+          // upscroll code
+               $(".sections.nav-sections,.minicart-wrapper").addClass("scrollUp").removeClass("scrollDown");
+       }
+       lastScrollTop = st;
+    });
+  });
+</script>
