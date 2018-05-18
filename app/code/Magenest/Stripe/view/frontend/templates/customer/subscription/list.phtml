@@ -17,7 +17,6 @@
     <?php } else { ?>
         <thead>
         <tr>
-            <th><?php echo __('Subscription ID'); ?></th>
             <th><?php echo __('Order ID'); ?></th>
             <th><?php echo __('Curent Period Start'); ?></th>
             <th><?php echo __('Curent Period End'); ?></th>
@@ -28,7 +27,6 @@
         <tbody>
         <tr>
             <?php foreach ($subs as $sub) { ?>
-            <td><?php echo $sub->getData('subscription_id'); ?></td>
             <td><?php echo $sub->getData('order_id');?></td>
             <td><?php echo $sub->getData('period_start');?></td>
             <td><?php echo $sub->getData('period_end');?></td>
@@ -37,9 +35,6 @@
             <td data-th="<?php echo $block->escapeHtml(__('Actions')) ?>" class="col actions">
                 <a href="<?php echo $block->getSubscriptionDetailUrl($sub->getId()); ?>" class="action view">
                     <span><?php echo __('View')?></span>
-                </a>
-                <a href="<?php echo $block->getOrderViewUrl($sub->getOrderId()); ?>" class="action view">
-                    <span><?php echo __('Related Order') ?></span>
                 </a>
             </td>
         </tr>

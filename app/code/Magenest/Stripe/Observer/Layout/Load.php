@@ -19,7 +19,8 @@ class Load implements ObserverInterface
         /** @var \Magento\Framework\View\Layout $layout */
         $layout = $observer->getEvent()->getLayout();
         $handler = '';
-        if ($fullActionName == 'catalog_product_view') {
+        if (($fullActionName == 'catalog_product_view')
+            ||($fullActionName == 'checkout_cart_configure')) {
             $handler = 'catalog_product_view_stripe';
         }
 

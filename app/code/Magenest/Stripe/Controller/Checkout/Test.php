@@ -21,12 +21,14 @@ class Test extends \Magento\Framework\App\Action\Action
         Context $context,
         \Magenest\Stripe\Helper\SubscriptionHelper $subscriptionHelper,
         \Magenest\Stripe\Helper\Data $stripeHelper,
-        \Magenest\Stripe\Model\Cron $cron
+        \Magenest\Stripe\Model\Cron $cron,
+        \Magenest\Stripe\Helper\Config $stripeConfig
     ) {
         $this->cron = $cron;
         parent::__construct($context);
         $this->helper = $subscriptionHelper;
         $this->stripeHelper = $stripeHelper;
+        $this->stripeConfig = $stripeConfig;
     }
 
     public function execute()

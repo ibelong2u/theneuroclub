@@ -102,7 +102,7 @@ class AlipaySource extends \Magento\Framework\App\Action\Action
                 ]);
                 return $result;
             }
-            $redirectUrl = $response['redirect']->url;
+            $redirectUrl = $response['redirect']['url'];
             $sourceId = $response['id'];
             $clientSecret = $response['client_secret'];
             $this->_checkoutSession->setClientSecret($clientSecret);
