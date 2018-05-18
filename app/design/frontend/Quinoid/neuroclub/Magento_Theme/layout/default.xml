@@ -9,13 +9,6 @@
        <referenceBlock name="register-link" remove="true" />
        <referenceBlock name="top.search" remove="true" />
        <referenceBlock name="catalog.topnav" remove="true" />
-       <referenceContainer name="page.top">
-        <block name="customer.section.config" class="Magento\Customer\Block\SectionConfig"
-               template="Magento_Customer::js/section-config.phtml"/>
-        <block name="customer.customer.data"
-               class="Magento\Customer\Block\CustomerData"
-               template="Magento_Customer::js/customer-data.phtml"/>
-        </referenceContainer>
       <referenceContainer name="page.wrapper">
         <block class="Magento\Framework\View\Element\Template" name="menu_links" after="header-wrapper" template="Magento_Theme::html/customnav.phtml"/>
       </referenceContainer>

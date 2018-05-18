@@ -15,8 +15,7 @@ class View extends Subscription
     public function execute()
     {
         $id = $this->getRequest()->getParam('id');
-        /** @var \Magenest\Subscription\Model\Profile $model */
-        $model = $this->_subscriptionFactory->create();
+        $model = $this->_objectManager->get('\Magenest\Stripe\Model\Subscription');
         if ($id) {
             $model->load($id);
             if (!$model->getId()) {

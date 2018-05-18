@@ -1,0 +1,10 @@
+#subscription_tabs_stripe_subscription_info_content .block-order-details-view{
+    text-align: left;
+}
+
+#subscription_tabs_stripe_subscription_info_content .block-order-details-view table>tbody>tr>th{
+    padding: 15px
+}
+#subscription_tabs_stripe_subscription_info_content .block-order-details-view table>tbody>tr>td{
+    padding: 15px
+}

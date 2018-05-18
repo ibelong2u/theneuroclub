@@ -25,40 +25,43 @@ class Nominal
         \Closure $proceed,
         \Magento\Quote\Model\Quote\Item $item
     ) {
-        $canBeAdded = 1;
+        $itemCount = $subject->getItemsCount();
+        if ($itemCount == 0) {
+            $proceed($item);
 
+            return $subject;
+        }
+
+        $subscriptionCart = 0;
         foreach ($subject->getAllVisibleItems() as $cartItem) {
             $buyInfo = $cartItem->getBuyRequest();
-            if ($options = $buyInfo->getAdditionalOptions()) {
-                foreach ($options as $key => $value) {
-                    if ($value && $key == 'Plan ID') {
-                        $canBeAdded = 0;
-                    }
-                }
+            $stripeSubscription = $buyInfo->getData('stripe_subscription');
+            if (count($stripeSubscription)) {
+                $subscriptionCart = 1;
             }
         }
 
-        $itemCount = $subject->getItemsCount();
-
-        /** @var \Magento\Quote\Model\Quote\Item $product */
+        $itemSubscriptionAdding = 0;
         $buyInfo = $item->getBuyRequest();
 
-        if ($options = $buyInfo->getAdditionalOptions()) {
-            foreach ($options as $key => $value) {
-                if ($value && $key == 'Plan ID' && $itemCount > 0) {
-                    $canBeAdded = 0;
-                }
+        if ($stripeSubscription = $buyInfo->getData('stripe_subscription')) {
+            if (count($stripeSubscription)>0) {
+                $itemSubscriptionAdding = 1;
             }
         }
-
-        if ($canBeAdded == 0) {
-            throw new \Magento\Framework\Exception\LocalizedException(
+        if ($subscriptionCart) {
+            throw new \Exception(
                 __('Item with subscription option can be purchased standalone only.')
             );
+        } else {
+            if ($itemSubscriptionAdding) {
+                throw new \Exception(
+                    __('Item with subscription option can be purchased standalone only.')
+                );
+            }
         }
 
         $proceed($item);
-
         return $subject;
     }
 }

@@ -54,6 +54,7 @@
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
+            <h3>BUNDLED ITEMS</h3>
             <div class="product-row">
                 <?php
                 $typeInstance = $_item->getTypeInstance();
@@ -66,6 +67,8 @@
                             <a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
                                 <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
                                 <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
+                                <h4>30 Capsule pack</h4>
+                                <h5>Lorem Ipsum dolor</h5>
                                 <p><?php echo number_format($childItem->getPrice(),2) ?></p>
                             </a>
                         </div>

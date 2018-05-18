@@ -669,15 +669,15 @@
     background: #e66698;
     border-color: #e66698;
   }
-  button:hover, .action.primary:hover,  .action.primary:focus{
-    @media only screen and (min-width: 991px){
-      background: #333e74;;
-      border: 1px solid #333e74;
-    }
-    background: #e66698;
-    border: 1px solid #e66698;
-    color: #fff;
-  }
+  // button:hover, .action.primary:hover,  .action.primary:focus{
+  //   @media only screen and (min-width: 991px){
+  //     background: #333e74;;
+  //     border: 1px solid #333e74;
+  //   }
+  //   background: #e66698;
+  //   border: 1px solid #e66698;
+  //   color: #fff;
+  // }
   .change-password{
     font-size: 12px !important;
     @media only screen and (min-width: 768px){
@@ -687,6 +687,11 @@
   }
   .table-wrapper{
     margin: 10px 0;
+    &.orders-history{
+      @media all (min-width:768px) and (max-width:900px){
+        overflow-x: scroll;
+      }
+    }
     border: none;
     @media only screen and (min-width: 768px){
       margin: 20px 0;
@@ -733,6 +738,7 @@
           -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
           -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
           box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.06);
+          margin-bottom:15px;
         }
         .block-collapsible-nav-title{
           margin: 0 15px;
@@ -777,6 +783,11 @@
       }
     }
     .sidebar{
+      &.sidebar-additional{
+        @media all and (min-width:768px){
+          margin-top:15px;
+        }
+      }
       .block-reorder{
         background-color: #ffffff;
         border: 4px solid #ffffff;
@@ -820,21 +831,41 @@
             }
           }
           .actions-toolbar{
-            clear: both;
             padding: 0 !important;
+            &:after{
+              clear: both;
+              display: table;
+              content:'';
+            }
+            @media all and (min-width:768px) and (max-width:1280px){
+              text-align:center;
+            }
             .primary {
               float:right !important;
               display: block !important;
+              @media all and (min-width:768px) and (max-width:1280px){
+                float:none !important;
+                margin-bottom: 10px;
+              }
+              button{
+                @media all and (min-width:768px) and (max-width:1280px){
+                  width:100%;
+                }
+              }
             }
             .secondary{
               float:left !important;
               @media only screen and (min-width: 768px){
                 margin-left: 10px;
               }
+              @media all and (min-width:768px) and (max-width:1280px){
+                float:none !important;
+              }
               a{
                 font-size: 15px;
                 color: #006bb4 !important;
                 text-transform: uppercase;
+                font-weight:600;
               }
             }
           }
@@ -905,29 +936,74 @@
           padding:10px 0;
           border-bottom: 1px solid #d1d1d1;
           strong{
-            font-size: 1.8rem;
+            font-size: 18px;
             font-weight: 600 !important;
             line-height: 1.1;
+            @media all and (min-width:768px){
+              font-size:20px;
+            }
           }
         }
         .block-dashboard-orders{
           padding: 10px;
+          margin-bottom: 20px;
           @media only screen and (min-width: 768px){
             padding: 20px;
           }
+          .order{
+            @media all and (min-width:640px){
+              border:none;
+            }
+            .view{
+              span{
+                text-transform: uppercase;
+              }
+            }
+          }
+          .block-content{
+            padding-top:0;
+          }
+          .table-wrapper{
+            margin:0;
+            @media all (min-width:768px) and (max-width:900px){
+              overflow-x: scroll;
+            }
+          }
         }
         .block-dashboard-info{
+           margin-bottom: 20px;
           .block-content{
             a{
               font-size: 15px;
             }
+            .box{
+              .box-title{
+                span{
+                  font-size:15px !important;
+                }
+              }
+              .box-content{
+                p{
+                  @media all and (max-width:767px){
+                    font-size: 14px;
+                  }
+                }
+              }
+            }
           }
         }
         .block-dashboard-addresses, .box-address-shipping{
-          .box-content{
-            a{
-              color: #333;
-              border-bottom: 1px solid #333;
+          .box{
+            .box-title{
+              span{
+                font-size:15px !important;
+              }
+            }
+            .box-content{
+              a{
+                color: #333;
+                border-bottom: 1px solid #333;
+              }
             }
           }
         }
@@ -940,6 +1016,8 @@
   .sales-order-history{
     .order-products-toolbar {
       margin: 15px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 20px;
       @media only screen and (min-width: 991px){
         margin: 30px;
       }
@@ -952,6 +1030,17 @@
         }
       }
   }
+  .actions-toolbar{
+    text-align: right;
+    margin:0 30px;
+    margin-bottom: 20px;
+    .secondary{
+      .back{
+        display: block;
+        color: #6e6e6e;
+      }
+    }
+  }
 }
 .customer-address-index{
   .actions-toolbar{
@@ -961,9 +1050,29 @@
     }
   }
 }
+.customer-address-form{
+  .form-address-edit{
+    padding: 10px;
+    @media all and (min-width:768px){
+      padding:10px 20px;
+    }
+  }
+}
 .abs-toggling-title-mobile, .block-collapsible-nav .title {
 @media only screen and (max-width: 767px){
     border-top: 1px solid transparent !important;
     border-bottom: 1px solid transparent !important;
+  }
+}
+.newsletter-manage-index{
+  .page-main{
+    .form-newsletter-manage{
+      .legend{
+        padding:10px;
+        @media all and (min-width:768px){
+          padding:10px 20px;
+        }
+      }
+    }
   }
 }
