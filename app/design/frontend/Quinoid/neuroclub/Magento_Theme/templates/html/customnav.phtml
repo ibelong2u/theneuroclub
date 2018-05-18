@@ -11,33 +11,33 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
     <div class="section-item-content nav-sections-item-content" id="store.menu" data-role="content">
       <nav class="navigation" data-action="navigation">
     <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
-        <li class="level0 nav-1 first last level-top ui-menu-item" role="presentation">
+        <li class="level0 nav-1 first last level-top ui-menu-item nav-link" role="presentation">
           <a href="<?php echo $block->getBaseUrl(); ?>get-started" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
             <span>get started</span>
           </a>
         </li>
-        <li class="level0 nav-2 first last level-top ui-menu-item" role="presentation">
+        <li class="level0 nav-2 first last level-top ui-menu-item nav-link" role="presentation">
           <a href="<?php echo $block->getBaseUrl(); ?>how-it-works" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
             <span>how it works</span>
           </a>
         </li>
-        <li class="level0 nav-3 first last level-top ui-menu-item">
+        <li class="level0 nav-3 first last level-top ui-menu-item logo-header">
           <a href="<?php echo $block->getBaseUrl(); ?>" class="level-top ui-corner-all  menu-logo" id="ui-id-3" tabindex="-1" role="menuitem">
           <img src="<?php echo $block->getViewFileUrl('images/logo.png'); ?>" />
         </a>
         </li>
-        <li class="level0 nav-4 first level-top ui-menu-item" role="presentation">
+        <li class="level0 nav-4 first level-top ui-menu-item nav-link" role="presentation">
           <a href="<?php echo $baseUrl .'products';?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
             <span>products</span>
           </a>
         </li>
         <?php echo $this->getChildHtml('customer');?>
-        <li class="level0 first last level-top ui-menu-item desktop-none" role="presentation">
+        <li class="level0 first last level-top ui-menu-item desktop-none nav-link" role="presentation">
           <a href="<?php echo $baseUrl . 'customer/account/logout/'; ?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
             <span>Sign Out</span>
           </a>
         </li>
-        <li class="level0 nav-6 first level-top ui-menu-item" role="presentation">
+        <li class="level0 nav-6 first level-top ui-menu-item nav-link" role="presentation">
         </li>
   </ul>
 </nav>
