@@ -71,9 +71,8 @@ class ThreedSecureResponse extends \Magento\Framework\App\Action\Action
                     __('3d secure validate fail')
                 );
             }
-            //\Stripe\Stripe::setApiKey($this->stripeConfig->getSecretKey());
-            //$sourceResponse = \Stripe\Source::retrieve($cardSource);
-            $url = "https://api.stripe.com/v1/sources/" . $cardSource;
+
+            $url = Constant::SOURCE_ENDPOINT ."/". $cardSource;
             $sourceResponse = $this->stripeHelper->sendRequest(null, $url, null);
             $this->_debug($sourceResponse);
             if ($sourceResponse['status'] == 'failed') {
@@ -81,9 +80,9 @@ class ThreedSecureResponse extends \Magento\Framework\App\Action\Action
                     __('3d secure authenticate fail')
                 );
             }
-            $payment->setAdditionalInformation('payment_token_secure', $cardSource);
-
+            $payment->setAdditionalInformation('payment_token', $cardSource);
             $payAction = $payment->getAdditionalInformation(Constant::ADDITIONAL_PAYMENT_ACTION);
+
             $totalDue = $order->getTotalDue();
             $baseTotalDue = $order->getBaseTotalDue();
             if ($payAction == 'authorize') {

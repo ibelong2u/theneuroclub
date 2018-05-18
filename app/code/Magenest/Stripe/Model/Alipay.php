@@ -19,20 +19,17 @@ class Alipay extends AbstractMethod
     protected $_isGateway = true;
     protected $_canAuthorize = false;
     protected $_canCapture = true;
-    protected $_canCapturePartial = true;
-    protected $_canCaptureOnce = true;
+    protected $_canCapturePartial = false;
+    protected $_canCaptureOnce = false;
     protected $_canVoid = false;
     protected $_canUseInternal = false;
     protected $_canUseCheckout = true;
     protected $_canRefund = true;
     protected $_canRefundInvoicePartial = true;
-
-    protected $_chargeFactory;
-    protected $_helper;
-
     protected $_isInitializeNeeded = false;
-    protected $_canOrder = true;
+    protected $_canOrder = false;
 
+    protected $_helper;
     protected $stripeLogger;
     protected $_messageManager;
 
@@ -73,28 +70,6 @@ class Alipay extends AbstractMethod
         return "authorize_capture";
     }
 
-    public function validate()
-    {
-        return parent::validate();
-    }
-
-    public function assignData(\Magento\Framework\DataObject $data)
-    {
-        parent::assignData($data);
-        return $this;
-    }
-
-    public function initialize($paymentAction, $stateObject)
-    {
-        /**
-         * @var \Magento\Sales\Model\Order $order
-         * @var \Magento\Sales\Model\Order\Payment $payment
-         */
-        $payment = $this->getInfoInstance();
-        $order = $payment->getOrder();
-        return parent::initialize($paymentAction, $stateObject);
-    }
-
     /**
      * @param \Magento\Payment\Model\InfoInterface|\Magento\Sales\Model\Order\Payment $payment
      * @param float $amount
@@ -105,9 +80,9 @@ class Alipay extends AbstractMethod
         $this->_debug("capture order: ". $payment->getOrder()->getIncrementId());
         $transId = $payment->getAdditionalInformation("trans_id");
         $chargeId = $payment->getAdditionalInformation("charge_id");
-        $payment->setTransactionId($chargeId)
-            ->setParentTransactionId($chargeId)
-            ->setLastTransId($chargeId);
+        $payment->setTransactionId($transId)
+            ->setParentTransactionId($transId)
+            ->setLastTransId($transId);
         $payment->setIsTransactionClosed(1);
         $payment->setShouldCloseParentTransaction(1);
         return parent::capture($payment, $amount);
@@ -137,7 +112,7 @@ class Alipay extends AbstractMethod
         $this->_debug($response);
         if (isset($response['error'])) {
             throw new \Magento\Framework\Exception\LocalizedException(
-                __($response['error']->message)
+                __($response['error']['message'])
             );
         }
         $payment->setTransactionId($response['id']);
@@ -156,22 +131,24 @@ class Alipay extends AbstractMethod
         return parent::refund($payment, $amount);
     }
 
-    public function void(\Magento\Payment\Model\InfoInterface $payment)
-    {
-        return parent::void($payment);
-    }
-
-    public function cancel(\Magento\Payment\Model\InfoInterface $payment)
-    {
-        $this->void($payment);
-        return parent::cancel($payment);
-    }
-
     /**
      * @param array|string $debugData
      */
     protected function _debug($debugData)
     {
         $this->stripeLogger->debug(var_export($debugData, true));
+    }
+
+    public function canUseForCurrency($currencyCode)
+    {
+        if (!in_array(strtolower($currencyCode), $this->getAcceptedCurrencyCodes())) {
+            return false;
+        }
+        return true;
+    }
+
+    private function getAcceptedCurrencyCodes()
+    {
+        return ['aud', 'cad', 'eur', 'gbp', 'hkd', 'jpy', 'nzd', 'sgd', 'usd'];
     }
 }

@@ -6,6 +6,13 @@
    <css src="css/source/custom/grt-youtube-popup.css"/>
   </head>
   <body>
+    <referenceContainer name="page.top">
+     <block name="customer.section.config" class="Magento\Customer\Block\SectionConfig"
+            template="Magento_Customer::js/section-config.phtml"/>
+     <block name="customer.customer.data"
+            class="Magento\Customer\Block\CustomerData"
+            template="Magento_Customer::js/customer-data.phtml"/>
+     </referenceContainer>
     <referenceContainer name="main">
       <container name='content'>
         <block class="Magento\Framework\View\Element\Template" name="about.intro" template="Magento_Theme::html/about-intro.phtml"/>

@@ -16,7 +16,7 @@ define(
         'Magento_Checkout/js/model/full-screen-loader',
         'Magento_Checkout/js/action/redirect-on-success',
         'Magento_Checkout/js/model/payment/additional-validators',
-        'Magenest_Stripe/js/model/payment/messages',
+        'Magento_Ui/js/model/messages',
         'https://js.stripe.com/v3/'
     ],
     function ($,
@@ -34,33 +34,41 @@ define(
     ) {
         'use strict';
 
-        var stripe = Stripe(window.magenest.stripe.publishableKey);
+        var stripe = Stripe(window.checkoutConfig.payment.magenest_stripe_config.publishableKey),
+            paymentRequest;
+        var totals = quote.totals(),
+            zeroDecimal = window.checkoutConfig.payment.magenest_stripe_config.isZeroDecimal,
+            currency = totals.base_currency_code;
 
         return Component.extend({
             defaults: {
                 template: 'Magenest_Stripe/payment/stripe-payments-applepay',
-                redirectAfterPlaceOrder: true,
-                isPlaceOrderSuccessful: false,
-                chargeId: '',
-                rawCardData:"",
-                token:"",
-                threedsecure:"",
-                payType:""
+                replacePlaceOrder: Boolean(window.checkoutConfig.payment.magenest_stripe_applepay.replace_placeorder === "1"),
+                rawCardData:""
             },
             messageContainer: messageContainer,
 
-            getCode: function () {
-                return 'magenest_stripe_applepay';
-            },
-
-            initialize: function () {
-                var self = this;
-                this._super();
-                this.isPlaceOrderActionAllowed.subscribe(function(allowed){
-                    if (allowed) {
-                        this.requestPayment();
+            placeOrder: function () {
+                if(additionalValidators.validate()){
+                    var amount = totals.base_grand_total;
+                    if(zeroDecimal === '0'){
+                        amount*=100;
                     }
-                }.bind(this))
+                    paymentRequest.update({
+                        currency: currency.toLowerCase(),
+                        total: {
+                            label: 'Total',
+                            amount: Math.round(amount),
+                            pending: true
+                        }
+                    });
+                    paymentRequest.canMakePayment().then(function(result) {
+                        console.log(result);
+                        if (result) {
+                            paymentRequest.show();
+                        }
+                    });
+                }
             },
 
             requestPayment: function (data, event, parent) {
@@ -70,47 +78,48 @@ define(
                 }else{
                     self = this;
                 }
-
-                var currencyCode = window.checkoutConfig.quoteData.base_currency_code;
-                currencyCode = currencyCode.toLowerCase();
-                var baseTotal = window.checkoutConfig.quoteData.base_grand_total;
-                var zerodecimal = ['bif', 'djf', 'jpy', 'krw', 'pyg', 'vnd', 'xaf', 'xpf', 'clp', 'gnf', 'kmf', 'mga', 'rwf', 'vuv', 'xof'];
-                if (zerodecimal.indexOf(currencyCode)){
-                    baseTotal = baseTotal*100;
+                var amount = totals.base_grand_total;
+                if(zeroDecimal === '0'){
+                    amount*=100;
                 }
-                var paymentRequest = stripe.paymentRequest({
+                paymentRequest = stripe.paymentRequest({
                     country: 'US',
-                    currency: currencyCode.toLowerCase(),
+                    currency: currency.toLowerCase(),
                     total: {
                         label: 'Total',
-                        amount: Math.round(baseTotal),
-                    },
+                        amount: Math.round(amount),
+                        pending: true
+                    }
                 });
 
                 var elements = stripe.elements();
-                var prButton = elements.create('paymentRequestButton', {
-                    paymentRequest: paymentRequest,
-                });
-
-                // Check the availability of the Payment Request API first.
-                paymentRequest.canMakePayment().then(function(result) {
-                    console.log(result);
-                    if (result) {
-                        prButton.mount('#payment_section');
-                    } else {
-                        document.getElementById('payment_section').style.display = 'none';
-                    }
-                });
+                if (self.replacePlaceOrder) {
+                    var prButton = elements.create('paymentRequestButton', {
+                        paymentRequest: paymentRequest,
+                        style: {
+                            paymentRequestButton: {
+                                type: window.checkoutConfig.payment.magenest_stripe_applepay.button_type,
+                                theme: window.checkoutConfig.payment.magenest_stripe_applepay.button_theme,
+                                height: '40px'
+                            }
+                        }
+                    });
+                    // Check the availability of the Payment Request API first.
+                    paymentRequest.canMakePayment().then(function (result) {
+                        console.log(result);
+                        if (result) {
+                            prButton.mount('#payment_section');
+                        } else {
+                            document.getElementById('payment_section').style.display = 'none';
+                        }
+                    });
+                }
 
                 paymentRequest.on('token', function(ev) {
                     // Send the token to your server to charge it!
                     self.rawCardData = ev.token;
-                    self.token = ev.token.id;
-
-                    self.isPlaceOrderActionAllowed(false);
                     self.getPlaceOrderDeferredObject()
                         .fail(function () {
-                            self.isPlaceOrderActionAllowed(true);
                             ev.complete('fail');
                         })
                         .done(function () {
@@ -121,35 +130,7 @@ define(
                                 }
                             }
                         );
-
-                    // $.post(window.magenest.stripe.chargeUrl, { token: ev.token.id, form_key:window.checkoutConfig.formKey}).done(function(magenestResponse) {
-                    //     console.log(magenestResponse);
-                    //     if(magenestResponse.success){
-                    //         self.chargeId = magenestResponse.charge_id;
-                    //         ev.complete('success');
-                    //         //redirect place order
-                    //         self.getPlaceOrderDeferredObject().fail(function () {
-                    //             self.isPlaceOrderActionAllowed(true);
-                    //         }).done(function () {
-                    //             if (self.redirectAfterPlaceOrder) {
-                    //                 self.afterPlaceOrder();
-                    //                 redirectOnSuccessAction.execute();
-                    //             }
-                    //         });
-                    //     }
-                    //     if(magenestResponse.error){
-                    //         ev.complete('fail');
-                    //     }
-                    //
-                    //     return true;
-                    // }).fail(function() {
-                    //     self.isPlaceOrderActionAllowed(true);
-                    //     if (window.magenest.stripe.applePayDebug) $.post( window.magenest.stripe.appleLogUrl, {apple :'error when posting' });
-                    //
-                    // });
-
                 });
-
             },
 
             /**
@@ -168,17 +149,10 @@ define(
                 var self = this;
                 return {
                     'method': this.item.method,
-                    'po_number': null,
                     'additional_data': {
-                        token: self.token,
-                        // chargeId : self.chargeId,
-                        pay_type : "apple pay",
-                        rawCardData: JSON.stringify(self.rawCardData)
+                        "stripe_response": JSON.stringify(self.rawCardData)
                     }
                 };
-            },
-            isActive: function() {
-                return true;
             }
 
         });

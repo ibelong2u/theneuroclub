@@ -44,6 +44,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 
     protected function _prepareCollection()
     {
+        return ;
         /** @var \Magenest\Stripe\Model\Subscription $subscription */
         $subscription = $this->_coreRegistry->registry('stripe_subscription_model');
         $orderId = $subscription->getOrderId();

@@ -9,13 +9,14 @@
 
 <div class="company">
   <ul class="company-facts">
-    <li><span class="safe"></span><span>100%:</span> Safe and Secure Payments </li>
-    <li><span class="policy"></span><span>TrustPay:</span> 100% Payment Protection, Easy Returns Policy</li>
-    <li><span class="return"></span><span>Free &amp; Easy</span> Returns</li>
+    <li><div class="safe"></div><span>100%:</span> Safe and Secure Payments </li>
+    <li><div class="policy"></div><span>TrustPay:</span> 100% Payment Protection, Easy Returns Policy</li>
+    <li><div class="return"></div><span>Free &amp; Easy</span> Returns</li>
   </ul>
 </div>
 <div class="button-flex">
 <div class="continue-shopping">
+  <div></div>
   <button type="button" name="button">Continue Shopping</button>
 </div>
 
@@ -23,7 +24,7 @@
 <?php if ($block->isPossibleOnepageCheckout()):?>
     <button type="button"
             data-role="proceed-to-checkout"
-            title="<?= /* @escapeNotVerified */ __('Proceed to Checkout') ?>"
+            title="<?= /* @escapeNotVerified */ __('Place Order') ?>"
             data-mage-init='{"Magento_Checkout/js/proceed-to-checkout":{"checkoutUrl":"<?= /* @escapeNotVerified */ $block->getCheckoutUrl() ?>"}}'
             class="action primary checkout<?= ($block->isDisabled()) ? ' disabled' : '' ?>"
             <?php if ($block->isDisabled()):?>disabled="disabled"<?php endif; ?>>
@@ -32,3 +33,6 @@
 <?php endif?>
 </div>
 </div>
+<script type="text/javascript">
+
+</script>

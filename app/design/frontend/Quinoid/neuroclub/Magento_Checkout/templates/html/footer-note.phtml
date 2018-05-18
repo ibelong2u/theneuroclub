@@ -1,0 +1,11 @@
+<div class="footer-block">
+  <div class="home-container">
+    <p>
+    <?php echo $this->getLayout()
+                ->createBlock('Magento\Cms\Block\Block')
+                ->setBlockId('checkout-footer-note')
+                ->toHtml();
+    ?>
+  </p>
+  </div>
+</div>
