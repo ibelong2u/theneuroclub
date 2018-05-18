@@ -2,8 +2,20 @@
 <?php if (null !== $product->getCustomAttribute('product_video')): ?>
   <div class="pdp-video-container">
     <h4>How It Works</h4>
-    <iframe src="<?php echo $product->getCustomAttribute('product_video')->getValue() ?>" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-    <h6>Lorem Ipsum</h6>
-    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+    <div class="video-content">
+      <div class="video-outer">
+        <iframe src="<?php echo $product->getCustomAttribute('product_video')->getValue() ?>" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+      <div class="video-description">
+        <h6>Lorem Ipsum</h6>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="curve">
+    <img src="<?php echo $block->getViewFileUrl('images/curve.jpg'); ?>" alt="Shadow" />
   </div>
 <?php endif; ?>

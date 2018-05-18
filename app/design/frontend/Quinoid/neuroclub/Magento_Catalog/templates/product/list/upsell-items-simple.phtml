@@ -64,47 +64,54 @@ switch ($type = $block->getType()) {
         <?php foreach ($items as $_item): ?>
             <?php $product = $objectManager->create('Magento\Catalog\Model\Product')->load($_item->getId()) ?>
             <?php $images = $product->getMediaGalleryImages() ?>
-            <div id="owl-product" class="padding-70 loop owl-carousel product-image-container">
-            <?php foreach ($images as $image): ?>
-              <div class="item">
-                <img src="<?= $image['url'] ?>"/>
+            <div class="slider-with-description-outer">
+              <div class="heading-outer">
+                <h2><strong>Bundle</strong> and Save</h2>
+                <p>Save upto 30% on bundles</p>
               </div>
-            <?php endforeach; ?>
-            </div>
-
-            <div class="product details product-item-details">
-                <strong class="product name product-item-name"><a class="product-item-link" title="<?= $block->escapeHtml($_item->getName()) ?>" href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>">
-                    <?= $block->escapeHtml($_item->getName()) ?></a>
-                </strong>
-            </div>
-            <div class="product-item short-description">
-                <?= /* @escapeNotVerified */ $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
-            </div>
-            <div class="product-item description">
-                <?= /* @escapeNotVerified */ $this->helper('Quinoid\CatalogWidget\Helper\Product\Description')->getProductDescription($_item); ?>
-            </div>
-            <?php if ($_item->isSaleable()): ?>
-                <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
-                    <button class="action tocart primary" data-mage-init='{"redirectUrl": {"url": "<?= /* @escapeNotVerified */ $block->getAddToCartUrl($_item) ?>"}}' type="button" title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>">
-                        <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span> | <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
-                    </button>
+              <div id="owl-product" class="padding-70 loop owl-carousel product-image-container">
+              <?php foreach ($images as $image): ?>
+                <div class="item">
+                  <img src="<?= $image['url'] ?>"/>
+                </div>
+              <?php endforeach; ?>
+              </div>
+              <div class="product-description-outer">
+                <div class="product details product-item-details">
+                    <strong class="product name product-item-name"><a class="product-item-link" title="<?= $block->escapeHtml($_item->getName()) ?>" href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>">
+                        <?= $block->escapeHtml($_item->getName()) ?></a>
+                    </strong>
+                </div>
+                <div class="product-item short-description">
+                    <?= /* @escapeNotVerified */ $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
+                </div>
+                <div class="product-item description">
+                    <?= /* @escapeNotVerified */ $this->helper('Quinoid\CatalogWidget\Helper\Product\Description')->getProductDescription($_item); ?>
+                </div>
+                <?php if ($_item->isSaleable()): ?>
+                    <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+                        <button class="action tocart primary" data-mage-init='{"redirectUrl": {"url": "<?= /* @escapeNotVerified */ $block->getAddToCartUrl($_item) ?>"}}' type="button" title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>">
+                            <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span> | <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
+                        </button>
+                    <?php else: ?>
+                        <?php $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+                        $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
+                        ?>
+                        <button class="action tocart primary"
+                                data-post='<?= /* @escapeNotVerified */ $postData ?>'
+                                type="button" title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>">
+                            <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span> | <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
+                        </button>
+                    <?php endif; ?>
                 <?php else: ?>
-                    <?php $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
-                    $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
-                    ?>
-                    <button class="action tocart primary"
-                            data-post='<?= /* @escapeNotVerified */ $postData ?>'
-                            type="button" title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>">
-                        <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span> | <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
-                    </button>
+                    <?php if ($_item->getIsSalable()): ?>
+                        <div class="stock available"><span><?= /* @escapeNotVerified */ __('In stock') ?></span></div>
+                    <?php else: ?>
+                        <div class="stock unavailable"><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span></div>
+                    <?php endif; ?>
                 <?php endif; ?>
-            <?php else: ?>
-                <?php if ($_item->getIsSalable()): ?>
-                    <div class="stock available"><span><?= /* @escapeNotVerified */ __('In stock') ?></span></div>
-                <?php else: ?>
-                    <div class="stock unavailable"><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span></div>
-                <?php endif; ?>
-            <?php endif; ?>
+              </div>
+          </div>
             <div class="product-row">
                 <div class="row">
                     <?php
@@ -123,6 +130,7 @@ switch ($type = $block->getType()) {
                                         <p><?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?></p>
                                     </a>
                                 </div>
+                                <span class="plus"> + </span>
                             <?php
                             }
                         }

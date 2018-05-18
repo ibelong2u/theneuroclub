@@ -154,38 +154,48 @@ switch ($type = $block->getType()) {
 }
 ?>
 <div class="product-suggestion">
+  <div class="bundle-you-may-also-like">
+    <div class="you-may-also-like-heading">
+      <h2><strong>You may </strong>also like</h2>
+    </div>
 <?php if ($exist):?>
-  <div id="owl-product" class="padding-70 loop owl-carousel product-image-container">
+  <div id="owl-bundle-product" class="padding-70 loop owl-carousel product-image-container">
   <?php foreach ($items as $_item): ?>
     <div class="item">
-    <strong class="product name product-item-name">
-      <a class="product-item-link"
-      title="<?= $block->escapeHtml($_item->getName()) ?>"
-      href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>">
-        <?= $block->escapeHtml($_item->getName()) ?></a>
-    </strong>
+      <h4 class="product">
+        <strong class="product name product-item-name">
+          <a class="product-item-link"
+          title="<?= $block->escapeHtml($_item->getName()) ?>"
+          href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>">
+            <?= $block->escapeHtml($_item->getName()) ?></a>
+        </strong>
+      </h4>
     <div class="product-item short-description">
         <?= /* @escapeNotVerified */ $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
     </div>
-    <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>" class="product photo product-item-photo">
-        <?= $block->getImage($_item, $image)->toHtml() ?>
-    </a>
-    <?php
-    $typeInstance = $_item->getTypeInstance();
-    $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
-    $childItemNames = array();
-    if ($requiredChildrenIds) {
-        foreach ($requiredChildrenIds as $key => $childIdArr) {}
-        if ($childIdArr != null) {
-            foreach ($childIdArr as $childId) {
-                $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId);
-                $childItemNames[] = $childItem->getName();
-            }
-            $childItemString = implode(" + ",$childItemNames);
-            echo $childItemString;
-        }
-    }
-    ?>
+    <div class="product-image">
+      <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>" class="product photo product-item-photo">
+          <?= $block->getImage($_item, $image)->toHtml() ?>
+      </a>
+    </div>
+    <div class="bundled-product-names">
+      <?php
+      $typeInstance = $_item->getTypeInstance();
+      $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
+      $childItemNames = array();
+      if ($requiredChildrenIds) {
+          foreach ($requiredChildrenIds as $key => $childIdArr) {}
+          if ($childIdArr != null) {
+              foreach ($childIdArr as $childId) {
+                  $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId);
+                  $childItemNames[] = $childItem->getName();
+              }
+              $childItemString = implode(" + ",$childItemNames);
+              echo $childItemString;
+          }
+      }
+      ?>
+    </div>
     <?php if ($_item->isSaleable()): ?>
         <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
             <button class="action tocart primary"
@@ -215,9 +225,10 @@ switch ($type = $block->getType()) {
 </div>
 <?php endif;?>
 </div>
+</div>
 <script type="text/x-magento-init">
     {
-    "#owl-product": {
+    "#owl-bundle-product": {
         "OwlCarousel": {
           "center": false,
           "items": 3,
@@ -228,7 +239,7 @@ switch ($type = $block->getType()) {
             "0": {
               "items": 1
             },
-            "600": {
+            "799": {
               "items": 3
             }
           }
