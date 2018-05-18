@@ -1,0 +1,249 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Magento\Catalog\Block\Product\AbstractProduct */
+?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+?>
+<?php
+switch ($type = $block->getType()) {
+
+    case 'related-rule':
+        if ($exist = $block->hasItems()) {
+            $type = 'related';
+            $class = $type;
+
+            $image = 'related_products_list';
+            $title = __('Related Products');
+            $items = $block->getAllItems();
+            $limit = $block->getPositionLimit();
+            $shuffle = (int) $block->isShuffled();
+            $canItemsAddToCart = $block->canItemsAddToCart();
+
+            $showAddTo = true;
+            $showCart = false;
+            $templateType = null;
+            $description = false;
+        }
+    break;
+
+    case 'related':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Related $block */
+        if ($exist = $block->getItems()->getSize()) {
+            $type = 'related';
+            $class = $type;
+
+            $image = 'related_products_list';
+            $title = __('Related Products');
+            $items = $block->getItems();
+            $limit = 0;
+            $shuffle = 0;
+            $canItemsAddToCart = $block->canItemsAddToCart();
+
+            $showAddTo = true;
+            $showCart = false;
+            $templateType = null;
+            $description = false;
+        }
+    break;
+
+    case 'upsell-rule':
+        if ($exist = $block->hasItems()) {
+            $type = 'upsell';
+            $class = $type;
+
+            $image = 'upsell_products_list';
+            $title = __('We found other products you might like!');
+            $items = $block->getAllItems();
+            $limit = $block->getPositionLimit();
+            $shuffle = (int) $block->isShuffled();
+
+            $showAddTo = false;
+            $showCart = false;
+            $templateType = null;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'upsell':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Upsell $block */
+        if ($exist = count($block->getItemCollection()->getItems())) {
+            $type = 'upsell';
+            $class = $type;
+
+            $image = 'upsell_products_list';
+            $title = __('We found other products you might like!');
+            $items = $block->getItemCollection()->getItems();
+            $limit = $block->getItemLimit('upsell');
+            $shuffle = 0;
+
+            $showAddTo = false;
+            $showCart = false;
+            $templateType = null;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'crosssell-rule':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Crosssell $block */
+        if ($exist = $block->hasItems()) {
+            $type = 'crosssell';
+            $class = $type;
+
+            $image = 'cart_cross_sell_products';
+            $title = __('More Choices:');
+            $items = $block->getItemCollection();
+
+            $showAddTo = true;
+            $showCart = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'crosssell':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Crosssell $block */
+        if ($exist = count($block->getItems())) {
+            $type = 'crosssell';
+            $class = $type;
+
+            $image = 'cart_cross_sell_products';
+            $title = __('More Choices:');
+            $items = $block->getItems();
+
+            $showAddTo = true;
+            $showCart = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'new':
+        if ($exist = $block->getProductCollection()) {
+            $type = 'new';
+            $mode = 'grid';
+            $type = $type . ' ' . $mode;
+
+            $class = 'widget' . ' ' . $type;
+
+            $image = 'new_products_content_widget_grid';
+            $title = __('New Products');
+            $items = $exist;
+
+            $showAddTo = true;
+            $showCart = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+            $description = ($mode == 'list') ? true : false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'other':
+    break;
+}
+?>
+<div class="product-suggestion">
+  <div class="bundle-you-may-also-like">
+    <div class="you-may-also-like-heading">
+      <h2><strong>You may </strong>also like</h2>
+    </div>
+<?php if ($exist):?>
+  <div id="owl-bundle-product" class="padding-70 loop owl-carousel product-image-container">
+  <?php foreach ($items as $_item): ?>
+    <div class="item">
+      <h4 class="product">
+        <strong class="product name product-item-name">
+          <a class="product-item-link"
+          title="<?= $block->escapeHtml($_item->getName()) ?>"
+          href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>">
+            <?= $block->escapeHtml($_item->getName()) ?></a>
+        </strong>
+      </h4>
+    <div class="product-item short-description">
+        <?= /* @escapeNotVerified */ $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
+    </div>
+    <div class="product-image">
+      <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>" class="product photo product-item-photo">
+          <?= $block->getImage($_item, $image)->toHtml() ?>
+      </a>
+    </div>
+    <div class="bundled-product-names">
+      <?php
+      $typeInstance = $_item->getTypeInstance();
+      $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
+      $childItemNames = array();
+      if ($requiredChildrenIds) {
+          foreach ($requiredChildrenIds as $key => $childIdArr) {}
+          if ($childIdArr != null) {
+              foreach ($childIdArr as $childId) {
+                  $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId);
+                  $childItemNames[] = $childItem->getName();
+              }
+              $childItemString = implode(" + ",$childItemNames);
+              echo $childItemString;
+          }
+      }
+      ?>
+    </div>
+    <?php if ($_item->isSaleable()): ?>
+        <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+            <button class="action tocart primary"
+            data-mage-init='{"redirectUrl": {"url": "<?= /* @escapeNotVerified */ $block->getAddToCartUrl($_item) ?>"}}'
+            type="button" title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>">
+                <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span> | <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
+            </button>
+        <?php else: ?>
+            <?php $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+            $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
+            ?>
+            <button class="action tocart primary"
+                    data-post="<?= /* @escapeNotVerified */ $postData ?>"
+                    type="button" title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>">
+                <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span> | <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
+            </button>
+        <?php endif; ?>
+    <?php else: ?>
+        <?php if ($_item->getIsSalable()): ?>
+            <div class="stock available"><span><?= /* @escapeNotVerified */ __('In stock') ?></span></div>
+        <?php else: ?>
+            <div class="stock unavailable"><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span></div>
+        <?php endif; ?>
+    <?php endif; ?>
+  </div>
+  <?php endforeach; ?>
+</div>
+<?php endif;?>
+</div>
+</div>
+<script type="text/x-magento-init">
+    {
+    "#owl-bundle-product": {
+        "OwlCarousel": {
+          "center": false,
+          "items": 3,
+          "dots":true,
+          "loop": true,
+          "margin": 10,
+          "responsive": {
+            "0": {
+              "items": 1
+            },
+            "799": {
+              "items": 3
+            }
+          }
+        }
+      }
+    }
+</script>

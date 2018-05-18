@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+      <container name="product.page.container" htmlClass="product-page-container" htmlTag="div">
+        <referenceContainer name="content.top">
+          <container name="product.info.basic" htmlClass="product-info-content" htmlTag="div">
+            <container name="product.info.slider.outer" htmlClass="product-info-slider-outer" htmlTag="div">
+
+            </container>
+            <container name="product.info.description.outer" htmlClass="product-info-description-outer" htmlTag="div">
+
+            </container>
+
+          </container>
+          <container name="how.it.works.container" htmlClass="howitworks-outer" htmlTag="div">
+            <block class="Magento\Catalog\Block\Product\AbstractProduct" name="product.info.video" template="Magento_Catalog::product/view/video.phtml" after="product.info.gallery"/>
+          </container>
+        </referenceContainer>
+        <referenceContainer name="content">
+          <container name="product.info.additional" htmlClass="product-info-extra" htmlTag="div">
+            <block class="Magento\Framework\View\Element\Template" name="product.additional.info" template="Magento_Catalog::product/view/additional-info.phtml" after="additional.info"/>
+            <block class="Magento\Catalog\Block\Product\ProductList\Upsell" name="product.info.upsell" template="Magento_Catalog::product/list/upsell-items-simple.phtml" after="product.additional.info">
+              <arguments>
+                  <argument name="type" xsi:type="string">upsell</argument>
+              </arguments>
+            </block>
+        </container>
+        </referenceContainer>
+      </container>
+      <move element="page.main.title" destination="product.info.description.outer" after="primary.banner" before="-"/>
+      <!-- <move element="product.info.overview" destination="product.info.description.outer" after="page.main.title"/> -->
+      <move element="product.info.description" destination="product.info.description.outer" before="product.info.type"/>
+      <move element="product.info.type" destination="product.info.description.outer" before="product.info"/>
+      <move element="product.info.media.image" destination="product.info.slider.outer" after="product.info"/>
+      <move element="product.info" destination="product.info.description.outer" after="product.info.description" before="product.info.media.image"/>
+    <!-- <block class="Magento\Catalog\Block\Product\View\Gallery" name="product.info.gallery" template="Magento_Catalog::product/view/gallery.phtml" after="product.info.form.content"/> -->
+
+        <referenceBlock name="catalog.product.related" remove="true"/>
+        <referenceBlock name="product.price.final" remove="true"/>
+        <referenceBlock name="product.price.tier" remove="true"/>
+        <referenceBlock name="product.info.sku" remove="true"/>
+        <referenceBlock name="product.info.review" remove="true"/>
+        <referenceBlock name="product.info.details" remove="true"/>
+        <referenceBlock name="product.info.extrahint" remove="true"/>
+        <referenceBlock name="alert_urls" remove="true"/>
+    </body>
+</page>

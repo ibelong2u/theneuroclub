@@ -1,0 +1,33 @@
+<div class="product-row">
+  <div class="row">
+<?php
+$_item = $block->getProduct();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+$typeInstance = $_item->getTypeInstance();
+$requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
+if ($requiredChildrenIds) {
+    foreach ($requiredChildrenIds as $key => $childIdArr) {}
+    if ($childIdArr != null) {
+        foreach ($childIdArr as $childId) {
+            $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId);
+            ?>
+            <div class="sub-product">
+                <a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
+                    <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
+                    <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
+                    <p>Lorem Ipsum dolar</p>
+                    <p class="price"><?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?></p>
+                </a>
+            </div>
+            <span class="plus"> + </span>
+        <?php
+        }
+    }
+}
+?>
+</div>
+</div>
+<div class="curve">
+  <img src="<?php echo $block->getViewFileUrl('images/curve.jpg'); ?>" alt="Shadow" />
+</div>
