@@ -907,7 +907,7 @@ button{
     }
   }
 }
-.cms-index-index{
+.cms-index-index,.faq-index-index{
   //Full width container styles
   .page-main,.page-bottom{
     max-width: 100% !important;
@@ -938,109 +938,78 @@ button{
       }
     }
   }
-  //Common faq sectio in home page and faq view all (FAQ)
+}
+
+//Common faq sectio in home page and faq view all (FAQ)
 .faq-collection{
-  .faq-content{
-    .ui-accordion{
-      .ui-accordion-header {
-        color: #374076;
-        font-size: 14px;
-        font-weight: 600;
-        margin: 0;
-        padding: 39px .5em 39px 1em;
-        -webkit-margin-before: 0;
-        -webkit-margin-after: 0;
-        @media only screen and (min-width: 468px) {
-          font-size: 16px;
-        }
-        @media only screen and (min-width: 768px){
-          font-size: 18px;
+.faq-content{
+  .ui-accordion{
+    .ui-accordion-header {
+      color: #374076;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0;
+      padding: 39px .5em 39px 1em;
+      -webkit-margin-before: 0;
+      -webkit-margin-after: 0;
+      @media only screen and (min-width: 468px) {
+        font-size: 16px;
+      }
+      @media only screen and (min-width: 768px){
+        font-size: 18px;
+      }
+      @media only screen and (min-width: 991px){
+        font-size: 20px;
+      }
+      &:hover{
+        background: white;
+      }
+    }
+    .ui-accordion-content {
+      border-top: 0;
+      padding: 0px 10px 39px 20px;
+      overflow: auto;
+    }
+    .ui-widget-content{
+      background: white;
+    }
+    .ui-state-default{
+      background: white;
+      padding-right:25px;
+      &:after {
+        content: '\002B';
+        font-family: 'luma-icons';
+        font-size: 25px;
+        line-height: 14px;
+        position:absolute;
+        top:35px;
+        right:10px;
+        @media all and (max-width:767px){
+          top:25px;
         }
         @media only screen and (min-width: 991px){
-          font-size: 20px;
-        }
-        &:hover{
-          background: white;
-        }
-      }
-      .ui-accordion-content {
-        border-top: 0;
-        padding: 0px 10px 39px 20px;
-        overflow: auto;
-      }
-      .ui-widget-content{
-        background: white;
-      }
-      .ui-state-default{
-        background: white;
-        padding-right:25px;
-        &:after {
-          content: '\002B';
-          font-family: 'luma-icons';
-          font-size: 25px;
-          line-height: 14px;
-          position:absolute;
-          top:35px;
-          right:10px;
-          @media all and (max-width:767px){
-            top:25px;
-          }
-          @media only screen and (min-width: 991px){
-            font-size: 35px;
-          }
-        }
-      }
-      .ui-accordion-header-active{
-        &:after{
-          content: '\2212';
-          font-family: 'luma-icons';
+          font-size: 35px;
         }
       }
     }
-    .ui-state-default, .ui-widget-content, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-      border: 1px solid rgba(197, 197, 197, 0.21);
-      border-left: none;
-      border-right: none;
-      border-bottom: none;
-      font-weight: normal;
-      color: #454545;
-    }
-  }
-  }
-.cms-index-index, .faq-index-index{
-  //Full width container styles
-  .page-main,.page-bottom{
-    max-width: 100% !important;
-    background: #fafafa !important;;
-    margin-top: 0 !important;
-    padding-left: 1px;
-    padding-right: 1px;
-    @media only screen and (min-width: 768px){
-      background: #fff;
-    }
-  .home-container{
-    width: 100%;
-    -webkit-flex-grow: 1;
-    flex-grow: 1;
-    -webkit-flex-shrink:0;
-    flex-shrink: 0;
-    -webkit-flex-basis: auto;
-    flex-basis: auto;
-    @media only screen and (min-width: 768px){
-      box-sizing: border-box;
-      margin-left: auto;
-      margin-right: auto;
-      // max-width: 1280px;
-      max-width: 1350px;
-      padding-left: 20px;
-      padding-right: 20px;
-      width:auto;
+    .ui-accordion-header-active{
+      &:after{
+        content: '\2212';
+        font-family: 'luma-icons';
       }
     }
   }
-  //Common faq sectio in home page and faq view all (FAQ)
-
+  .ui-state-default, .ui-widget-content, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    border: 1px solid rgba(197, 197, 197, 0.21);
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    font-weight: normal;
+    color: #454545;
+  }
 }
+}
+
 .cms-index-index{
   //Hearo banner
   .home-banner-grid{
@@ -1465,7 +1434,7 @@ button{
         p{
           color: #fff;
           margin: 15px 0;
-          font-size: 21px;
+          font-size:21px;
         }
         .button-style-1 {
           padding: 5px 25px;
@@ -1709,9 +1678,9 @@ button{
     border-top:1px solid #ececec;
     background: #ffffff !important;
     padding-bottom: 15px;
-    @media all and (max-width: 768px)
+    @media all and (max-width:768px)
     {
-      clear: both;
+      clear:both;
     }
     .content{
       border-top: none !important;
