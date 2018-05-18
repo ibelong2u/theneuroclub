@@ -1141,15 +1141,19 @@ button{
       }
     }
     .row{
+      @media all and (max-width:767px){
+        margin:0;
+      }
       .col-6{
           position: relative;
           width: 100%;
           min-height: 1px;
           padding: 15px;
+          box-sizing: border-box;
           @media only screen and (min-width: 768px){
-            -ms-flex: 0 0 45%;
-            flex: 0 0 45%;
-            max-width: 45%;
+            -ms-flex: 0 0 50%;
+            flex: 0 0 50%;
+            max-width: 50%;
           }
         }
 
@@ -1193,13 +1197,21 @@ button{
   //Our flagship section
   .flagships-static{
       background: #fff;
+      .row{
+        justify-content: space-around;
+        @media all and (max-width:767px){
+          margin:0;
+          padding: 0 15px;
+        }
+      }
     .section-product{
       text-align: center;
       position: relative;
       width: 100%;
       min-height: 1px;
       padding: 15px;
-      margin: 15px;
+      margin: 15px 0;
+      box-sizing: border-box;
       border-radius: 3%;
       background:#fff !important;
       -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
@@ -1268,35 +1280,12 @@ button{
           }
         }
       @media only screen and (min-width:768px){
-        -ms-flex: 0 0 23.8%;
-        flex: 0 0 23.8%;
-        max-width:23.8%;
-      }
-      @media only screen and (min-width:859px){
-        -ms-flex: 0 0 25%;
-        flex: 0 0 25%;
-        max-width: 25%;
-      }
-      @media only screen and (min-width: 991px){
-        -ms-flex: 0 0 26%;
-        flex: 0 0 26%;
-        max-width: 27%;
+        -ms-flex: 0 0 30%;
+        flex: 0 0 30%;
+        max-width:30%;
       }
       @media only screen and (min-width: 1084px){
-        -ms-flex: 0 0 26.11%;
-        flex: 0 0 26.11%;
-        max-width: 26.11%;
         padding:45px 15px;
-      }
-      @media only screen and (min-width: 1200px){
-        -ms-flex: 0 0 27.4%;
-        flex: 0 0 27.4%;
-        max-width: 27.4%;
-      }
-      @media only screen and (min-width: 1303px){
-        -ms-flex: 0 0 27.9%;
-        flex: 0 0 27.9%;
-        max-width: 27.9%;
       }
       p{
         width: 240px;
@@ -1414,6 +1403,9 @@ button{
       }
     }
     //Static banner
+    .cms-index-index .columns{
+      display:block;
+    }
     .columns .column.main {
       padding-bottom: 0;
       }
