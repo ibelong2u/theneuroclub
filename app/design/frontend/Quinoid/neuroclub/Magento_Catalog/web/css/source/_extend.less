@@ -519,6 +519,11 @@ button{
     margin-bottom: 15px;
     width: auto !important;
     line-height: 2.2rem;
+    &:hover
+    {
+      background: #e66698;
+      border: 1px solid #e66698;
+    }
   }
   .product-info-content,.product-info-extra,.pdp-video-container
   {
@@ -1045,8 +1050,8 @@ button{
       .product-row
       {
         clear: both;
-        margin-top: 50px;
-        margin-bottom: 30px;
+        max-width: 1350px;
+        margin: 50px auto 30px;
         @media only screen and (max-width: 767px)
         {
           margin-bottom: 80px;
@@ -1283,7 +1288,7 @@ button{
 {
   @media all and (max-width: 768px)
   {
-    margin-top: 40px;
+    margin-top: 50px !important;
   }
   .pdp-additional-info
   {
@@ -1332,7 +1337,7 @@ button{
           float: left;
           text-align: center;
           padding: 20px 0;
-          text-transform: uppercase;
+          text-transform: capitalize;
           @media only screen and (max-width: 799px)
           {
             width: 100%;
@@ -1346,6 +1351,7 @@ button{
           h4 {
             padding-bottom: 0;
             font-weight: 600;
+            text-transform: uppercase;
           }
           p {
             padding-bottom: 10px;
@@ -1466,4 +1472,14 @@ button{
       }
     }
   }
+  .home-container
+  {
+    .faq-collection
+    {
+      max-width: 1350px;
+      margin: 0 auto;
+      float: none;
+    }
+  }
+
 }
