@@ -10,7 +10,7 @@
 ?>
 <?php
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$context = $ObjectManager->get('Magento\Framework\App\Http\Context');
+$context = $objectManager->get('Magento\Framework\App\Http\Context');
 $isLoggedIn = $context->getValue(\Magento\Customer\Model\Context::CONTEXT_AUTH);
 
 $customerSession = $objectManager->get('Magento\Customer\Model\Session');
@@ -19,7 +19,7 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
 $firstName = $customerSession->getCustomer()->getFirstname();
 ?>
 <div class="desktop-none header-account">
-  <?php if($isLoggedIn) { ?>
+  <?php if(!$isLoggedIn) { ?>
      <a href="<?php echo $baseUrl . 'customer/account/login/'; ?>" class="signin">
          <label class="label">Sign In</span>
       </a>
