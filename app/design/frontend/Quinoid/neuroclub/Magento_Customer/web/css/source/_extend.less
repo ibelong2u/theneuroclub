@@ -161,30 +161,27 @@
 									    -webkit-filter: brightness(0.8);
 									  }
 									}
-
 									input[type='checkbox'] {
 									    display: none;
-									  &:checked  {
-									    + label {
+									  &:checked + label {
 									      color: #007aff;
-									    }
-									    + .blue-background {
-										  &:after {
-										    content: '';
-										    display: block;
-											margin-left: 4px;
-										    margin-top: -2px;
-										    width: 5px;
-										    height: 15px;
-										    border: solid rgba(51, 62, 116, 0.8);
-										    border-width: 0 2px 2px 0;
-										    transform:rotate(45deg);
-										  }
-									        }
-									    + label {
-									      animation:boom 0.5s ease;
-									    }
 									  }
+                    &:checked + .blue-background {
+                    &:after {
+                      content: '';
+                      display: block;
+                      margin-left: 4px;
+                      margin-top: -2px;
+                      width: 5px;
+                      height: 15px;
+                      border: solid rgba(51, 62, 116, 0.8);
+                      border-width: 0 2px 2px 0;
+                      transform:rotate(45deg);
+                    }
+                        }
+                    &:checked + label {
+                      animation:boom 0.5s ease;
+                    }
 									}
 									}
 									.keyframes(boom, {
@@ -207,6 +204,9 @@
 								{
 									height:40px;
 								}
+                .mage-error{
+                  min-height:34px;
+                }
 								&.mobile_number
 								{
 									position:relative;
