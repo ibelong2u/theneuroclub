@@ -162,8 +162,8 @@ button{
   }
 .page-main
   {
-    margin-top:115px;
-    @media all and (max-width:767px)
+    margin-top:94px;
+    @media all and (max-width:768px)
     {
       margin-top:76px;
     }
@@ -204,7 +204,7 @@ button{
   {
     width:80%;
   }
-  @media all and (max-width:767px)
+  @media all and (max-width:768px)
   {
     width:100%;
     padding:0 15px;
@@ -244,7 +244,7 @@ button{
         {
           float: left;
 
-          @media all and (max-width:767px)
+          @media all and (max-width:768px)
           {
             float:none;
           }
@@ -255,7 +255,7 @@ button{
         .item-image
         {
           float: right;
-          @media all and (max-width:767px)
+          @media all and (max-width:768px)
           {
             float:none;
           }
@@ -277,7 +277,7 @@ button{
       {
         background: radial-gradient(#ffffff,#fff1f1);
       }
-      @media all and (max-width: 767px)
+      @media all and (max-width: 768px)
       {
         padding:2em 0;
       }
@@ -286,7 +286,7 @@ button{
         width:40%;
         text-align: center;
         box-sizing: border-box;
-        @media all and (max-width:767px)
+        @media all and (max-width:768px)
         {
           float: none;
           width: 280px;
@@ -315,7 +315,7 @@ button{
         {
           padding-top:20px;
         }
-        @media all and (max-width:767px)
+        @media all and (max-width:768px)
         {
           float: none;
           width:100%;
@@ -361,8 +361,6 @@ button{
         }
         .description
         {
-          padding-left: 80px;
-          padding-right: 80px;
           p
           {
             color:#434242;
@@ -378,20 +376,20 @@ button{
         .product-item-actions
         {
           display:block !important;
-          @media all and (max-width:767px)
+          @media all and (max-width:768px)
           {
             text-align: center;
           }
           .actions-primary
           {
-            @media all and (max-width:767px)
+            @media all and (max-width:768px)
             {
               display:block;
             }
             .plp-item-button
             {
               text-align: left;
-              @media all and (max-width:767px)
+              @media all and (max-width:768px)
               {
                 text-align: center;
               }
@@ -430,7 +428,7 @@ button{
   {
     padding:30px 0;
   }
-  @media all and (max-width:767px)
+  @media all and (max-width:768px)
   {
     padding:0;
   }
@@ -501,7 +499,7 @@ button{
     {
       width: 100%;
       display: none !important;
-      @media only screen and (max-width: 767px)
+      @media only screen and (max-width: 768px)
       {
         display: block !important;
       }
@@ -519,17 +517,22 @@ button{
     margin-bottom: 15px;
     width: auto !important;
     line-height: 2.2rem;
+    font-size: 1.8rem;
     &:hover
     {
       background: #e66698;
       border: 1px solid #e66698;
+    }
+    .price
+    {
+      font-size: 1.8rem;
     }
   }
   .product-info-content,.product-info-extra,.pdp-video-container
   {
     max-width: 1350px;
     margin: 0 auto;
-    @media all and (max-width: 767px)
+    @media all and (max-width: 768px)
     {
       width:100%;
     }
@@ -539,9 +542,9 @@ button{
     height: auto;
     margin-top: 70px;
     overflow: auto;
-    @media all and (max-width: 1300px)
+    @media all and (max-width: 1380px)
     {
-      padding: 20px;
+      padding: 30px;
       box-sizing: border-box;
     }
     .product-info-description-outer
@@ -604,7 +607,7 @@ button{
     {
       float: right;
       width: 50%;
-      @media all and (max-width: 767px)
+      @media all and (max-width: 768px)
       {
         width: 100%;
       }
@@ -618,6 +621,10 @@ button{
     {
       width: 80%;
       margin: 0 auto;
+      @media all and (max-width:479px)
+      {
+          width: 100%;
+      }
       .sub-product
       {
         width: 15%;
@@ -641,13 +648,22 @@ button{
         }
         h4
         {
-          font-size: 22px;
+          font-size: 18px;
           color: #333;
           font-weight: 600;
+          @media all and (max-width:479px)
+          {
+            font-size: 14px;
+          }
         }
         p
         {
             color: #374076;
+            font-size: 16px;
+            @media all and (max-width:479px)
+            {
+                font-size: 12px;
+            }
         }
       }
       .plus
@@ -832,6 +848,11 @@ button{
                 {
                   font-size: 30px;
                   font-weight: 600;
+                  &:hover
+                  {
+                    text-decoration: none;
+                    color: #374076;
+                  }
                   @media all and (max-width:768px)
                   {
                     font-size: 2.6rem;
@@ -844,6 +865,12 @@ button{
               width: 60%;
               margin: 0 auto;
               margin-top: 15px;
+              @media all and (max-width:479px)
+              {
+                width: 100%;
+                padding-left: 10px;
+                padding-right: 10px;
+              }
             }
             .tocart
             {
@@ -884,10 +911,10 @@ button{
         font-weight: 600;
         color: #333;
         padding-bottom: 40px;
-        @media all and (max-width: 1300px)
+        @media all and (max-width: 1380px)
         {
-            padding-left: 20px;
-            padding-right: 20px;
+            padding-left: 30px;
+            padding-right: 30px;
             font-size: 2.6rem;
             padding-bottom: 30px
         }
@@ -909,7 +936,7 @@ button{
         .video-description
         {
           margin-top: 30px;
-          @media all and (max-width: 1300px)
+          @media all and (max-width: 1380px)
           {
             padding-left: 20px;
             padding-right: 20px;
@@ -918,6 +945,7 @@ button{
           {
               color: #333;
               margin-bottom: 10px;
+              font-size: 25px;
           }
           p
           {
@@ -1018,7 +1046,7 @@ button{
                   height: auto;
                   margin: 0 auto;
                   padding-bottom: 30px;
-                  border-bottom: 1px solid #cecece;
+                  border:none;
                   border-right: none;
                 }
                 @media only screen and (max-width: 420px)
@@ -1052,7 +1080,7 @@ button{
         clear: both;
         max-width: 1350px;
         margin: 50px auto 30px;
-        @media only screen and (max-width: 767px)
+        @media only screen and (max-width: 768px)
         {
           margin-bottom: 80px;
         }
@@ -1197,7 +1225,7 @@ button{
               h2
               {
                 font-size: 40px;
-                padding: 30px 0 0;
+                padding: 30px 0 50px;
                 text-transform: capitalize;
                 strong
                 {
@@ -1209,6 +1237,8 @@ button{
             #owl-bundle-product
             {
               margin-bottom: 0;
+              width: 90%;
+              margin: 0 auto;
               .owl-stage-outer
               {
                 .owl-stage
@@ -1217,12 +1247,17 @@ button{
                   {
                     .item
                     {
-                      padding: 30px 15px 15px 30px !important;
+                      padding: 30px 0px 15px 0px !important;
                       margin: 10px 5px 30px 5px !important;
                       text-align: center;
                       box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
                       -webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
                       -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
+                      @media all and (max-width: 950px)
+                      {
+                        box-shadow: none;
+                        margin-bottom: 0 !important;
+                      }
                       h4
                       {
                         text-align: center;
@@ -1230,6 +1265,7 @@ button{
                         a
                         {
                           text-decoration: none !important;
+                          font-size: 23px;
                         }
                       }
                       .short-description
@@ -1243,18 +1279,22 @@ button{
                       }
                       .product-item-photo
                       {
-                        span.product-image
+                        span.product-image-container
                         {
-                          width: 210px !important;
+                          width: 280px !important;
+                          padding-top: 20px;
                           span.product-image-wrapper
                           {
-                            padding-bottom: 100% !important;
+                            padding-bottom: 60% !important;
                           }
                         }
                       }
                       .bundled-product-names
                       {
                         padding: 10px 0 30px;
+                        clear: both;
+                        font-weight: 600;
+                        color: #666666;
                       }
                       button.action
                       {
@@ -1271,6 +1311,15 @@ button{
                       }
                     }
                   }
+                }
+              }
+
+              .owl-dots
+              {
+                @media all and (max-width:950px)
+                {
+                    margin-top: 0;
+                    margin-bottom: 30px;
                 }
               }
             }
@@ -1328,7 +1377,7 @@ button{
         clear: both;
         float: left;
         margin: 30px 0 20px;
-        @media only screen and (max-width: 767px) {
+        @media only screen and (max-width: 768px) {
           margin: 0;
         }
         .additional-info-content-block
@@ -1365,6 +1414,10 @@ button{
           {
             width: 60%;
             margin: 0 auto;
+            @media all and (max-width: 479px)
+            {
+              width: 100%;
+            }
           }
           a
           {
@@ -1430,7 +1483,7 @@ button{
               {
                 font-size: 30px;
               }
-              @media only screen and (max-width: 767px)
+              @media only screen and (max-width: 768px)
               {
                 font-size: 22px;
               }
@@ -1458,7 +1511,7 @@ button{
               {
                 font-size: 16px;
               }
-              @media only screen and (max-width: 767px)
+              @media only screen and (max-width: 768px)
               {
                 font-size: 14px;
               }
