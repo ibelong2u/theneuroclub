@@ -44,7 +44,9 @@ class Subscription extends \Magento\Framework\View\Element\Template
         $customerId = $this->_currentCustomer->getCustomerId();
 
         $subs = $this->_subscriptionFactory->create()
-            ->getCollection()->addFieldToFilter('customer_id', $customerId);
+            ->getCollection()
+            ->addFieldToFilter('customer_id', $customerId)
+            ->setOrder("created_at", "DESC");
 
         return $subs;
     }

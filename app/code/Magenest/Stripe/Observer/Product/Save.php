@@ -27,18 +27,22 @@ class Save implements ObserverInterface
 
     protected $subscriptionHelper;
 
+    protected $messageManager;
+
     public function __construct(
         RequestInterface $requestInterface,
         StoreManagerInterface $storeManagerInterface,
         AttributeFactory $attributeFactory,
         HelperData $helperData,
-        \Magenest\Stripe\Helper\SubscriptionHelper $subscriptionHelper
+        \Magenest\Stripe\Helper\SubscriptionHelper $subscriptionHelper,
+        \Magento\Framework\Message\ManagerInterface $messageManager
     ) {
         $this->_request = $requestInterface;
         $this->_storeManager = $storeManagerInterface;
         $this->_attributeFactory = $attributeFactory;
         $this->_helper = $helperData;
         $this->subscriptionHelper = $subscriptionHelper;
+        $this->messageManager = $messageManager;
     }
 
     public function execute(\Magento\Framework\Event\Observer $observer)
@@ -66,6 +70,11 @@ class Save implements ObserverInterface
         if ($stripeProductId) {
             $planCurrentListId = [];
             foreach ($subscriptionOptions as $option) {
+                $amount = isset($option['amount'])?$option['amount']:"";
+                if(!$amount){
+                    $amount = $price;
+                    $option['amount'] = $price;
+                }
                 $planId = isset($option['plan_id']) ? $option['plan_id'] : "";
                 if ($planId && array_key_exists($planId, $value)) {
                     $planCurrentListId[] = $planId;
@@ -84,10 +93,14 @@ class Save implements ObserverInterface
                         $unitId,
                         $frequency,
                         $stripeProductId,
-                        $price,
+                        $amount,
                         $nickName,
                         $trialDay
                     );
+                    if(isset($createPlanResponse['error'])){
+                        $err = isset($createPlanResponse['error']['message'])?$createPlanResponse['error']['message']:"Create plan error";
+                        $this->messageManager->addErrorMessage("Create Plan err: ".$err);
+                    }
                     $planId = isset($createPlanResponse['id']) ? $createPlanResponse['id'] : "";
                     if ($planId) {
                         $planCurrentListId[] = $planId;
