@@ -732,14 +732,8 @@ ul, li{
       }
     }
   }
-  .page-main,.page-bottom{
-    padding-left: 5px;
-    padding-right: 5px;
-
-  }
   .top-container{
-    @media all and (max-width:767px)
-    {
+    @media all and (max-width:767px){
       padding-left: 5px !important;
       padding-right: 5px !important;
     }
@@ -1523,6 +1517,9 @@ ul, li{
            @media only screen and (min-width: 991px){
 	              margin-right: 30px;
 	            }
+              &:before{
+                background: #fff;
+              }
            &:after {
 	              background: #374076;
 	            }
@@ -1732,4 +1729,13 @@ input[type="radio"] {
       }
     }
   }
+}
+.checkout-index-index{
+  .page-main{
+     padding-left: 5px;
+     padding-right: 5px;
+     @media all and (min-width:768px){
+      max-width: 100% !important;
+     }
+   }
 }
