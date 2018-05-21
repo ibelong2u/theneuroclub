@@ -1066,31 +1066,28 @@ button{
       {
           position: absolute;
           transition: all ease 0.5s;
+          @media all and (max-width: 991px)
+          {
+            display:none;
+          }
+      }
+      .visibile-on-hover
+      {
+          opacity: 0;
+          @media all and (max-width: 991px)
+          {
+            opacity: 1;
+          }
       }
       &:hover
       {
         .visibile-on-hover
         {
-          opacity: 1;
-          transition: all ease 0.5s;
+            opacity: 1;
         }
         .invisibile-on-hover
         {
           opacity: 0;
-          transition: all ease 0.5s;
-        }
-        @media all and (max-width:1080px)
-        {
-          .visibile-on-hover
-          {
-            opacity: 0;
-            transition: all ease 0.5s;
-          }
-          .invisibile-on-hover
-          {
-            opacity: 1;
-            transition: all ease 0.5s;
-          }
         }
       }
     }
@@ -1433,6 +1430,10 @@ button{
           color: #fff;
           margin: 15px 0;
           font-size:21px;
+          @media all and (max-width:479px)
+          {
+            font-size: 16px;
+          }
         }
         .button-style-1 {
           padding: 5px 25px;
