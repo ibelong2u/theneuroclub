@@ -44,7 +44,7 @@ class Cancel extends Action
             $customerId = $model->getData('customer_id');
             if ($customerId == $customerSession->getCustomerId()) {
                 $body = $this->_helper->deleteSubscription($subId);
-                if ($body['id']) {
+                if (isset($body['id'])) {
                     $this->messageManager->addSuccessMessage(
                         __('Subscription ') . $subId . __(' has been successfully cancelled.')
                     );
