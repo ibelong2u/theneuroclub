@@ -50,4 +50,7 @@
         </arguments>
     </type>
 
+    <type name="Magento\Payment\Model\MethodList">
+        <plugin name="stripe_after_get_available_methods" type="\Magenest\Stripe\Model\Plugin\MethodList" sortOrder="10" disabled="false" />
+    </type>
 </config>

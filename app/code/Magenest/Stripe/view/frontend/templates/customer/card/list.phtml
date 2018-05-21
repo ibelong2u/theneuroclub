@@ -72,11 +72,15 @@ $delUrl = $block->getUrl('stripe/customer/del');
             }
         });
         $('#btn-stripe-submitcard').on("click", function (e) {
+            $('#btn-stripe-submitcard').prop("disabled", true);
+            $('body').trigger('processStart');
             e.preventDefault();
             stripe.createSource(card).then(function (result) {
                 if (result.error) {
                     var errorElement = document.getElementById('card-errors');
                     errorElement.textContent = result.error.message;
+                    $('#btn-stripe-submitcard').prop("disabled", false);
+                    $('body').trigger('processStop');
                 } else {
                     $.post(
                         url.build('stripe/customer/createCard'),
@@ -89,6 +93,8 @@ $delUrl = $block->getUrl('stripe/customer/del');
                                 location.reload();
                             }
                             if(response.error){
+                                $('#btn-stripe-submitcard').prop("disabled", false);
+                                $('body').trigger('processStop');
                                 alert(response.message);
                             }
                         },

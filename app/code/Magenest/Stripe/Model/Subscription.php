@@ -241,6 +241,11 @@ class Subscription extends AbstractModel
             }
         }
         $_res = $this->stripeHelperData->changeCustomerSourceToDefault($stripeCustomerId, $originSourceId);
+        if(isset($_res['error'])){
+            throw new \Exception(
+                __("Payment error")
+            );
+        }
         $subscriptionBilling = $this->stripeConfig->getSubscriptionBilling();
         $subscriptionDayDue = $this->stripeConfig->getSubscriptionBillingDayDue();
         $subscriptionApplyTax = $this->stripeConfig->getSubscriptionApplyTax();
@@ -283,6 +288,11 @@ class Subscription extends AbstractModel
         }
         $is3DSecure = $payment->getAdditionalInformation(Constant::ADDITIONAL_THREEDS);
         $planData = $this->subscriptionHelper->getPlanDataFromPlanId($planId);
+        if(isset($planData['error'])){
+            throw new \Exception(
+                __("Subscription Plan is not existed")
+            );
+        }
         $firstChargeId = false;
         if (!$planData['trial_period_days']) {
             if ($is3DSecure == "true") {
