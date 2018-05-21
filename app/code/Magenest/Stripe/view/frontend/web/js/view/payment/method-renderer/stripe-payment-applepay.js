@@ -49,6 +49,7 @@ define(
             messageContainer: messageContainer,
 
             placeOrder: function () {
+                var self = this;
                 if(additionalValidators.validate()){
                     var amount = totals.base_grand_total;
                     if(zeroDecimal === '0'){
@@ -66,6 +67,10 @@ define(
                         console.log(result);
                         if (result) {
                             paymentRequest.show();
+                        }else{
+                            self.messageContainer.addErrorMessage({
+                                message: "Error: Current payment method is unavailable"
+                            });
                         }
                     });
                 }
@@ -110,6 +115,9 @@ define(
                         if (result) {
                             prButton.mount('#payment_section');
                         } else {
+                            self.messageContainer.addErrorMessage({
+                                message: "Error: Current payment method is unavailable"
+                            });
                             document.getElementById('payment_section').style.display = 'none';
                         }
                     });

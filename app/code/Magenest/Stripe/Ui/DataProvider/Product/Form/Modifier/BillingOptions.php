@@ -178,7 +178,7 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
                         'componentType' => Container::NAME,
                         'template' => 'ui/form/components/complex',
                         'sortOrder' => $sortOrder,
-                        'content' => __('Configure multiple subscription plans for your Stripe Payment Gateway.'),
+                        'content' => __('Configure multiple subscription plans for your Stripe Payment Gateway. You cannot edit Amount, Period Unit, Billing Frequency after create plan'),
                     ],
                 ],
             ],
@@ -219,8 +219,8 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
                         'dataType' => Text::NAME,
                         'sortOrder' => $sortOrder,
                         'options' => [
-                            ['value' => '1', 'label' => __('Yes')],
-                            ['value' => '0', 'label' => __('No')]
+                            ['value' => '0', 'label' => __('No')],
+                            ['value' => '1', 'label' => __('Yes')]
                         ],
                     ],
                 ],
@@ -333,24 +333,32 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
                 ),
                 static::FIELD_PLAN_NAME => $this->getInputFieldConfig(
                     20,
-                    __('Plan name'),
+                    __('Plan Nickname'),
                     static::FIELD_PLAN_NAME,
                     Text::NAME,
                     false
                 ),
+//                'amount' => $this->getInputFieldConfig(
+//                    30,
+//                    __('Amount'),
+//                    "amount",
+//                    Number::NAME,
+//                    false,
+//                    "Leave blank to use product price"
+//                ),
                 static::FIELD_UNIT_NAME => $this->getUnitFieldConfig(
-                    30,
+                    40,
                     __('Period Unit'),
                     true
                 ),
                 static::FIELD_FREQUENCY_NAME => $this->getInputFieldConfig(
-                    40,
+                    50,
                     __('Billing Frequency'),
                     static::FIELD_FREQUENCY_NAME,
                     Number::NAME,
-                    false
+                    true
                 ),
-                static::FIELD_IS_TRIAL_ENABLED => $this->getIsTrialEnabledFieldConfig(50),
+                static::FIELD_IS_TRIAL_ENABLED => $this->getIsTrialEnabledFieldConfig(60),
             ]
         ];
 
@@ -419,7 +427,7 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
         );
     }
 
-    protected function getInputFieldConfig($sortOrder, $label, $scope, $type, $isRequired)
+    protected function getInputFieldConfig($sortOrder, $label, $scope, $type, $isRequired, $notice = "")
     {
         $validateNumber = true;
         if ($type == Text::NAME) {
@@ -453,7 +461,8 @@ class BillingOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modif
                                 'required-entry' => $isRequired,
                                 'validate-zero-or-greater' => $validateNumber
                             ],
-                        ],
+                            'notice' => $notice
+                        ]
                     ],
                 ],
             ],

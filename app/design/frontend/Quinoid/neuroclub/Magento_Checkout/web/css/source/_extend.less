@@ -732,6 +732,12 @@ ul, li{
       }
     }
   }
+  .top-container{
+    @media all and (max-width:767px){
+      padding-left: 5px !important;
+      padding-right: 5px !important;
+    }
+  }
 }
 }
 .checkout-onepage-success{
@@ -1100,8 +1106,8 @@ ul, li{
     flex-shrink: 0;
     -webkit-flex-basis: auto;
     flex-basis: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
     @media only screen and (min-width: 991px){
       box-sizing: border-box;
       margin-left: auto;
@@ -1199,7 +1205,7 @@ ul, li{
       }
       .opc-progress-bar-item > span:before {
         @media only screen and (min-width: 768px){
-          border: 6px solid #cccccc7a !important;
+          border: 6px solid #e4e4e4 !important;
           width: 60px !important;
           height: 60px !important;
           top: 15px !important;
@@ -1511,6 +1517,9 @@ ul, li{
            @media only screen and (min-width: 991px){
 	              margin-right: 30px;
 	            }
+              &:before{
+                background: #fff;
+              }
            &:after {
 	              background: #374076;
 	            }
@@ -1708,4 +1717,25 @@ input[type="radio"] {
       }
     }
   }
+}
+#checkout-shipping-method-load{
+  width: 230px;
+  .table-checkout-shipping-method{
+    width: 230px;
+    tbody{
+      width: 230px;
+      .row{
+        width: 230px;
+      }
+    }
+  }
+}
+.checkout-index-index{
+  .page-main{
+     padding-left: 5px;
+     padding-right: 5px;
+     @media all and (min-width:768px){
+      max-width: 100% !important;
+     }
+   }
 }

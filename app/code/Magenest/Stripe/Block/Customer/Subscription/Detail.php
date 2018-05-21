@@ -70,4 +70,12 @@ class Detail extends \Magento\Framework\View\Element\Template
             ['sub_id' => $subscriptionId]
         );
     }
+
+    public function getCancelUrl($subscriptionId)
+    {
+        return $this->getUrl(
+            'stripe/customer/cancel',
+            ['sub_id' => $subscriptionId]
+        );
+    }
 }
