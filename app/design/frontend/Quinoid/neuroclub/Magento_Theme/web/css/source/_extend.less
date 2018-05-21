@@ -976,17 +976,21 @@ button{
     }
     .ui-state-default{
       background: white;
-      padding-right:25px;
+      padding-right:35px !important;
+      @media only screen and (min-width: 991px){
+        padding-right:25px !important;
+      }
       &:after {
         content: '\002B';
         font-family: 'luma-icons';
         font-size: 25px;
         line-height: 14px;
         position:absolute;
-        top:41px;
+        top:23px !important;
         right:10px;
         @media only screen and (min-width: 991px){
           font-size: 35px;
+            top:41px !important;
         }
       }
     }
@@ -1634,22 +1638,42 @@ button{
             	// 		}
               //   }
               // }
-              .ui-state-default{
-               background: white;
-               padding-right:25px;
-               &:after {
-                 content: '\002B';
-                 font-family: 'luma-icons';
-                 font-size: 25px;
-                 line-height: 14px;
-                 position:absolute;
-                 top:41px;
-                 right:10px;
-                 @media only screen and (min-width: 991px){
-                 font-size: 35px;
+            //   .ui-state-default{
+            //    background: white;
+            //    padding-right:25px;
+            //    &:after {
+            //      content: '\002B';
+            //      font-family: 'luma-icons';
+            //      font-size: 25px;
+            //      line-height: 14px;
+            //      position:absolute;
+            //      top:41px;
+            //      right:10px;
+            //      @media only screen and (min-width: 991px){
+            //      font-size: 35px;
+            //     }
+            //    }
+            //  }
+            .ui-state-default{
+              background: white;
+              padding-right:35px !important;
+              @media only screen and (min-width: 991px){
+                padding-right:25px !important;
+              }
+              &:after {
+                content: '\002B';
+                font-family: 'luma-icons';
+                font-size: 25px;
+                line-height: 14px;
+                position:absolute;
+                top:23px !important;
+                right:10px;
+                @media only screen and (min-width: 991px){
+                  font-size: 35px;
+                    top:41px !important;
                 }
-               }
-             }
+              }
+            }
               .ui-accordion-header-active{
                 &:after{
                   content: '\2212';
