@@ -838,28 +838,39 @@ button{
           border-top: 0;
           max-height: 300px;
           padding:20px 15px;
+          padding-bottom: 0;
+          border-top:1px solid #ccc;
           .minicart-items{
             .product-item  {
               .product{
                 .product-item-details{
+                  position: relative;
                   .product-item-name{
                     a{
                       color: #000;
                       text-decoration:none !important;
                       font-weight: 400;
-                      font-size:18px;
+                      font-size:16px;
                       @media all and (min-width:768px){
-                        font-size:20px;
+                        font-size:18px;
                       }
                     }
                   }
                   .product-item-pricing{
                     .details-qty{
+                      padding-bottom: 30px;
+                      margin-top:0;
                       .label{
                         text-transform: uppercase;
                       }
+                      .item-qty{
+                        width:30px;
+                        height:30px;
+                      }
                     }
                     .price-container{
+                      position:absolute;
+                      bottom:0;
                       .price{
                         font-weight: 600;
                         color:#374076;
@@ -872,6 +883,10 @@ button{
                   }
 
                   .product.actions{
+                    position:absolute;
+                    right:0;
+                    bottom:5px;
+                    margin:0;
                     .primary{
                       display: none;
                     }
