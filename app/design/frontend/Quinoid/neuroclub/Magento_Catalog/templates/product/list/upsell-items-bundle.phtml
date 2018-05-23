@@ -153,12 +153,12 @@ switch ($type = $block->getType()) {
     break;
 }
 ?>
+<?php if ($exist):?>
 <div class="product-suggestion">
   <div class="bundle-you-may-also-like">
     <div class="you-may-also-like-heading">
       <h2><strong>You may </strong>also like</h2>
     </div>
-<?php if ($exist):?>
   <div id="owl-bundle-product" class="padding-70 loop owl-carousel product-image-container">
   <?php foreach ($items as $_item): ?>
     <div class="item">
@@ -169,10 +169,11 @@ switch ($type = $block->getType()) {
           href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>">
             <?= $block->escapeHtml($_item->getName()) ?></a>
         </strong>
-      </h4>
-    <div class="product-item short-description">
-        <?= /* @escapeNotVerified */ $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
-    </div>
+        </h4>
+        <?php $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product') ?>
+        <?php if($product->getCustomAttribute('tagline')): ?>
+            <h5><?= $product->getCustomAttribute('tagline')->getValue() ?></h5>
+        <?php endif;  ?>
     <div class="product-image">
       <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>" class="product photo product-item-photo">
           <?= $block->getImage($_item, $image)->toHtml() ?>

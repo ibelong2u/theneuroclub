@@ -686,6 +686,7 @@ button{
         img
         {
           width: 25%;
+          margin-bottom: 20px;
           @media all and (max-width: 768px)
           {
             display:none;
@@ -696,9 +697,27 @@ button{
           font-size: 18px;
           color: #333;
           font-weight: 600;
+          padding:0;
           @media all and (max-width:479px)
           {
             font-size: 14px;
+          }
+        }
+        h5{
+          color: #b3b3b3;
+          font-size: 14px;
+          font-weight: 400;
+          margin: 0;
+          padding:0;
+          padding-bottom:10px;
+          text-overflow:ellipsis;
+          overflow:hidden;
+          white-space:nowrap;
+          @media only screen and (min-width: 768px){
+            font-size: 13px;
+          }
+          @media only screen and (min-width: 1024px){
+            font-size: 15px;
           }
         }
         p
@@ -870,6 +889,7 @@ button{
                     width: 60%;
                     margin: 0 auto;
                   }
+
                 }
               }
             }
@@ -1329,6 +1349,23 @@ button{
                           font-size: 23px;
                         }
                       }
+                      h5{
+                        color: #333;
+                        font-size: 14px;
+                        font-weight: 400;
+                        margin: 0;
+                        padding:0;
+                        padding-bottom:5px;
+                        text-overflow:ellipsis;
+                        overflow:hidden;
+                        white-space:nowrap;
+                        @media only screen and (min-width: 768px){
+                          font-size: 13px;
+                        }
+                        @media only screen and (min-width: 1024px){
+                          font-size: 15px;
+                        }
+                      }
                       .short-description
                       {
                         padding-left: 0;
@@ -1355,7 +1392,7 @@ button{
                       }
                       .bundled-product-names
                       {
-                        padding: 10px 0 30px;
+                        padding: 20px 0;
                         clear: both;
                         font-weight: 600;
                         color: #666666;
