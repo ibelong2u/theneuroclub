@@ -9,6 +9,10 @@ h1,h2,h3,h4,h5,h6,p{
   display: block;
   clear: both;
 }
+.breadcrumbs
+{
+  display: none;
+}
 .row {
   display: -ms-flexbox;
   display: flex;
@@ -144,6 +148,10 @@ a{
   color: #fff;
   padding: 10px 25px;
   margin-bottom: 15px;
+  &:hover,&:active
+  {
+    color: #fff;
+  }
 }
 button{
   box-shadow: none !important;
@@ -482,17 +490,25 @@ button{
     padding: 0;
     box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
     padding-bottom: 80px;
+    margin-top: 93px !important;
+    @media all and (max-width: 767px)
+    {
+      margin-top: 78px !important;
+    }
     .primary_banner-outer
     {
-      margin-top: 46px;
-      @media all and (max-width: 768px)
-      {
-        margin-top: 76px;
-      }
       img
       {
         width: 100%;
       }
+    }
+  }
+  .tocart
+  {
+    &:active,&:visited
+    {
+      background: #e66698;
+      border: 1px solid #e66698;
     }
   }
 
@@ -796,7 +812,7 @@ button{
             {
               padding: 0;
               font-size: 45px;
-              @media all and (max-width:768px)
+              @media all and (max-width:767px)
               {
                   font-size:3rem;
               }
@@ -860,6 +876,7 @@ button{
                 .product-item-link
                 {
                   font-size: 30px;
+                  font-weight: 600;
                   font-weight: 600;
                   &:hover
                   {
@@ -981,7 +998,6 @@ button{
     .page-main
     {
       max-width: 100% !important;
-      margin-top: 0 !important;
       padding-left: 1px;
       padding-right: 1px;
       padding-bottom: 0;
@@ -1304,6 +1320,9 @@ button{
                         p
                         {
                             font-size: 16px;
+                            padding-left: 10px;
+                            padding-right: 10px;
+                            padding-top: 10px;
                         }
                       }
                       .product-item-photo
@@ -1354,6 +1373,10 @@ button{
             }
           }
         }
+        @media all and (max-width: 479px)
+        {
+          margin-top: 10px !important;
+        }
       }
 
 
@@ -1367,10 +1390,6 @@ button{
   @media all and (max-width: 768px)
   {
     margin-top: 50px !important;
-  }
-  @media all and (max-width: 479px)
-  {
-    margin-top: 10px !important;
   }
   .pdp-additional-info
   {
