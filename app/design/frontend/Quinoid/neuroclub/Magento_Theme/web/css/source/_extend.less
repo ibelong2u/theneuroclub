@@ -946,6 +946,15 @@ button{
 //Common faq sectio in home page and faq view all (FAQ)
 .faq-collection{
 .faq-content{
+  .group-title-header{
+    height:93px;
+    @media all and (max-width:767px){
+      height:76px;
+    }
+    @media all and (max-width:639px){
+      height:79px;
+    }
+  }
   .ui-accordion{
     .ui-accordion-header {
       color: #374076;
@@ -1959,6 +1968,7 @@ button{
           justify-content: flex-start;
           list-style: none;
           padding: 0;
+          margin:0;
           .faq-group{
             // width:33.333%;
              padding: 15px;
