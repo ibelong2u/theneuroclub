@@ -169,8 +169,11 @@ switch ($type = $block->getType()) {
           href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>">
             <?= $block->escapeHtml($_item->getName()) ?></a>
         </strong>
-		</h4>
-		<h5>LOREM IPSUM DOLAR SIT AMET</h5>
+        </h4>
+        <?php $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product') ?>
+        <?php if($product->getCustomAttribute('tagline')): ?>
+            <h5><?= $product->getCustomAttribute('tagline')->getValue() ?></h5>
+        <?php endif;  ?>
     <div class="product-image">
       <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>" class="product photo product-item-photo">
           <?= $block->getImage($_item, $image)->toHtml() ?>

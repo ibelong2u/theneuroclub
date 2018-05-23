@@ -83,7 +83,10 @@ switch ($type = $block->getType()) {
                     </strong>
                 </div>
                 <div class="product-item short-description">
-                    <?= /* @escapeNotVerified */ $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
+                    <?php $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product') ?>
+                    <?php if($product->getCustomAttribute('tagline')): ?>
+                        <?= $product->getCustomAttribute('tagline')->getValue() ?>
+                    <?php endif;  ?>
                 </div>
                 <div class="product-item description">
                     <?= /* @escapeNotVerified */ $this->helper('Quinoid\CatalogWidget\Helper\Product\Description')->getProductDescription($_item); ?>

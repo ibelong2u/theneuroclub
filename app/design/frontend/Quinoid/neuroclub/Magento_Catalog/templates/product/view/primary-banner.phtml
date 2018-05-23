@@ -3,8 +3,7 @@
 <?php if (null !== $product->getCustomAttribute('primary_banner')): ?>
   <div class="primary_banner-outer">
     <?php $content = $product->getCustomAttribute('primary_banner')->getValue() ?>
-
-  <?php $filteredContent = $objectManager->get('Magento\Cms\Model\Template\FilterProvider')->getPageFilter()->filter($content) ?>
-  <?php echo $filteredContent ?>
+    <?php $filteredContent = $objectManager->get('Magento\Cms\Model\Template\FilterProvider')->getPageFilter()->filter($content) ?>
+    <?php echo $filteredContent ?>
   </div>
 <?php endif; ?>
