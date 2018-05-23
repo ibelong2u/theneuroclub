@@ -50,6 +50,7 @@
 							<?php endif; ?>
 						</div>
 					<?php endif; ?>
+					<h3>BUNDLED ITEMS</h3>
 					<div class="product-row">
 						<div class="row">
 							<?php
@@ -65,6 +66,10 @@
 											<a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
 												<img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
 												<h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
+												<h4>30 Capsule pack</h4>
+												<?php if (null !== $childItem->getCustomAttribute('tagline')): ?>
+													<h5><?= $childItem->getCustomAttribute('tagline')->getValue() ?></h5>
+												<?php endif;  ?>
 												<p><?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?></p>
 											</a>
 										</div>
@@ -117,6 +122,7 @@
 								<?php endif; ?>
 							</div>
 						<?php endif; ?>
+						<h3>BUNDLED ITEMS</h3>
 						<div class="product-row">
 							<div class="row">
 								<?php
@@ -132,6 +138,10 @@
 												<a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
 												<img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
 												<h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
+												<h4>30 Capsule pack</h4>
+												<?php if (null !== $childItem->getCustomAttribute('tagline')): ?>
+													<h5><?= $childItem->getCustomAttribute('tagline')->getValue() ?><h5>
+												<?php endif;  ?>
 												<p><?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?></p>
 												</a>
 											</div>
