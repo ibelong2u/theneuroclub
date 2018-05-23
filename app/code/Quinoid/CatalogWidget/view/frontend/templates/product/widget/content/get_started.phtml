@@ -69,7 +69,7 @@
                                 <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
                                 <h4>30 Capsule pack</h4>
                                 <h5>Lorem Ipsum dolor</h5>
-                                <p><?php echo number_format($childItem->getPrice(),2) ?></p>
+                                <p><?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?></p>
                             </a>
                         </div>
                 <?php

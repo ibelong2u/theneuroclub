@@ -47,7 +47,7 @@
         <div class="login-registration-link">
         <p>Sign in using One of your Accounts</p>
         <?php echo $this->getLayout()->createBlock("Mageplaza\SocialLogin\Block\Popup\Social")->setTemplate("Mageplaza_SocialLogin::form/social.phtml")->toHtml(); ?>
-        <p class="account-creation">Still don't have an Account? <a href="#">Sign Up here</a> </p>
+        <p class="account-creation">Still don't have an Account? <a href="<?= $block->getBaseUrl() ?>customer/account/create/">Sign Up here</a> </p>
       </div>
     </div>
 </div>

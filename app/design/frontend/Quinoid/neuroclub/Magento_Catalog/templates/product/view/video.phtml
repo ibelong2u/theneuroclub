@@ -6,13 +6,11 @@
       <div class="video-outer">
         <iframe src="<?php echo $product->getCustomAttribute('product_video')->getValue() ?>" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
+      <?php if (null !== $product->getCustomAttribute('product_video_description')): ?>
       <div class="video-description">
-        <h6>Lorem Ipsum</h6>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-        </p>
+        <?php echo $product->getCustomAttribute('product_video_description')->getValue() ?>
       </div>
+      <?php endif; ?>
     </div>
   </div>
   <div class="curve">
