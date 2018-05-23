@@ -505,7 +505,7 @@ button{
   }
   .tocart
   {
-    &:active
+    &:active,&:visited
     {
       background: #e66698;
       border: 1px solid #e66698;
@@ -1373,6 +1373,10 @@ button{
             }
           }
         }
+        @media all and (max-width: 479px)
+        {
+          margin-top: 10px !important;
+        }
       }
 
 
@@ -1386,10 +1390,6 @@ button{
   @media all and (max-width: 768px)
   {
     margin-top: 50px !important;
-  }
-  @media all and (max-width: 479px)
-  {
-    margin-top: 10px !important;
   }
   .pdp-additional-info
   {
