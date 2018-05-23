@@ -16,7 +16,11 @@ if ($requiredChildrenIds) {
                 <a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
                     <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
                     <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
-                    <p>Lorem Ipsum dolar</p>
+                    <h4>30 Capsule pack</h4>
+                    <?php if (null !== $childItem->getCustomAttribute('tagline')): ?>
+                        <p><?= $childItem->getCustomAttribute('tagline')->getValue() ?></p>
+                    <?php endif;  ?>
+                    <!-- <p>Lorem Ipsum dolar</p> -->
                     <p class="price"><?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?></p>
                 </a>
             </div>
