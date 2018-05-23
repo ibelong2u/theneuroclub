@@ -72,7 +72,7 @@ class UpgradeData implements UpgradeDataInterface {
                 [
                     'label' => 'Product Tagline',
                     'type' => 'varchar',
-                    'input' => 'textarea',
+                    'input' => 'text',
                     'required' => false,
                     'sort_order' => 0,
                     'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
