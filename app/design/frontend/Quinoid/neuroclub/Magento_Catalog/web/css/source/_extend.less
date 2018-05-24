@@ -174,16 +174,18 @@ button{
 }
 .catalog-category-view,.catalog-product-view
 {
-  .page.messages
-  {
-    margin-top: 12px;
-  }
-  .message.success
-  {
-    @media all and (max-width:767px)
+  .page{
+    &.messages{
+      margin:0;
+    }
+    .messages
     {
-      margin-top: 90px !important;
-      
+      margin:0;
+      padding:10px 0;
+      .message.success
+      {
+        margin:0;
+      }
     }
   }
 }
@@ -193,7 +195,7 @@ button{
   }
 .page-main
   {
-    margin-top:94px;
+    margin-top:93px;
     @media all and (max-width:767px)
     {
       margin-top:76px;
@@ -509,7 +511,11 @@ button{
     margin-top: 93px !important;
     @media all and (max-width: 767px)
     {
-      margin-top: 78px !important;
+      margin-top: 76px !important;
+    }
+    @media all and (max-width: 640px)
+    {
+      margin-top: 79px !important;
     }
     .primary_banner-outer
     {
