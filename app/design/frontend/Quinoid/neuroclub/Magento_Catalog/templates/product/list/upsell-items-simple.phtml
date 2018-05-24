@@ -83,7 +83,10 @@ switch ($type = $block->getType()) {
                     </strong>
                 </div>
                 <div class="product-item short-description">
-                    <?= /* @escapeNotVerified */ $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
+                    <?php $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product') ?>
+                    <?php if($product->getCustomAttribute('tagline')): ?>
+                        <?= $product->getCustomAttribute('tagline')->getValue() ?>
+                    <?php endif;  ?>
                 </div>
                 <div class="product-item description">
                     <?= /* @escapeNotVerified */ $this->helper('Quinoid\CatalogWidget\Helper\Product\Description')->getProductDescription($_item); ?>
@@ -127,6 +130,9 @@ switch ($type = $block->getType()) {
                                     <a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
                                         <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
                                         <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
+                                        <?php if (null !== $childItem->getCustomAttribute('tagline')): ?>
+                                            <h5><?= $childItem->getCustomAttribute('tagline')->getValue() ?></h5>
+                                        <?php endif;  ?>
                                         <p><?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?></p>
                                     </a>
                                 </div>
