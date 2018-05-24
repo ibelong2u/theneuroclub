@@ -799,9 +799,11 @@
               clear: both;
               float: left;
               width: 100%;
+              postion:relative;
               padding: 10px 0 10px 0;
               .choice{
-                float: right;
+                position: absolute;
+                right: 0;
               }
               label{
                 float: left;
@@ -810,6 +812,10 @@
                 border: none;
               }
               strong{
+                width: 100%;
+                padding-right: 25px;
+                box-sizing: border-box;
+                float: left;
                 a{
                     font-size: 1.4rem;
                     color: #000 !important;
@@ -1056,11 +1062,9 @@
 .newsletter-manage-index{
   .page-main{
     .form-newsletter-manage{
-      .legend{
-        padding:10px;
-        @media all and (min-width:768px){
-          padding:10px 20px;
-        }
+      padding:10px;
+      @media all and (min-width:768px){
+        padding:10px 20px;
       }
     }
   }
@@ -1144,11 +1148,82 @@
     }
   }
 }
+
+
 .customer-account-login{
   .message.success {
       @media all and (max-width:767px){
       margin-top:110px;
       }
   }
+}
+.customer-account-login{
+  .message.success {
+      @media all and (max-width:767px){
+      margin-top:110px;
+      }
+  }
+.customer-account-edit{
+  .page-main{
+    .form-edit-account{
+      padding:10px 20px;
+      @media all and (max-width:767px){
+        padding:10px;
+      }
+      .fieldset{
+        margin-bottom:25px;
+      }
+    }
+  }
+}
 
+.sales-order-view{
+  .page-main{
+    .page-title-wrapper{
+      .page-title{
+        margin-left:-2px;
+      }
+      .order-status{
+        @media all and (max-width:767px){
+          margin:10px 0;
+        }
+      }
+      .order-date{
+        margin:10px 0;
+      }
+      .order-actions-toolbar{
+        margin:10px 0;
+      }
+    }
+    .block-order-details-view{
+      margin-bottom:25px;
+      padding:10px 20px;
+      @media all and (max-width:767px){
+        padding:10px;
+      }
+      .block-title{
+        padding-top:0;
+        padding-bottom:10px;
+      }
+    }
+  }
+}
+
+.customer-address-index{
+  .page-main{
+    .block-addresses-default{
+      margin-bottom:25px;
+      padding:10px 20px;
+      @media all and (max-width:767px){
+        padding:10px;
+      }
+      .block-title{
+        padding-top:0;
+        padding-bottom:10px;
+      }
+      .block-addresses-list{
+        margin-bottom: 25px;
+      }
+    }
+  }
 }

@@ -39,6 +39,9 @@
                     <option name="top_products" value="Quinoid_CatalogWidget::product/widget/content/top_products.phtml">
                         <label translate="true">Top Products Template</label>
                     </option>
+                    <option name="checkout_success" value="Quinoid_CatalogWidget::product/widget/content/checkout_success.phtml">
+                        <label translate="true">Checkout Onepage Success Template</label>
+                    </option>
                     <option name="default" value="Magento_CatalogWidget::product/widget/content/grid.phtml">
                         <label translate="true">Products Grid Template</label>
                     </option>
@@ -56,7 +59,7 @@
         <containers>
             <container name="content">
                 <template name="top-products" value="top_products" />
-                <!-- <template name="grid" value="default" /> -->
+                <template name="checkout-success" value="checkout_success" />
             </container>
             <!-- <container name="content.bottom">
                 <template name="top-products" value="top_products" />
