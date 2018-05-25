@@ -28,6 +28,6 @@ class ActionPredispatchCheckoutCartAdd implements \Magento\Framework\Event\Obser
     public function execute(
         \Magento\Framework\Event\Observer $observer
     ) {
-          $this->_logger->log("observer");
+          $this->logger->log("observer");
     }
 }
