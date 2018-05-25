@@ -226,7 +226,7 @@
 					}
 					.actions-toolbar
 					{
-						margin-top:0;
+						margin-top:20px;
 						@media all and (min-width:768px)
 						{
 							margin-top:50px;
@@ -241,10 +241,7 @@
 							}
 							.action
 							{
-								position:fixed;
-								z-index:10;
-								bottom:0;
-								left:0;
+                position:static;
 								width:100%;
 								height:50px;
 								border-radius:0;
@@ -273,10 +270,6 @@
 		{
 			.footer-bottom
 			{
-				@media all and (max-width:767px)
-				{
-					margin-bottom:70px;
-				}
 				.footer-copyright
 				{
 					@media all and (max-width:767px)
@@ -408,6 +401,8 @@
 									@media all and (max-width:767px)
 									{
 										width: 100%;
+                    padding-top:40px;
+                    margin-top:25px;
 									}
 									.primary
 									{
@@ -420,10 +415,7 @@
 										}
 										.action
 										{
-											position:fixed;
-											z-index:10;
-											bottom:0;
-											left:0;
+                      position:static;
 											width:100%;
 											height:50px;
 											border-radius:0;
@@ -627,10 +619,6 @@
 		{
 			.footer-bottom
 			{
-				@media all and (max-width:767px)
-				{
-					margin-bottom:70px;
-				}
 				.footer-copyright
 				{
 					@media all and (max-width:767px)
@@ -688,7 +676,7 @@
   .table-wrapper{
     margin: 10px 0;
     &.orders-history{
-      @media all (min-width:768px) and (max-width:900px){
+      @media all and (min-width:768px) and (max-width:900px){
         overflow-x: scroll;
       }
     }
@@ -811,9 +799,11 @@
               clear: both;
               float: left;
               width: 100%;
+              postion:relative;
               padding: 10px 0 10px 0;
               .choice{
-                float: right;
+                position: absolute;
+                right: 0;
               }
               label{
                 float: left;
@@ -822,6 +812,10 @@
                 border: none;
               }
               strong{
+                width: 100%;
+                padding-right: 25px;
+                box-sizing: border-box;
+                float: left;
                 a{
                     font-size: 1.4rem;
                     color: #000 !important;
@@ -848,6 +842,7 @@
                 margin-bottom: 10px;
               }
               button{
+                margin:0;
                 @media all and (min-width:768px) and (max-width:1280px){
                   width:100%;
                 }
@@ -855,11 +850,11 @@
             }
             .secondary{
               float:left !important;
-              @media only screen and (min-width: 768px){
-                margin-left: 10px;
-              }
               @media all and (min-width:768px) and (max-width:1280px){
                 float:none !important;
+              }
+              @media all and (max-width:767px){
+                margin-top:5px;
               }
               a{
                 font-size: 15px;
@@ -965,7 +960,7 @@
           }
           .table-wrapper{
             margin:0;
-            @media all (min-width:768px) and (max-width:900px){
+            @media all and (min-width:768px) and (max-width:900px){
               overflow-x: scroll;
             }
           }
@@ -1067,11 +1062,9 @@
 .newsletter-manage-index{
   .page-main{
     .form-newsletter-manage{
-      .legend{
-        padding:10px;
-        @media all and (min-width:768px){
-          padding:10px 20px;
-        }
+      padding:10px;
+      @media all and (min-width:768px){
+        padding:10px 20px;
       }
     }
   }
@@ -1105,8 +1098,10 @@
     }
     .page-title-wrapper{
       padding-top:25px;
+      margin-bottom: 20px;
       @media all and (min-width:768px){
         padding-top:40px;
+        margin-bottom: 40px;
       }
     }
     .form{
@@ -1133,6 +1128,102 @@
             }
           }
         }
+      }
+    }
+  }
+}
+.customer-account-forgotpassword{
+  .field-error, div.mage-error[generated] {
+      margin-top: 10px;
+      @media all and (min-width:991px){
+      margin-top: 15px;
+      }
+  }
+}
+.customer-account-logoutsuccess{
+  .white-popup{
+    margin-top: 15px;
+    @media all and (min-width:991px){
+    margin-top:22px;
+    }
+  }
+}
+
+
+.customer-account-login{
+  .message.success {
+      @media all and (max-width:767px){
+      margin-top:110px;
+      }
+  }
+}
+.customer-account-login{
+  .message.success {
+      @media all and (max-width:767px){
+      margin-top:110px;
+      }
+  }
+}
+.customer-account-edit{
+  .page-main{
+    .form-edit-account{
+      padding:10px 20px;
+      @media all and (max-width:767px){
+        padding:10px;
+      }
+      .fieldset{
+        margin-bottom:25px;
+      }
+    }
+  }
+}
+
+.sales-order-view{
+  .page-main{
+    .page-title-wrapper{
+      .page-title{
+        margin-left:-2px;
+      }
+      .order-status{
+        @media all and (max-width:767px){
+          margin:10px 0;
+        }
+      }
+      .order-date{
+        margin:10px 0;
+      }
+      .order-actions-toolbar{
+        margin:10px 0;
+      }
+    }
+    .block-order-details-view{
+      margin-bottom:25px;
+      padding:10px 20px;
+      @media all and (max-width:767px){
+        padding:10px;
+      }
+      .block-title{
+        padding-top:0;
+        padding-bottom:10px;
+      }
+    }
+  }
+}
+
+.customer-address-index{
+  .page-main{
+    .block-addresses-default{
+      margin-bottom:25px;
+      padding:10px 20px;
+      @media all and (max-width:767px){
+        padding:10px;
+      }
+      .block-title{
+        padding-top:0;
+        padding-bottom:10px;
+      }
+      .block-addresses-list{
+        margin-bottom: 25px;
       }
     }
   }

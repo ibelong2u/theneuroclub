@@ -9,6 +9,10 @@ h1,h2,h3,h4,h5,h6,p{
   display: block;
   clear: both;
 }
+.breadcrumbs
+{
+  display: none;
+}
 .row {
   display: -ms-flexbox;
   display: flex;
@@ -24,6 +28,14 @@ h1,h2,h3,h4,h5,h6,p{
   }
   @media only screen and (min-width: 991px){
     margin: 35px 0;
+  }
+}
+.columns
+{
+  display:block;
+  .column
+  {
+    display:block;
   }
 }
 .section-heading{
@@ -136,6 +148,10 @@ a{
   color: #fff;
   padding: 10px 25px;
   margin-bottom: 15px;
+  &:hover,&:active
+  {
+    color: #fff;
+  }
 }
 button{
   box-shadow: none !important;
@@ -156,17 +172,39 @@ button{
     color: #fff;
   }
 }
+.catalog-category-view,.catalog-product-view
+{
+  .page{
+    &.messages{
+      margin:0;
+    }
+    .messages
+    {
+      margin:0;
+      padding:10px 0;
+      .message.success
+      {
+        margin:0;
+      }
+    }
+  }
+}
 .catalog-category-view{
 .breadcrumbs{
   display: none;
   }
 .page-main
   {
-    margin-top:94px;
-    @media all and (max-width:768px)
+    margin-top:93px;
+    @media all and (max-width:767px)
     {
       margin-top:76px;
     }
+    @media all and (max-width:640px)
+    {
+      margin-top:79px;
+    }
+
     .category-image
     {
       margin-bottom: 0;
@@ -182,6 +220,7 @@ button{
     .columns
     {
       padding:0 !important;
+      display:block;
       .column
       {
         padding:0 !important;
@@ -469,17 +508,29 @@ button{
     padding: 0;
     box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
     padding-bottom: 80px;
+    margin-top: 93px !important;
+    @media all and (max-width: 767px)
+    {
+      margin-top: 76px !important;
+    }
+    @media all and (max-width: 640px)
+    {
+      margin-top: 79px !important;
+    }
     .primary_banner-outer
     {
-      margin-top: 46px;
-      @media all and (max-width: 768px)
-      {
-        margin-top: 76px;
-      }
       img
       {
         width: 100%;
       }
+    }
+  }
+  .tocart
+  {
+    &:active,&:visited
+    {
+      background: #e66698;
+      border: 1px solid #e66698;
     }
   }
 
@@ -641,6 +692,7 @@ button{
         img
         {
           width: 25%;
+          margin-bottom: 20px;
           @media all and (max-width: 768px)
           {
             display:none;
@@ -651,9 +703,27 @@ button{
           font-size: 18px;
           color: #333;
           font-weight: 600;
+          padding:0;
           @media all and (max-width:479px)
           {
             font-size: 14px;
+          }
+        }
+        h5{
+          color: #b3b3b3;
+          font-size: 14px;
+          font-weight: 400;
+          margin: 0;
+          padding:0;
+          padding-bottom:10px;
+          text-overflow:ellipsis;
+          overflow:hidden;
+          white-space:nowrap;
+          @media only screen and (min-width: 768px){
+            font-size: 13px;
+          }
+          @media only screen and (min-width: 1024px){
+            font-size: 15px;
           }
         }
         p
@@ -783,9 +853,9 @@ button{
             {
               padding: 0;
               font-size: 45px;
-              @media all and (max-width:768px)
+              @media all and (max-width:767px)
               {
-                  font-size:2.6rem;
+                  font-size:3rem;
               }
               strong
               {
@@ -825,6 +895,7 @@ button{
                     width: 60%;
                     margin: 0 auto;
                   }
+
                 }
               }
             }
@@ -847,6 +918,7 @@ button{
                 .product-item-link
                 {
                   font-size: 30px;
+                  font-weight: 600;
                   font-weight: 600;
                   &:hover
                   {
@@ -968,7 +1040,6 @@ button{
     .page-main
     {
       max-width: 100% !important;
-      margin-top: 0 !important;
       padding-left: 1px;
       padding-right: 1px;
       padding-bottom: 0;
@@ -999,6 +1070,10 @@ button{
             {
               font-size: 40px;
               padding: 0 0 30px 0;
+              @media all and (max-width: 479px)
+              {
+                font-size: 30px;
+              }
               strong
               {
                 color: #000;
@@ -1084,6 +1159,10 @@ button{
         {
           margin-bottom: 80px;
         }
+        @media only screen and (max-width: 479px)
+        {
+          margin-bottom: 0;
+        }
         .sub-product
         {
           h4 {
@@ -1092,6 +1171,9 @@ button{
           p {
             color: #6e6e6e;
             margin-bottom: 20px;
+            word-wrap: break-word;
+            padding-left: 10px;
+            padding-right: 10px;
             &.price {
               font-weight: 600;
               color: #374076;
@@ -1227,6 +1309,11 @@ button{
                 font-size: 40px;
                 padding: 30px 0 50px;
                 text-transform: capitalize;
+                @media all and (max-width:479px)
+                {
+                  font-size: 30px;
+                  padding-bottom:0px;
+                }
                 strong
                 {
                   color: #000;
@@ -1268,6 +1355,23 @@ button{
                           font-size: 23px;
                         }
                       }
+                      h5{
+                        color: #333;
+                        font-size: 14px;
+                        font-weight: 400;
+                        margin: 0;
+                        padding:0;
+                        padding-bottom:5px;
+                        text-overflow:ellipsis;
+                        overflow:hidden;
+                        white-space:nowrap;
+                        @media only screen and (min-width: 768px){
+                          font-size: 13px;
+                        }
+                        @media only screen and (min-width: 1024px){
+                          font-size: 15px;
+                        }
+                      }
                       .short-description
                       {
                         padding-left: 0;
@@ -1275,6 +1379,9 @@ button{
                         p
                         {
                             font-size: 16px;
+                            padding-left: 10px;
+                            padding-right: 10px;
+                            padding-top: 10px;
                         }
                       }
                       .product-item-photo
@@ -1291,7 +1398,7 @@ button{
                       }
                       .bundled-product-names
                       {
-                        padding: 10px 0 30px;
+                        padding: 20px 0;
                         clear: both;
                         font-weight: 600;
                         color: #666666;
@@ -1324,6 +1431,10 @@ button{
               }
             }
           }
+        }
+        @media all and (max-width: 479px)
+        {
+          margin-top: 10px !important;
         }
       }
 
@@ -1477,6 +1588,10 @@ button{
               width: 100%;
               text-align: center;
             }
+            @media all and (max-width:500px)
+            {
+              top: 15%;
+            }
             h6 {
               font-size: 35px;
               @media only screen and (max-width: 991px)
@@ -1487,7 +1602,7 @@ button{
               {
                 font-size: 22px;
               }
-              @media only screen and (max-width: 420px)
+              @media only screen and (max-width: 479px)
               {
                 font-size: 18px;
               }
@@ -1500,9 +1615,10 @@ button{
               {
                 font-size: 14px;
               }
-              @media only screen and (max-width: 420px)
+              @media only screen and (max-width: 479px)
               {
                 font-size: 13px;
+                margin: 6px 0;
               }
             }
             a {
@@ -1515,7 +1631,7 @@ button{
               {
                 font-size: 14px;
               }
-              @media only screen and (max-width: 420px)
+              @media only screen and (max-width: 479px)
               {
                 font-size: 13px;
               }
@@ -1534,5 +1650,4 @@ button{
       float: none;
     }
   }
-
 }

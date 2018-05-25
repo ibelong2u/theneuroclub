@@ -40,14 +40,19 @@
     .columns
     {
       padding-top:0;
+      display:block !important;
       .main
       {
         padding-top:0;
       }
     }
     .page{
+      &.messages{
+        margin:0;
+      }
       .messages
       {
+        margin:0;
         padding:10px 0;
         .message.success
         {
@@ -210,12 +215,11 @@
           select
           {
             position: absolute;
-            left: 0;
+            right: 0;
             top: 0;
             padding:0;
             padding-left:10px;
-            text-indent: 55px;
-            width: 200px;
+            width: 160px;
             background:transparent;
             border:none;
             box-shadow:none;
@@ -274,15 +278,26 @@
                 margin:0 auto;
                 margin-bottom:10px;
               }
-              .product-image-container
+              #owl-product.product-image-container
               {
-                .item{
+                margin:0;
+                padding:0;
+                .owl-stage-outer{
+                  margin:0;
+                  padding:0;
+                  .item{
                     margin: 0px !important;
-                    position: relative;
-                    padding: 0px !important;
-                    text-align: center;
+                    padding: 10px !important;
+                    text-align: center !important;
                     box-shadow: none !important;
+                    @media all and (max-width:991px){
+                      padding:10px !important;
+                    }
+                    @media all and (max-width:479px){
+                      padding:0 !important;
+                    }
                   }
+                }
                 .owl-dots
                 {
                   text-align:center;
