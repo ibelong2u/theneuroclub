@@ -16,13 +16,31 @@ if ($requiredChildrenIds) {
                 <a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
                     <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
                     <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
-                    <!-- <h4>30 Capsule pack</h4> -->
-                    <?php if (null !== $childItem->getCustomAttribute('tagline')): ?>
-                        <p><?= $childItem->getCustomAttribute('tagline')->getValue() ?></p>
-                    <?php endif;  ?>
-                    <!-- <p>Lorem Ipsum dolar</p> -->
-                    <p class="price"><?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?></p>
                 </a>
+                <?php if (null !== $childItem->getCustomAttribute('tagline')): ?>
+                    <p><?= $childItem->getCustomAttribute('tagline')->getValue() ?></p>
+                <?php endif;  ?>
+                <?php if ($childItem->isSaleable()): ?>
+					<?php if ($childItem->getTypeInstance()->hasRequiredOptions($childItem)): ?>
+						<button class="button button-style-1" data-mage-init='{"redirectUrl":{"url":"<?php echo $block->escapeUrl($block->getAddToCartUrl($childItem)) ?>"}}' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
+							<span><?php echo $block->escapeHtml(__('Subscribe')) ?></span> | <?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?>
+						</button>
+					<?php else: ?>
+						<?php
+						$postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+						$postData = $postDataHelper->getPostData($block->getAddToCartUrl($childItem), ['product' => $childItem->getEntityId()])
+						?>
+						<button class="button" data-post='<?php /* @noEscape */ echo $postData; ?>' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
+						    <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span> | <?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?>
+						</button>
+					<?php endif; ?>
+				<?php else: ?>
+				    <?php if ($childItem->getIsSalable()): ?>
+					    <div class="stock available"><span><?php echo $block->escapeHtml(__('In stock')) ?></span></div>
+					<?php else: ?>
+					    <div class="stock unavailable"><span><?php echo $block->escapeHtml(__('Out of stock')) ?></span></div>
+					<?php endif; ?>
+				<?php endif; ?>
             </div>
             <span class="plus"> + </span>
         <?php

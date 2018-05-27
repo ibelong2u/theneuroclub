@@ -29,8 +29,8 @@
       </container>
       <move element="page.main.title" destination="content.top" after="primary.banner"/>
       <move element="product.info.type" destination="product.info.basic" />
-      <move element="product.info.addtocart" destination="product.info.basic" after="product.info.media.image"/>
-      <move element="product.info.description" destination="product.info.basic" after="product.info.addtocart"/>
+      <move element="product.info" destination="product.info.basic" after="product.info.media.image"/>
+      <move element="product.info.description" destination="product.info.basic" after="product.info"/>
       <move element="bundle.items" destination="product.info.basic" after="product.info.description"/>
       <move element="product.info.media.image" destination="product.info.basic" before="-"/>
         <!-- <referenceContainer name="content">
