@@ -48,11 +48,11 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                     ); 
                 ?>
                 <table>
-                <?php foreach ($selectionCollection as $proselection): ?>
+                <?php foreach ($selectionCollection as $childItem): ?>
                     <tr>
                         <td> 1 </td>
                         <td> x </td>
-                        <td><?= /* @escapeNotVerified */ $proselection->getName() ?></td>
+                        <td><?= /* @escapeNotVerified */ $childItem->getName() ?></td>
                         <td><button>X</button></td>
                         
                 </tr>
