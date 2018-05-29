@@ -35,7 +35,7 @@
                     title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
                     class="action primary tocart"
                     id="product-addtocart-button">
-                <span><?= /* @escapeNotVerified */ $buttonTitle ?></span> | <?= /* @escapeNotVerified */ $priceHelper->currency($_product->getFinalPrice()) ?>
+                <span><?= /* @escapeNotVerified */ $buttonTitle ?></span> | <?= /* @escapeNotVerified */  $priceHelper->currency($_product->getPrice(), true, false) ?>
             </button>
             <?= $block->getChildHtml('', true) ?>
         </div>
