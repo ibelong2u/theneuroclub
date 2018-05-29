@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_login">
+        <observer name="load-customer-cart" instance="Aheadworks\Sarp\Observer\LoadCustomerCartObserver" />
+    </event>
+    <event name="customer_logout">
+        <observer name="clear-session-data" instance="Aheadworks\Sarp\Observer\ClearSessionObserver" />
+    </event>
+</config>

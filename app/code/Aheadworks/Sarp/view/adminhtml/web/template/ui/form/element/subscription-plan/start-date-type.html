@@ -1,0 +1,17 @@
+<select class="admin__control-select" data-bind="
+    attr: {
+        name: inputName,
+        id: uid,
+        disabled: disabled,
+        'aria-describedby': noticeId
+    },
+    hasFocus: focused,
+    options: options,
+    value: value,
+    optionsValue: 'value',
+    optionsText: 'label'"
+/>
+<input class="admin__control-text aw-sarp_subscription-plan__day-of-month"
+       type="text"
+       data-bind="value: dayOfMonthValue, visible: dayOfMonthInputVisible"
+/>

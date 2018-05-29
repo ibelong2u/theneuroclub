@@ -1,0 +1,704 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="aw_sarp_convert_profile">
+            <field name="subscription_plan_id">
+                <aspect name="from_cart" />
+            </field>
+            <field name="is_virtual">
+                <aspect name="from_cart" targetField="is_cart_virtual"/>
+            </field>
+            <field name="is_cart_virtual">
+                <aspect name="to_order" targetField="is_virtual"/>
+            </field>
+            <field name="store_id">
+                <aspect name="from_cart"/>
+                <aspect name="to_order"/>
+            </field>
+            <field name="start_date">
+                <aspect name="from_cart" />
+            </field>
+            <field name="customer_id">
+                <aspect name="from_cart" />
+                <aspect name="to_order"/>
+            </field>
+            <field name="customer">
+                <aspect name="from_cart" />
+            </field>
+            <field name="customer_group_id">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="customer_email">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="customer_prefix">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="customer_firstname">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="customer_middlename">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="customer_lastname">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="customer_suffix">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="customer_dob">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="customer_is_guest">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="shipping_method">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="payment_method_code">
+                <aspect name="from_cart" />
+            </field>
+            <field name="shipping_description">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="global_currency_code">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="base_currency_code">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="cart_currency_code">
+                <aspect name="from_cart" targetField="profile_currency_code"/>
+            </field>
+            <field name="profile_currency_code">
+                <aspect name="to_order" targetField="order_currency_code"/>
+            </field>
+            <field name="base_to_global_rate">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="base_to_cart_rate">
+                <aspect name="from_cart" targetField="base_to_profile_rate"/>
+            </field>
+            <field name="base_to_profile_rate">
+                <aspect name="to_order" targetField="base_to_order_rate"/>
+            </field>
+            <field name="grand_total">
+                <aspect name="from_cart" />
+            </field>
+            <field name="base_grand_total">
+                <aspect name="from_cart" />
+            </field>
+            <field name="subtotal">
+                <aspect name="from_cart" />
+            </field>
+            <field name="base_subtotal">
+                <aspect name="from_cart" />
+            </field>
+            <field name="shipping_amount">
+                <aspect name="from_cart" />
+                <aspect name="from_api_paypal_response_while_get" />
+            </field>
+            <field name="base_shipping_amount">
+                <aspect name="from_cart" />
+            </field>
+            <field name="tax_amount">
+                <aspect name="from_cart" />
+                <aspect name="from_api_paypal_response_while_get" />
+            </field>
+            <field name="base_tax_amount">
+                <aspect name="from_cart" />
+            </field>
+            <field name="trial_subtotal">
+                <aspect name="from_cart" />
+            </field>
+            <field name="base_trial_subtotal">
+                <aspect name="from_cart" />
+            </field>
+            <field name="trial_tax_amount">
+                <aspect name="from_cart" />
+            </field>
+            <field name="base_trial_tax_amount">
+                <aspect name="from_cart" />
+            </field>
+            <field name="initial_fee">
+                <aspect name="from_cart" />
+            </field>
+            <field name="base_initial_fee">
+                <aspect name="from_cart" />
+            </field>
+            <field name="remote_ip">
+                <aspect name="from_cart" />
+                <aspect name="to_order" />
+            </field>
+            <field name="name">
+                <aspect name="from_plan" targetField="subscription_plan_name"/>
+            </field>
+            <field name="engine_code">
+                <aspect name="from_plan" />
+            </field>
+            <field name="billing_period">
+                <aspect name="from_plan" />
+            </field>
+            <field name="billing_frequency">
+                <aspect name="from_plan" />
+            </field>
+            <field name="total_billing_cycles">
+                <aspect name="from_plan" />
+            </field>
+            <field name="is_initial_fee_enabled">
+                <aspect name="from_plan" />
+            </field>
+            <field name="is_trial_period_enabled">
+                <aspect name="from_plan" />
+            </field>
+            <field name="trial_total_billing_cycles">
+                <aspect name="from_plan" />
+            </field>
+            <field name="profile_id">
+                <aspect name="from_api_paypal_response_while_create" targetField="reference_id"/>
+                <aspect name="from_api_paypal_response_while_update" targetField="reference_id"/>
+                <aspect name="from_api_authorizenet_response_while_create" targetField="reference_id"/>
+                <aspect name="from_api_authorizenet_response_while_update" targetField="reference_id"/>
+                <aspect name="from_api_stripe_response_while_create" targetField="reference_id"/>
+                <aspect name="from_api_stripe_response_while_update" targetField="reference_id"/>
+            </field>
+            <field name="profile_status">
+                <aspect name="from_api_paypal_response_while_create" targetField="status"/>
+                <aspect name="from_api_authorizenet_response_while_create" targetField="status"/>
+                <aspect name="from_api_stripe_response_while_create" targetField="status"/>
+                <aspect name="from_api_stripe_response_while_get" targetField="status"/>
+            </field>
+            <field name="status">
+                <aspect name="from_api_paypal_response_while_get" />
+                <aspect name="from_api_authorizenet_response_while_get" />
+            </field>
+            <field name="amount">
+                <aspect name="from_api_paypal_response_while_get" targetField="subtotal"/>
+            </field>
+        </fieldset>
+        <fieldset id="aw_sarp_convert_profile_item">
+            <field name="product_id">
+                <aspect name="from_cart_item" />
+            </field>
+            <field name="name">
+                <aspect name="from_cart_item" />
+            </field>
+            <field name="sku">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item" />
+            </field>
+            <field name="qty">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item" targetField="qty_ordered"/>
+            </field>
+            <field name="buy_request">
+                <aspect name="from_cart_item" />
+            </field>
+            <field name="product_options">
+                <aspect name="from_cart_item" />
+            </field>
+            <field name="regular_price">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_regular" targetField="price"/>
+            </field>
+            <field name="base_regular_price">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_regular" targetField="base_price"/>
+            </field>
+            <field name="regular_price_incl_tax">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_regular" targetField="price_incl_tax"/>
+            </field>
+            <field name="base_regular_price_incl_tax">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_regular" targetField="base_price_incl_tax"/>
+            </field>
+            <field name="trial_price">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_trial" targetField="price"/>
+            </field>
+            <field name="base_trial_price">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_trial" targetField="base_price"/>
+            </field>
+            <field name="trial_price_incl_tax">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_trial" targetField="price_incl_tax"/>
+            </field>
+            <field name="base_trial_price_incl_tax">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_trial" targetField="base_price_incl_tax"/>
+            </field>
+            <field name="initial_fee">
+                <aspect name="from_cart_item" />
+            </field>
+            <field name="base_initial_fee">
+                <aspect name="from_cart_item" />
+            </field>
+            <field name="row_weight">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_regular" />
+                <aspect name="to_order_item_trial" />
+            </field>
+            <field name="row_total">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_regular" />
+            </field>
+            <field name="base_row_total">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_regular" />
+            </field>
+            <field name="row_total_incl_tax">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_regular" />
+            </field>
+            <field name="base_row_total_incl_tax">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_regular" />
+            </field>
+            <field name="tax_percent">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_regular" />
+            </field>
+            <field name="tax_amount">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_regular" />
+            </field>
+            <field name="base_tax_amount">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_regular" />
+            </field>
+            <field name="trial_row_total">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_trial" targetField="row_total"/>
+            </field>
+            <field name="base_trial_row_total">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_trial" targetField="base_row_total"/>
+            </field>
+            <field name="trial_row_total_incl_tax">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_trial" targetField="row_total_incl_tax"/>
+            </field>
+            <field name="base_trial_row_total_incl_tax">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_trial" targetField="base_row_total_incl_tax"/>
+            </field>
+            <field name="trial_tax_percent">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_trial" targetField="tax_percent"/>
+            </field>
+            <field name="trial_tax_amount">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_trial" targetField="tax_amount"/>
+            </field>
+            <field name="base_trial_tax_amount">
+                <aspect name="from_cart_item" />
+                <aspect name="to_order_item_trial" targetField="base_tax_amount"/>
+            </field>
+        </fieldset>
+        <fieldset id="aw_sarp_convert_profile_address">
+            <field name="address_type">
+                <aspect name="from_cart_address" />
+            </field>
+            <field name="email">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="customer_id">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="customer_address_id">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="country_id">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="region_id">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="region">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="street">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="company">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="telephone">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="fax">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="postcode">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="city">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="firstname">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="lastname">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="middlename">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="prefix">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="suffix">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+            <field name="vat_id">
+                <aspect name="from_cart_address" />
+                <aspect name="to_order_address" />
+            </field>
+        </fieldset>
+        <fieldset id="aw_sarp_convert_profile_payment_info">
+            <field name="transaction_id">
+                <aspect name="to_order_payment" targetField="last_trans_id" />
+            </field>
+            <field name="base_amount">
+                <aspect name="to_order" targetField="base_subtotal"/>
+            </field>
+            <field name="amount">
+                <aspect name="to_order" targetField="subtotal"/>
+            </field>
+            <field name="base_grand_total">
+                <aspect name="to_order" />
+                <aspect name="to_order_paid" targetField="base_total_paid" />
+                <aspect name="to_order_payment" targetField="base_amount_ordered"/>
+                <aspect name="to_order_payment_paid" targetField="base_amount_paid"/>
+            </field>
+            <field name="grand_total">
+                <aspect name="to_order" />
+                <aspect name="to_order_paid" targetField="total_paid" />
+                <aspect name="to_order_payment" targetField="amount_ordered"/>
+                <aspect name="to_order_payment_paid" targetField="amount_paid"/>
+            </field>
+            <field name="base_tax_amount">
+                <aspect name="to_order"/>
+            </field>
+            <field name="tax_amount">
+                <aspect name="to_order"/>
+            </field>
+            <field name="base_shipping_amount">
+                <aspect name="to_order"/>
+                <aspect name="to_order_payment" targetField="base_shipping_captured"/>
+            </field>
+            <field name="shipping_amount">
+                <aspect name="to_order"/>
+                <aspect name="to_order_payment" targetField="shipping_captured"/>
+            </field>
+        </fieldset>
+        <fieldset id="aw_sarp_convert_api_paypal_request">
+            <field name="reference_id">
+                <aspect name="from_profile_while_update" targetField="profile_id"/>
+            </field>
+            <field name="profile_currency_code">
+                <aspect name="from_profile_while_create" targetField="currency_code"/>
+                <aspect name="from_profile_while_update" targetField="currency_code"/>
+            </field>
+            <field name="start_date">
+                <aspect name="from_profile_while_create" />
+                <aspect name="from_profile_while_update" />
+            </field>
+            <field name="billing_period">
+                <aspect name="from_profile_while_create" />
+                <aspect name="from_profile_while_create_trial" targetField="trial_billing_period"/>
+                <aspect name="from_profile_while_update_trial" targetField="trial_billing_period"/>
+            </field>
+            <field name="billing_frequency">
+                <aspect name="from_profile_while_create" />
+                <aspect name="from_profile_while_create_trial" targetField="trial_billing_frequency"/>
+                <aspect name="from_profile_while_update_trial" targetField="trial_billing_frequency"/>
+            </field>
+            <field name="total_billing_cycles">
+                <aspect name="from_profile_while_create" />
+                <aspect name="from_profile_while_update" />
+            </field>
+            <field name="subtotal">
+                <aspect name="from_profile_while_create" targetField="amount"/>
+                <aspect name="from_profile_while_update" targetField="amount"/>
+            </field>
+            <field name="shipping_amount">
+                <aspect name="from_profile_while_create" targetField="shipping_amount"/>
+                <aspect name="from_profile_while_update" targetField="shipping_amount"/>
+                <aspect name="from_profile_while_create_trial" targetField="trial_shipping_amount"/>
+                <aspect name="from_profile_while_update_trial" targetField="trial_shipping_amount"/>
+            </field>
+            <field name="tax_amount">
+                <aspect name="from_profile_while_create" targetField="tax_amount"/>
+                <aspect name="from_profile_while_update" targetField="tax_amount"/>
+            </field>
+            <field name="trial_total_billing_cycles">
+                <aspect name="from_profile_while_create_trial" targetField="trial_total_billing_cycles"/>
+                <aspect name="from_profile_while_update_trial" targetField="trial_total_billing_cycles"/>
+            </field>
+            <field name="trial_subtotal">
+                <aspect name="from_profile_while_create_trial" targetField="trial_amount"/>
+                <aspect name="from_profile_while_update_trial" targetField="trial_amount"/>
+            </field>
+            <field name="trial_tax_amount">
+                <aspect name="from_profile_while_create_trial" targetField="trial_tax_amount"/>
+                <aspect name="from_profile_while_update_trial" targetField="trial_tax_amount"/>
+            </field>
+            <field name="initial_fee">
+                <aspect name="from_profile_while_create_initial" targetField="initial_amount"/>
+                <aspect name="from_profile_while_update_initial" targetField="initial_amount"/>
+            </field>
+        </fieldset>
+        <fieldset id="aw_sarp_convert_api_authorizenet_request">
+            <field name="reference_id">
+                <aspect name="from_profile_while_update" targetField="profile_id"/>
+            </field>
+            <field name="start_date">
+                <aspect name="from_profile_while_create" />
+                <aspect name="from_profile_while_update" />
+            </field>
+            <field name="billing_period">
+                <aspect name="from_profile_while_create" />
+                <aspect name="from_profile_while_create_trial" targetField="trial_billing_period"/>
+                <aspect name="from_profile_while_update_trial" targetField="trial_billing_period"/>
+            </field>
+            <field name="billing_frequency">
+                <aspect name="from_profile_while_create" />
+                <aspect name="from_profile_while_create_trial" targetField="trial_billing_frequency"/>
+                <aspect name="from_profile_while_update_trial" targetField="trial_billing_frequency"/>
+            </field>
+            <field name="total_billing_cycles">
+                <aspect name="from_profile_while_create" />
+                <aspect name="from_profile_while_update" />
+            </field>
+            <field name="trial_total_billing_cycles">
+                <aspect name="from_profile_while_create_trial" targetField="trial_total_billing_cycles"/>
+                <aspect name="from_profile_while_update_trial" targetField="trial_total_billing_cycles"/>
+            </field>
+            <field name="base_subtotal">
+                <aspect name="from_profile_while_create" targetField="amount"/>
+                <aspect name="from_profile_while_update" targetField="amount"/>
+            </field>
+            <field name="base_shipping_amount">
+                <aspect name="from_profile_while_create" targetField="shipping_amount"/>
+                <aspect name="from_profile_while_update" targetField="shipping_amount"/>
+                <aspect name="from_profile_while_create_trial" targetField="trial_shipping_amount"/>
+                <aspect name="from_profile_while_update_trial" targetField="trial_shipping_amount"/>
+            </field>
+            <field name="base_tax_amount">
+                <aspect name="from_profile_while_create" targetField="tax_amount"/>
+                <aspect name="from_profile_while_update" targetField="tax_amount"/>
+            </field>
+            <field name="base_trial_subtotal">
+                <aspect name="from_profile_while_create_trial" targetField="trial_amount"/>
+                <aspect name="from_profile_while_update_trial" targetField="trial_amount"/>
+            </field>
+            <field name="base_trial_tax_amount">
+                <aspect name="from_profile_while_create_trial" targetField="trial_tax_amount"/>
+                <aspect name="from_profile_while_update_trial" targetField="trial_tax_amount"/>
+            </field>
+            <field name="cc_number">
+                <aspect name="from_payment_info_while_create"/>
+            </field>
+            <field name="cc_exp_month">
+                <aspect name="from_payment_info_while_create"/>
+            </field>
+            <field name="cc_exp_year">
+                <aspect name="from_payment_info_while_create"/>
+            </field>
+        </fieldset>
+        <fieldset id="aw_sarp_convert_api_stripe_request">
+            <field name="name">
+                <aspect name="from_subscription_plan_while_create_plan"/>
+            </field>
+            <field name="billing_frequency">
+                <aspect name="from_subscription_plan_while_create_plan"/>
+            </field>
+            <field name="billing_period">
+                <aspect name="from_subscription_plan_while_create_plan"/>
+            </field>
+            <field name="grand_total">
+                <aspect name="from_profile_while_create_plan" targetField="amount"/>
+            </field>
+            <field name="profile_currency_code">
+                <aspect name="from_profile_while_create_plan" targetField="currency"/>
+            </field>
+            <field name="customer_email">
+                <aspect name="from_profile_while_create_customer"/>
+            </field>
+            <field name="token">
+                <aspect name="from_payment_info_while_create_customer"/>
+            </field>
+        </fieldset>
+        <fieldset id="aw_sarp_customer">
+            <field name="id">
+                <aspect name="to_cart" targetField="customer_id" />
+            </field>
+            <field name="email">
+                <aspect name="to_cart" targetField="customer_email" />
+            </field>
+            <field name="group_id">
+                <aspect name="to_cart" targetField="customer_group_id" />
+            </field>
+            <field name="prefix">
+                <aspect name="to_cart" targetField="customer_prefix" />
+            </field>
+            <field name="firstname">
+                <aspect name="to_cart" targetField="customer_firstname" />
+            </field>
+            <field name="middlename">
+                <aspect name="to_cart" targetField="customer_middlename" />
+            </field>
+            <field name="lastname">
+                <aspect name="to_cart" targetField="customer_lastname" />
+            </field>
+            <field name="suffix">
+                <aspect name="to_cart" targetField="customer_suffix" />
+            </field>
+            <field name="dob">
+                <aspect name="to_cart" targetField="customer_dob" />
+            </field>
+        </fieldset>
+        <fieldset id="aw_sarp_customer_address">
+            <field name="id">
+                <aspect name="to_cart_address" targetField="customer_address_id" />
+            </field>
+            <field name="customer_id">
+                <aspect name="to_cart_address" />
+            </field>
+            <field name="prefix">
+                <aspect name="to_cart_address" />
+            </field>
+            <field name="firstname">
+                <aspect name="to_cart_address" />
+            </field>
+            <field name="middlename">
+                <aspect name="to_cart_address" />
+            </field>
+            <field name="lastname">
+                <aspect name="to_cart_address" />
+            </field>
+            <field name="suffix">
+                <aspect name="to_cart_address" />
+            </field>
+            <field name="company">
+                <aspect name="to_cart_address" />
+            </field>
+            <field name="street">
+                <aspect name="to_cart_address" />
+            </field>
+            <field name="city">
+                <aspect name="to_cart_address" />
+            </field>
+            <field name="region_id">
+                <aspect name="to_cart_address" />
+            </field>
+            <field name="postcode">
+                <aspect name="to_cart_address" />
+            </field>
+            <field name="country_id">
+                <aspect name="to_cart_address" />
+            </field>
+            <field name="telephone">
+                <aspect name="to_cart_address" />
+            </field>
+            <field name="fax">
+                <aspect name="to_cart_address" />
+            </field>
+        </fieldset>
+        <fieldset id="aw_sarp_cart_address">
+            <field name="email">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="country_id">
+                <aspect name="to_customer_address" />
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="region_id">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="region">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="company">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="telephone">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="fax">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="city">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="firstname">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="lastname">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="middlename">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="prefix">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="suffix">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="vat_id">
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="postcode">
+                <aspect name="to_customer_address" />
+                <aspect name="to_quote_address" />
+            </field>
+            <field name="street">
+                <aspect name="to_customer_address" />
+                <aspect name="to_quote_address" />
+            </field>
+        </fieldset>
+    </scope>
+</config>

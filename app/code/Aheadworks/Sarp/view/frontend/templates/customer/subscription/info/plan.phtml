@@ -1,0 +1,65 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Sarp\Block\Customer\Subscription\Info\Plan */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+    $profile = $block->getProfile();
+?>
+<div class="block aw_sarp-customer-subscription_plan">
+    <div class="block-title">
+        <strong><?php echo $block->escapeHtml(__('Subscription Plan')) ?></strong>
+    </div>
+    <div class="block-content">
+        <div id="box-plan-details" class="box">
+            <div class="box-title">
+                <span class="title"><?php echo $block->escapeHtml($profile->getSubscriptionPlanName()) ?></span>
+            </div>
+            <div class="box-content">
+                <dl>
+                    <dt class="label"><?php echo $block->escapeHtml(__('Number of Payments')) ?>:</dt>
+                    <dd class="value">
+                        <span>
+                            <?php if ($profile->getTotalBillingCycles() > 0): ?>
+                                <?php /* @noEscape */ echo $profile->getTotalBillingCycles() ?>
+                            <?php else: ?>
+                                <?php echo $block->escapeHtml(__('Infinite')) ?>
+                            <?php endif; ?>
+                        </span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt class="label"><?php echo $block->escapeHtml(__('Repeat')) ?>:</dt>
+                    <dd class="value">
+                        <span><?php echo $block->escapeHtml($block->formatRepeatValue($profile)) ?></span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt class="label"><?php echo $block->escapeHtml(__('Start')) ?>:</dt>
+                    <dd class="value">
+                        <span><?php /* @noEscape */ echo $block->formatDate($profile->getStartDate(), \IntlDateFormatter::MEDIUM) ?></span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt class="label"><?php echo $block->escapeHtml(__('Each Payment (except Trial Period, excl. tax and shipping)')) ?>:</dt>
+                    <dd class="value">
+                        <?php /* @noEscape */ echo $block->formatProfileAmount($profile->getBaseSubtotal(), $profile->getBaseCurrencyCode()) ?>
+                    </dd>
+                </dl>
+                <?php if ($profile->getIsTrialPeriodEnabled() && $profile->getTrialSubtotal() > 0): ?>
+                    <dl>
+                        <dt class="label"><?php echo $block->escapeHtml(__('Trial Period')) ?>:</dt>
+                        <dd class="value">
+                            <span><?php echo $block->escapeHtml(__($profile->getTrialTotalBillingCycles() > 1 ? '%1 payments' : '%1 payment', $profile->getTrialTotalBillingCycles())) ?></span>
+                        </dd>
+                    </dl>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>

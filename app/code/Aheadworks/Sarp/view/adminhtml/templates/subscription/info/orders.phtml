@@ -1,0 +1,68 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/** @var $block \Aheadworks\Sarp\Block\Adminhtml\Subscription\Info\Orders */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+    $profileOrders = $block->getProfileOrders();
+?>
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?php echo $block->escapeHtml(__('Orders')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <?php if (count($profileOrders)): ?>
+        <div class="admin__page-section-item">
+            <div class="admin__page-section-item-title">
+                <span class="title">
+                    <?php echo $block->escapeHtml(__('%1 of %2 orders', $block->getDisplayedOrdersNumbers(), $block->getTotalProfileOrdersCount())) ?>
+                    <?php if ($block->getOrdersLeftCount()): ?>
+                        (<?php echo $block->escapeHtml(__('%1 orders left', $block->getOrdersLeftCount())) ?>)
+                    <?php endif; ?>
+                </span>
+                <?php echo $block->getPagerHtml() ?>
+            </div>
+            <div class="admin__page-section-item-content">
+                <div class="admin__table-wrapper">
+                    <table class="data-table admin__table-primary">
+                        <thead>
+                            <tr class="headings">
+                                <th class="col-order-id"><span><?php echo $block->escapeHtml(__('Order #')) ?></span></th>
+                                <th class="col-order-date"><span><?php echo $block->escapeHtml(__('Date')) ?></span></th>
+                                <th class="col-order-total"><span><?php echo $block->escapeHtml(__('Order Total')) ?></span></th>
+                                <th class="col-order-status"><span><?php echo $block->escapeHtml(__('Order Status')) ?></span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="even">
+                        <?php foreach ($profileOrders as $order): ?>
+                            <?php
+                                $orderAdminDate = $block->formatDate(
+                                    $block->getAdminDate($order->getOrderDate()),
+                                    \IntlDateFormatter::SHORT
+                                );
+                            ?>
+                            <tr>
+                                <td class="col-order-id">
+                                    <a href="<?php echo $block->escapeUrl($block->getOrderUrl($order->getOrderId())) ?>">#<?php /* @noEscape */ echo $order->getOrderIncrementId() ?></a>
+                                </td>
+                                <td class="col-order-date"><?php echo $block->escapeHtml($orderAdminDate) ?></td>
+                                <td class="col-order-total">
+                                    <?php /* @noEscape */ echo $block->formatOrderAmount($order->getBaseGrandTotal(), $order->getBaseCurrencyCode()) ?>
+                                </td>
+                                <td class="col-order-status"><?php echo $block->escapeHtml($block->getOrderStatusLabel($order->getOrderStatus())) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="no-orders-found"><?php echo $block->escapeHtml(__('We couldn\'t find any records.')) ?></div>
+        <?php endif; ?>
+    </div>
+</section>

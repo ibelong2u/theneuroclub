@@ -1,0 +1,29 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Sarp\Block\Cart\Link */
+
+// @codingStandardsIgnoreFile
+?>
+<div data-role="aw-sarp-cart-link"  data-bind="scope: 'subscriptionCart'" class="aw-sarp-cart-link__container">
+    <a class="aw-sarp-cart-link no-display"
+       href="<?php echo $block->escapeUrl($block->getCartUrl()) ?>"
+       title="<?php /* @noEscape */ echo __('Subscription Cart') ?>"
+       data-bind="css: {'no-display': !subscriptionCart().itemsCount}"
+    >
+        <img src="<?php /* @noEscape */ echo $block->getViewFileUrl('Aheadworks_Sarp/images/cart-link.svg'); ?>"
+             width="24"
+             height="24">
+        <span data-bind="text: subscriptionCart().itemsCount"></span>
+    </a>
+</div>
+<script type="text/x-magento-init">
+    {
+        "[data-role=aw-sarp-cart-link]": {
+            "Magento_Ui/js/core/app": <?php /* @noEscape */ echo $block->getJsLayout();?>
+        }
+    }
+</script>

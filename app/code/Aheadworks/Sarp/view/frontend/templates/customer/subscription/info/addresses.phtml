@@ -1,0 +1,102 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Sarp\Block\Customer\Subscription\Info\Addresses */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+    $profile = $block->getProfile();
+    $shippingAddress = $block->getShippingAddress();
+    $billingAddress = $block->getBillingAddress();
+?>
+<div class="block aw_sarp-customer-subscription_addresses">
+    <div class="block-title">
+        <strong><?php echo $block->escapeHtml(__('Addresses, Shipping And Payment Methods')) ?></strong>
+    </div>
+    <div class="block-content">
+        <?php if ($shippingAddress): ?>
+            <div id="box-shipping-address" class="box" data-mage-init='{"awSarpAddressEditor":{}}'>
+                <div class="box-title">
+                    <strong><?php echo $block->escapeHtml(__('Shipping Address')) ?></strong>
+                </div>
+                <div class="box-content">
+                    <div data-role="address-info">
+                        <div><?php echo $block->escapeHtml($block->getFullName($shippingAddress)) ?></div>
+                        <div><?php echo $block->escapeHtml(implode(' ', $shippingAddress->getStreet())) ?></div>
+                        <div>
+                            <?php echo $block->escapeHtml($shippingAddress->getRegion()) ?>&nbsp;
+                            <?php echo $block->escapeHtml($shippingAddress->getCity()) ?>&nbsp;
+                            <?php echo $block->escapeHtml($shippingAddress->getPostcode()) ?>
+                        </div>
+                        <div><?php echo $block->escapeHtml($block->getCountryName($shippingAddress->getCountryId())) ?></div>
+                        <?php if ($shippingAddress->getTelephone()): ?>
+                            <div>T: <a href="tel:<?php /* @noEscape */ echo $shippingAddress->getTelephone() ?>"><?php echo $block->escapeHtml($shippingAddress->getTelephone()) ?></a></div>
+                        <?php endif; ?>
+                    </div>
+                    <div data-role="address-form">
+                        <?php /* @noEscape */ echo $block->getEditAddressFormHtml($shippingAddress) ?>
+                    </div>
+                </div>
+                <div class="box-actions">
+                    <a class="action edit" href="#" data-role="address-edit-action">
+                        <span><?php echo $block->escapeHtml(__('edit')) ?></span>
+                    </a>
+                </div>
+            </div>
+            <div id="box-shipping-method" class="box">
+                <div class="box-title">
+                    <strong><?php echo $block->escapeHtml(__('Shipping Method')) ?></strong>
+                </div>
+                <div class="box-content">
+                    <?php if ($profile->getShippingDescription()): ?>
+                        <?php echo $block->escapeHtml(__($profile->getShippingDescription())) ?>
+                    <?php else: ?>
+                        <?php echo $block->escapeHtml(__('No shipping information available.')) ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+        <?php if ($billingAddress): ?>
+            <div id="box-billing-address" class="box" data-mage-init='{"awSarpAddressEditor":{}}'>
+                <div class="box-title">
+                    <strong><?php echo $block->escapeHtml(__('Billing Address')) ?></strong>
+                </div>
+                <div class="box-content">
+                    <div data-role="address-info">
+                        <div><?php echo $block->escapeHtml($block->getFullName($billingAddress)) ?></div>
+                        <div><?php echo $block->escapeHtml(implode(' ', $billingAddress->getStreet())) ?></div>
+                        <div>
+                            <?php echo $block->escapeHtml($billingAddress->getRegion()) ?>&nbsp;
+                            <?php echo $block->escapeHtml($billingAddress->getCity()) ?>&nbsp;
+                            <?php echo $block->escapeHtml($billingAddress->getPostcode()) ?>
+                        </div>
+                        <div><?php echo $block->escapeHtml($block->getCountryName($billingAddress->getCountryId())) ?></div>
+                        <?php if ($billingAddress->getTelephone()): ?>
+                            <div>T: <a href="tel:<?php /* @noEscape */ echo $billingAddress->getTelephone() ?>"><?php echo $block->escapeHtml($billingAddress->getTelephone()) ?></a></div>
+                        <?php endif; ?>
+                    </div>
+                    <div data-role="address-form">
+                        <?php /* @noEscape */ echo $block->getEditAddressFormHtml($billingAddress) ?>
+                    </div>
+                </div>
+                <div class="box-actions">
+                    <a class="action edit" href="#" data-role="address-edit-action">
+                        <span><?php echo $block->escapeHtml(__('edit')) ?></span>
+                    </a>
+                </div>
+            </div>
+        <?php endif; ?>
+        <div id="box-payment-method" class="box">
+            <div class="box-title">
+                <strong><?php echo $block->escapeHtml(__('Payment Method')) ?></strong>
+            </div>
+            <div class="box-content">
+                <?php echo $block->escapeHtml(__($block->getPaymentMethodName())) ?>
+            </div>
+        </div>
+    </div>
+</div>

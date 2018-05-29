@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Customer:etc/sections.xsd">
+    <action name="aw_sarp/product/subscribe">
+        <section name="aw-sarp-subscription-cart"/>
+    </action>
+    <action name="aw_sarp/checkout/success">
+        <section name="aw-sarp-subscription-cart"/>
+    </action>
+    <action name="rest/*/V1/awSarp/delete-cart-item">
+        <section name="aw-sarp-subscription-cart"/>
+    </action>
+    <action name="rest/*/V1/awSarp/update-cart">
+        <section name="aw-sarp-subscription-cart"/>
+    </action>
+    <action name="rest/*/V1/awSarp/update-cart-item">
+        <section name="aw-sarp-subscription-cart"/>
+    </action>
+    <action name="rest/*/V1/awSarp/save-payment-information">
+        <section name="aw-sarp-subscription-cart"/>
+        <section name="aw-sarp-checkout-data"/>
+    </action>
+    <action name="rest/*/V1/awSarp/save-payment-information-and-submit">
+        <section name="aw-sarp-subscription-cart"/>
+        <section name="aw-sarp-checkout-data"/>
+    </action>
+    <action name="rest/*/V1/awSarp/save-guest-payment-information">
+        <section name="aw-sarp-subscription-cart"/>
+        <section name="aw-sarp-checkout-data"/>
+    </action>
+    <action name="rest/*/V1/awSarp/save-guest-payment-information-and-submit">
+        <section name="aw-sarp-subscription-cart"/>
+        <section name="aw-sarp-checkout-data"/>
+    </action>
+</config>

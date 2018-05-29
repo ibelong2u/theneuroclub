@@ -1,0 +1,37 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/** @var $block \Aheadworks\Sarp\Block\Adminhtml\Subscription\Info */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+    $profile = $block->getProfile();
+?>
+<div class="aw-sarp_subscription_page">
+    <div class="subscription-page_title_wrapper">
+        <div class="subscription-page_title_title">
+            <h1><?php echo $block->escapeHtml(__('Subscription #%1', $profile->getReferenceId())) ?></h1>
+        </div>
+        <div class="subscription-page_title_status">
+            <span><?php echo $block->escapeHtml($block->getStatusLabel()) ?><span>
+        </div>
+    </div>
+    <table class="orders_subscription-plan_wrapper">
+        <tbody>
+            <tr>
+                <td class="subscription-orders">
+                    <?php /* @noEscape */ echo $block->getOrdersHtml() ?>
+                </td>
+                <td class="subscription-plan">
+                    <?php /* @noEscape */ echo $block->getSubscriptionPlanHtml() ?>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <?php /* @noEscape */ echo $block->getProductsHtml() ?>
+    <?php /* @noEscape */ echo $block->getAddressesHtml() ?>
+</div>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Aheadworks\Sarp\Model\Checkout\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="customer" xsi:type="object">Aheadworks\Sarp\Model\Checkout\ConfigProvider\Customer</item>
+                <item name="payment" xsi:type="object">Aheadworks\Sarp\Model\Checkout\ConfigProvider\Payment</item>
+                <item name="product" xsi:type="object">Aheadworks\Sarp\Model\Checkout\ConfigProvider\Product</item>
+                <item name="subscriptionPlan" xsi:type="object">Aheadworks\Sarp\Model\Checkout\ConfigProvider\SubscriptionPlan</item>
+                <item name="subscriptionsCart" xsi:type="object">Aheadworks\Sarp\Model\Checkout\ConfigProvider\SubscriptionsCart</item>
+                <item name="tax" xsi:type="object">Aheadworks\Sarp\Model\Checkout\ConfigProvider\Tax</item>
+                <item name="shipping" xsi:type="object">Aheadworks\Sarp\Model\Checkout\ConfigProvider\Shipping</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Sarp\Block\Checkout">
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="addressFormAttributes" xsi:type="object">Aheadworks\Sarp\Block\Checkout\LayoutProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+        <arguments>
+            <argument name="sectionSourceMap" xsi:type="array">
+                <item name="aw-sarp-subscription-cart" xsi:type="string">Aheadworks\Sarp\CustomerData\SubscriptionCart</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Block\SectionConfig">
+        <arguments>
+            <argument name="clientSideSections" xsi:type="array">
+                <item name="aw-sarp-checkout-data" xsi:type="string">aw-sarp-checkout-data</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
