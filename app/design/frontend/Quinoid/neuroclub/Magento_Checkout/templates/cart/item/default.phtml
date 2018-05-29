@@ -40,24 +40,39 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                         <?= $block->escapeHtml($block->getProductName()) ?>
                     <?php endif; ?>
                 </strong>
-                <?php
-                $selectionCollection = $product->getTypeInstance(true)
-                    ->getSelectionsCollection(
-                        $product->getTypeInstance(true)->getOptionsIds($product),
-                        $product
-                    ); 
-                ?>
-                <table>
-                <?php foreach ($selectionCollection as $childItem): ?>
-                    <tr>
-                        <td> 1 </td>
-                        <td> x </td>
-                        <td><?= /* @escapeNotVerified */ $childItem->getName() ?></td>
-                        <td><button>X</button></td>
-                        
-                </tr>
-                <?php endforeach; ?>
-                </table>
+                <?php if ($_options = $block->getOptionList()):?>
+                    <?php
+                    $selectionCollection = $product->getTypeInstance(true)
+                        ->getSelectionsCollection(
+                            $product->getTypeInstance(true)->getOptionsIds($product),
+                            $product
+                        );
+                    ?>
+                    <?php
+                    $bundleOptionsIds = array();
+                    foreach ($selectionCollection as $childItem) {
+                        $bundleOptionsIds[] = $childItem->getId();
+                    }
+                    ?>
+                    <table>
+                        <?php foreach ($selectionCollection as $childItem): ?>
+                            <tr>
+                                <td> 1 </td>
+                                <td> x </td>
+                                <td><?= /* @escapeNotVerified */ $childItem->getName() ?></td>
+                                <?php
+                                $itemsLeft = $bundleOptionsIds;
+                                if (($key = array_search($childItem->getId(), $itemsLeft)) !== false) {
+                                    unset($itemsLeft[$key]);
+                                }
+                                ?>
+                                <td>
+                                    <a href="<?= $block->getUrl('subscription/cart/deletebundleitem', array('items' => implode(',', $itemsLeft), 'pid' => $_item->getItemId()))?>">X</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                <?php endif; ?>
                 <?php if ($messages = $block->getMessages()): ?>
                     <?php foreach ($messages as $message): ?>
                         <div class="cart item message <?= /* @escapeNotVerified */ $message['type'] ?>"><div><?= $block->escapeHtml($message['text']) ?></div></div>
