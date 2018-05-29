@@ -26,6 +26,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     //@returns boolean
     public function isBundle($productId)
     {
+      $om =   \Magento\Framework\App\ObjectManager::getInstance();
+      $logger = $om->get("Psr\Log\LoggerInterface");
       $product = $this->getProductById($productId);
       $productType = $product->getTypeID();
       return $productType == "bundle"? true:false;
@@ -35,6 +37,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function getCartItems(){
       $om =   \Magento\Framework\App\ObjectManager::getInstance();
       $cartData = $om->create('\Magento\Checkout\Model\Session')->getQuote()->getAllVisibleItems();
+      $logger = $om->get("Psr\Log\LoggerInterface");
       $i=0;
       $idArr = array();
       foreach( $cartData as $item ):
@@ -43,6 +46,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
           $i++;
       endforeach;
       $encodedData = $this->jsonHelper->jsonEncode($idArr);
+      $logger->info('items', $idArr);
       return $encodedData;
     }
 }
