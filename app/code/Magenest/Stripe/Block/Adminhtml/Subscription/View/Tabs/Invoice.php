@@ -12,7 +12,7 @@ use Magenest\Stripe\Model\SubscriptionInvoice;
 use Magento\Framework\ObjectManagerInterface;
 use Magenest\Stripe\Helper\Data as DataHelper;
 
-class Info extends \Magento\Sales\Block\Adminhtml\Order\AbstractOrder implements
+class Invoice extends \Magento\Sales\Block\Adminhtml\Order\AbstractOrder implements
     \Magento\Backend\Block\Widget\Tab\TabInterface
 {
     protected $_objectManager;
@@ -73,12 +73,12 @@ class Info extends \Magento\Sales\Block\Adminhtml\Order\AbstractOrder implements
 
     public function getTabLabel()
     {
-        return __('Subscription Information');
+        return __('Invoices');
     }
 
     public function getTabTitle()
     {
-        return __('Subscription Information');
+        return __('Invoices');
     }
 
     public function canShowTab()
@@ -96,6 +96,45 @@ class Info extends \Magento\Sales\Block\Adminhtml\Order\AbstractOrder implements
         return $this->getUrl(
             'stripe/subscription/cancel',
             ['sub_id' => $subscriptionId]
+        );
+    }
+
+    public function getInvoices()
+    {
+        $subscription = $this->getSubscription();
+        $subscriptionId = $subscription->getData('subscription_id');
+        /** @var \Magenest\Stripe\Model\ResourceModel\SubscriptionInvoice\Collection $invoiceCollection */
+        $invoiceCollection = $this->_objectManager->create('\Magenest\Stripe\Model\ResourceModel\SubscriptionInvoice\Collection');
+        $invoiceCollection->addFieldToFilter("subscription", $subscriptionId);
+        $invoiceCollection->setOrder("date", "DESC");
+        $invoicesData = $invoiceCollection->getData();
+        return $invoicesData;
+    }
+
+    public function getInvoiceStatus($status)
+    {
+        if ($status == SubscriptionInvoice::STATUS_NEW) {
+            return __("New Invoice");
+        }
+        if ($status == SubscriptionInvoice::STATUS_CREATED_ORDER) {
+            return __("Order Created");
+        }
+        return $status;
+    }
+
+    public function getCreateOrderLink($invoiceId)
+    {
+        return $this->getUrl(
+            'stripe/subscription/createOrder',
+            ['invoice_id' => $invoiceId]
+        );
+    }
+
+    public function getViewOrderUrl($orderId)
+    {
+        return $this->getUrl(
+            'sales/order/view',
+            ['order_id' => $orderId]
         );
     }
 }

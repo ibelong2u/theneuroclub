@@ -8,6 +8,9 @@
 
 namespace Magenest\Stripe\Helper;
 
+use Magenest\Stripe\Model\SubscriptionInvoice;
+use Magento\Sales\Model\ResourceModel\Order\Address\Collection;
+
 class SubscriptionHelper
 {
     protected $_helper;
@@ -15,19 +18,32 @@ class SubscriptionHelper
     protected $productMetadataInterface;
     protected $subscriptionFactory;
     protected $subscriptionItemFactory;
+    protected $subscriptionCollectionFactory;
+    protected $orderHelper;
+    protected $orderCollectionFactory;
+    protected $subscriptionInvoiceFactory;
 
     public function __construct(
         Data $stripeDataHelper,
+        \Magenest\Stripe\Helper\OrderHelper $orderHelper,
         \Magenest\Stripe\Model\AttributeFactory $productAttributeFactory,
         \Magento\Framework\App\ProductMetadataInterface $productMetadataInterface,
         \Magenest\Stripe\Model\SubscriptionFactory $subscriptionFactory,
-        \Magenest\Stripe\Model\SubscriptionItemFactory $subscriptionItemFactory
+        \Magenest\Stripe\Model\SubscriptionItemFactory $subscriptionItemFactory,
+        \Magento\Sales\Model\ResourceModel\Order\Address\CollectionFactory $orderCollectionFactory,
+        \Magenest\Stripe\Model\ResourceModel\Subscription\CollectionFactory $subscriptionCollectionFactory,
+        \Magenest\Stripe\Model\SubscriptionInvoiceFactory $subscriptionInvoiceFactory
     ) {
+    
+        $this->orderHelper = $orderHelper;
+        $this->orderCollectionFactory = $orderCollectionFactory;
+        $this->subscriptionCollectionFactory = $subscriptionCollectionFactory;
         $this->_helper = $stripeDataHelper;
         $this->productAttributeFactory = $productAttributeFactory;
         $this->productMetadataInterface = $productMetadataInterface;
         $this->subscriptionFactory = $subscriptionFactory;
         $this->subscriptionItemFactory = $subscriptionItemFactory;
+        $this->subscriptionInvoiceFactory = $subscriptionInvoiceFactory;
     }
 
     public function retrievePlan($planId)
@@ -83,7 +99,7 @@ class SubscriptionHelper
     public function createPlan($currency, $interval, $intervalNum, $productId, $amount, $nickName = "", $trialDay = false)
     {
         if (!$this->_helper->isZeroDecimal($currency)) {
-            $amount*=100;
+            $amount *= 100;
         }
         $request = [
             'currency' => strtolower($currency),
@@ -111,13 +127,13 @@ class SubscriptionHelper
         if ($trialDay) {
             $request['trial_period_days'] = $trialDay;
         }
-        $response = $this->_helper->sendRequest($request, 'https://api.stripe.com/v1/plans/'.$planId, null);
+        $response = $this->_helper->sendRequest($request, 'https://api.stripe.com/v1/plans/' . $planId, null);
         return $response;
     }
 
     public function deletePlan($planId)
     {
-        $response = $this->_helper->sendRequest(null, 'https://api.stripe.com/v1/plans/'.$planId, "delete");
+        $response = $this->_helper->sendRequest(null, 'https://api.stripe.com/v1/plans/' . $planId, "delete");
         return $response;
     }
 
@@ -153,7 +169,7 @@ class SubscriptionHelper
                 }
                 $additionalOptions[] = [
                     'label' => __("Billing"),
-                    'value' => __("every")." ".$frequency." ".$unitId
+                    'value' => __("every") . " " . $frequency . " " . $unitId
                 ];
                 if ($trialDay) {
                     $additionalOptions[] = [
@@ -286,7 +302,7 @@ class SubscriptionHelper
     {
         foreach ($orderItems as $item) {
             $productOptions = $item->getData('product_options');
-            $stripeSubscription = isset($productOptions['info_buyRequest']['stripe_subscription'])?$productOptions['info_buyRequest']['stripe_subscription']:[];
+            $stripeSubscription = isset($productOptions['info_buyRequest']['stripe_subscription']) ? $productOptions['info_buyRequest']['stripe_subscription'] : [];
             if (isset($stripeSubscription['plan_id']) && $stripeSubscription['plan_id']) {
                 return true;
             }
@@ -358,10 +374,32 @@ class SubscriptionHelper
      * @param \Magento\Sales\Model\Order $order
      * @param $subscriptionResponse
      */
-    public function saveSubscriptionData($order, $subscriptionResponse)
+    public function getStripeSubscription()
     {
-        $subscriptionItemData = $subscriptionResponse['items']['data'][0];
+        $collection = $this->subscriptionCollectionFactory->create();
+        return $collection;
+    }
+
+    public function getOrders()
+    {
+        $collection = $this->orderCollectionFactory->create();
+        return $collection;
+    }
+
+    public function saveSubscriptionData($order, $subscriptionResponse, $invoices)
+    {
+        $subscriptionItemData = $subscriptionResponse['items']['data'];
         $subscription = $this->subscriptionFactory->create();
+
+//        $totalCycles = 0;
+//        $invoiceDatas = isset($invoices['data'])?$invoices['data']:[];
+//        foreach ($invoiceDatas as $invoice) {
+//            if (($invoice['subscription'] == $subscriptionResponse['id']) && ($invoice['paid'] == true)) {
+//                $totalCycles++;
+//            }
+//        }
+
+        $subscription->setData('total_cycles', 1);
         $subscription->setData('order_id', $order->getId());
         $subscription->setData('customer_id', $order->getCustomerId());
         $subscription->setData('subscription_id', $subscriptionResponse['id']);
@@ -377,12 +415,27 @@ class SubscriptionHelper
         $subscription->setData('sequence_order_ids', json_encode([$order->getId()]));
         $subscription->save();
 
-        $subscriptionItem = $this->subscriptionItemFactory->create();
-        $subscriptionItem->setData("id", $subscriptionItemData['id']);
-        $subscriptionItem->setData("subscription_id", $subscriptionItemData['subscription']);
-        $subscriptionItem->setData("plan", json_encode($subscriptionItemData['plan']));
-        $subscriptionItem->setData("quantity", $subscriptionItemData['quantity']);
-        $subscriptionItem->save();
+        foreach ($subscriptionItemData as $item) {
+            $subscriptionItem = $this->subscriptionItemFactory->create();
+            $subscriptionItem->setData("id", $item['id']);
+            $subscriptionItem->setData("subscription_id", $item['subscription']);
+            $subscriptionItem->setData("plan", json_encode($item['plan']));
+            $subscriptionItem->setData("quantity", $item['quantity']);
+            $subscriptionItem->save();
+        }
+
+        $subscriptionId = $subscription->getData('id');
+        $invoiceDatas = isset($invoices['data'])?$invoices['data']:[];
+        foreach ($invoiceDatas as $invoice) {
+            if (($invoice['subscription'] == $subscriptionResponse['id'])) {
+                $subscriptionInvoiceFactory = $this->subscriptionInvoiceFactory->create();
+                $subscriptionInvoiceFactory->setData("status", SubscriptionInvoice::STATUS_CREATED_ORDER);
+                $subscriptionInvoiceFactory->setData("subscription_id", $subscriptionId);
+                $subscriptionInvoiceFactory->setData("order_id", $order->getId());
+                $subscriptionInvoiceFactory->addData($invoice);
+                $subscriptionInvoiceFactory->save();
+            }
+        }
     }
 
     /**
@@ -401,6 +454,25 @@ class SubscriptionHelper
         $subscription->setData('trial_end', $subscriptionResponse['trial_end']);
         $subscription->setData('ended_at', $subscriptionResponse['ended_at']);
         return $subscription;
+    }
+
+    public function updateSubscriptionInvoice($subscriptionEntityId, $subscriptionId, $invoices)
+    {
+        $currentInvoiceIdArr = $this->subscriptionInvoiceFactory->create()->getCollection()
+                                    ->addFieldToFilter("subscription", $subscriptionId)
+                                    ->getAllIds();
+        $invoiceDatas = isset($invoices['data'])?$invoices['data']:[];
+        foreach ($invoiceDatas as $invoice) {
+            $invoiceId = $invoice['id'];
+            //if new invoice -> add to db
+            if (!in_array($invoiceId, $currentInvoiceIdArr)) {
+                $subscriptionInvoiceFactory = $this->subscriptionInvoiceFactory->create();
+                $subscriptionInvoiceFactory->setData("status", SubscriptionInvoice::STATUS_NEW);
+                $subscriptionInvoiceFactory->setData("subscription_id", $subscriptionEntityId);
+                $subscriptionInvoiceFactory->addData($invoice);
+                $subscriptionInvoiceFactory->save();
+            }
+        }
     }
 
     public function getSubscriptionData($subscriptionId)

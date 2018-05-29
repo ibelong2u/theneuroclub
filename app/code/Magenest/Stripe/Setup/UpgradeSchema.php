@@ -252,8 +252,178 @@ class UpgradeSchema implements UpgradeSchemaInterface
                     'comment' => 'End At'
                 ]
             );
+
+            $this->createSubscriptionInvoiceTable($setup);
         }
 
         $setup->endSetup();
+    }
+
+    private function createSubscriptionInvoiceTable($setup)
+    {
+        $table = $setup->getConnection()->newTable($setup->getTable('magenest_stripe_subscription_invoice'))
+            ->addColumn(
+                'id',
+                Table::TYPE_TEXT,
+                50,
+                ['nullable' => false, 'primary' => true],
+                'ID'
+            )
+            ->addColumn(
+                'subscription_id',
+                Table::TYPE_TEXT,
+                50,
+                [],
+                'Subscription ID'
+            )
+            ->addColumn(
+                'order_id',
+                Table::TYPE_INTEGER,
+                null,
+                [],
+                'Order ID'
+            )->addColumn(
+                'amount_due',
+                Table::TYPE_TEXT,
+                10,
+                [],
+                'Amount Due'
+            )
+            ->addColumn(
+                'amount_paid',
+                Table::TYPE_TEXT,
+                10,
+                [],
+                'Amount Paid'
+            )
+            ->addColumn(
+                'amount_remaining',
+                Table::TYPE_TEXT,
+                10,
+                [],
+                'Amount Remaining'
+            )
+            ->addColumn(
+                'attempt_count',
+                Table::TYPE_INTEGER,
+                null,
+                [],
+                'attempt_count'
+            )
+            ->addColumn(
+                'attempted',
+                Table::TYPE_INTEGER,
+                null,
+                [],
+                'attempted'
+            )
+            ->addColumn(
+                'billing',
+                Table::TYPE_TEXT,
+                30,
+                [],
+                'Billing'
+            )
+            ->addColumn(
+                'date',
+                Table::TYPE_INTEGER,
+                null,
+                [],
+                'date'
+            )
+            ->addColumn(
+                'description',
+                Table::TYPE_TEXT,
+                200,
+                [],
+                'description'
+            )
+            ->addColumn(
+                'due_date',
+                Table::TYPE_INTEGER,
+                null,
+                [],
+                'due_date'
+            )
+            ->addColumn(
+                'next_payment_attempt',
+                Table::TYPE_INTEGER,
+                null,
+                [],
+                'next_payment_attempt'
+            )
+            ->addColumn(
+                'number',
+                Table::TYPE_TEXT,
+                30,
+                [],
+                'number'
+            )
+            ->addColumn(
+                'paid',
+                Table::TYPE_INTEGER,
+                null,
+                [],
+                'paid'
+            )
+            ->addColumn(
+                'period_end',
+                Table::TYPE_INTEGER,
+                null,
+                [],
+                'period_end'
+            )
+            ->addColumn(
+                'period_start',
+                Table::TYPE_INTEGER,
+                null,
+                [],
+                'period_start'
+            )
+            ->addColumn(
+                'subscription',
+                Table::TYPE_TEXT,
+                30,
+                [],
+                'subscription'
+            )
+            ->addColumn(
+                'subtotal',
+                Table::TYPE_TEXT,
+                30,
+                [],
+                'subtotal'
+            )
+            ->addColumn(
+                'tax_percent',
+                Table::TYPE_TEXT,
+                30,
+                [],
+                'tax_percent'
+            )
+            ->addColumn(
+                'total',
+                Table::TYPE_TEXT,
+                30,
+                [],
+                'total'
+            )
+            ->addColumn(
+                'status',
+                Table::TYPE_INTEGER,
+                null,
+                [],
+                'status'
+            )
+            ->addColumn(
+                'created_at',
+                Table::TYPE_TIMESTAMP,
+                'null',
+                ['default' => Table::TIMESTAMP_INIT],
+                'Created At'
+            )
+            ->setComment('subscription item Table');
+
+        $setup->getConnection()->createTable($table);
     }
 }

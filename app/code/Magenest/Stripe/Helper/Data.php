@@ -145,6 +145,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         }
     }
 
+//    public function getInvoices()
+//    {
+//        $url = "https://api.stripe.com/v1/invoices";
+//        return $this->sendRequest([], $url, null);
+//    }
+
     public function deleteSubscription($subsId)
     {
         $isCancelAtPeriodEnd = $this->_config->getIsCancelAtPeriodEnd();

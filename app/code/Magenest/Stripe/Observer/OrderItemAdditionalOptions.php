@@ -13,10 +13,18 @@ use Magento\Framework\Event\ObserverInterface;
 class OrderItemAdditionalOptions implements ObserverInterface
 {
     protected $subscriptionHelper;
+    protected $stripeHelper;
+    protected $customerSession;
 
-    public function __construct(\Magenest\Stripe\Helper\SubscriptionHelper $subscriptionHelper)
-    {
+    public function __construct(
+        \Magenest\Stripe\Helper\SubscriptionHelper $subscriptionHelper,
+        \Magenest\Stripe\Helper\Data $stripeHelper,
+        \Magento\Customer\Model\Session $customerSession
+    ) {
+    
         $this->subscriptionHelper = $subscriptionHelper;
+        $this->stripeHelper = $stripeHelper;
+        $this->customerSession = $customerSession;
     }
 
     /**
@@ -33,6 +41,14 @@ class OrderItemAdditionalOptions implements ObserverInterface
              */
             $quote = $observer->getQuote();
             $order = $observer->getOrder();
+            $orderItems = $order->getItems();
+            if (($this->subscriptionHelper->isSubscriptionOrder($orderItems))&&($this->customerSession->isLoggedIn())) {
+                $stripeCustomerId = $this->stripeHelper->getStripeCustomerId();
+                if ($stripeCustomerId) {
+                } else {
+                    $stripeCustomerId = $this->stripeHelper->createCustomer();
+                }
+            }
             $quoteItems = [];
 
             // Map Quote Item with Quote Item Id

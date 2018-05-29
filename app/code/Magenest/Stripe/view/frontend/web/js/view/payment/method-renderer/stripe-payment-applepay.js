@@ -34,7 +34,7 @@ define(
     ) {
         'use strict';
 
-        var stripe = Stripe(window.checkoutConfig.payment.magenest_stripe_config.publishableKey),
+        var stripe,
             paymentRequest;
         var totals = quote.totals(),
             zeroDecimal = window.checkoutConfig.payment.magenest_stripe_config.isZeroDecimal,
@@ -77,6 +77,7 @@ define(
             },
 
             requestPayment: function (data, event, parent) {
+                stripe = Stripe(window.checkoutConfig.payment.magenest_stripe_config.publishableKey);
                 var self;
                 if(typeof parent !== 'undefined'){
                     self = parent;

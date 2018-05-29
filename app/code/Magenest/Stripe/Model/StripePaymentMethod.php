@@ -221,14 +221,20 @@ class StripePaymentMethod extends \Magento\Payment\Model\Method\Cc
         $payment->setAdditionalInformation(Constant::ADDITIONAL_PAYMENT_ACTION, $paymentAction);
         $order = $payment->getOrder();
         $orderItems = $order->getItems();
-        if (($this->subscriptionHelper->isSubscriptionOrder($orderItems)) && ($order->getCustomerIsGuest())) {
-            throw new \Magento\Framework\Exception\LocalizedException(
-                __('You need create an account to order subscription product')
-            );
-        }
         $this->_debug("-------Stripe init: orderid: " . $order->getIncrementId());
         $stateObject->setIsNotified($order->getCustomerNoteNotify());
         $amount = $order->getBaseGrandTotal();
+        if ($this->subscriptionHelper->isSubscriptionOrder($orderItems)) {
+            if ($order->getCustomerIsGuest()) {
+                throw new \Magento\Framework\Exception\LocalizedException(
+                    __('You need create an account to order subscription product')
+                );
+            } else {
+                $stateObject->setData('state', \Magento\Sales\Model\Order::STATE_PROCESSING);
+                $this->placeOrder($payment, $amount, $paymentAction);
+                return parent::initialize($paymentAction, $stateObject);
+            }
+        }
         $threeDSecureAction = $this->_config->getThreedsecure();
         $threeDSecureVerify = $this->_config->getThreeDSecureVerify();
         $threeDSecureVerify = explode(",", $threeDSecureVerify);

@@ -59,4 +59,9 @@ class Version extends Template implements RendererInterface
     {
         return 'Magenest_Stripe::system/config/fieldset/version.phtml';
     }
+
+    public function getDownloadDebugUrl()
+    {
+        return $this->getUrl('stripe/config/downloadDebug', ['version'=>$this->getVersion()]);
+    }
 }

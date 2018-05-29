@@ -8,8 +8,8 @@ class MethodList
 
     public function __construct(
         \Magenest\Stripe\Helper\SubscriptionHelper $subscriptionHelper
-    )
-    {
+    ) {
+    
         $this->subscriptionHelper = $subscriptionHelper;
     }
 
@@ -17,8 +17,8 @@ class MethodList
         $subject,
         callable $proceed,
         \Magento\Quote\Api\Data\CartInterface $quote
-    )
-    {
+    ) {
+    
         $items = $quote->getItems();
         $result = $proceed($quote);
         $isSubscription = $this->isSubscriptionOrder($items);
@@ -29,12 +29,12 @@ class MethodList
             "magenest_stripe_giropay",
             "magenest_stripe_alipay"
         ];
-        foreach ($result as $k => $value){
+        foreach ($result as $k => $value) {
             $paymentCode = $value->getCode();
-            if(in_array($paymentCode, $listAvailableMethod)) {
+            if (in_array($paymentCode, $listAvailableMethod)) {
                 if ($isSubscription) {
-                    if($paymentCode == "magenest_stripe"){
-                    }else{
+                    if ($paymentCode == "magenest_stripe") {
+                    } else {
                         unset($result[$k]);
                     }
                 }
@@ -47,7 +47,7 @@ class MethodList
     {
         foreach ($orderItems as $item) {
             $infoRequest = $item->getOptionByCode('info_buyRequest');
-            if($infoRequest){
+            if ($infoRequest) {
                 $infoRequestValue = $this->subscriptionHelper->decodeProductData($infoRequest->getValue());
                 $stripeSubscription = isset($infoRequestValue['stripe_subscription'])?$infoRequestValue['stripe_subscription']:[];
                 if (isset($stripeSubscription['plan_id']) && $stripeSubscription['plan_id']) {

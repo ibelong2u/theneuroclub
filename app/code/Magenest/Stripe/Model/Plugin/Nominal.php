@@ -49,17 +49,22 @@ class Nominal
                 $itemSubscriptionAdding = 1;
             }
         }
-        if ($subscriptionCart) {
+        if ($subscriptionCart !== $itemSubscriptionAdding) {
             throw new \Exception(
-                __('Item with subscription option can be purchased standalone only.')
+                __('You cannot add this product to cart')
             );
-        } else {
-            if ($itemSubscriptionAdding) {
-                throw new \Exception(
-                    __('Item with subscription option can be purchased standalone only.')
-                );
-            }
         }
+//        if ($subscriptionCart) {
+//            throw new \Exception(
+//                __('Item with subscription option can be purchased standalone only.')
+//            );
+//        } else {
+//            if ($itemSubscriptionAdding) {
+//                throw new \Exception(
+//                    __('Item with subscription option can be purchased standalone only.')
+//                );
+//            }
+//        }
 
         $proceed($item);
         return $subject;

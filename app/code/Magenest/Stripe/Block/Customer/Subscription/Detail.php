@@ -23,13 +23,17 @@ class Detail extends \Magento\Framework\View\Element\Template
 
     protected $_coreRegistry;
 
+    protected $date;
+
     public function __construct(
         Context $context,
+        \Magento\Framework\Stdlib\DateTime\DateTime $date,
         SubscriptionFactory $subscriptionFactory,
         ObjectManagerInterface $objectManagerInterface,
         DataHelper $dataHelper,
         $data = []
     ) {
+        $this->date = $date;
         $this->_subscriptionFactory = $subscriptionFactory;
         $this->_objectManager = $objectManagerInterface;
         $this->_helper = $dataHelper;
@@ -71,11 +75,37 @@ class Detail extends \Magento\Framework\View\Element\Template
         );
     }
 
+
     public function getCancelUrl($subscriptionId)
     {
         return $this->getUrl(
             'stripe/customer/cancel',
             ['sub_id' => $subscriptionId]
+        );
+    }
+
+    public function getInvoices()
+    {
+        $subscription = $this->getSubscription();
+        $subscriptionId = $subscription->getData('subscription_id');
+        $invoiceCollection = $this->_objectManager->create('\Magenest\Stripe\Model\ResourceModel\SubscriptionInvoice\Collection');
+        $invoiceCollection->addFieldToFilter("subscription", $subscriptionId);
+        $invoiceCollection->setOrder("date", "DESC");
+        $invoicesData = $invoiceCollection->getData();
+        return $invoicesData;
+    }
+
+    public function getDate()
+    {
+        $date = $this->date->gmtTimestamp();
+        return $date;
+    }
+
+    public function getViewOrderUrl($orderId)
+    {
+        return $this->getUrl(
+            'sales/order/view',
+            ['order_id' => $orderId]
         );
     }
 }

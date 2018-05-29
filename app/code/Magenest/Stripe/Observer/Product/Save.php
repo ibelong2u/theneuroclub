@@ -71,7 +71,7 @@ class Save implements ObserverInterface
             $planCurrentListId = [];
             foreach ($subscriptionOptions as $option) {
                 $amount = isset($option['amount'])?$option['amount']:"";
-                if(!$amount){
+                if (!$amount) {
                     $amount = $price;
                     $option['amount'] = $price;
                 }
@@ -97,7 +97,7 @@ class Save implements ObserverInterface
                         $nickName,
                         $trialDay
                     );
-                    if(isset($createPlanResponse['error'])){
+                    if (isset($createPlanResponse['error'])) {
                         $err = isset($createPlanResponse['error']['message'])?$createPlanResponse['error']['message']:"Create plan error";
                         $this->messageManager->addErrorMessage("Create Plan err: ".$err);
                     }

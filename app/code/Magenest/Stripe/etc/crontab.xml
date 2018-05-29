@@ -6,7 +6,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Cron/etc/crontab.xsd">
-    <group id="default">
+    <group id="stripe_cron">
         <job name="stripe_update_cron" instance="Magenest\Stripe\Model\Cron" method="execute">
             <schedule>0 0 * * *</schedule>
         </job>

@@ -1,13 +1,51 @@
 <?php
 // @codingStandardsIgnoreFile
+/** @var \Magenest\Stripe\Block\Adminhtml\Subscription\View\Tabs\Invoice $block */
 $invoices = $block->getInvoices();
 ?>
-<table>
-    <thead>
-    <th></th>
-    </thead>
-    <tbody></tbody>
-<?php foreach ($invoices as $invoice){ ?>
+<strong class="box-title">
+    <span><?php echo __('Invoices: ').count($invoices); ?></span>
+</strong>
 
-<?php } ?>
+<br>
+<table id="customer-booking-order-list" class="data table table-downloadable-products" style="border-spacing: 10px;">
+    <thead style="border-spacing: 100px;">
+    <tr>
+        <th style="padding:0 15px 0 15px;"><?php echo __('Order Id'); ?></th>
+        <th style="padding:0 15px 0 15px;"><?php echo __('Number'); ?></th>
+        <th style="padding:0 20px 0 15px;"><?php echo __('Billing'); ?></th>
+        <th style="padding:0 15px 0 15px;"><?php echo __('Date'); ?></th>
+        <th style="padding:0 15px 0 15px;"><?php echo __('Attempt count'); ?></th>
+        <th style="padding:0 15px 0 15px;"><?php echo __('Total '); ?></th>
+        <th style="padding:0 15px 0 15px;"><?php echo __('Subtotal '); ?></th>
+        <th style="padding:0 15px 0 15px;"><?php echo __('Amount due'); ?></th>
+        <th style="padding:0 15px 0 15px;"><?php echo __('Amount paid'); ?></th>
+        <th style="padding:0 15px 0 15px;"><?php echo __('Amount remaining'); ?></th>
+        <th style="padding:0 15px 0 15px;"><?php echo __('Paid'); ?></th>
+        <th style="padding:0 15px 0 15px;"><?php echo __('Next payment attempt'); ?></th>
+        <th style="padding:0 15px 0 15px;"><?php echo __('Status'); ?></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($invoices as $k => $invoice) { ?>
+            <tr>
+                <td style="padding:0 15px 0 15px;"><a target="_blank" href="<?=$block->getViewOrderUrl($invoice['order_id'])?>"><?=$invoice['order_id']?></a></td>
+                <td style="padding:0 15px 0 15px;"><?php echo $invoice['number'] ?></td>
+                <td style="padding:0 15px 0 15px;"><?php echo $invoice['billing']; ?></td>
+                <td style="padding:0 15px 0 15px;"><?php echo date("Y-m-d H:i:s", $invoice['date']); ?></td>
+                <td style="padding:0 15px 0 15px;"><?php echo $invoice['attempt_count']; ?></td>
+                <td style="padding:0 15px 0 15px;"><?php echo $invoice['total']; ?></td>
+                <td style="padding:0 15px 0 15px;"><?php echo $invoice['subtotal']; ?></td>
+                <td style="padding:0 15px 0 15px;"><?php echo $invoice['amount_due']; ?></td>
+                <td style="padding:0 15px 0 15px;"><?php echo $invoice['amount_paid']; ?></td>
+                <td style="padding:0 15px 0 15px;"><?php echo $invoice['amount_remaining'] ?></td>
+                <td style="padding:0 15px 0 15px;"><?php echo ($invoice['paid']==1)?"true":"false" ?></td>
+                <td style="padding:0 15px 0 15px;"><?php echo $invoice['next_payment_attempt'] ?></td>
+                <td style="padding:0 15px 0 15px;"><?php echo $block->getInvoiceStatus($invoice['status']) ?></td>
+                <?php if($invoice['status'] == 0){ ?>
+                    <td style="padding:0 15px 0 15px;"><a href="<?=$block->getCreateOrderLink($invoice['id'])?>">Create Order</a></td>
+                <?php } ?>
+            </tr>
+    <?php } ?>
+    </tbody>
 </table>

@@ -13,4 +13,5 @@
     <event name="sales_order_save_after">
         <observer name="stripe_create_subscription" instance="Magenest\Stripe\Observer\Subscription\CreateSubscriptionObserver" />
     </event>
+
 </config>

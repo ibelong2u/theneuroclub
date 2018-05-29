@@ -33,6 +33,7 @@ class Cron
         \Magenest\Stripe\Helper\Logger $logger,
         \Magenest\Stripe\Helper\SubscriptionHelper $subscriptionHelper
     ) {
+    
         $this->_helper = $dataHelper;
         $this->_config = $config;
         $this->_subscriptionFactory = $subscriptionFactory;
@@ -51,15 +52,39 @@ class Cron
     {
         /** @var \Magenest\Stripe\Model\Subscription $subsModel */
         $subscriptionCollection = $this->_subscriptionFactory->create()->getCollection();
-        $subscriptionCollection->addFieldToFilter('status', [['eq'=>'active'],['eq'=>'trialing'],['eq'=>'past_due']]);
+        $subscriptionCollection->addFieldToFilter('status', [['eq' => 'active'], ['eq' => 'trialing'], ['eq' => 'past_due']]);
         foreach ($subscriptionCollection as $item) {
             $subscriptionId = $item->getData('subscription_id');
             $subscriptionResponse = $this->subscriptionHelper->getSubscriptionData($subscriptionId);
             if (isset($subscriptionResponse['id'])) {
+                $stripeCustomerId = $subscriptionResponse['customer'];
+                $invoices = $this->_helper->getAllInvoices($stripeCustomerId, $subscriptionResponse['id']);
+                if (isset($invoices['error'])) {
+                    $invoices = [];
+                }
                 $this->subscriptionHelper->updateSubscriptionObjData($item, $subscriptionResponse);
                 $item->save();
+                $this->subscriptionHelper->updateSubscriptionInvoice($item->getData('id'), $subscriptionId, $invoices);
             }
         }
+    }
+
+    public function createOrderx()
+    {
+        foreach ($this->_helper->getAllInvoices() as $invoice) {
+            if (date("Y-m-d", $invoice['date']) == date("Y-m-d", $this->getDate()) && $invoice['paid'] == true) {
+                $this->getOrderx();
+            }
+        }
+    }
+
+    public function getDate()
+    {
+        /**
+         * @var  \Magento\Framework\Stdlib\DateTime\DateTime $this ->date
+         */
+        $date = $this->date->gmtTimestamp();
+        return $date;
     }
 
     public function syncEveryTwoMins()

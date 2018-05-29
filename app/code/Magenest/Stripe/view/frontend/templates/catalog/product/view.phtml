@@ -19,6 +19,7 @@ $maxTotalCycle = $block->getMaxTotalCycle();
         <thead>
         <tr>
             <th></th>
+            <th><?php echo __('Plan Name'); ?></th>
             <th><?php echo __('Subscription Options'); ?></th>
             <th><?php echo __('Trial Period'); ?></th>
         </tr>
@@ -33,6 +34,7 @@ $maxTotalCycle = $block->getMaxTotalCycle();
                         <input type="radio" name="stripe_subscription[plan_id]"
                                value="<?php echo $billingValue; ?>"/>
                     </td>
+                    <td><?=$option['plan_name']?></td>
                     <td><?php echo __('Bills every ') . $option['frequency'] ?> <?php echo $option['unit_id'] . __('(s)'); ?></td>
                     <?php if (array_key_exists('trial_day', $option) && $option['trial_day']) { ?>
                         <td><?php echo $option['trial_day'] ." ". __('day(s)'); ?></td>

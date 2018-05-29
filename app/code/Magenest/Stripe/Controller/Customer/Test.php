@@ -36,5 +36,6 @@ class Test extends Action
 
     public function execute()
     {
+        $a = 0;
     }
 }

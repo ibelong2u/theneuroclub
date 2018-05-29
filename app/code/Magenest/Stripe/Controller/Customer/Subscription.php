@@ -8,6 +8,7 @@
 
 namespace Magenest\Stripe\Controller\Customer;
 
+use Magento\Eav\Model\ResourceModel\Helper;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
@@ -16,7 +17,6 @@ use Magento\Customer\Model\Session as CustomerSession;
 class Subscription extends Action
 {
     protected $_customerSession;
-
     public function __construct(
         Context $context,
         CustomerSession $customerSession

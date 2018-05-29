@@ -8,6 +8,10 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Store/etc/config.xsd">
     <default>
         <payment>
+            <!--<stripe>-->
+                <!--<active>0</active>-->
+            <!--</stripe>-->
+
             <magenest_stripe>
                 <test>0</test>
                 <api>v3</api>
@@ -22,7 +26,6 @@
                 <cctypes>AE,VI,MC,DI,JCB</cctypes>
                 <useccv>1</useccv>
                 <allowspecific>0</allowspecific>
-
                 <model>Magenest\Stripe\Model\StripePaymentMethod</model>
             </magenest_stripe>
 
