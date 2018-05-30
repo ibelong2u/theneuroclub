@@ -1,0 +1,40 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+// @codingStandardsIgnoreFile
+?>
+<div id="checkout" data-bind="scope:'checkout'" class="checkout-container aw-sarp-checkout__container">
+    <div id="checkout-loader" data-role="checkout-loader" class="loading-mask" data-mage-init='{"checkoutLoader": {}}'>
+        <div class="loader">
+            <img src="<?php echo $block->escapeUrl($block->getViewFileUrl('images/loader-1.gif')) ?>"
+                 alt="<?php /* @noEscape */ echo __('Loading...') ?>"
+                 style="position: absolute;">
+        </div>
+    </div>
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#checkout": {
+                "Magento_Ui/js/core/app": <?php /* @noEscape */ echo $block->getJsLayout();?>
+            }
+        }
+    </script>
+    <script>
+        window.awSarpCheckoutConfig = <?php /* @noEscape */ echo \Zend_Json::encode($block->getCheckoutConfig()); ?>;
+        window.isCustomerLoggedIn = window.awSarpCheckoutConfig.isCustomerLoggedIn;
+        window.customerData = window.awSarpCheckoutConfig.customerData;
+        window.checkoutConfig = window.awSarpCheckoutConfig; // Magento_Checkout components support
+    </script>
+    <script>
+        require([
+            'mage/url',
+            'Magento_Ui/js/block-loader'
+        ], function(url, blockLoader) {
+            blockLoader("<?php echo $block->escapeUrl($block->getViewFileUrl('images/loader-1.gif')) ?>");
+            return url.setBaseUrl('<?php echo $block->escapeUrl($block->getBaseUrl()) ?>');
+        })
+    </script>
+</div>

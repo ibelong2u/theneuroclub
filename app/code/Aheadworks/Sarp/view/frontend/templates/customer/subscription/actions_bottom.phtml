@@ -1,0 +1,36 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Sarp\Block\Customer\Subscription\Actions */
+
+// @codingStandardsIgnoreFile
+?>
+<div class="block aw_sarp-customer-subscription_actions">
+    <?php if ($block->isCancelActionEnabled()): ?>
+        <button type="button"
+                class="action"
+                title="<?php echo $block->escapeHtml(__('Cancel Subscription')) ?>"
+                onclick="location.href = '<?php echo $block->escapeUrl($block->getCancelUrl()) ?>';">
+            <span><?php echo $block->escapeHtml(__('Cancel Subscription')) ?></span>
+        </button>
+    <?php endif; ?>
+    <?php if ($block->isSuspendActionEnabled()): ?>
+        <button type="button"
+                class="action"
+                title="<?php echo $block->escapeHtml(__('Suspend Subscription')) ?>"
+                onclick="location.href = '<?php echo $block->escapeUrl($block->getSuspendUrl()) ?>';">
+            <span><?php echo $block->escapeHtml(__('Suspend Subscription')) ?></span>
+        </button>
+    <?php endif; ?>
+    <?php if ($block->isActivateActionEnabled()): ?>
+        <button type="button"
+                class="action"
+                title="<?php echo $block->escapeHtml(__('Activate Subscription')) ?>"
+                onclick="location.href = '<?php echo $block->escapeUrl($block->getActivateUrl()) ?>';">
+            <span><?php echo $block->escapeHtml(__('Activate Subscription')) ?></span>
+        </button>
+    <?php endif; ?>
+</div>

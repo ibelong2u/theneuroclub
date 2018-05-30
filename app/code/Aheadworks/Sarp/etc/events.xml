@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="aheadworks_sarp_api_data_subscriptionplaninterface_save_before">
+        <observer name="legacy_model_aheadworks_sarp_subscriptionplan_before_save" instance="Magento\Framework\EntityManager\Observer\BeforeEntitySave" />
+    </event>
+    <event name="aheadworks_sarp_api_data_subscriptionscartinterface_save_before">
+        <observer name="legacy_model_aheadworks_sarp_subscriptionscart_before_save" instance="Magento\Framework\EntityManager\Observer\BeforeEntitySave" />
+    </event>
+    <event name="aheadworks_sarp_api_data_subscriptionscartinterface_save_after">
+        <observer name="legacy_model_aheadworks_sarp_subscriptionscart_after_save" instance="Magento\Framework\EntityManager\Observer\AfterEntitySave" />
+    </event>
+    <event name="aheadworks_sarp_api_data_subscriptionscartiteminterface_save_before">
+        <observer name="legacy_model_aheadworks_sarp_subscriptionscartitem_before_save" instance="Magento\Framework\EntityManager\Observer\BeforeEntitySave" />
+    </event>
+    <event name="aheadworks_sarp_api_data_subscriptionscartiteminterface_save_after">
+        <observer name="legacy_model_aheadworks_sarp_subscriptionscartitem_after_save" instance="Magento\Framework\EntityManager\Observer\AfterEntitySave" />
+    </event>
+    <event name="aheadworks_sarp_api_data_subscriptionscartaddressinterface_save_before">
+        <observer name="legacy_model_aheadworks_sarp_subscriptionscartaddress_before_save" instance="Magento\Framework\EntityManager\Observer\BeforeEntitySave" />
+    </event>
+    <event name="aheadworks_sarp_api_data_subscriptionscartaddressinterface_save_after">
+        <observer name="legacy_model_aheadworks_sarp_subscriptionscartaddress_after_save" instance="Magento\Framework\EntityManager\Observer\AfterEntitySave" />
+    </event>
+    <event name="aheadworks_sarp_api_data_profileaddressinterface_save_before">
+        <observer name="legacy_model_aheadworks_sarp_profileaddress_before_save" instance="Magento\Framework\EntityManager\Observer\BeforeEntitySave" />
+    </event>
+    <event name="store_add">
+        <observer name="aw_sarp_sequence" instance="Aheadworks\Sarp\Observer\SequenceCreatorObserver" />
+    </event>
+    <event name="payment_method_assign_data_adyen_cc">
+        <observer name="aw_sarp_adyen_cc_gateway_data_assign" instance="Aheadworks\Sarp\Model\SubscriptionEngine\Adyen\Observer\CcDataAssignObserver" />
+    </event>
+</config>

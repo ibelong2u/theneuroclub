@@ -1,0 +1,72 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Sarp\Block\Customer\Subscription\Info\Products */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+    $profile = $block->getProfile();
+?>
+<div class="block aw_sarp-customer-subscription_products">
+    <div id="subscription-products_title" class="block-title">
+        <strong><?php echo $block->escapeHtml(__('Products')) ?></strong>
+    </div>
+    <div class="block-content">
+        <div class="table-wrapper">
+            <table class="data table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col product-name"><?php echo $block->escapeHtml(__('Product Name')) ?></th>
+                        <th scope="col" class="col sku"><?php echo $block->escapeHtml(__('SKU')) ?></th>
+                        <th scope="col" class="col qty"><?php echo $block->escapeHtml(__('Qty')) ?></th>
+                        <th scope="col" class="col regular-price"><?php echo $block->escapeHtml(__('Regular Iteration Price')) ?></th>
+                        <th scope="col" class="col initial-fee"><?php echo $block->escapeHtml(__('Initial Fee')) ?></th>
+                        <th scope="col" class="col trial-price"><?php echo $block->escapeHtml(__('Trial Price')) ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($profile->getItems() as $item): ?>
+                    <tr>
+                        <td data-th="<?php echo $block->escapeHtml(__('Product Name')) ?>" class="col product-name">
+                            <?php if ($block->isProductExists($item->getProductId()) && $block->hasProductUrl($item->getProductId())): ?>
+                                <a href="<?php echo $block->escapeUrl($block->getProductUrl($item->getProductId())) ?>">
+                                    <span><?php echo $block->escapeHtml($item->getName()) ?></span>
+                                </a>
+                            <?php else: ?>
+                                <?php echo $block->escapeHtml($item->getName()) ?>
+                            <?php endif; ?>
+                        </td>
+                        <td data-th="<?php echo $block->escapeHtml(__('SKU')) ?>" class="col sku">
+                            <?php echo $block->escapeHtml($item->getSku()) ?>
+                        </td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Qty')) ?>" class="col qty">
+                            <?php /* @noEscape */ echo $item->getQty() ?>
+                        </td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Regular Iteration Price')) ?>" class="col regular-price">
+                            <?php /* @noEscape */ echo $block->formatProfileItemAmount($item->getRegularPrice(), $profile->getProfileCurrencyCode()) ?>
+                        </td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Initial Fee')) ?>" class="col initial-fee">
+                            <?php if ($profile->getIsInitialFeeEnabled()): ?>
+                                <?php /* @noEscape */ echo $block->formatProfileItemAmount($item->getInitialFee(), $profile->getProfileCurrencyCode()) ?>
+                            <?php else: ?>
+                                <?php echo $block->escapeHtml(__('No')) ?>
+                            <?php endif; ?>
+                        </td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Trial Price')) ?>" class="col trial-price">
+                            <?php if ($profile->getIsTrialPeriodEnabled()): ?>
+                                <?php /* @noEscape */ echo $block->formatProfileItemAmount($item->getTrialPrice(), $profile->getProfileCurrencyCode()) ?>
+                            <?php else: ?>
+                                <?php echo $block->escapeHtml(__('No')) ?>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

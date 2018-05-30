@@ -1,0 +1,35 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Magento\Theme\Block\Html\Title */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+$cssClass = $block->getCssClass() ? ' ' . $block->getCssClass() : '';
+$title = '';
+if (trim($block->getPageHeading())) {
+    $title = '<span class="base" data-ui-id="page-title-wrapper" ' .  $block->getAddBaseAttribute() . '>'
+        . $block->escapeHtml($block->getPageHeading()) . '</span>';
+}
+?>
+<?php if ($title): ?>
+    <div class="page-title-wrapper<?php /* @noEscape */ echo $cssClass ?> aw_sarp-customer-subscription_title">
+        <div class="subscription-title_wrapper">
+            <h1 class="page-title"
+                <?php if ($block->getId()): ?> id="<?php /* @noEscape */ echo $block->getId() ?>" <?php endif; ?>
+                <?php if ($block->getAddBaseAttributeAria()): ?>
+                    aria-labelledby="<?php /* @noEscape */ echo $block->getAddBaseAttributeAria() ?>"
+                <?php endif; ?>>
+                <?php /* @noEscape */ echo $title ?>
+            </h1>
+            <?php /* @noEscape */ echo $block->getChildHtml('subscription_status') ?>
+        </div>
+        <div class="subscription-actions_wrapper">
+            <?php /* @noEscape */ echo $block->getChildHtml('subscription_actions_top'); ?>
+        </div>
+    </div>
+<?php endif; ?>

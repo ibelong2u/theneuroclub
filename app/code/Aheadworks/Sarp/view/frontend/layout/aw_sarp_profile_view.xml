@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="page.main.title">
+            <block class="Aheadworks\Sarp\Block\Customer\Subscription\Info" name="aw_sarp.customer.status" as="subscription_status" template="customer/subscription/status.phtml"/>
+            <block class="Aheadworks\Sarp\Block\Customer\Subscription\Actions" name="aw_sarp.customer.actions.top" as="subscription_actions_top" template="customer/subscription/actions_top.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="page.main.title">
+            <action method="setTemplate">
+                <argument name="page_title" xsi:type="string">Aheadworks_Sarp::customer/subscription/title.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <container name="aw_sarp.customer.subscription.info" as="aw_sarp_customer_subscription_container" label="Aheadworks Sarp Customer Subscription Info Container" htmlTag="div" htmlClass="aw_sarp-customer-subscription">
+                <block class="Aheadworks\Sarp\Block\Customer\Subscription\Info\Orders" name="aw_sarp.customer.subscription.info.orders" as="subscription_orders" template="customer/subscription/info/orders.phtml" cacheable="false">
+                    <block class="Aheadworks\Sarp\Block\Customer\Subscription\Info\Orders\Pager" name="orders_pager" template="customer/subscription/info/orders/pager.phtml"/>
+                </block>
+                <block class="Aheadworks\Sarp\Block\Customer\Subscription\Info\Plan" name="aw_sarp.customer.subscription.info.plan" as="subscription_plan" template="customer/subscription/info/plan.phtml" cacheable="false"/>
+                <block class="Aheadworks\Sarp\Block\Customer\Subscription\Info\Products" name="aw_sarp.customer.subscription.info.products" as="subscription_products" template="customer/subscription/info/products.phtml" cacheable="false"/>
+                <block class="Aheadworks\Sarp\Block\Customer\Subscription\Info\Addresses" name="aw_sarp.customer.subscription.info.addresses" as="subscription_addresses" template="customer/subscription/info/addresses.phtml" cacheable="false"/>
+                <block class="Aheadworks\Sarp\Block\Customer\Subscription\Actions" name="aw_sarp.customer.actions.bottom" as="subscription_actions_bottom" template="customer/subscription/actions_bottom.phtml"/>
+            </container>
+            <block class="Magento\Customer\Block\Account\Dashboard" name="customer.account.link.back" template="account/link/back.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

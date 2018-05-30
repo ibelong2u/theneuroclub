@@ -1,0 +1,48 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Sarp\Block\Product\Subscribe */
+
+// @codingStandardsIgnoreFile
+
+$tooltipContent = $block->getPreparedTooltipContent();
+?>
+<div class="aw-sarp-subscribe-button__container"
+     data-role="aw-sarp-product-subscribe-button-container"
+     style="display: none;"
+>
+    <button type="button"
+            title="<?php echo $block->escapeHtml(__('Subscribe')) ?>"
+            class="action subscribe"
+            data-product-id="<?php /* @noEscape */ echo $block->getProduct()->getId() ?>"
+            data-role="aw-sarp-product-subscribe-button"
+            data-mage-init='{"awSarpSubscribeButton":{
+                "subscribeUrl": "<?php echo $block->escapeUrl($block->getSubscribeUrl()) ?>",
+                "defaultTitle": "<?php echo 'Subscribe' ?>",
+                "isSavingEstimationEnabled": <?php /* @noEscape */ echo \Zend_Json::encode($block->isSavingEstimationEnabled()) ?>
+            }}'>
+        <span data-role="button-text"><?php echo $block->escapeHtml(__('Subscribe')) ?></span>
+        <script data-role="title-with-saving-estimation" type="text/x-magento-template"><?php /* @noEscape */ echo __('Subscribe & Save <%- amount %> %') ?></script>
+    </button>
+    <?php if (!empty($tooltipContent)): ?>
+        <div class="tooltip">
+            <a href="#" class="tooltip-action">
+                <?php echo $block->escapeHtml(__('What is this?')) ?>
+            </a>
+            <div class="tooltip-content"><?php /* @noEscape */ echo $tooltipContent ?></div>
+        </div>
+    <?php endif; ?>
+</div>
+<br />
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "awSarpSavingEstimation": {
+                "regularPricesConfig": <?php /* @noEscape */ echo $block->getRegularPricesConfig() ?>
+            }
+        }
+    }
+</script>

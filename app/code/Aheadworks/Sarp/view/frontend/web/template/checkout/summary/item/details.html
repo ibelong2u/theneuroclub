@@ -1,0 +1,41 @@
+<!-- ko foreach: getRegion('before_details') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->
+<div class="product-item-details">
+    <div class="product-item-inner">
+        <div class="product-item-name-block">
+            <table class="data table table-product-details">
+                <tbody>
+                    <tr class="product-name">
+                        <th class="label" data-bind="text: $parent.name"></th>
+                        <td class="value">
+                            <span data-bind="html: formatPrice($parent.regular_price)"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="label" data-bind="i18n: 'Qty'"></th>
+                        <td class="value">
+                            <span data-bind="text: $parent.qty"></span>
+                        </td>
+                    </tr>
+                    <!-- ko if: $parent.trial_price -->
+                    <tr>
+                        <th class="label" data-bind="i18n: 'Trial Price'"></th>
+                        <td class="value">
+                            <span data-bind="html: formatPrice($parent.trial_price)"></span>
+                        </td>
+                    </tr>
+                    <!-- /ko -->
+                    <!-- ko if: $parent.initial_fee -->
+                    <tr>
+                        <th class="label" data-bind="i18n: 'Initial Fee'"></th>
+                        <td class="value">
+                            <span data-bind="html: formatPrice($parent.initial_fee)"></span>
+                        </td>
+                    </tr>
+                    <!-- /ko -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

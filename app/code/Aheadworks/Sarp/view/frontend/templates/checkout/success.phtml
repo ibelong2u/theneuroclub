@@ -1,0 +1,47 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Sarp\Block\Checkout\Success */
+
+// @codingStandardsIgnoreFile
+?>
+<div id="checkout-success">
+    <p><?php echo $block->escapeHtml(__('Your subscription has been successfully created.')) ?></p>
+    <?php if ($block->isCustomerLoggedIn()): ?>
+        <p>
+            <?php
+                echo /* @noEscape */ __(
+                    'You can view and manage your subscriptions at %1 page.',
+                    sprintf(
+                        '<a href="%s"><strong>%s</strong></a>',
+                        $block->escapeHtml($block->getCustomerSubscriptionsUrl()),
+                        $block->escapeHtml(__('My Subscriptions'))
+                    )
+                )
+            ?>
+        </p>
+        <p>
+            <?php
+                echo /* @noEscape */ __(
+                    'You can view and manage your orders at %1 page.',
+                    sprintf(
+                        '<a href="%s"><strong>%s</strong></a>',
+                        $block->escapeHtml($block->getCustomerOrdersUrl()),
+                        $block->escapeHtml(__('My Orders'))
+                    )
+                )
+            ?>
+        </p>
+    <?php endif; ?>
+    <p><?php echo $block->escapeHtml(__('We\'ll email you subscription confirmation.')) ?></p>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue" href="<?php echo $block->escapeUrl($block->getContinueShoppingUrl()) ?>">
+                <span><?php echo $block->escapeHtml(__('Continue Shopping')) ?></span>
+            </a>
+        </div>
+    </div>
+</div>

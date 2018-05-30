@@ -1,0 +1,13 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Sarp\Block\Adminhtml\Log\Renderer\Anchor */
+
+// @codingStandardsIgnoreFile
+?>
+<a href="<?php /* @noEscape */ echo $block->getHref() ?>"
+    <?php if ($block->getTarget()): ?> target="<?php /* @noEscape */ echo $block->getTarget() ?>"<?php endif; ?>
+    ><?php echo $block->escapeHtml(__($block->getTitle())) ?></a>
