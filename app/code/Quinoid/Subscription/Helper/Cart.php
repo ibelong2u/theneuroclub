@@ -22,6 +22,7 @@ class Cart extends \Magento\Framework\App\Helper\AbstractHelper
          * @param PageFactory $resultPageFactory
          */
          protected $_helperData;
+
         public function __construct(
             //Context $context,
             \Magento\Framework\Data\Form\FormKey $formKey,
@@ -37,7 +38,6 @@ class Cart extends \Magento\Framework\App\Helper\AbstractHelper
             $this->_response = $response;
             $this->_url = $url;
             $this->_helperData = $helperData;
-
         }
 
         /**
@@ -54,14 +54,19 @@ class Cart extends \Magento\Framework\App\Helper\AbstractHelper
             return $resultPage;
         }
 
-        //
+        public function addBundleToCart($productId) {
+          $CustomRedirectionUrl = $this->_url->getUrl('cart/bundle/add',$params = ['product'=>$productId]);
+          $this->_response->setRedirect($CustomRedirectionUrl)->sendResponse();
+
+        }
+
+        // Remove from cart using product id
         public function removeFromCart($itemId)
         { echo "Called";
           $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
           $cart = $objectManager->get('\Magento\Checkout\Model\Cart');
           $cart->removeItem($itemId)->save();
         }
-
 
 
 }
