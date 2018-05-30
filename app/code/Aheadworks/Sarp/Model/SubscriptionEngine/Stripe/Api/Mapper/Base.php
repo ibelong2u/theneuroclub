@@ -1,9 +1,4 @@
 <?php
-/**
-* Copyright 2016 aheadWorks. All rights reserved.
-* See LICENSE.txt for license details.
-*/
-
 namespace Aheadworks\Sarp\Model\SubscriptionEngine\Stripe\Api\Mapper;
 
 use Aheadworks\Sarp\Model\SubscriptionEngine\Api\MapperInterface;
@@ -35,7 +30,7 @@ class Base implements MapperInterface
     private $toApiMaps = [
         Api::PATH_PLANS => [
             'id' => 'id',
-            'name' => 'name',
+            'name' => 'product',
             'billing_frequency' => 'interval_count',
             'billing_period' => 'interval',
             'amount' => 'amount',

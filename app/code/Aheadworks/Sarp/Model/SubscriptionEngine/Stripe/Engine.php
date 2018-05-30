@@ -1,9 +1,4 @@
 <?php
-/**
-* Copyright 2016 aheadWorks. All rights reserved.
-* See LICENSE.txt for license details.
-*/
-
 namespace Aheadworks\Sarp\Model\SubscriptionEngine\Stripe;
 
 use Aheadworks\Sarp\Api\Data\ProfileAddressInterface;
@@ -140,6 +135,7 @@ class Engine implements EngineInterface
             $requestParams
         );
         $requestParams->setId(uniqid($plan->getSubscriptionPlanId()));
+        $requestParams->setName(['name' => $requestParams->getName()]);
 
         $response = $this->api->requestCreatePlan($requestParams);
         return $response->getId();

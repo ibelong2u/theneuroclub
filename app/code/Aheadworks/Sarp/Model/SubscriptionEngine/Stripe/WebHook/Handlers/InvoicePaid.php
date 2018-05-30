@@ -1,9 +1,4 @@
 <?php
-/**
-* Copyright 2016 aheadWorks. All rights reserved.
-* See LICENSE.txt for license details.
-*/
-
 namespace Aheadworks\Sarp\Model\SubscriptionEngine\Stripe\WebHook\Handlers;
 
 use Aheadworks\Sarp\Api\ProfileManagementInterface;
@@ -76,7 +71,7 @@ class InvoicePaid implements HandlerInterface
     public function execute(DataObject $eventObject)
     {
         $lines = $eventObject->getLines();
-        $subscriptionId = $lines['data'][0]['id'];
+        $subscriptionId = $lines['data'][0]['subscription'];
         $profile = $this->profileRepository->getByReferenceId($subscriptionId);
         $this->profileManagement->createOrder($profile, $this->getPaymentInfo($profile, $eventObject));
     }
