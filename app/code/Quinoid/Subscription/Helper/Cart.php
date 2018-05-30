@@ -55,7 +55,7 @@ class Cart extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         public function addBundleToCart($productId) {
-          $CustomRedirectionUrl = $this->_url->getUrl('cart/bundle/add',$params = ['product'=>$productId]);
+          $CustomRedirectionUrl = $this->_url->getUrl('subscription/bundle/add',$params = ['product'=>$productId]);
           $this->_response->setRedirect($CustomRedirectionUrl)->sendResponse();
 
         }
