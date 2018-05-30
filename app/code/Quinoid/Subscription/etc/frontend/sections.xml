@@ -4,4 +4,13 @@
     <action name="subscription/cart/deletebundleitem">
         <section name="cart"/>
     </action>
+    <action name="checkout/cart/add">
+        <section name="cart"/>
+    </action>
+    <action name="checkout/cart/delete">
+        <section name="cart"/>
+    </action>
+    <action name="cart/items/remove">
+        <section name="cart"/>
+    </action>
 </config>

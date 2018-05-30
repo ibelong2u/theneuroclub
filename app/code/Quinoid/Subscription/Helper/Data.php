@@ -21,6 +21,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
       return $this->_productRepository->getById($id);
     }
+
+
     // Function takes as input  product id and returns the type of product.
     //@params $productId
     //@returns boolean
@@ -31,6 +33,20 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
       $product = $this->getProductById($productId);
       $productType = $product->getTypeID();
       return $productType == "bundle"? true:false;
+    }
+
+    // Returns product details using product id as an array
+    public function getProductDetails($productId)
+    {
+      $product = $this->getProductById($productId);
+
+      $itemDetails = array(
+          'product' => $productId,
+          'qty' => 1,
+          'price' => $product->getFinalPrice()
+      );
+
+      return $itemDetails;
     }
 
     /*  Get all items in the cartHelper   */
