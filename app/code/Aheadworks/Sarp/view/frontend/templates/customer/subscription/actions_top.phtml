@@ -1,0 +1,20 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Sarp\Block\Customer\Subscription\Actions */
+
+// @codingStandardsIgnoreFile
+?>
+<div class="aw_sarp-customer-subscription_actions">
+    <?php if ($block->isRefreshActionEnabled()): ?>
+        <button type="button"
+                class="action primary"
+                title="<?php echo $block->escapeHtml(__('Refresh Data')) ?>"
+                onclick="location.href = '<?php echo $block->escapeUrl($block->getRefreshUrl()) ?>';">
+            <span><?php echo $block->escapeHtml(__('Refresh Data')) ?></span>
+        </button>
+    <?php endif; ?>
+</div>

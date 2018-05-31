@@ -1,0 +1,18 @@
+<!-- ko if: isInputMode -->
+<input class="admin__control-text" type="text"
+       data-bind="
+        event: {change: userChanges},
+        value: value,
+        hasFocus: focused,
+        valueUpdate: valueUpdate,
+        attr: {
+            name: inputName,
+            placeholder: placeholder,
+            'aria-describedby': noticeId,
+            id: uid,
+            disabled: disabled
+        }"/>
+<!-- /ko -->
+<!-- ko ifnot: isInputMode -->
+<span class="aw-sarp_subscription-plan__replace-text" data-bind="text: replaceText"></span>
+<!-- /ko -->

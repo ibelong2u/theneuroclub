@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="aheadworks" translate="label" sortOrder="300">
+            <label>Aheadworks Extensions</label>
+        </tab>
+        <section id="aw_sarp" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Subscription and Recurring Payments</label>
+            <tab>aheadworks</tab>
+            <resource>Aheadworks_Sarp::config_aw_sarp</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="apply_tax_on_trial_amount" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Apply Tax on Trial Amount</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="apply_tax_on_shipping_amount" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Apply Tax on Shipping Amount</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="display_you_save_x_percents_on_product_page" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display "You Save X %" on Product Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="tooltip_near_subscription_button_content" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tooltip Near Subscription Button on Product Page</label>
+                </field>
+
+                <field id="keep_log_for_days" translate="label,comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Keep log for, days</label>
+                    <frontend_class>validate-digits</frontend_class>
+                    <comment><![CDATA[Empty = no records will be removed.]]></comment>
+                </field>
+
+            </group>
+        </section>
+        <section id="payment">
+            <group id="account">
+                <field id="merchant_timezone" type="select" translate="label comment" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Merchant Timezone</label>
+                    <comment>If not specified, Timezone from General Config will be used</comment>
+                    <source_model>Aheadworks\Sarp\Model\SubscriptionEngine\Paypal\Config\Source\MerchantTimezone</source_model>
+                    <backend_model>Aheadworks\Sarp\Model\SubscriptionEngine\Paypal\Config\Backend\MerchantTimezone</backend_model>
+                </field>
+            </group>
+            <group id="aw_sarp_stripe" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Stripe (Subscriptions)</label>
+                <field id="is_test_mode" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Test Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="test_secret_key" translate="label" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Test Secret Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="is_test_mode">1</field>
+                    </depends>
+                </field>
+                <field id="test_publishable_key" translate="label" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Test Publishable Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="is_test_mode">1</field>
+                    </depends>
+                </field>
+                <field id="secret_key" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Live Secret Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="is_test_mode">0</field>
+                    </depends>
+                </field>
+                <field id="publishable_key" translate="label" type="obscure" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Live Publishable Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="is_test_mode">0</field>
+                    </depends>
+                </field>
+                <field id="cctypes" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Credit Card Types</label>
+                    <source_model>Aheadworks\Sarp\Model\SubscriptionEngine\Stripe\Config\Source\Cctype</source_model>
+                </field>
+                <field id="useccv" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Credit Card Verification</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="debug" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Debug</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

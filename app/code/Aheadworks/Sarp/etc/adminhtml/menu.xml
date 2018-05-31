@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Aheadworks_Sarp::sarp" title="Subscription and Recurring Payments by Aheadworks" translate="title" module="Aheadworks_Sarp" parent="Magento_Sales::sales" sortOrder="30" resource="Aheadworks_Sarp::sarp"/>
+        <add id="Aheadworks_Sarp::subscriptions" title="Subscriptions" translate="title" module="Aheadworks_Sarp" sortOrder="10" parent="Aheadworks_Sarp::sarp" action="aw_sarp/subscription/index" resource="Aheadworks_Sarp::subscriptions"/>
+        <add id="Aheadworks_Sarp::subscription_plans" title="Subscription Plans" translate="title" module="Aheadworks_Sarp" sortOrder="20" parent="Aheadworks_Sarp::sarp" action="aw_sarp/subscriptionplan/index" resource="Aheadworks_Sarp::subscription_plans"/>
+        <add id="Aheadworks_Sarp::log" title="Log" translate="title" module="Aheadworks_Sarp" sortOrder="30" parent="Aheadworks_Sarp::sarp" action="aw_sarp/log/index" resource="Aheadworks_Sarp::log"/>
+    </menu>
+</config>

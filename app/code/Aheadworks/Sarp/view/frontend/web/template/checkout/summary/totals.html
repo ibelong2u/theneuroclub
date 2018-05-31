@@ -1,0 +1,23 @@
+<!-- ko if: isDisplayed() -->
+<table class="data table table-totals">
+    <caption class="table-caption" data-bind="i18n: 'Summary'"></caption>
+    <tbody>
+        <!-- ko foreach: totals -->
+        <tr class="totals" data-bind="if: value() && !isHidden(), css: code">
+            <!-- ko ifnot: details -->
+            <th class="mark" scope="row" data-bind="text: title"></th>
+            <!-- /ko -->
+            <!-- ko if: details -->
+            <th class="mark" scope="row">
+                <span class="label" data-bind="text: title"></span>
+                <span class="value" data-bind="text: details"></span>
+            </th>
+            <!-- /ko -->
+            <td class="amount">
+                <span class="price" data-bind="text: $parent.formatPrice(value()), attr:{'data-label': title}"></span>
+            </td>
+        </tr>
+        <!-- /ko -->
+    </tbody>
+</table>
+<!-- /ko -->

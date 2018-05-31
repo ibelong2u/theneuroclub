@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/awSarp/select-subscription-plan" method="POST">
+        <service class="Aheadworks\Sarp\Api\SubscriptionsCartManagementInterface" method="selectSubscriptionPlan"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/awSarp/update-cart" method="POST">
+        <service class="Aheadworks\Sarp\Api\SubscriptionsCartRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/awSarp/update-cart-item" method="POST">
+        <service class="Aheadworks\Sarp\Api\SubscriptionsCartItemRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/awSarp/delete-cart-item" method="POST">
+        <service class="Aheadworks\Sarp\Api\SubscriptionsCartItemRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/awSarp/estimate-shipping-methods" method="POST">
+        <service class="Aheadworks\Sarp\Api\ShippingEstimationInterface" method="estimate"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/awSarp/estimate-shipping-methods-by-customer-address-id" method="POST">
+        <service class="Aheadworks\Sarp\Api\ShippingEstimationInterface" method="estimateByCustomerAddressId"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/awSarp/save-shipping-information" method="POST">
+        <service class="Aheadworks\Sarp\Api\SubscriptionsCartManagementInterface" method="saveShippingInformation"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/awSarp/save-guest-shipping-information" method="POST">
+        <service class="Aheadworks\Sarp\Api\SubscriptionsCartManagementInterface" method="saveGuestShippingInformation"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/awSarp/save-billing-address" method="POST">
+        <service class="Aheadworks\Sarp\Api\SubscriptionsCartManagementInterface" method="saveBillingAddress"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/awSarp/save-guest-billing-address" method="POST">
+        <service class="Aheadworks\Sarp\Api\SubscriptionsCartManagementInterface" method="saveGuestBillingAddress"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/awSarp/save-payment-information" method="POST">
+        <service class="Aheadworks\Sarp\Api\SubscriptionsCartManagementInterface" method="savePaymentInformation"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/awSarp/save-payment-information-and-submit" method="POST">
+        <service class="Aheadworks\Sarp\Api\SubscriptionsCartManagementInterface" method="savePaymentInformationAndSubmit"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/awSarp/save-guest-payment-information" method="POST">
+        <service class="Aheadworks\Sarp\Api\SubscriptionsCartManagementInterface" method="saveGuestPaymentInformation"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/awSarp/save-guest-payment-information-and-submit" method="POST">
+        <service class="Aheadworks\Sarp\Api\SubscriptionsCartManagementInterface" method="saveGuestPaymentInformationAndSubmit"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+</routes>

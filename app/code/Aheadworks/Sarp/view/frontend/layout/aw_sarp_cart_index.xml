@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Aheadworks\Sarp\Block\Cart" name="aw_sarp.cart" template="cart.phtml" cacheable="false">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="cart" xsi:type="array">
+                                <item name="component" xsi:type="string">uiComponent</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">Aheadworks_Sarp/cart</item>
+                                </item>
+                                <item name="children" xsi:type="array">
+                                    <item name="errors" xsi:type="array">
+                                        <item name="sortOrder" xsi:type="string">0</item>
+                                        <item name="component" xsi:type="string">Magento_Ui/js/view/messages</item>
+                                        <item name="displayArea" xsi:type="string">messages</item>
+                                    </item>
+                                    <item name="progressBar" xsi:type="array">
+                                        <item name="sortOrder" xsi:type="string">10</item>
+                                        <item name="component" xsi:type="string">Aheadworks_Sarp/js/ui/view/progress-bar</item>
+                                        <item name="displayArea" xsi:type="string">progressBar</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Aheadworks_Sarp/cart/progress-bar</item>
+                                            <item name="steps" xsi:type="array">
+                                                <item name="0" xsi:type="array">
+                                                    <item name="code" xsi:type="string">product</item>
+                                                    <item name="alias" xsi:type="string"/>
+                                                    <item name="title" xsi:type="string" translate="true">Product</item>
+                                                    <item name="sortOrder" xsi:type="string">0</item>
+                                                    <item name="isActive" xsi:type="boolean">true</item>
+                                                </item>
+                                                <item name="1" xsi:type="array">
+                                                    <item name="code" xsi:type="string">subscription-plan</item>
+                                                    <item name="title" xsi:type="string" translate="true">Subscription Plan</item>
+                                                    <item name="sortOrder" xsi:type="string">1</item>
+                                                    <item name="isActive" xsi:type="boolean">false</item>
+                                                    <item name="scrollTo" xsi:type="string">#continue-to-checkout-button</item>
+                                                </item>
+                                                <item name="3" xsi:type="array">
+                                                    <item name="code" xsi:type="string">checkout</item>
+                                                    <item name="title" xsi:type="string" translate="true">Secure Checkout</item>
+                                                    <item name="sortOrder" xsi:type="string">3</item>
+                                                    <item name="isActive" xsi:type="boolean">false</item>
+                                                </item>
+                                                <item name="4" xsi:type="array">
+                                                    <item name="code" xsi:type="string">confirmation</item>
+                                                    <item name="title" xsi:type="string" translate="true">Confirmation</item>
+                                                    <item name="sortOrder" xsi:type="string">4</item>
+                                                    <item name="isActive" xsi:type="boolean">false</item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                    <item name="subscriptionPlans" xsi:type="array">
+                                        <item name="sortOrder" xsi:type="string">20</item>
+                                        <item name="component" xsi:type="string">Aheadworks_Sarp/js/ui/cart/view/subscription-plans</item>
+                                        <item name="displayArea" xsi:type="string">subscriptionPlans</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Aheadworks_Sarp/cart/subscription-plans</item>
+                                            <item name="selectBtnTitle" xsi:type="string" translate="true">Select Plan</item>
+                                            <item name="selectBtnTitleSelected" xsi:type="string" translate="true">Selected</item>
+                                            <item name="selectBtnTitleUnselect" xsi:type="string" translate="true">Unselect</item>
+                                        </item>
+                                    </item>
+                                    <item name="crossSells" xsi:type="array">
+                                        <item name="sortOrder" xsi:type="string">30</item>
+                                        <item name="component" xsi:type="string">uiComponent</item>
+                                        <item name="displayArea" xsi:type="string">crossSells</item>
+                                        <!-- todo: implement in the scope of https://aheadworks.atlassian.net/browse/M2SARP-8 -->
+                                    </item>
+                                    <item name="sidebar" xsi:type="array">
+                                        <item name="sortOrder" xsi:type="string">40</item>
+                                        <item name="component" xsi:type="string">uiComponent</item>
+                                        <item name="displayArea" xsi:type="string">sidebar</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Aheadworks_Sarp/cart/sidebar</item>
+                                        </item>
+                                        <item name="children" xsi:type="array">
+                                            <item name="cartItems" xsi:type="array">
+                                                <item name="component" xsi:type="string">Aheadworks_Sarp/js/ui/cart/view/cart-items</item>
+                                                <item name="displayArea" xsi:type="string">cartItems</item>
+                                                <item name="sortOrder" xsi:type="string">0</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Aheadworks_Sarp/cart/cart-items</item>
+                                                </item>
+                                            </item>
+                                            <item name="planSummary" xsi:type="array">
+                                                <item name="component" xsi:type="string">Aheadworks_Sarp/js/ui/cart/view/subscription-plan-summary</item>
+                                                <item name="displayArea" xsi:type="string">planSummary</item>
+                                                <item name="sortOrder" xsi:type="string">10</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Aheadworks_Sarp/cart/subscription-plan-summary</item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

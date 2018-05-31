@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.addtocart">
+            <block class="Aheadworks\Sarp\Block\Wishlist\Subscribe" name="aw_sarp.product.subscribe" before="addtocart.shortcut.buttons" template="product/subscribe.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="product.info.addtocart.additional">
+            <block class="Aheadworks\Sarp\Block\Wishlist\Subscribe" name="aw_sarp.product.subscribe.additional" before="addtocart.shortcut.buttons.additional" template="product/subscribe.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

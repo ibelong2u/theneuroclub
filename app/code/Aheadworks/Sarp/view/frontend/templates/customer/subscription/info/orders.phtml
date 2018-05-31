@@ -1,0 +1,67 @@
+<?php
+/**
+* Copyright 2016 aheadWorks. All rights reserved.
+* See LICENSE.txt for license details.
+*/
+
+/* @var $block \Aheadworks\Sarp\Block\Customer\Subscription\Info\Orders */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+    $profileOrders = $block->getProfileOrders();
+?>
+<div class="block aw_sarp-customer-subscription_orders">
+    <div class="block-title">
+        <strong><?php echo $block->escapeHtml(__('Orders')) ?></strong>
+    </div>
+    <div class="block-content">
+        <?php if (count($profileOrders)): ?>
+            <div id="box-subscription-orders" class="box">
+                <div class="box-title">
+                    <span class="title">
+                        <?php echo $block->escapeHtml(__('%1 of %2 orders', $block->getDisplayedOrdersNumbers(), $block->getTotalProfileOrdersCount())) ?>
+                        <?php if ($block->getOrdersLeftCount()): ?>
+                            (<?php echo $block->escapeHtml(__('%1 orders left', $block->getOrdersLeftCount())) ?>)
+                        <?php endif; ?>
+                    </span>
+                </div>
+                <div class="box-content">
+                    <div class="table-wrapper">
+                        <table class="data table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="col order-id"><?php echo $block->escapeHtml(__('Order #')) ?></th>
+                                    <th scope="col" class="col order-date"><?php echo $block->escapeHtml(__('Date')) ?></th>
+                                    <th scope="col" class="col order-total"><?php echo $block->escapeHtml(__('Order Total')) ?></th>
+                                    <th scope="col" class="col subscription-order-status"><?php echo $block->escapeHtml(__('Order Status')) ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($profileOrders as $order): ?>
+                                <tr>
+                                    <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col order-id">
+                                        <a href="<?php echo $block->escapeUrl($block->getOrderUrl($order->getOrderId())) ?>">#<?php /* @noEscape */ echo $order->getOrderIncrementId() ?></a>
+                                    </td>
+                                    <td data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col order-date">
+                                        <?php /* @noEscape */ echo $block->formatDate($order->getOrderDate()) ?>
+                                    </td>
+                                    <td data-th="<?php echo $block->escapeHtml(__('Order Total')) ?>" class="col order-total">
+                                        <?php /* @noEscape */ echo $block->formatOrderAmount($order->getGrandTotal(), $order->getOrderCurrencyCode()) ?>
+                                    </td>
+                                    <td data-th="<?php echo $block->escapeHtml(__('Order Status')) ?>" class="col subscription-order-status">
+                                        <?php echo $block->escapeHtml($block->getOrderStatusLabel($order->getOrderStatus())) ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php echo $block->getPagerHtml() ?>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="no-orders-found"><?php echo $block->escapeHtml(__('We couldn\'t find any records.')) ?></div>
+        <?php endif; ?>
+    </div>
+</div>

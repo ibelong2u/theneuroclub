@@ -1,0 +1,63 @@
+<div class="block subscription-plan" data-bind="mageInit: {'collapsible':{'openedState': 'active'}}">
+    <div class="title" data-role="title">
+        <strong role="heading"><span data-bind="i18n: 'Subscription Plan'"></span></strong>
+    </div>
+    <div class="content" data-role="content">
+        <table class="data table table-plan">
+            <tbody>
+                <tr class="plan-title">
+                    <th scope="row" data-bind="text: plan.storefront_title"></th>
+                    <td></td>
+                </tr>
+                <tr class="plan-details">
+                    <th class="label" scope="row" data-bind="i18n: 'Number Of Payments'"></th>
+                    <td class="value">
+                        <span data-bind="text: plan.number_of_payments"></span>
+                    </td>
+                </tr>
+                <tr class="plan-details">
+                    <th class="label" scope="row" data-bind="i18n: 'Repeat'"></th>
+                    <td class="value">
+                        <span data-bind="text: plan.repeat"></span>
+                    </td>
+                </tr>
+                <tr class="plan-details">
+                    <th class="label" scope="row" data-bind="i18n: 'Start'"></th>
+                    <td class="value">
+                        <span data-bind="text: getStartValue()"></span>
+                    </td>
+                </tr>
+                <tr class="plan-details">
+                    <th class="label" scope="row" data-bind="i18n: 'Each Payment (except Trial Period, excl. tax and shipping)'"></th>
+                    <td class="value">
+                        <span data-bind="html: getRegularPrice()"></span>
+                    </td>
+                </tr>
+                <!-- ko if: plan.is_trial_period_enabled && getTrialPriceValue() > 0 -->
+                <tr class="plan-details">
+                    <th class="label" scope="row" data-bind="i18n: 'Trial Period'"></th>
+                    <td class="value">
+                        <span>
+                            <!--ko text: plan.trial_total_billing_cycles --><!--/ko--> <!--ko i18n: plan.trial_total_billing_cycles > 1 ? 'payments' : 'payment' --><!--/ko-->
+                        </span>
+                    </td>
+                </tr>
+                <tr class="plan-details">
+                    <th class="label" scope="row" data-bind="i18n: 'Trial Price'"></th>
+                    <td class="value">
+                        <span data-bind="html: getTrialPrice()"></span>
+                    </td>
+                </tr>
+                <!-- /ko -->
+                <!-- ko if: plan.is_initial_fee_enabled -->
+                <tr class="plan-details">
+                    <th class="label" scope="row" data-bind="i18n: 'Initial Fee'"></th>
+                    <td class="value">
+                        <span data-bind="html: getInitialFee()"></span>
+                    </td>
+                </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>
+    </div>
+</div>
