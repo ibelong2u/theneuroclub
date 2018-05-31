@@ -81,26 +81,12 @@ class BundleCollection extends \Magento\Framework\App\Helper\AbstractHelper {
   //Get bundle details in array format
   public function getBundledItemsDetails($bundleId){
       $tableName = $this->getConnection()->getTableName('catalog_product_bundle_selection');
-      $sql = "SELECT * FROM " . $tableName ." WHERE parent_product_id =" . $bundleId;
-      $result = $this->getConnection()->fetchAll($sql);
-      $bundledItem = array();
-
-      foreach($result as $key => $res){
-        $optionId = $res['option_id'];
-        $bundledItem[$res['product_id']] = $res['selection_id'];
+      $sql = "SELECT option_id,product_id,selection_id FROM ". $tableName ." WHERE parent_product_id =" . $bundleId;
+      $resultSql = $this->getConnection()->fetchAll($sql);
+      foreach ($resultSql as $row) {
+        $bundleOptions[$row['option_id']][$row['product_id']] = $row['selection_id'];
       }
-
-      $itemDetails = array(
-          'product' => $bundleId,
-
-          'bundle_option' => [
-              $optionId => $bundledItem
-            ],
-
-          'qty' => 1
-        );
-
-     return $itemDetails;
+     return $bundleOptions;
   }
 
 }
