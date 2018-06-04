@@ -690,3 +690,186 @@
     }
   }
 }
+.cms-nootropics{
+  .page-main{
+    max-width:100%;
+    padding:0;
+    margin-top:93px;
+    @media all and (max-width:767px){
+      margin-top:76px;
+    }
+    @media all and (max-width:640px){
+      margin-top:79px;
+    }
+  }
+  .cms-page-wrapper{
+    .clear{
+      clear: both;
+    }
+      .banner-section{
+        img{
+          width: 100%;
+          object-fit: cover;
+          object-position: top;
+        }
+      }
+      .cms-container{
+        width: 70%;
+        margin: 0 auto;
+        max-width: 1350px;
+        box-sizing: border-box;
+        .details_description{
+          margin-top: 50px;
+        }
+        .description-row{
+          margin:30px 0px;
+          .item-col-text{
+            box-sizing: border-box;
+            float: left;
+            width: 48%;
+            float: right;
+            .head{
+                h1{
+                  font-size: 21px;
+                  margin: 1em 0;
+                  margin-top: 10px;
+                  color: #374076;
+                  font-weight: 600;
+                  text-transform: capitalize;
+                }
+            }
+            .description{
+              p{
+                font-size: 15px;
+                color: #939393;
+              }
+            }
+          }
+          .item-col-img{
+            box-sizing: border-box;
+            float: left;
+            width:48%;
+            img{
+              max-width: 100%;
+            }
+          }
+          &:after{
+            content: '';
+            display: table;
+            clear: both;
+          }
+        }
+        .institutions{
+          margin: 70px 0px;
+          text-align: center;
+          h1{
+              font-size: 21px;
+              margin: 1em 0;
+              margin-top: 10px;
+              color: #374076;
+              font-weight: 600;
+              text-transform: capitalize;
+            }
+            p{
+              font-size: 15px;
+              color: #939393;
+            }
+          .institution_logos{
+            ul{
+              li{
+                display: inline-block;
+              }
+            }
+            img{
+              display: inline-block;
+              width:110px;
+              margin-right: 15px;
+            }
+          }
+        }
+        .instructions{
+          text-align: center;
+          margin-bottom: 50px;
+          img{
+            width: 80px;
+          }
+          h1{
+            font-size: 35px;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            color: #374076;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: -4px;
+          }
+          p{
+            font-size: 15px;
+            color: #939393;
+          }
+        }
+      }
+  }
+}
+.cms-page-wrapper .cms-container .details_description .description-row:nth-child(odd) .item-col-img {
+    float: right;
+    padding-left: 25px;
+}
+.cms-page-wrapper .cms-two .details_description .description-row:nth-child(odd) .item-col-img {
+    float: left;
+}
+.cms-page-wrapper .cms-container .details_description .description-row:nth-child(even) .item-col-img {
+    text-align: right;
+}
+.cms-page-wrapper .cms-container .details_description .description-row:nth-child(even) .item-col-text{
+    padding-left: 25px;
+}
+.cms-page-wrapper .cms-container .details_description .description-row:nth-child(odd) .item-col-text {
+    text-align: right;
+    padding-right:25px;
+}
+@media (max-width: 1024px){
+.cms-container {
+    width: 80%!important;
+}
+}
+@media (max-width: 768px){
+.cms-container {
+    width: 100%!important;
+    .institutions{
+      padding: 0px 20px;
+      .institution_logos{
+        ul{
+          padding: 0px;
+        }
+      }
+    }
+    .description-row{
+      .item-col-img{
+        width: 100%!important;
+        text-align: center;
+        padding: 0px;
+      }
+      .item-col-text{
+        padding: 10px 30px!important;
+        width: 100%!important;
+        text-align: center!important;
+        padding: 0px;
+      }
+    }
+}
+.cms-page-wrapper .cms-container .details_description .description-row:nth-child(odd) .item-col-img {
+    padding-left: 0px;
+}
+.cms-page-wrapper .cms-container .details_description .description-row:nth-child(odd) .item-col-text {
+    padding-right: 0px;
+}
+.cms-page-wrapper .cms-container .details_description .description-row:nth-child(even) .item-col-text {
+    padding-left: 0px;
+}
+.cms-page-wrapper .cms-container .details_description .description-row:nth-child(even) .item-col-img {
+    text-align: center;
+}
+.cms-page-wrapper .cms-container .details_description .description-row:nth-child(odd) .item-col-img {
+    float: none;
+}
+}
