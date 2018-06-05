@@ -14,40 +14,43 @@
             <div class="order-confirm-img">
                 <img src="<?php echo $block->getViewFileUrl('images/order-confirm-pic.png'); ?>" class="image" height="70" alt="docs-org" />
             </div>
-            <p><?php echo $block->escapeHtml(__('Your subscription has been successfully created.')) ?></p>
-            <?php if ($block->isCustomerLoggedIn()): ?>
-                <p>
-                    <?php
-                        echo / @noEscape / __(
-                            'You can view and manage your subscriptions at %1 page.',
-                            sprintf(
-                                '<a href="%s"><strong>%s</strong></a>',
-                                $block->escapeHtml($block->getCustomerSubscriptionsUrl()),
-                                $block->escapeHtml(__('My Subscriptions'))
-                            )
+            <h1><?php echo $block->escapeHtml(__('Your subscription has been successfully created.')) ?></h1>
+        </div>
+        <div class="order-confirm-heading">
+          <h2>Thank you for your purchase! Your order has been received</h2>
+        </div>
+        <?php if ($block->isCustomerLoggedIn()): ?>
+            <p>
+                <?php
+                    echo /* @noEscape */ __(
+                        'You can view and manage your subscriptions at %1 page.',
+                        sprintf(
+                            '<a href="%s">%s</a>',
+                            $block->escapeHtml($block->getCustomerSubscriptionsUrl()),
+                            $block->escapeHtml(__('My Subscriptions'))
                         )
-                    ?>
-                </p>
-                <p>
-                    <?php
-                        echo / @noEscape / __(
-                            'You can view and manage your orders at %1 page.',
-                            sprintf(
-                                '<a href="%s"><strong>%s</strong></a>',
-                                $block->escapeHtml($block->getCustomerOrdersUrl()),
-                                $block->escapeHtml(__('My Orders'))
-                            )
+                    )
+                ?>
+            </p>
+            <p>
+                <?php
+                    echo /* @noEscape */ __(
+                        'You can view and manage your orders at %1 page.',
+                        sprintf(
+                            '<a href="%s">%s</a>',
+                            $block->escapeHtml($block->getCustomerOrdersUrl()),
+                            $block->escapeHtml(__('My Orders'))
                         )
-                    ?>
-                </p>
-            <?php endif; ?>
-            <p><?php echo $block->escapeHtml(__('We\'ll email you subscription confirmation.')) ?></p>
-            <div class="actions-toolbar">
-                <div class="primary">
-                    <a class="action primary continue" href="<?php echo $block->escapeUrl($block->getContinueShoppingUrl()) ?>">
-                        <span><?php echo $block->escapeHtml(__('Continue Shopping')) ?></span>
-                    </a>
-                </div>
+                    )
+                ?>
+            </p>
+        <?php endif; ?>
+        <p><?php echo $block->escapeHtml(__('We\'ll email you subscription confirmation.')) ?></p>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <a class="action primary continue" href="<?php echo $block->escapeUrl($block->getContinueShoppingUrl()) ?>">
+                    <span><?php echo $block->escapeHtml(__('Continue Shopping')) ?></span>
+                </a>
             </div>
         </div>
     </div>
