@@ -28,8 +28,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     //@returns boolean
     public function isBundle($productId)
     {
-      $om =   \Magento\Framework\App\ObjectManager::getInstance();
-      $logger = $om->get("Psr\Log\LoggerInterface");
       $product = $this->getProductById($productId);
       $productType = $product->getTypeID();
       return $productType == "bundle"? true:false;
@@ -65,5 +63,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
       $logger->info('items', $idArr);
       return $encodedData;
     }
+
 }
 ?>
