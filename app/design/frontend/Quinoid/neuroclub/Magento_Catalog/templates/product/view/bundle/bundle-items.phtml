@@ -27,14 +27,14 @@ $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
                                 <p><?= $childItem->getCustomAttribute('tagline')->getValue() ?></p>
                             <?php endif;  ?>
                             <?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?>
-                            <input type='checkbox' name='customitems[]' value='<?= $childItem->getId() ?>'>
+                            <input type='checkbox' name='customitems[]' value='<?= $childItem->getId() ?>' checked>
                         </div>
                         <span class="plus"> + </span>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
-            <div class="bunddle_btn_wrapper">
-              <input type="submit" class="bundle_butt" name="" value="Bundle Custom Items">
+            <div class="bundle_btn_wrapper">
+              <input type="submit" name="" value="Customize Bundle Items">
             </div>
         </form>
     </div>

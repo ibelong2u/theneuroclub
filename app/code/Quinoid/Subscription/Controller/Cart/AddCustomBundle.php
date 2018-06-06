@@ -53,37 +53,49 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {   
-        $params = $this->getRequest()->getParams();
-        if (count($params['customitems']) > 0) {
-            $bundleItem = $this->_helperBundle->getParentBundle($params['customitems'],count($params['customitems']));
-            $bundleItemArr = $this->_jsonHelper->jsonDecode($bundleItem);
-            if ($bundleItemArr['found'] != null) {
-                $itemDetails = array();
-                $itemDetails['product'] = $bundleItemArr['bundleid'];
-                $itemDetails['form_key'] = $this->_formKey->getFormKey();
-                $itemDetails['bundle_option'] = $this->_helperBundle->getBundledItemsDetails($bundleItemArr['bundleid']);
-                $itemDetails['qty'] = 1;
-                
-            }
-            $cart = $this->cartPersistor->getSubscriptionCart();
-            /** @var SubscriptionsCartItemInterface $cartItem */
-            $cartItem = $this->itemFactory->create();
-            $cartItem
-                ->setProductId($itemDetails['product'])
-                ->setBuyRequest($this->getBuyRequestSerialized($itemDetails));
-            if (isset($itemDetails['qty'])) {
-                $cartItem->setQty($itemDetails['qty']);
-            }
-            $cartItem = $this->cartManagement->add($cart, $cartItem);
-            $this->cartPersistor->setCartId($cart->getCartId());
+        try {
+            $params = $this->getRequest()->getParams();
+            if(!empty($params['customitems'])) {
+                if (count($params['customitems']) > 0) {
+                    $bundleItem = $this->_helperBundle->getParentBundle($params['customitems'],count($params['customitems']));
+                    $bundleItemArr = $this->_jsonHelper->jsonDecode($bundleItem);
+                    if ($bundleItemArr['found'] != null) {
+                        $itemDetails = array();
+                        $itemDetails['product'] = $bundleItemArr['bundleid'];
+                        $itemDetails['form_key'] = $this->_formKey->getFormKey();
+                        $itemDetails['bundle_option'] = $this->_helperBundle->getBundledItemsDetails($bundleItemArr['bundleid']);
+                        $itemDetails['qty'] = 1;
+                        
+                    }
+                    $cart = $this->cartPersistor->getSubscriptionCart();
+                    /** @var SubscriptionsCartItemInterface $cartItem */
+                    $cartItem = $this->itemFactory->create();
+                    $cartItem
+                        ->setProductId($itemDetails['product'])
+                        ->setBuyRequest($this->getBuyRequestSerialized($itemDetails));
+                    if (isset($itemDetails['qty'])) {
+                        $cartItem->setQty($itemDetails['qty']);
+                    }
+                    $cartItem = $this->cartManagement->add($cart, $cartItem);
+                    $this->cartPersistor->setCartId($cart->getCartId());
 
-            $this->messageManager->addSuccessMessage(
-                __('You added %1 to subscription cart.', $cartItem->getName())
-            );
-            $resultRedirect = $this->resultRedirect->create(ResultFactory::TYPE_REDIRECT);
-            $resultRedirect->setPath('aw_sarp/cart/index');
-            return $resultRedirect;
-        }
+                    $this->messageManager->addSuccessMessage(
+                        __('You added %1 to subscription cart.', $cartItem->getName())
+                    );
+                    $resultRedirect = $this->resultRedirect->create(ResultFactory::TYPE_REDIRECT);
+                    $resultRedirect->setPath('aw_sarp/cart/index');
+                    return $resultRedirect;
+                }
+            }
+            else {
+                if(!empty($params['urlkey'])) {
+                    $urlKey = $params['urlkey'];
+                    $resultRedirect = $this->resultRedirect->create(ResultFactory::TYPE_REDIRECT);
+                    $resultRedirect->setPath($urlKey);
+                    return $resultRedirect;
+                }
+            }
+        } catch (Exception $e) {}
     }
     
     private function getBuyRequestSerialized($params)
