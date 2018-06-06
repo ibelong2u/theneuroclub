@@ -54,8 +54,9 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
     public function execute()
     {   
         $params = $this->getRequest()->getParams();
-        if(!empty($params['customitems'])) {
-            if (count($params['customitems']) > 0) {
+        if(!empty($params['customitems']) && count($params['customitems']) > 0) {
+            if (count($params['customitems']) > 1) {
+                // Getting the details of Bundle Product item
                 $bundleItem = $this->_helperBundle->getParentBundle($params['customitems'],count($params['customitems']));
                 $bundleItemArr = $this->_jsonHelper->jsonDecode($bundleItem);
                 if ($bundleItemArr['found'] != null) {
@@ -65,27 +66,38 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
                     $itemDetails['bundle_option'] = $this->_helperBundle->getBundledItemsDetails($bundleItemArr['bundleid']);
                     $itemDetails['qty'] = 1;
                 }
-                $cart = $this->cartPersistor->getSubscriptionCart();
-                /** @var SubscriptionsCartItemInterface $cartItem */
-                $cartItem = $this->itemFactory->create();
-                $cartItem
-                    ->setProductId($itemDetails['product'])
-                    ->setBuyRequest($this->getBuyRequestSerialized($itemDetails));
-                if (isset($itemDetails['qty'])) {
-                    $cartItem->setQty($itemDetails['qty']);
-                }
-                $cartItem = $this->cartManagement->add($cart, $cartItem);
-                $this->cartPersistor->setCartId($cart->getCartId());
-
-                $this->messageManager->addSuccessMessage(
-                    __('You added %1 to subscription cart.', $cartItem->getName())
-                );
-                $resultRedirect = $this->resultRedirect->create(ResultFactory::TYPE_REDIRECT);
-                $resultRedirect->setPath('aw_sarp/cart/index');
-                return $resultRedirect;
+            } 
+            elseif (count($params['customitems']) == 1) {
+                //Getting the detail of Simple Product
+                $itemDetails = array();
+                $itemDetails['product'] = $params['customitems'][0];
+                $itemDetails['form_key'] = $this->_formKey->getFormKey();
+                $itemDetails['qty'] = 1;  
             }
+            //Adding the Product Item to Subscription Cart
+            $cart = $this->cartPersistor->getSubscriptionCart();
+                
+            $cartItem = $this->itemFactory->create();
+            $cartItem
+                ->setProductId($itemDetails['product'])
+                ->setBuyRequest($this->getBuyRequestSerialized($itemDetails));
+            if (isset($itemDetails['qty'])) {
+                $cartItem->setQty($itemDetails['qty']);
+            }
+            $cartItem = $this->cartManagement->add($cart, $cartItem);
+            $this->cartPersistor->setCartId($cart->getCartId());
+
+            $this->messageManager->addSuccessMessage(
+                __('You added %1 to subscription cart.', $cartItem->getName())
+            );
+            //Redirection to Cart Index Page
+            $resultRedirect = $this->resultRedirect->create(ResultFactory::TYPE_REDIRECT);
+            $resultRedirect->setPath('aw_sarp/cart/index');
+            return $resultRedirect;
+            
         }
         else {
+            // Redirection to PDP if no item is selected
             if(!empty($params['urlkey'])) {
                 $urlKey = $params['urlkey'];
                 $resultRedirect = $this->resultRedirect->create(ResultFactory::TYPE_REDIRECT);
