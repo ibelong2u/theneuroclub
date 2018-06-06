@@ -84,24 +84,17 @@ class Subscribe extends Action
         $result ='';
         try {
             $cart = $this->cartPersistor->getSubscriptionCart();
-            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-            $logger = $objectManager->get("Psr\Log\LoggerInterface");
-            $logger->info($params['form_key'],$params);
-           
-            
             /*===== Additional code for the customisation of bundling items =====*/
             $cartId = $cart->getCartId();
             if ($cartId != '' && isset($cartId)) {
                 $result = $this->getBundledItem($params['product'],$cart->getCartId(),$params['form_key']);
                 if(isset($result)){
-                    $logger->info(" Parent simple = ". $result);
                     $resultData = $this->jsonHelper->jsonDecode($result);
                     $params   = $resultData['params'];
                     //Existing cart items to be deleted 
                     $deleting = $resultData['deleted'];
                     if(count($deleting)>0){
                         foreach($deleting as $pid => $itemid) { 
-                            $logger->info('result'.$itemid);
                             $this->cartItemRepo->deleteById($cartId,$itemid); 
                         }
                     }
@@ -158,22 +151,18 @@ class Subscribe extends Action
     
     public function getBundledItem($addedItem,$cartId,$form_key)
     {
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $logger = $objectManager->get("Psr\Log\LoggerInterface");
         $simpleItemsCart = array();
         $bundleItemsCart = array();
         $bundleOption = array();
         $paramsArr = array();
         $removeCartItems = array();
         $simpleincr = $bundleincr = $bundleSimple = $simpleSimple = 0;
-        $logger->info('Added Item ='.$addedItem . ' CartId = '.$cartId);
         try {
             //If cart has any items in the cart
             if($cartId != '' && isset($cartId)){
                  //get all cart items
-                 $cartItem  = $this->bundleHelper->getSubscribeCartItems($cartId);
-                 $cartItems = $this->jsonHelper->jsonDecode($cartItem);
-                 $logger->info("cartitems",$cartItems);
+                $cartItem  = $this->bundleHelper->getSubscribeCartItems($cartId);
+                $cartItems = $this->jsonHelper->jsonDecode($cartItem);
                 if($cartItems['count'] != 0){
                     //Check whether the added item is bundle or simple
                     if(!($this->helper->isBundle($addedItem))) {
@@ -186,24 +175,19 @@ class Subscribe extends Action
                                     $removeCartItemsimple[$item['pid']] = $item['itemid'];
                                     $simpleincr++;
                                     $simpleSimple=1;
-                                    $logger->info('simple'. $item['pid']);
                                 } else{
                                     // Simple - Bundle combination
                                     //Item in cart is Bundle and added item is simple
                                     $bundleItemsCart[$bundleincr] = $item['pid'];
                                     $removeCartItems[$item['pid']] = $item['itemid'];
                                     $bundleincr++;
-                                    $bundleSimple =1;
-                                    $logger->info("bundle",  $bundleItemsCart);
+                                    $bundleSimple =1;                                    
                                 } 
                             }                           
                         }
-                        $logger->info('simplein='. $simpleSimple."  bunde=".$bundleSimple);
-
                         // Check Simple- Simple combination
                         if(($bundleSimple == 0) && ($simpleSimple == 1)){
                             $simpleItemsCart[count($simpleItemsCart)+1] = $addedItem;
-                            $logger->info(100, $simpleItemsCart);
                             $parentItems = $this->bundleHelper->getParentBundle($simpleItemsCart,count($simpleItemsCart));
                             //remove the products add the new bundled item
                             $parentDetails = $this->jsonHelper->jsonDecode($parentItems);
@@ -216,21 +200,13 @@ class Subscribe extends Action
                         
                         } elseif(($bundleSimple == 1) && ($simpleSimple == 0)) {
                             //Check whether there is any other bundle combination
-                            $logger->info("inside bundle simple".count($bundleItemsCart), $bundleItemsCart);
                             foreach($bundleItemsCart as $key=>$item){
-                                $logger->info("inside for". $item);
                                 $bundledItem   = $this->bundleHelper->getBundledItems($item);
-                                $bundledItems =  $this->jsonHelper->jsonDecode($bundledItem);                    
-                                $logger->info('paramsArr=', $bundledItems);
+                                $bundledItems =  $this->jsonHelper->jsonDecode($bundledItem);       
                                 if(count($bundledItems) < 3){
-
-                                    $logger->info("insideif =".count($bundledItems),$bundledItems);
                                     $bundledItems[count($bundledItems)+1] = $addedItem;
-                                    $logger->info("bundledItems",$bundledItems);
                                     $parentItems = $this->bundleHelper->getParentBundle($bundledItems,count($bundledItems));
-                                    $logger->info("parentId bundle".$parentItems);
                                     $parentDetails = $this->jsonHelper->jsonDecode($parentItems);
-                                    $logger->info('removeCartItems', $removeCartItems);
                                     if($parentDetails['bundleid'] != 0){ 
                                       //Add the new bundled product
                                         if(!(in_array($parentDetails['bundleid'],$bundleItemsCart))){
@@ -240,7 +216,6 @@ class Subscribe extends Action
                                             $resultData = $this->jsonHelper->jsonEncode($result);
                                             return $resultData;   
                                         }  else {
-                                            $logger->info("update the quantity =".$parentDetails['bundleid'],$bundleItemsCart);
                                             $paramsArr = $this->setParamsArray($parentDetails['bundleid'],1,$form_key);
                                             unset($removeCartItems[$parentDetails['bundleid']]);
                                             $result['deleted'] = $removeCartItems;                  $result['params'] = $paramsArr;
@@ -252,15 +227,11 @@ class Subscribe extends Action
                                 }
                             }
                         }elseif($bundleSimple == 1 && $simpleSimple == 1) {
-                            $logger->info("inside bundle=1 count =".count($bundleItemsCart), $bundleItemsCart);
-                            $logger->info("simple=1 count= ".count($simpleItemsCart), $simpleItemsCart);
                             $foundProduct = 0;
                             if(count($simpleItemsCart) > 0){
                                 $simpleItemsCart[count($simpleItemsCart)+1] = $addedItem;
                                 $parentItems = $this->bundleHelper->getParentBundle($simpleItemsCart,count($simpleItemsCart));
-                                $parentDetails = $this->jsonHelper->jsonDecode($parentItems);
-                                $logger->info("parentDetails".$parentDetails['bundleid'], $parentDetails);
-                            
+                                $parentDetails = $this->jsonHelper->jsonDecode($parentItems);                                            
                                 if($parentDetails['bundleid'] != 0) {   
                                     $foundProduct = 1;
                                     $paramsArr = $this->setParamsArray($parentDetails['bundleid'],1,$form_key);
@@ -275,7 +246,6 @@ class Subscribe extends Action
                                 $parentDetails = $this->setSimpleBundle($bundleItemsCart,$form_key);
                                 if($parentDetails['bundleid'] != 0){ 
                                     //Add the new bundled product
-                                    $logger->info("Add the new bundled product =".$parentDetails['bundleid'],$bundleItemsCart);
                                     if(!(in_array($parentDetails['bundleid'],$bundleItemsCart))){
                                         $foundProduct = 1;
                                         $paramsArr = $this->setParamsArray($parentDetails['bundleid'],1,$form_key);
@@ -283,7 +253,6 @@ class Subscribe extends Action
                                         $resultData = $this->jsonHelper->jsonEncode($result);
                                         return $resultData;   
                                     }  else {
-                                        $logger->info("update the quantity =".$parentDetails['bundleid'],$bundleItemsCart);
                                         $paramsArr = $this->setParamsArray($parentDetails['bundleid'],1,$form_key);
                                         $result['deleted'] = $removeCartItems;                      $result['params'] = $paramsArr;
                                         $resultData = $this->jsonHelper->jsonEncode($result);

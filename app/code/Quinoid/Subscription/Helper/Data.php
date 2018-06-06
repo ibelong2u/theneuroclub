@@ -49,9 +49,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     /*  Get all items in the cartHelper   */
     public function getCartItems(){
-      $om =   \Magento\Framework\App\ObjectManager::getInstance();
-      $cartData = $om->create('\Magento\Checkout\Model\Session')->getQuote()->getAllVisibleItems();
-      $logger = $om->get("Psr\Log\LoggerInterface");
       $i=0;
       $idArr = array();
       foreach( $cartData as $item ):
@@ -60,7 +57,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
           $i++;
       endforeach;
       $encodedData = $this->jsonHelper->jsonEncode($idArr);
-      $logger->info('items', $idArr);
       return $encodedData;
     }
 
