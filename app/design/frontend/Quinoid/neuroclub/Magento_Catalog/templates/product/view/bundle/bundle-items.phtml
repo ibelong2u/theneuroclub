@@ -18,7 +18,7 @@ $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
                 <?php if ($childIdArr != null): ?>
                     <?php foreach ($childIdArr as $childId): ?>
                         <?php $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId) ?>
-                        <div class="sub-product">
+                        <div class="sub-product" style="position:relative;">
                             <a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
                                 <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
                                 <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
@@ -33,7 +33,9 @@ $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
-            <input type="submit" name="" value="Bundle Custom Items">
+            <div class="bunddle_btn_wrapper">
+              <input type="submit" class="bundle_butt" name="" value="Bundle Custom Items">
+            </div>
         </form>
     </div>
 <?php endif; ?>
