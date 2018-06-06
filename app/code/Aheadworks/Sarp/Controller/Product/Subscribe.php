@@ -9,12 +9,14 @@ namespace Aheadworks\Sarp\Controller\Product;
 use Aheadworks\Sarp\Api\Data\SubscriptionsCartItemInterface;
 use Aheadworks\Sarp\Api\Data\SubscriptionsCartItemInterfaceFactory;
 use Aheadworks\Sarp\Api\SubscriptionsCartManagementInterface;
+use Aheadworks\Sarp\Model\ResourceModel\SubscriptionsCart\ItemRepository;
 use Aheadworks\Sarp\Model\SubscriptionsCart\Persistor as CartPersistor;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Exception\LocalizedException;
+//use Quinoid\Subscription\Helper\Data;
 
 /**
  * Class Subscribe
@@ -37,6 +39,14 @@ class Subscribe extends Action
      */
     private $itemFactory;
 
+    protected $helper;
+
+    protected $bundleHelper;
+
+    protected $jsonHelper;
+
+    protected $cartItemRepo;
+
     /**
      * @param Context $context
      * @param SubscriptionsCartManagementInterface $cartManagement
@@ -47,12 +57,20 @@ class Subscribe extends Action
         Context $context,
         SubscriptionsCartManagementInterface $cartManagement,
         CartPersistor $cartPersistor,
-        SubscriptionsCartItemInterfaceFactory $itemFactory
+        SubscriptionsCartItemInterfaceFactory $itemFactory,
+        ItemRepository $cartItemRepo,
+        \Quinoid\Subscription\Helper\Data $helper,
+        \Quinoid\Subscription\Helper\BundleCollection $bundleHelper,
+        \Magento\Framework\Json\Helper\Data $jsonHelper
     ) {
         parent::__construct($context);
         $this->cartManagement = $cartManagement;
-        $this->cartPersistor = $cartPersistor;
-        $this->itemFactory = $itemFactory;
+        $this->cartPersistor  = $cartPersistor;
+        $this->itemFactory    = $itemFactory;
+        $this->helper         = $helper;
+        $this->bundleHelper   = $bundleHelper;
+        $this->jsonHelper     = $jsonHelper;
+        $this->cartItemRepo   =  $cartItemRepo;
     }
 
     /**
@@ -63,9 +81,34 @@ class Subscribe extends Action
         /** @var Json $resultJson */
         $resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
         $params = $this->getRequest()->getParams();
-
+        $result ='';
         try {
             $cart = $this->cartPersistor->getSubscriptionCart();
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $logger = $objectManager->get("Psr\Log\LoggerInterface");
+            $logger->info($params['form_key'],$params);
+           
+            
+            /*===== Additional code for the customisation of bundling items =====*/
+            $cartId = $cart->getCartId();
+            if ($cartId != '' && isset($cartId)) {
+                $result = $this->getBundledItem($params['product'],$cart->getCartId(),$params['form_key']);
+                if(isset($result)){
+                    $logger->info(" Parent simple = ". $result);
+                    $resultData = $this->jsonHelper->jsonDecode($result);
+                    $params   = $resultData['params'];
+                    //Existing cart items to be deleted 
+                    $deleting = $resultData['deleted'];
+                    if(count($deleting)>0){
+                        foreach($deleting as $pid => $itemid) { 
+                            $logger->info('result'.$itemid);
+                            $this->cartItemRepo->deleteById($cartId,$itemid); 
+                        }
+                    }
+                    
+                }
+            }
+            /*==== End of Additional code ===*/
             /** @var SubscriptionsCartItemInterface $cartItem */
             $cartItem = $this->itemFactory->create();
             $cartItem

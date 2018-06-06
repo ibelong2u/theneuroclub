@@ -4,8 +4,8 @@ namespace Quinoid\Subscription\Helper;
 
 use Magento\Catalog\Model\ProductFactory;
 
-class BundleCollection extends \Magento\Framework\App\Helper\AbstractHelper {
-
+class BundleCollection extends \Magento\Framework\App\Helper\AbstractHelper
+{
   private $_resource;
   protected $connection;
   protected $jsonHelper;
@@ -53,7 +53,7 @@ class BundleCollection extends \Magento\Framework\App\Helper\AbstractHelper {
           }
       }
     }
-    $returnArr['found']  =  $bundledFound;
+    $returnArr['found']  =   $bundledFound;
     if($bundledFound == 1) {
        //Bundled Item found
        $returnArr['bundleid']  =  $parentBundledItem;
@@ -66,6 +66,8 @@ class BundleCollection extends \Magento\Framework\App\Helper\AbstractHelper {
 
   //Function to get the bundled getItemsCount
   public function getBundledItems($bundleId){
+    $om =   \Magento\Framework\App\ObjectManager::getInstance();
+    $logger = $om->get("Psr\Log\LoggerInterface");
       $tableName = $this->getConnection()->getTableName('catalog_product_bundle_selection');
       $sql = "SELECT * FROM " . $tableName ." WHERE parent_product_id =" . $bundleId;
       $result = $this->getConnection()->fetchAll($sql);
@@ -76,6 +78,7 @@ class BundleCollection extends \Magento\Framework\App\Helper\AbstractHelper {
         $i++;
       }
      $encodedData = $this->jsonHelper->jsonEncode($bundledItem);
+     $logger->info(100, $bundledItem);
      return $encodedData;
   }
   //Get bundle details in array format
@@ -88,6 +91,45 @@ class BundleCollection extends \Magento\Framework\App\Helper\AbstractHelper {
       }
      return $bundleOptions;
   }
-
+    //Function to retrieve all product Id in the subscription cart
+    //Supports Aheadworks
+    //Argument as the cart Id
+    public function getSubscribeCartItems($cartId){
+      $om =   \Magento\Framework\App\ObjectManager::getInstance();
+      $logger = $om->get("Psr\Log\LoggerInterface");
+      $logger->info('cartid ='. $cartId);
+      $idArr = array();
+      $i=0;
+      $tableName = $this->getConnection()->getTableName('aw_sarp_subscriptions_cart_item');
+      $sql = "SELECT item_id,product_id,buy_request FROM ". $tableName ." WHERE cart_id =" . $cartId ." AND parent_item_id is NULL";
+      $resultSql = $this->getConnection()->fetchAll($sql);
+     
+     
+      if($resultSql) {
+        foreach ($resultSql as $row) {
+         
+          $idArr[$i]['pid'] = $row['product_id'];
+          $idArr[$i]['itemid'] = $row['item_id'];
+          $logger->info('buyReqArr ='.  $row['buy_request']);
+          if(isset($row['buy_request'])){
+            $buyReqArr = unserialize($row['buy_request']);
+            if(isset($buyReqArr['bundle_option']) ){
+              $idArr[$i]['ptype'] = 'bundle';
+            } else{
+              $idArr[$i]['ptype'] = 'simple';
+            }
+          }
+          $i++;
+        }
+        $idArr['count'] = 1;
+        $logger->info('idArr =',  $idArr);
+      } else{
+        $idArr['count'] = 0;
+        $idArr[$i]['pid'] = 0;
+      }
+      $encodedData = $this->jsonHelper->jsonEncode($idArr);
+      $logger->info('row ='. $encodedData);
+      return $encodedData;
+    }
 }
 ?>
