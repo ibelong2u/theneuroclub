@@ -1,55 +1,42 @@
-<div class="product-row">
-  <div class="row">
+<?php
+/**
+ * Author: Sooraj Sathyan
+ */
+?>
 <?php
 $_item = $block->getProduct();
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
 $typeInstance = $_item->getTypeInstance();
 $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
-if ($requiredChildrenIds) {
-    foreach ($requiredChildrenIds as $key => $childIdArr) {}
-    if ($childIdArr != null) {
-        foreach ($childIdArr as $childId) {
-            $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId);
-            ?>
-            <div class="sub-product">
-                <a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
-                    <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
-                    <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
-                </a>
-                <?php if (null !== $childItem->getCustomAttribute('tagline')): ?>
-                    <p><?= $childItem->getCustomAttribute('tagline')->getValue() ?></p>
-                <?php endif;  ?>
-                <?php if ($childItem->isSaleable()): ?>
-					<?php if ($childItem->getTypeInstance()->hasRequiredOptions($childItem)): ?>
-						<button class="button button-style-1" data-mage-init='{"redirectUrl":{"url":"<?php echo $block->escapeUrl($block->getAddToCartUrl($childItem)) ?>"}}' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
-							<span><?php echo $block->escapeHtml(__('Subscribe')) ?></span> | <?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?>
-						</button>
-					<?php else: ?>
-						<?php
-						$postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
-						$postData = $postDataHelper->getPostData($block->getAddToCartUrl($childItem), ['product' => $childItem->getEntityId()])
-						?>
-						<button class="button" data-post='<?php /* @noEscape */ echo $postData; ?>' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
-						    <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span> | <?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?>
-						</button>
-					<?php endif; ?>
-				<?php else: ?>
-				    <?php if ($childItem->getIsSalable()): ?>
-					    <div class="stock available"><span><?php echo $block->escapeHtml(__('In stock')) ?></span></div>
-					<?php else: ?>
-					    <div class="stock unavailable"><span><?php echo $block->escapeHtml(__('Out of stock')) ?></span></div>
-					<?php endif; ?>
-				<?php endif; ?>
-            </div>
-            <span class="plus"> + </span>
-        <?php
-        }
-    }
-}
 ?>
-</div>
-</div>
+<?php if ($requiredChildrenIds): ?>
+    <div class="product-row">
+        <form post="" method="post" action="<?= $block->getUrl('subscription/cart/addcustombundle') ?>">
+            <div class="row">
+                <?php foreach ($requiredChildrenIds as $key => $childIdArr): ?><?php endforeach; ?>
+                <?php if ($childIdArr != null): ?>
+                    <?php foreach ($childIdArr as $childId): ?>
+                        <?php $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId) ?>
+                        <div class="sub-product">
+                            <a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
+                                <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
+                                <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
+                            </a>
+                            <?php if (null !== $childItem->getCustomAttribute('tagline')): ?>
+                                <p><?= $childItem->getCustomAttribute('tagline')->getValue() ?></p>
+                            <?php endif;  ?>
+                            <?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?>
+                            <input type='checkbox' name='customitems[]' value='<?= $childItem->getId() ?>'>
+                        </div>
+                        <span class="plus"> + </span>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+            <input type="submit" name="" value="Bundle Custom Items">
+        </form>
+    </div>
+<?php endif; ?>
 <div class="curve">
   <img src="<?php echo $block->getViewFileUrl('images/curve.jpg'); ?>" alt="Shadow" />
 </div>
