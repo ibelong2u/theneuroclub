@@ -33,8 +33,9 @@ $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
+            <input type="hidden" name="urlkey" value="<?= $_item->getUrlKey() ?>"/>
             <div class="bundle_btn_wrapper">
-              <input type="submit" name="" value="Customize Bundle Items">
+              <input type="submit" name="" value="Add Customized Bundle Items">
             </div>
         </form>
     </div>
