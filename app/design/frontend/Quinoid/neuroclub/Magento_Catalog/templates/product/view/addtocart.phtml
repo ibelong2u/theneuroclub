@@ -34,7 +34,7 @@
             <button type="submit"
                     title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
                     class="action primary tocart"
-                    id="product-addtocart-button">
+                    id="product-addtocart-button" style="display:none">
                 <span><?= /* @escapeNotVerified */ $buttonTitle ?></span> | <?= /* @escapeNotVerified */  $priceHelper->currency($_product->getPrice(), true, false) ?>
             </button>
             <?= $block->getChildHtml('', true) ?>
