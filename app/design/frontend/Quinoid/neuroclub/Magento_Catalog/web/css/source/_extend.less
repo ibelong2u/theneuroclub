@@ -598,6 +598,9 @@ button{
       padding: 30px;
       box-sizing: border-box;
     }
+    @media all and (max-width:767px){
+      margin-top:20px;
+    }
     .product-info-description-outer
     {
       width: 50%;
@@ -626,11 +629,24 @@ button{
         .value
         {
           text-align: justify;
+          p{
+            line-height:1.5;
+            font-size:14px;
+            @media all and (min-width:768px){
+              font-size:15px;
+            }
+            @media all and (min-width:991px){
+              font-size:16px;
+            }
+          }
         }
       }
       .box-tocart
       {
         margin-top: 20px;
+        @media all and (max-width:767px){
+          margin:20px 0;
+        }
       }
       .stock
       {
@@ -674,7 +690,9 @@ button{
       margin: 0 auto;
       @media all and (max-width:479px)
       {
-          width: 100%;
+        width: 100%;
+        padding: 0 15px;
+        box-sizing: border-box;
       }
       .sub-product
       {
@@ -766,7 +784,11 @@ button{
     width: 100%;
     @media all and (max-width:768px)
     {
-        padding: 0;
+      padding: 0;
+    }
+    @media all and (max-width:767px)
+    {
+      margin-top:0;
     }
     .plp-bottom
     {
@@ -911,6 +933,9 @@ button{
             {
               width: 100%;
             }
+            .product-item{
+              padding:0;
+            }
             .product-item-details
             {
               .product-item-name
@@ -958,6 +983,9 @@ button{
                 float: right;
                 font-size: 1.8rem;
                 margin-left: 4px;
+                span{
+                  margin-right:0;
+                }
               }
             }
           }
@@ -1021,7 +1049,14 @@ button{
           }
           p
           {
-            line-height: 1.8;
+            line-height:1.8;
+            font-size:14px;
+            @media all and (min-width:768px){
+              font-size:15px;
+            }
+            @media all and (min-width:991px){
+              font-size:16px;
+            }
           }
         }
       }
@@ -1171,9 +1206,14 @@ button{
           p {
             color: #6e6e6e;
             margin-bottom: 20px;
-            word-wrap: break-word;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
             padding-left: 10px;
             padding-right: 10px;
+            @media all and (max-width:479px){
+              margin-bottom:10px;
+            }
             &.price {
               font-weight: 600;
               color: #374076;
@@ -1277,6 +1317,9 @@ button{
           padding-right: 20px;
           max-width: 1350px;
           margin: 0 auto;
+          @media all and (max-width:767px){
+            padding:0;
+          }
           p
           {
             font-size: 16px;
@@ -1302,7 +1345,9 @@ button{
             .bundle_btn_wrapper{
                   text-align: center;
                   margin-top: 40px;
-
+                  @media all and (max-width:479px){
+                    margin-top:25px;
+                  }
                       input
                         {
                         font-weight: 600;
@@ -1315,6 +1360,9 @@ button{
                         width: auto !important;
                         line-height: 2.2rem;
                         font-size: 1.8rem;
+                        @media all and (max-width:479px){
+                          font-size:14px;
+                        }
                       }
             }
 
@@ -1592,6 +1640,10 @@ button{
 .page-bottom
 {
   margin-top: 70px;
+  @media all and (max-width:767px)
+  {
+    margin-top:0;
+  }
   .plp-bottom
   {
     .inner-container
@@ -1628,6 +1680,14 @@ button{
             @media all and (max-width:500px)
             {
               top: 15%;
+            }
+            @media all and (max-width:500px)
+            {
+              top: 15%;
+            }
+            @media all and (max-width:345px)
+            {
+              top: 10%;
             }
             h6 {
               font-size: 35px;
@@ -1670,6 +1730,7 @@ button{
               }
               @media only screen and (max-width: 479px)
               {
+                padding:5px 25px;
                 font-size: 13px;
               }
             }
@@ -1685,6 +1746,30 @@ button{
       max-width: 1350px;
       margin: 0 auto;
       float: none;
+    }
+  }
+}
+
+.aw-sarp-subscribe-button__container{
+    margin-bottom: 0;
+    .subscribe{
+    background: #e66698;
+    border: 1px solid #e66698;
+    border-radius: 20px;
+    color: #fff;
+    padding: 10px 25px !important;
+    margin-bottom: 15px;
+    width: auto !important;
+    height:auto !important;
+    line-height: 2.2rem;
+    font-size: 1.8rem !important;
+    @media all and (max-width:767px){
+      margin-bottom:0;
+    }
+    &:hover,&:active,&:visited
+    {
+      background: #e66698;
+      border: 1px solid #e66698;
     }
   }
 }
