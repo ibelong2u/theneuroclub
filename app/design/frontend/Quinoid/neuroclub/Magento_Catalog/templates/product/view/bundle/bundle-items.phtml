@@ -1,37 +1,45 @@
-<div class="product-row">
-  <div class="row">
+<?php
+/**
+ * Author: Sooraj Sathyan
+ */
+?>
 <?php
 $_item = $block->getProduct();
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
 $typeInstance = $_item->getTypeInstance();
 $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
-if ($requiredChildrenIds) {
-    foreach ($requiredChildrenIds as $key => $childIdArr) {}
-    if ($childIdArr != null) {
-        foreach ($childIdArr as $childId) {
-            $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId);
-            ?>
-            <div class="sub-product">
-                <a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
-                    <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
-                    <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
-                    <!-- <h4>30 Capsule pack</h4> -->
-                    <?php if (null !== $childItem->getCustomAttribute('tagline')): ?>
-                        <p><?= $childItem->getCustomAttribute('tagline')->getValue() ?></p>
-                    <?php endif;  ?>
-                    <!-- <p>Lorem Ipsum dolar</p> -->
-                    <p class="price"><?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?></p>
-                </a>
-            </div>
-            <span class="plus"> + </span>
-        <?php
-        }
-    }
-}
 ?>
-</div>
-</div>
+<?php if ($requiredChildrenIds): ?>
+    <div class="product-row">
+        <form post="" method="post" action="<?= $block->getUrl('subscription/cart/addcustombundle') ?>">
+            <div class="row">
+                <?php foreach ($requiredChildrenIds as $key => $childIdArr): ?><?php endforeach; ?>
+                <?php if ($childIdArr != null): ?>
+                    <?php foreach ($childIdArr as $childId): ?>
+                        <?php $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId) ?>
+                        <div class="sub-product" style="position:relative;">
+                            <a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
+                                <img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
+                                <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
+                            </a>
+                            <?php if (null !== $childItem->getCustomAttribute('tagline')): ?>
+                                <p><?= $childItem->getCustomAttribute('tagline')->getValue() ?></p>
+                            <?php endif;  ?>
+                            <?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?>
+                            <input type='checkbox' name='customitems[]' value='<?= $childItem->getId() ?>' checked>
+                        </div>
+                        <span class="plus"> + </span>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+            <input type="hidden" name="urlkey" value="<?= $_item->getUrlKey() ?>"/>
+            <div class="bundle_btn_wrapper">
+              <input type="submit" name="" value="Add Customized Bundle Items">
+            </div>
+        </form>
+    </div>
+<?php endif; ?>
 <div class="curve">
   <img src="<?php echo $block->getViewFileUrl('images/curve.jpg'); ?>" alt="Shadow" />
 </div>

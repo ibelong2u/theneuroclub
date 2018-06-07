@@ -843,6 +843,7 @@
 .cms-container {
     width: 100%!important;
     .institutions{
+      margin: 30px 0px!important;
       padding: 0px 20px;
       .institution_logos{
         ul{
@@ -1236,5 +1237,223 @@
     text-align: center;
     padding-right:25px;
 }
+}
+}
+
+.cms-club-referals{
+  .page-main{
+    max-width:100%;
+    padding:0;
+    margin-top:93px;
+    @media all and (max-width:767px){
+      margin-top:76px;
+    }
+    @media all and (max-width:640px){
+      margin-top:79px;
+    }
+  }
+  .cms-page-wrapper{
+    .clear{
+      clear: both;
+    }
+      .banner-section{
+        img{
+          width: 100%;
+          object-fit: cover;
+          object-position: top;
+        }
+      }
+      .cms-container{
+        width: 70%;
+        margin: 0 auto;
+        max-width: 1350px;
+        box-sizing: border-box;
+        a:focus{
+          outline: none;
+        }
+        button:focus{
+          outline: none;
+        }
+        .ref_head{
+          text-align: center;
+          img{
+            max-width: 100%;
+          }
+        }
+        .ref_box{
+          text-align: center;
+          padding: 50px 0px;
+          box-shadow: 0px 0px 8px 1px #e6e6e6;
+          max-width: 800px;
+          margin: 0px auto;
+          margin-bottom: 60PX;
+            .details{
+              ::placeholder{
+                  color: #c7cad9;
+                  font-weight:500;
+                  text-align: center;
+                  font-size: 14px;
+              }
+              img{
+                box-shadow: 3px 3px 16px 0px #d1d1d1;
+                width: 190px;
+                height: 190px;
+                object-fit: cover;
+                object-position: center;
+                border-radius: 50%;
+                border-width: 2px;
+                border-color: #3f487b;
+                border-style: solid;
+              }
+              h1{
+                font-size: 21px;
+                font-weight: 600;
+                color: #374076;
+                padding-top:20px;
+                p{
+                  margin: 0px;
+                }
+              }
+              h2{
+                font-size: 16px;
+                font-weight: 500;
+                color: #374076;
+              }
+              input{
+                padding: 0px 8px;
+                width:80%;
+                max-width:360px;
+                height:38px;
+                border-radius:10px;
+                border-width: 2px;
+                border-color: #c7cad9;
+                border-style: solid;
+                font-weight:600;
+                text-align: center;
+                font-size: 15px;
+                color: #374076;
+                 &:focus{
+                   outline: none;
+                 }
+              }
+              h3{
+                font-size: 20px;
+                font-weight: 600;
+                color: #da4b9c;
+                margin: 14px 0px;
+              }
+            }
+            .butt_row{
+              a {
+                  button{
+                    min-width: 220px;
+                    font-size: 18px;
+                    cursor: pointer;
+                    border-radius: 50px;
+                    color: #fff;
+                    padding: 14px;
+                    border:none;
+                    img{
+                      vertical-align: middle;
+                      width: 22px;
+                    }
+                  }
+              }
+            }
+        }
+        .top_desp{
+          max-width: 800px;
+          padding: 0px 20px;
+          margin: 0px auto;
+          margin-bottom: 70px;
+          p{
+            text-align: center;
+            font-size: 19px;
+            color: #374076;
+            .left_qu{
+              display:block;
+              height: 32px;
+              width: 45px;
+              background-image: url('../../../images/quatation_rit.png');
+              background-repeat: no-repeat;
+              background-position: center;
+              margin-bottom: 5px;
+            }
+            .rit_qu{
+              display: inline-block;
+              position: absolute;
+              margin-top:9px;
+              margin-left: 11px;
+              height: 32px;
+              width: 45px;
+              background-image: url('../../../images/quatation_left.png');
+              background-repeat: no-repeat;
+              background-position: center;
+            }
+          }
+        }
+      }
+  }
+div.cms-container > div.ref_box > div.butt_row > a:nth-child(2) > button{
+background: #7e92bb;
+padding: 12px 0px 10px 0px;
+}
+div.cms-container > div.ref_box > div.butt_row > a:nth-child(1) > button{
+background: #e788be;
+margin-right: 20px;
+}
+@media (max-width: 1024px){
+.cms-container {
+    width: 80%!important;
+}
+}
+@media (max-width: 768px){
+  .cms-page-wrapper{
+    .cms-container {
+        width: 100%!important;
+        .ref_box {
+            margin: 0px 30px!important;
+            padding: 50px 20px!important;
+            margin-bottom: 60px!important;
+        }
+    }
+  }
+}
+@media (max-width: 767px){
+  .cms-page-wrapper{
+    .cms-container {
+        width: 100%!important;
+        .top_desp{
+          margin-bottom:30px;
+        }
+        .ref_box {
+          margin: 0px 0px !important;
+          padding: 20px !important;
+          margin-bottom: 30px !important;
+          box-shadow:none;
+          .butt_row{
+            a {
+                button{
+                  min-width: 80%!important;
+                  font-size: 18px;
+                  cursor: pointer;
+                  border-radius: 50px;
+                  color: #fff;
+                  padding: 14px;
+                  border:none;
+                  img{
+                    vertical-align: middle;
+                    width: 28px;
+                  }
+                }
+            }
+          }
+        }
+    }
+  }
+  div.cms-container > div.ref_box > div.butt_row > a:nth-child(1) > button{
+  margin-right:0px;
+  margin-bottom: 10px;
+  }
 }
 }

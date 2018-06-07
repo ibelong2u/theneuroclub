@@ -28,20 +28,28 @@
         </referenceContainer>
       </container>
       <move element="page.main.title" destination="content.top" after="primary.banner"/>
-      <move element="product.info.type" destination="product.info.basic" />
-      <move element="product.info.addtocart" destination="product.info.basic" after="product.info.media.image"/>
-      <move element="product.info.description" destination="product.info.basic" after="product.info.addtocart"/>
+      <!-- <move element="product.info.type" destination="product.info.basic" /> -->
+      <move element="product.info" destination="product.info.basic" after="product.info.media.image"/>
+      <move element="product.info.description" destination="product.info.basic" after="product.info"/>
       <move element="bundle.items" destination="product.info.basic" after="product.info.description"/>
       <move element="product.info.media.image" destination="product.info.basic" before="-"/>
         <!-- <referenceContainer name="content">
             <block class="Magento\Catalog\Block\Product\AbstractProduct" name="bundle.items.features" template="Magento_Catalog::product/view/bundle/bundle-items-features.phtml" before="-" />
         </referenceContainer> -->
+        <referenceBlock name="catalog.compare.link" remove="true"/>
+        <referenceBlock name="bundle.product.view.options.notice" remove="true"/>
+        <referenceBlock name="bundle.back.button" remove="true"/>
+        <referenceBlock name="product.info.review" remove="true"/>
+        <referenceBlock name="product.info.details" remove="true"/>
+        <referenceBlock name="product.info.extrahint" remove="true"/>
+        <referenceBlock name="catalog.product.related" remove="true"/>
         <referenceBlock name="product.price.final" remove="true"/>
         <referenceBlock name="product.price.tier" remove="true"/>
         <referenceBlock name="product.info.sku" remove="true"/>
         <referenceBlock name="product.info.review" remove="true"/>
         <referenceBlock name="product.info.details" remove="true"/>
         <referenceBlock name="product.info.extrahint" remove="true"/>
+        <referenceBlock name="alert_urls" remove="true"/>
 
     </body>
 </page>

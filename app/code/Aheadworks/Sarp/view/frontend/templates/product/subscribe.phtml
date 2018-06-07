@@ -10,6 +10,8 @@
 
 $tooltipContent = $block->getPreparedTooltipContent();
 ?>
+<!-- For getting the product price in button -->
+<?php $productPrice = $block->getProduct()->getFinalPrice() ?>
 <div class="aw-sarp-subscribe-button__container"
      data-role="aw-sarp-product-subscribe-button-container"
      style="display: none;"
@@ -24,7 +26,7 @@ $tooltipContent = $block->getPreparedTooltipContent();
                 "defaultTitle": "<?php echo 'Subscribe' ?>",
                 "isSavingEstimationEnabled": <?php /* @noEscape */ echo \Zend_Json::encode($block->isSavingEstimationEnabled()) ?>
             }}'>
-        <span data-role="button-text"><?php echo $block->escapeHtml(__('Subscribe')) ?></span>
+        <span data-role="button-text"><?php echo $block->escapeHtml(__('Subscribe')) . ' | ' . $productPrice ?></span>
         <script data-role="title-with-saving-estimation" type="text/x-magento-template"><?php /* @noEscape */ echo __('Subscribe & Save <%- amount %> %') ?></script>
     </button>
     <?php if (!empty($tooltipContent)): ?>

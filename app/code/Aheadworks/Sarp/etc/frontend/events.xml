@@ -13,4 +13,5 @@
     <event name="customer_logout">
         <observer name="clear-session-data" instance="Aheadworks\Sarp\Observer\ClearSessionObserver" />
     </event>
+ 
 </config>
