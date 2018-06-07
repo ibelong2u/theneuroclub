@@ -627,10 +627,17 @@ button{
       .action{
         &.showcart{
           width:40px;
-          height:60px;
-          background-image: url("@{baseDir}images/cart-stripe.png");
-          background-position: -60px;
+          height:93px;
+          background-image: url("@{baseDir}images/cart-icon.png");
+          background-position: bottom;
+          background-repeat: no-repeat;
           margin-right:0px;
+          @media all and (max-width:767px){
+            height:76px;
+          }
+          @media all and (max-width:640px){
+            height:79px;
+          }
           &:before{
             content: '';
           }
@@ -639,17 +646,23 @@ button{
     }
     .aw-sarp-cart-link__container{
       position: absolute;
-      right: 30px;
-      top: 30px;
+      right: 29px;
+      top: 25px;
       transition: all 0.5s;
+      @media all and (max-width:767px){
+        top:10px;
+      }
+      @media all and (max-width:640px){
+        top:12px;
+      }
       .aw-sarp-cart-link{
         img{
           display:none;
         }
         span{
           border-radius: 50%;
-          line-height:20px;
-          background: #ef4800;
+          line-height:25px;
+          background: #e66698;
           font-size: 14px;
           @media all and (max-width:767px)
           {
@@ -786,22 +799,29 @@ button{
 }
 // minicart styling
 .minicart-wrapper{
+  position: absolute;
+  right:20px;
+  top:5px;
   .action.showcart{
     position: relative;
     .counter.qty{
       border-radius: 50%;
       line-height:20px;
-      background: #ef4800;
+      background: #374069;
       position: absolute;
       right:9px;
-      top:30px;
+      top:54px;
       transition:0.5s all;
       @media all and (max-width:767px)
       {
         line-height:24px;
+        top:37px;
+      }
+      @media all and (max-width:640px){
+        top:40px;
       }
       .counter-number{
-        background: #ef4800;
+        background: #374069;
         font-size: 14px;
       }
     }
@@ -2172,22 +2192,10 @@ button{
     {
       top: -100px !important;
       transition: all 0.5s ease;
-      .counter{
-        &.qty{
-          top:-100px;
-          transition:0.5s all;
-        }
-      }
     }
     &.scrollUp
     {
       transition: all 0.5s ease;
-      .counter{
-        &.qty{
-          top:30px;
-          transition:0.5s all;
-        }
-      }
     }
   }
 }
