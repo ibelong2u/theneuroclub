@@ -681,6 +681,18 @@
                       @media all and (max-width:640px) and (min-width:553px){
                         margin-bottom:10px;
                       }
+                      .update-cart-item{
+                        box-shadow: none !important;
+                        font-weight: 600;
+                        background: #e66698;
+                        border: 1px solid #e66698;
+                        color: #fff;
+                        &:hover , &:focus, &:active {
+                          background: #e66698;
+                          border: 1px solid #e66698;
+                          color: #fff;
+                        }
+                      }
                     }
                     .list{
                       padding: 15px 0 0 0;
@@ -1487,4 +1499,67 @@ margin-right: 20px;
   margin-bottom: 10px;
   }
 }
+}
+
+.cms-no-route{
+  .page-wrapper{
+    .page-main{
+      margin-top:93px;
+      @media all and (max-width:767px){
+        margin-top:76px;
+      }
+      @media all and (max-width:640px){
+        margin-top:79px;
+      }
+      .page-title-wrapper{
+        text-align: center;
+        h1{
+          font-size: 25px;
+          color: #374076;
+          padding: 25px 0 20px 0;
+          margin-top: 0;
+          margin-bottom: 0;
+          @media only screen and (min-width: 468px){
+            font-size: 30px;
+          }
+          @media only screen and (min-width: 768px){
+            font-size: 35px;
+          }
+          @media only screen and (min-width: 991px){
+            font-size: 40px;
+            padding: 30px 0;
+          }
+        }
+      }
+      .columns{
+        display:block !important;
+        dt{
+          margin-bottom: 15px;
+          font-size: 16px;
+        }
+        dd{
+          font-size:15px;
+        }
+        ul{
+          &.disc{
+            padding-left:20px;
+            li{
+              font-size:15px;
+            }
+            a{
+              color: #374069;
+              text-decoration: none;
+              font-size: 1.5rem;
+              font-weight:600;
+              &:visited{
+                color: #374069;
+                text-decoration: none;
+                font-size: 1.5rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
