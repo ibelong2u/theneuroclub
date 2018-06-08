@@ -1039,7 +1039,7 @@ margin: 30px 0;
 @media all and (max-width:767px){
 margin:20px 0;
 }
-a:active, .alink:active {
+a,a:active, .alink:active {
     color: #374076 !important;
 }
 .primary{
@@ -1262,12 +1262,20 @@ background: #fff;
 margin: 0px -15px 0px;
 }
 }
+.form-login{
+  .field .control._with-tooltip input , .fieldset{
+    @media only screen and (min-width: 768px){
+      width: 97.5%;
+      }
+  }
+}
+
 .field .control._with-tooltip input {
 @media only screen and (max-width: 767px){
 width: 100%;
 }
 }
-.form-shipping-address, .form-login{
+.form-shipping-address{
 .field{
 @media only screen and (min-width: 768px){
 display: inline-block;
@@ -1299,7 +1307,7 @@ margin-right: 0px;
 width: 100%;
 @media only screen and (min-width: 768px){
 margin-right: 10px;
-width: 98%;
+width: 96%;
 }
 @media only screen and (min-width: 1100px){
 margin-right: 10px;
@@ -1612,7 +1620,7 @@ padding-bottom:40px;
 .footer-payments{
 text-align: center;
 float: none;
-@media only screen and (min-width: 991px){
+@media only screen and (min-width: 1025px){
 float: left;
 text-align: left;
 }
@@ -1625,7 +1633,7 @@ text-transform:uppercase;
 .footer-disclaimer{
 float: right;
 padding-top: 40px;
-@media only screen and (max-width: 990px){
+@media only screen and (max-width: 1024px){
 text-align: center;
 float: none;
 padding-top: 15px;
@@ -1641,10 +1649,10 @@ color: #000;
 float: right;
 padding-left: 8px;
 padding-top: 30px !important;
-@media only screen and (max-width: 990px){
+@media only screen and (max-width: 1024px){
 float: none;
 text-align:center;
-padding-top: 10px !important;
+padding-top: 5px !important;
 }
 .copyright{
 font-size: 11px;
@@ -1657,15 +1665,14 @@ font-size: 11px;
 span{
 font-size: 11px;
 }
-@media only screen and (max-width: 990px){
+@media only screen and (max-width: 1024px){
 padding: 0;
 }
 }
 }
 .payment-method-billing-address{
     button{
-
-  @media only screen and (max-width: 990px){
+      @media only screen and (max-width: 990px){
   width: 115px !important;
   }
   }
@@ -1691,14 +1698,51 @@ input[type="checkbox"]{
 body .modals-wrapper{
   position: fixed !important;
   z-index: 1000;
+
   .action-save-address, .action-hide-popup {
+      margin-bottom: 0 !important;
     @media only screen and (max-width: 990px){
     width: 115px !important;
+
     }
   }
 }
-.subscription-plan {
-  .content{
-    margin: 0 10px;
+
+.logo {
+  @media only screen and (max-width: 639px){
+    margin-bottom: 5px !important;
+  }
+}
+.top-padding {
+    @media only screen and (max-width: 639px){
+    margin-top: 70px !important;
+  }
+}
+.modal-popup .modal-header, .modal-popup .modal-content, .modal-popup .modal-footer {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.aw-sarp-checkout-index .page-main .opc-block-summary, .aw-sarp-checkout-index .page-main .opc-block-shipping-information .shipping-information {
+  @media only screen and (max-width: 767px){
+    padding: 22px 10px;
+  }
+}
+.aw-sarp-cart__container .main-sidebar .cart-items .product-item-options, .aw-sarp-cart__container .main-sidebar .plan-summary .plan-summary-info {
+
+    @media only screen and (max-width: 990px){
+        font-size: 11px;
+    }
+}
+.payment-method-billing-address{
+  .checkout-billing-address{
+    .billing-address-same-as-shipping-block{
+      clear: both;
+      float: none;
+      input{
+      float: left;
+      width: 13px;
+      height: 19px;
+      }
+    }
   }
 }
