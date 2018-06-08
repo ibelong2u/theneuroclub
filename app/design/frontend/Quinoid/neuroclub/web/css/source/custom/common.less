@@ -447,12 +447,19 @@
                   border: 1px solid #cccccc26;
                   @media only screen and (min-width: 768px){
                     top: 28px;
+                    height: 36px;
+                  }
+                  @media only screen and (min-width: 991px){
+                    top: 28px;
                     height: 40px;
                   }
                 }
                 .progress-bar_item > span {
                   @media only screen and (min-width: 768px){
-                  padding-top: 38px;
+                  padding-top: 36px;
+                  }
+                  @media only screen and (min-width: 991px){
+                  padding-top: 39px;
                   }
                 }
                 .progress-bar_item._active > span {
@@ -465,19 +472,35 @@
                .progress-bar_item > span:after {
                  border-color: #fff;
                  color: #ccc;
-                 line-height: 60px;
                  font-size: 30px;
                  margin-left: -14px;
-                  @media only screen and (min-width: 768px){
+                 @media only screen and (min-width: 768px){
+                   left: 93%;
+                   top: 20px;
+                   width: 47px;
+                   height: 47px;
+                   line-height: 47px;
+                   z-index: 1;
+                 }
+                  @media only screen and (min-width: 991px){
                     left: 93%;
                     top: 20px;
                     width: 62px;
                     height: 62px;
+                    line-height: 60px;
                     z-index: 1;
                   }
                 }
                 .progress-bar_item > span:before {
                   @media only screen and (min-width: 768px){
+                    border: 6px solid #e4e4e4 !important;
+                    width: 45px !important;
+                    height: 45px !important;
+                    top: 15px !important;
+                    left: 93% !important;
+                    z-index: 1 !important;
+                  }
+                  @media only screen and (min-width: 991px){
                     border: 6px solid #e4e4e4 !important;
                     width: 60px !important;
                     height: 60px !important;
@@ -529,6 +552,8 @@
                   @media only screen and (min-width: 768px){
                       color: #fff;
                       font-weight: 600;
+                      font-size:1.4rem;
+                      text-indent:0;
                   }
                 }
                 .progress-bar_item:before {
@@ -603,8 +628,16 @@
                                  color: #fff;
                                }
                                &._selected{
-                                 background:#af3d69;
-                                 border: 1px solid #af3d69;
+                                 background:#e66698;
+                                 border: 1px solid #e66698;
+                                 &:hover , &:focus, &:active {
+                                   background: #e66698;
+                                   border: 1px solid #e66698;
+                                   color: #fff;
+                                 }
+                                 &:before{
+                                   content:'' !important;
+                                 }
                                }
                              }
                            }
@@ -965,14 +998,12 @@
           p{
             font-weight: 600;
             color:#666;
-            span{
-              a{
-                color:#374069;
-                font-weight:800;
-                font-size:15px;
-                @media all and (max-width:767px){
-                  font-size:14px;
-                }
+            a{
+              color:#374069;
+              font-weight:800;
+              font-size:15px;
+              @media all and (max-width:767px){
+                font-size:14px;
               }
             }
           }

@@ -55,11 +55,11 @@ require([
          var st = $(this).scrollTop();
          if (st > lastScrollTop){
              // downscroll code
-                 $(".sections.nav-sections,.minicart-wrapper").addClass("scrollDown").removeClass("scrollUp");
+                 $(".sections.nav-sections,.minicart-wrapper,.aw-sarp-cart-link__container").addClass("scrollDown").removeClass("scrollUp");
          }
          else {
             // upscroll code
-                 $(".sections.nav-sections,.minicart-wrapper").addClass("scrollUp").removeClass("scrollDown");
+                 $(".sections.nav-sections,.minicart-wrapper,.aw-sarp-cart-link__container").addClass("scrollUp").removeClass("scrollDown");
          }
          lastScrollTop = st;
       });

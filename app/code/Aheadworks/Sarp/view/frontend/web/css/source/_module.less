@@ -1008,6 +1008,9 @@
 }
 ///Subscription checkout page 1 and 2;
 .aw-sarp-checkout-index {
+  .columns{
+    display: block !important;
+  }
 .page-title-wrapper{
 display: none;
 }
@@ -1035,6 +1038,9 @@ text-align: center;
 margin: 30px 0;
 @media all and (max-width:767px){
 margin:20px 0;
+}
+a:active, .alink:active {
+    color: #374076 !important;
 }
 .primary{
 margin: 0 auto;
@@ -1217,20 +1223,6 @@ padding-bottom: 60px;
 @media all and (max-width:639px){
 padding-top:0;
 }
-#checkout-shipping-method-load{
-position: absolute;
-width: 100%;
-bottom: 0;
-.table-checkout-shipping-method{
-  width: 230px;
-  tbody{
-    width: 230px;
-    .row{
-      width: 230px;
-    }
-  }
-}
-}
 .actions-toolbar{
 .primary{
 @media all and (min-width:640px){
@@ -1327,7 +1319,7 @@ width: 91%;
 width: 100%;
 }
 @media only screen and (min-width: 1100px){
-width: 49.7%;
+width: 49%;
 margin-top: 0;
 }
 }
@@ -1351,11 +1343,38 @@ width: auto !important;
 }
 }
 }
+.checkout-shipping-method{
+  .table-checkout-shipping-method tbody td {
+    border-top:none;
+   padding-bottom: 5px;
+     padding-top: 5px;
+  }
+  #checkout-shipping-method-load{
+  width: 100%;
+  bottom: 0;
+  .table-checkout-shipping-method{
+    width: 250px;
+    tbody{
+      width: 250px;
+      .row{
+        width: 250px;
+      }
+    }
+  }
+  }
+  .actions-toolbar{
+    margin: 15px 0;
+    .primary{
+      margin-top: 5px;
+    }
+  }
+}
 .checkout-shipping-method, .step-content{
 @media only screen and (min-width: 768px){
 clear: both;
 }
 }
+
 .opc{
 webkit-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
 -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
@@ -1493,6 +1512,14 @@ padding: 22px 15px;
 box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
 background: #fff;
 }
+.mark{
+  .value{
+    padding: 5px 0;
+    @media only screen and (min-width: 768px){
+    padding: 10px 0;
+    }
+  }
+}
 span.title{
 font-weight: 600;
 font-size: 20px;
@@ -1617,6 +1644,7 @@ padding-top: 30px !important;
 @media only screen and (max-width: 990px){
 float: none;
 text-align:center;
+padding-top: 10px !important;
 }
 .copyright{
 font-size: 11px;
@@ -1634,10 +1662,16 @@ padding: 0;
 }
 }
 }
+.payment-method-billing-address{
+    button{
+
+  @media only screen and (max-width: 990px){
+  width: 115px !important;
+  }
+  }
 }
-#checkout-shipping-method-load{
-width: 230px;
 }
+
 #billing-new-address-form{
   .field .control._with-tooltip input {
       margin-right: 0;
@@ -1646,4 +1680,25 @@ width: 230px;
 }
 .aw-sarp-checkout-index .page-main .opc .primary button {
     margin: 5px auto;
+}
+input[type="checkbox"]{
+    margin: 2px 10px 0 0;
+}
+.checkout-payment-method .credit-card-types .item {
+    margin: 0 0;
+    width: 30px;
+}
+body .modals-wrapper{
+  position: fixed !important;
+  z-index: 1000;
+  .action-save-address, .action-hide-popup {
+    @media only screen and (max-width: 990px){
+    width: 115px !important;
+    }
+  }
+}
+.subscription-plan {
+  .content{
+    margin: 0 10px;
+  }
 }
