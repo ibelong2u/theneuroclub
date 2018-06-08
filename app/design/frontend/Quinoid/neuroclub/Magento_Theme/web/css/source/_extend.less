@@ -528,7 +528,7 @@ button{
   right: 0;
   top: -67px;
   z-index: 11;
-  background: white;
+  background: transparent;
   @media all and (max-width: 767px){
     margin-bottom:0;
     top: 0;
@@ -536,6 +536,7 @@ button{
     -moz-box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
     border-bottom: none;
+    background:#fff;
   }
 .header{
     position: relative;
@@ -626,33 +627,46 @@ button{
     .minicart-wrapper{
       .action{
         &.showcart{
-          width:22px;
-          height:28px;
-          background-image: url("@{baseDir}images/cart-stripe.png");
-          background-position: -60px;
-          margin-right:8px;
+          width:40px;
+          height:93px;
+          background-image: url("@{baseDir}images/cart-icon.png");
+          background-position: bottom;
+          background-repeat: no-repeat;
+          margin-right:0px;
+          @media all and (max-width:767px){
+            height:76px;
+          }
           &:before{
             content: '';
           }
         }
       }
-      @media all and (min-width:991px){
-        position:absolute;
-        z-index:11;
-        top: 47px;
-        right:20px;
-      }
-      @media all and (min-width:768px) and (max-width:990px){
-        position:absolute;
-        z-index:11;
-        top: 46px;
-        right:15px;
-      }
+    }
+    .aw-sarp-cart-link__container{
+      position: absolute;
+      right: 29px;
+      top: 25px;
+      transition: all 0.5s;
       @media all and (max-width:767px){
-        position:absolute;
-        top: 20px;
-        right: 20px;
-        margin-top:0px;
+        top:3px;
+      }
+      @media all and (max-width:639px){
+        margin-top:0;
+      }
+      .aw-sarp-cart-link{
+        img{
+          display:none;
+        }
+        span{
+          border-radius: 50%;
+          line-height:25px;
+          background: #e66698;
+          font-size: 14px;
+          @media all and (max-width:767px)
+          {
+            line-height:24px;
+          }
+        }
       }
     }
   }
@@ -783,21 +797,32 @@ button{
 }
 // minicart styling
 .minicart-wrapper{
+  position: absolute;
+  right:20px;
+  top:5px;
+  @media all and (max-width:767px){
+    top:-2px;
+  }
+  @media all and (max-width:639px){
+    margin-top:0;
+  }
   .action.showcart{
     position: relative;
     .counter.qty{
       border-radius: 50%;
       line-height:20px;
-      background: #ef4800;
+      background: #374069;
       position: absolute;
-      right:-13px;
-      top:-13px;
+      right:9px;
+      top:54px;
+      transition:0.5s all;
       @media all and (max-width:767px)
       {
         line-height:24px;
+        top:37px;
       }
       .counter-number{
-        background: #ef4800;
+        background: #374069;
         font-size: 14px;
       }
     }
@@ -2161,6 +2186,21 @@ button{
   }
 }
 .minicart-wrapper
+{
+  @media all and (min-width: 768px)
+  {
+    &.scrollDown
+    {
+      top: -100px !important;
+      transition: all 0.5s ease;
+    }
+    &.scrollUp
+    {
+      transition: all 0.5s ease;
+    }
+  }
+}
+.aw-sarp-cart-link__container
 {
   @media all and (min-width: 768px)
   {

@@ -10,8 +10,13 @@
 
 $tooltipContent = $block->getPreparedTooltipContent();
 ?>
-<!-- For getting the product price in button -->
-<?php $productPrice = $block->getProduct()->getFinalPrice() ?>
+<?php
+// For getting the product price in button
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of Object Manager
+$priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data'); // Instance of Pricing Helper
+$productPrice = $priceHelper->currency($block->getProduct()->getFinalPrice(), true, false);
+?>
+
 <div class="aw-sarp-subscribe-button__container"
      data-role="aw-sarp-product-subscribe-button-container"
      style="display: none;"
@@ -23,7 +28,7 @@ $tooltipContent = $block->getPreparedTooltipContent();
             data-role="aw-sarp-product-subscribe-button"
             data-mage-init='{"awSarpSubscribeButton":{
                 "subscribeUrl": "<?php echo $block->escapeUrl($block->getSubscribeUrl()) ?>",
-                "defaultTitle": "<?php echo 'Subscribe' ?>",
+                "defaultTitle": "<?php echo 'Subscribe' . ' | ' . $productPrice ?>",
                 "isSavingEstimationEnabled": <?php /* @noEscape */ echo \Zend_Json::encode($block->isSavingEstimationEnabled()) ?>
             }}'>
         <span data-role="button-text"><?php echo $block->escapeHtml(__('Subscribe')) . ' | ' . $productPrice ?></span>
