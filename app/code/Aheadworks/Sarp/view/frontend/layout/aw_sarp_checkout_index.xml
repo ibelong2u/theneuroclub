@@ -209,6 +209,7 @@
                                                                         <item name="component" xsi:type="string">Magento_Ui/js/form/element/post-code</item>
                                                                         <item name="validation" xsi:type="array">
                                                                             <item name="required-entry" xsi:type="boolean">true</item>
+                                                                            <item name="validate-zip-ind" xsi:type="string">true</item>
                                                                         </item>
                                                                     </item>
                                                                     <item name="company" xsi:type="array">
@@ -229,6 +230,9 @@
                                                                             <item name="tooltip" xsi:type="array">
                                                                                 <item name="description" xsi:type="string" translate="true">For delivery questions.</item>
                                                                             </item>
+                                                                        </item>
+                                                                        <item name="validation" xsi:type="array">
+                                                                            <item name="phoneIND" xsi:type="string">true</item>
                                                                         </item>
                                                                         <item name="sortOrder" xsi:type="string">40</item>
                                                                     </item>
