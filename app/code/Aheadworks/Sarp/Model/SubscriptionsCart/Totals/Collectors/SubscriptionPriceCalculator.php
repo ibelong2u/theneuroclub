@@ -121,13 +121,6 @@ class SubscriptionPriceCalculator
             $basePrice += (float)$parentProduct->getDataUsingMethod($priceAttrCode);
         }
 
-        foreach ($childItems as $childItem) {
-            /** @var ProductInterface|Product $childProduct */
-            $childProduct = $this->productRepository->getById($childItem->getProductId());
-            $basePrice += (float)$childProduct->getDataUsingMethod($priceAttrCode)
-                * (float)$childItem->getQty();
-        }
-
         return $basePrice;
     }
 
