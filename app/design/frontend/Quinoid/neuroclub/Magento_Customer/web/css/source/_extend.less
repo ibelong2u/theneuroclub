@@ -836,6 +836,11 @@
                     text-transform: uppercase;
                 }
               }
+              .control{
+                input[type="checkbox"]{
+                  margin-right:5px;
+                }
+              }
             }
           }
           .actions-toolbar{
@@ -1288,6 +1293,7 @@
     .columns{
       .page-title-wrapper{
         &.aw_sarp-customer-subscription_title{
+          position: relative;
           .subscription-title_wrapper{
             width:100%;
             @media all and (max-width:640px){
@@ -1299,10 +1305,10 @@
                 padding-right: 65px;
               }
               span{
-                font-size:24px;
+                font-size:24px !important;
                 word-break: break-word;
                 @media all and (max-width:479px){
-                  font-size:21px;
+                  font-size:21px !important;
                 }
               }
             }
