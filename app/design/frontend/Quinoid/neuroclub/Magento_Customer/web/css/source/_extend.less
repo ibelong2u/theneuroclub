@@ -640,6 +640,19 @@
 
 // //Account- My dashboard page-title
 .account{
+  .modals-wrapper{
+    .modal-popup{
+      .modal-footer{
+        button{
+          background: #e66698;
+          border-color: #e66698;
+          color:#fff;
+          font-size:1.4rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
   a,a:active, .alink:active {
       color: #006bb4;
       font-size: 15px !important;
@@ -704,6 +717,7 @@
       background: #f6f6f6;
       text-transform: uppercase;
       color: #6e6e6e;
+      vertical-align: top;
       @media only screen and (min-width: 991px){
         padding:15px 10px;
       }
@@ -1036,6 +1050,16 @@
       }
     }
   }
+  .sidebar{
+    .block-reorder{
+      .block-content{
+        .actions-toolbar{
+          padding: 0 !important;
+          margin:17px 0 !important;
+        }
+      }
+    }
+  }
 }
 .customer-address-index{
   .actions-toolbar{
@@ -1224,6 +1248,37 @@
       }
       .block-addresses-list{
         margin-bottom: 25px;
+      }
+    }
+  }
+  .modals-wrapper{
+    .modal-popup{
+      .modal-footer{
+        button{
+          background: #e66698;
+          border-color: #e66698;
+          color:#fff;
+          font-size:1.4rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+.aw-sarp-profile-index{
+  .page-main{
+    .table-wrapper{
+      margin: 10px 0;
+      &.aw-sarp-customer-subscriptions{
+        @media all and (min-width:640px) and (max-width:1100px){
+          overflow-x: scroll;
+        }
+      }
+    }
+    .toolbar{
+      &.bottom{
+        margin: 15px;
+        padding-bottom: 20px;
       }
     }
   }
