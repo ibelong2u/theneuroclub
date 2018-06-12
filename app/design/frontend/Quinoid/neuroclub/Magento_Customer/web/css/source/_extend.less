@@ -836,6 +836,11 @@
                     text-transform: uppercase;
                 }
               }
+              .control{
+                input[type="checkbox"]{
+                  margin-right:5px;
+                }
+              }
             }
           }
           .actions-toolbar{
@@ -1279,6 +1284,93 @@
       &.bottom{
         margin: 15px;
         padding-bottom: 20px;
+      }
+    }
+  }
+}
+.aw-sarp-profile-view{
+  .page-main{
+    .columns{
+      .page-title-wrapper{
+        &.aw_sarp-customer-subscription_title{
+          position: relative;
+          .subscription-title_wrapper{
+            width:100%;
+            @media all and (max-width:640px){
+              position: relative;
+            }
+            h1{
+              white-space: normal;
+              @media all and (max-width:640px){
+                padding-right: 65px;
+              }
+              span{
+                font-size:24px !important;
+                word-break: break-word;
+                @media all and (max-width:479px){
+                  font-size:21px !important;
+                }
+              }
+            }
+            .aw_sarp-customer-subscription_status{
+              @media all and (max-width:640px){
+                position: absolute;
+                right: 0;
+                top: 0;
+              }
+            }
+          }
+          .subscription-actions_wrapper{
+            position: absolute;
+            right: 20px;
+            width:auto;
+            @media all and (min-width:320px) and (max-width:1024px){
+              position:static;
+              margin-top: 10px;
+              margin-bottom: 0;
+              width:auto;
+            }
+            .aw_sarp-customer-subscription_actions{
+              button{
+                width:auto !important;
+                float:none;
+                margin-left:0;
+                height:30px;
+              }
+            }
+          }
+        }
+      }
+      .aw_sarp-customer-subscription{
+        .block{
+          margin-bottom:10px;
+          padding:10px 20px;
+          box-sizing: border-box;
+          @media all and (max-width:767px){
+            padding:10px;
+          }
+          .block-title{
+            padding-top:0;
+            padding-bottom:10px;
+            margin-bottom: 15px;
+          }
+        }
+        .aw_sarp-customer-subscription_actions{
+          button{
+            width:auto !important;
+            height: 50px;
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 500;
+          }
+        }
+        .actions-toolbar{
+          .primary{
+            .action{
+              color:#fff;
+            }
+          }
+        }
       }
     }
   }
