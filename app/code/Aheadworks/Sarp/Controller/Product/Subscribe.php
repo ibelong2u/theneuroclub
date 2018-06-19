@@ -106,7 +106,7 @@ class Subscribe extends Action
             /*==== End of Additional code ===*/
             /** @var SubscriptionsCartItemInterface $cartItem */
             $cartItem = $this->itemFactory->create();
-           // $logger->info("params = ",$params);
+            
             $cartItem
                 ->setProductId($params['product'])
                 ->setBuyRequest($this->getBuyRequestSerialized($params));
