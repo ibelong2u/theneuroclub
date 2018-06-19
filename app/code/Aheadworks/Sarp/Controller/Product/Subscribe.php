@@ -79,6 +79,9 @@ class Subscribe extends Action
     public function execute()
     {
         /** @var Json $resultJson */
+       // $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        //$logger = $objectManager->get("Psr\Log\LoggerInterface");
+
         $resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
         $params = $this->getRequest()->getParams();
         $result ='';
@@ -89,8 +92,7 @@ class Subscribe extends Action
             if ($cartId != '' && isset($cartId)) {
                 $result = $this->getBundledItem($params['product'],$cart->getCartId(),$params['form_key']);
                 if(isset($result)){
-                    $resultData = $this->jsonHelper->jsonDecode($result);
-                    $params   = $resultData['params'];
+                    $resultData = $this->jsonHelper->jsonDecode($result);            
                     //Existing cart items to be deleted 
                     $deleting = $resultData['deleted'];
                     if(count($deleting)>0){
@@ -98,12 +100,13 @@ class Subscribe extends Action
                             $this->cartItemRepo->deleteById($cartId,$itemid); 
                         }
                     }
-                    
+                    $params   = $resultData['params'];
                 }
             }
             /*==== End of Additional code ===*/
-             /** @var SubscriptionsCartItemInterface $cartItem */
+            /** @var SubscriptionsCartItemInterface $cartItem */
             $cartItem = $this->itemFactory->create();
+            
             $cartItem
                 ->setProductId($params['product'])
                 ->setBuyRequest($this->getBuyRequestSerialized($params));
@@ -156,17 +159,23 @@ class Subscribe extends Action
         $bundleOption = array();
         $paramsArr = array();
         $removeCartItems = array();
+      //  $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+       // $logger = $objectManager->get("Psr\Log\LoggerInterface");
+
         $simpleincr = $bundleincr = $bundleSimple = $simpleSimple = 0;
         try {
             //If cart has any items in the cart
             if($cartId != '' && isset($cartId)){
+                $deleteArr = array();
                  //get all cart items
                 $cartItem  = $this->bundleHelper->getSubscribeCartItems($cartId);
                 $cartItems = $this->jsonHelper->jsonDecode($cartItem);
+
                 if($cartItems['count'] != 0){
                     //Check whether the added item is bundle or simple
                     if(!($this->helper->isBundle($addedItem))) {
                         //Added item is Simple product
+  
                         foreach($cartItems as $item){
                             if($item['pid'] != 0){
                                //check whether each items in cart is bundle or simple
@@ -185,40 +194,93 @@ class Subscribe extends Action
                                 } 
                             }                           
                         }
+
+                    //    $logger->info(" after for loop ",$bundleItemsCart);
+
+
                         // Check Simple- Simple combination
                         if(($bundleSimple == 0) && ($simpleSimple == 1)){
-                            $simpleItemsCart[count($simpleItemsCart)+1] = $addedItem;
-                            $parentItems = $this->bundleHelper->getParentBundle($simpleItemsCart,count($simpleItemsCart));
+                         //   $logger->info(" count simple = ". count($simpleItemsCart));
+                         
+                            if(count($simpleItemsCart) > 1){
+                              //  $logger->info(" simple cart items= ", $simpleItemsCart); 
+                               // $maxBundleItem  = $this->getMaxBundle($simpleItemsCart);
+                                for($i=0;$i<count($simpleItemsCart);$i++){
+                               //     $logger->info(" for loop ". $addedItem . " " . $simpleItemsCart[$i]);
+                                    $tempArr = array($simpleItemsCart[$i],$addedItem);
+                                //    $logger->info(" for loop ". $addedItem . " " . $simpleItemsCart[$i]);
+                                    $parentItems = $this->bundleHelper->getParentBundle($tempArr,count($tempArr)); 
+                                 //   $logger->info(" for loop ".$parentItems);
+                                    $parentDetails = $this->jsonHelper->jsonDecode($parentItems);
+                                    if($parentDetails['bundleid'] != 0){
+                                         //Rewrite the remove cart items
+                                        $deleteArr[$simpleItemsCart[$i]] = $removeCartItemsimple[$simpleItemsCart[$i]]; 
+                                   //     $logger->info(" removeCartItemsimple ",$deleteArr);
+                                        $removeCartItemsimple  =  $deleteArr;
+                                    //    $logger->info(" removeCartItemsimple ",$removeCartItemsimple);
+                                        break;
+                                    }
+                                } 
+                               
+                            } else { 
+                                $simpleItemsCart[count($simpleItemsCart)+1] = $addedItem;
+                                $parentItems = $this->bundleHelper->getParentBundle($simpleItemsCart,count($simpleItemsCart));
+                                $parentDetails = $this->jsonHelper->jsonDecode($parentItems);
+                            }
                             //remove the products add the new bundled item
-                            $parentDetails = $this->jsonHelper->jsonDecode($parentItems);
-                            if($parentDetails['bundleid'] != 0) {                                       $paramsArr = $this->setParamsArray($parentDetails['bundleid'],1,$form_key);
+                          //  $logger->info(" Bundle Id= ".$parentDetails['bundleid']);
+                            if($parentDetails['bundleid'] != 0) {               
+                                $paramsArr = $this->setParamsArray($parentDetails['bundleid'],1,$form_key);
                                 $result['deleted'] = $removeCartItemsimple;
                                 $result['params'] = $paramsArr;
                                 $resultData = $this->jsonHelper->jsonEncode($result);
+                             //   $logger->info(" Result Data= ".$resultData);
                                 return $resultData;
-                            }
+                            } 
                         
                         } elseif(($bundleSimple == 1) && ($simpleSimple == 0)) {
                             //Check whether there is any other bundle combination
+                          //  $logger->info(" bundle=1,simple=0 bundled items if ",$bundleItemsCart);
                             foreach($bundleItemsCart as $key=>$item){
                                 $bundledItem   = $this->bundleHelper->getBundledItems($item);
-                                $bundledItems =  $this->jsonHelper->jsonDecode($bundledItem);       
+                                $bundledItems =  $this->jsonHelper->jsonDecode($bundledItem); 
+                             //   $logger->info(" foreach  count = ".count($bundledItems). $item);
+
                                 if(count($bundledItems) < 3){
                                     $bundledItems[count($bundledItems)+1] = $addedItem;
+                                 //   $logger->info(" bundle=1,simple=0 bundled items if ". $item,$bundledItems);
                                     $parentItems = $this->bundleHelper->getParentBundle($bundledItems,count($bundledItems));
                                     $parentDetails = $this->jsonHelper->jsonDecode($parentItems);
                                     if($parentDetails['bundleid'] != 0){ 
                                       //Add the new bundled product
                                         if(!(in_array($parentDetails['bundleid'],$bundleItemsCart))){
                                             $foundProduct = 1;
+                                        //    $logger->info("bundle=1,simple=0 if bundle items cart ".$parentDetails['bundleid'],$bundleItemsCart);
+
+
                                             $paramsArr = $this->setParamsArray($parentDetails['bundleid'],1,$form_key);
-                                            $result['deleted'] = $removeCartItems;                  $result['params'] = $paramsArr;
+
+                                        //    $logger->info("bundle=1,simple=0 if ",$removeCartItems);
+                                            $deleteArr[$item] = $removeCartItems[$item]; 
+                                        //    $logger->info(" removeCartItemsimple ",$deleteArr);
+                                            $removeCartItems  =  $deleteArr;
+                                           
+                                            $result['deleted'] = $removeCartItems;      
+                                            $result['params'] = $paramsArr;
                                             $resultData = $this->jsonHelper->jsonEncode($result);
+                                         //   $logger->info(" resultData ".$resultData);
                                             return $resultData;   
                                         }  else {
                                             $paramsArr = $this->setParamsArray($parentDetails['bundleid'],1,$form_key);
-                                            unset($removeCartItems[$parentDetails['bundleid']]);
-                                            $result['deleted'] = $removeCartItems;                  $result['params'] = $paramsArr;
+                                         //   $logger->info("bundle=1,simple=0 else bundle items cart ".$parentDetails['bundleid'],$bundleItemsCart);
+
+                                            $deleteArr[$item] = $removeCartItems[$item]; 
+                                        //    $logger->info(" removeCartItemsimple ",$deleteArr);
+                                            $removeCartItems  =  $deleteArr;
+                                            
+                                            //unset($removeCartItems[$parentDetails['bundleid']]);
+                                            $result['deleted'] = $removeCartItems;        
+                                            $result['params'] = $paramsArr;
                                             $resultData = $this->jsonHelper->jsonEncode($result);
                                             return $resultData;   
                                         }              
@@ -228,15 +290,20 @@ class Subscribe extends Action
                             }
                         }elseif($bundleSimple == 1 && $simpleSimple == 1) {
                             $foundProduct = 0;
+                          //  $logger->info(" bundle=1,simple=1 if ",$removeCartItems);
+                          //  $logger->info(" bundle=1,simple=1 simpleItemsCart ".count($simpleItemsCart),$simpleItemsCart);
                             if(count($simpleItemsCart) > 0){
                                 $simpleItemsCart[count($simpleItemsCart)+1] = $addedItem;
+                               
                                 $parentItems = $this->bundleHelper->getParentBundle($simpleItemsCart,count($simpleItemsCart));
-                                $parentDetails = $this->jsonHelper->jsonDecode($parentItems);                                            
-                                if($parentDetails['bundleid'] != 0) {   
+                                $parentDetails = $this->jsonHelper->jsonDecode($parentItems);                    //$logger->info("inside if simpleItemsCart ".count($simpleItemsCart), $parentDetails);                       
+                                if($parentDetails['bundleid'] != 0) { 
+                              //      $logger->info("inside if simpleItemsCart ",$removeCartItemsimple);   
                                     $foundProduct = 1;
                                     $paramsArr = $this->setParamsArray($parentDetails['bundleid'],1,$form_key);
                                     $result['deleted'] = $removeCartItemsimple;
                                     $result['params'] = $paramsArr;
+                                 //   $logger->info("found = ".$foundProduct); 
                                     $resultData = $this->jsonHelper->jsonEncode($result);
                                     return $resultData;
       
@@ -249,18 +316,24 @@ class Subscribe extends Action
                                     if(!(in_array($parentDetails['bundleid'],$bundleItemsCart))){
                                         $foundProduct = 1;
                                         $paramsArr = $this->setParamsArray($parentDetails['bundleid'],1,$form_key);
-                                        $result['deleted'] = $removeCartItems;                      $result['params'] = $paramsArr;
+                                        $result['deleted'] = $removeCartItems;          
+                                        $result['params'] = $paramsArr;
+                                       
                                         $resultData = $this->jsonHelper->jsonEncode($result);
+                                     //   $logger->info(" bundle=1,simple=1 if foundproduct=0 in array",$resultData);
                                         return $resultData;   
                                     }  else {
                                         $paramsArr = $this->setParamsArray($parentDetails['bundleid'],1,$form_key);
-                                        $result['deleted'] = $removeCartItems;                      $result['params'] = $paramsArr;
+                                        $result['deleted'] = $removeCartItems;    
+                                        $result['params'] = $paramsArr;
+                                        
                                         $resultData = $this->jsonHelper->jsonEncode($result);
+                                       // $logger->info(" bundle=1,simple=1 if foundproduct=0 not in array",$resultData);
                                         return $resultData;   
                                     }                         
                                 }
                             }
-                            return '';
+                          //  return '';
                            
                         }else{
                             return '';
@@ -303,4 +376,17 @@ class Subscribe extends Action
             }
         }
     }
+    /* function to return longest bundle*/
+    /*public function getMaxBundle($cartItems){
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $logger = $objectManager->get("Psr\Log\LoggerInterface");
+        $logger->info(" Get Max bundle "); 
+        $logger->info(" simple cart items= ", $cartItems);
+        $addedItem = $cartItems[count($cartItem)];
+        for($i=0;$i<count($cartItem)-1;$i++){
+            $logger->info(" for loop ". $addedItem . " " . $cartItems[$i]);
+
+        } 
+        
+    }*/
 }
