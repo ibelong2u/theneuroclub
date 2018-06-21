@@ -23,7 +23,7 @@
 						</a>
 					</div>
 					<h5>
-						<?php echo $this->helper('Quinoid\CatalogWidget\Helper\Product\Description')->getProductDescription($_item); ?>
+					<?php echo $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
 					</h5>
 					<?php if ($showCart): ?>
 						<div class="actions-primary">
@@ -85,7 +85,7 @@
 							</a>
 						</div>
 						<h5>
-							<?php echo $this->helper('Quinoid\CatalogWidget\Helper\Product\Description')->getProductDescription($_item); ?>
+						<?php echo $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
 						</h5>
 						<?php if ($showCart): ?>
 							<div class="actions-primary">
