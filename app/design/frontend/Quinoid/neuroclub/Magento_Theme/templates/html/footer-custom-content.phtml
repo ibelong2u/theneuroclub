@@ -1,4 +1,12 @@
 <div class="footer-bottom">
+    <!-- Footer Extra Link Block -->
+  <div class="footer-bottom-link">
+    <?php echo $this->getLayout()
+                ->createBlock('Magento\Cms\Block\Block')
+                ->setBlockId('footer-bottom-links')
+                ->toHtml();
+    ?>
+  </div>
   <!-- Footer Payments Block -->
   <div class="footer-payments">
     <?php echo $this->getLayout()
