@@ -173,6 +173,7 @@ class Subscribe extends Action
                  //get all cart items
                 $cartItem  = $this->bundleHelper->getSubscribeCartItems($cartId);
                 $cartItems = $this->jsonHelper->jsonDecode($cartItem);
+                $logger->info(" count simple = ", $cartItems);
 
                 if($cartItems['count'] != 0){
                     //Check whether the added item is bundle or simple
@@ -204,11 +205,15 @@ class Subscribe extends Action
                         // Check Simple- Simple combination
                         if(($bundleSimple == 0) && ($simpleSimple == 1)){
                             $logger->info(" count simple = ". count($simpleItemsCart));
-                         
-                            if(count($simpleItemsCart) > 1){
+
+                            $simpleItemsCart[count($simpleItemsCart)+1] = $addedItem;
+                            $parentItems = $this->bundleHelper->getParentBundle($simpleItemsCart,count($simpleItemsCart));
+                            $parentDetails = $this->jsonHelper->jsonDecode($parentItems);
+
+                            if(($parentDetails['bundleid'] == 0) && count($simpleItemsCart) > 1){
                               //  $logger->info(" simple cart items= ", $simpleItemsCart); 
                                // $maxBundleItem  = $this->getMaxBundle($simpleItemsCart);
-                                for($i=0;$i<count($simpleItemsCart);$i++){
+                                for($i=0;$i<count($simpleItemsCart)-1;$i++){
                                //     $logger->info(" for loop ". $addedItem . " " . $simpleItemsCart[$i]);
                                     $tempArr = array($simpleItemsCart[$i],$addedItem);
                                 //    $logger->info(" for loop ". $addedItem . " " . $simpleItemsCart[$i]);
@@ -225,13 +230,9 @@ class Subscribe extends Action
                                     }
                                 } 
                                
-                            } else { 
-                                $simpleItemsCart[count($simpleItemsCart)+1] = $addedItem;
-                                $parentItems = $this->bundleHelper->getParentBundle($simpleItemsCart,count($simpleItemsCart));
-                                $parentDetails = $this->jsonHelper->jsonDecode($parentItems);
-                            }
+                            } 
                             //remove the products add the new bundled item
-                          //  $logger->info(" Bundle Id= ".$parentDetails['bundleid']);
+                            //  $logger->info(" Bundle Id= ".$parentDetails['bundleid']);
                             if($parentDetails['bundleid'] != 0) {               
                                 $paramsArr = $this->setParamsArray($parentDetails['bundleid'],1,$form_key);
                                 $result['deleted'] = $removeCartItemsimple;
