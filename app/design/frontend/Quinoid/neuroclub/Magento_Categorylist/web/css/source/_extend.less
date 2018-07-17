@@ -48,26 +48,23 @@
     }
     .page{
       &.messages{
-        margin:0;
+        margin:0 !important;
       }
       .messages
       {
-        margin:0;
+        margin:0 !important;
         padding:10px 0;
         .message.success
         {
-          margin:0;
+          margin:0 !important;
         }
       }
     }
   }
   .page-main{
-    margin-top: 79px;
-    @media only screen and (min-width: 640px){
-    margin-top: 76px;
-    }
-    @media only screen and (min-width: 768px){
-    margin-top: 93px;
+    margin-top:105px;
+    @media all and (max-width:767px){
+      margin-top:76px;
     }
     .category-view
     {

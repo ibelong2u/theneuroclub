@@ -195,16 +195,10 @@ button{
   }
 .page-main
   {
-    margin-top:93px;
-    @media all and (max-width:767px)
-    {
+    margin-top:105px;
+    @media all and (max-width:767px){
       margin-top:76px;
     }
-    @media all and (max-width:640px)
-    {
-      margin-top:79px;
-    }
-
     .category-image
     {
       margin-bottom: 0;
@@ -507,14 +501,9 @@ button{
     padding: 0;
     box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
     padding-bottom: 80px;
-    margin-top: 93px !important;
-    @media all and (max-width: 767px)
-    {
-      margin-top: 76px !important;
-    }
-    @media all and (max-width: 640px)
-    {
-      margin-top: 79px !important;
+    margin-top:105px !important;
+    @media all and (max-width:767px){
+      margin-top:76px !important;
     }
     .primary_banner-outer
     {
@@ -580,11 +569,26 @@ button{
   }
   .product-info-content,.product-info-extra,.pdp-video-container
   {
-    max-width: 1350px;
+    max-width: 1160px;
     margin: 0 auto;
+    @media all and (max-width: 1280px)
+    {
+      max-width:100%;
+      padding:30px 50px;
+      box-sizing:border-box;
+    }
+    @media all and (max-width: 1025px){
+      padding:30px 45px;
+    }
+    @media all and (max-width: 991px){
+      padding:30px 35px;
+    }
     @media all and (max-width: 768px)
     {
       width:100%;
+    }
+    @media all and (max-width:767px){
+      padding:30px 15px;
     }
   }
   .product-info-content
@@ -592,11 +596,6 @@ button{
     height: auto;
     margin-top: 70px;
     overflow: auto;
-    @media all and (max-width: 1380px)
-    {
-      padding: 30px;
-      box-sizing: border-box;
-    }
     @media all and (max-width:767px){
       margin-top:20px;
     }
@@ -935,10 +934,14 @@ button{
         padding-bottom: 40px;
         @media all and (max-width: 1380px)
         {
-            padding-left: 30px;
-            padding-right: 30px;
+            // padding-left: 30px;
+            // padding-right: 30px;
             font-size: 2.6rem;
-            padding-bottom: 30px
+            padding-bottom: 30px;
+        }
+        @media all and (max-width:1280px){
+          padding-bottom:30px;
+          padding-top:0;
         }
       }
       .video-content
@@ -958,11 +961,11 @@ button{
         .video-description
         {
           margin-top: 30px;
-          @media all and (max-width: 1380px)
-          {
-            padding-left: 20px;
-            padding-right: 20px;
-          }
+          // @media all and (max-width: 1380px)
+          // {
+          //   padding-left: 20px;
+          //   padding-right: 20px;
+          // }
           h6
           {
               color: #333;
@@ -1453,6 +1456,9 @@ button{
 //Additional Info
 .product-info-extra
 {
+  @media all and (max-width:1280px){
+    padding:0 !important;
+  }
   @media all and (max-width: 768px)
   {
     margin-top: 50px !important;

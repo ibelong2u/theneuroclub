@@ -211,30 +211,59 @@ button{
           top:-55px;
           left: 35%;
           width:220px;
-          @media only screen and (min-width: 320px) and (max-width:479px){
+          @media only screen and (min-width: 320px) and (max-width:344px){
+            left:13%;
+            width:250px;
+          }
+          @media only screen and (min-width: 345px) and (max-width:374px){
+            left:15%;
+            width:250px;
+          }
+          @media only screen and (min-width: 375px) and (max-width:419px){
+            left:18%;
+            width:250px;
+          }
+          @media only screen and (min-width: 420px) and (max-width:479px){
             left:24%;
-            width:220px;
+            width:250px;
           }
           @media only screen and (min-width: 479px) and (max-width:599px){
-            left:32%;
-            width:220px;
-          }
-          @media only screen and (min-width: 600px) and (max-width:767px){
-            left:20%;
-            width:220px;
-          }
-          @media only screen and (min-width: 768px) and (max-width:990px){
-            left:23%;
-            width:220px;
-          }
-          @media only screen and (min-width: 991px) and (max-width:1200px){
-            width:220px;
             left:28%;
+            width:250px;
+          }
+          @media only screen and (min-width: 600px) and (max-width:649px){
+            left:11%;
+            width:240px;
+          }
+          @media only screen and (min-width: 660px) and (max-width:767px){
+            left:15%;
+            width:240px;
+          }
+          @media only screen and (min-width: 768px) and (max-width:799px){
+            left: 18%;
+            width: 240px;
+          }
+          @media only screen and (min-width: 800px) and (max-width:849px){
+            left: 22%;
+            width: 240px;
+          }
+          @media only screen and (min-width: 850px) and (max-width:990px){
+            left: 24%;
+            width: 240px;
+          }
+          @media all and (min-width:991px) and (max-width:1024px){
+            width: 240px;
+            left: 27%;
+            top:-43px;
+          }
+          @media only screen and (min-width: 1025px) and (max-width:1200px){
+            width: 240px;
+            left: 29%;
             top:-43px;
           }
           @media only screen and (min-width: 1200px){
-            width: 240px;
-            left: 38%;
+            width: 280px;
+            left: 32%;
             top: -63px;
           }
         }
@@ -537,12 +566,22 @@ button{
       width: 100px;
       text-align: center;
       margin-top: 14px;
+      @media all and (max-width:768px){
+        display: block !important;
+      }
       @media all and (min-width: 768px){
+        position: absolute;
+        right: -9px;
+        top: 44px;
+        text-transform: uppercase;
         width: 100px;
       }
       a{
         color: #333;
         font-weight: 600;
+        @media all and (min-width: 768px){
+          color:#000;
+        }
       }
     }
     .logo{
@@ -550,9 +589,6 @@ button{
       margin-top: 0;
       @media all and (min-width: 768px){
         display:none;
-      }
-      @media all and (max-width:639px){
-        margin-bottom:14px;
       }
     }
     > .links{
@@ -617,7 +653,7 @@ button{
       .action{
         &.showcart{
           width: 40px;
-          height: 80px;
+          height: 40px;
           background-image: url(../images/cart-icon.png);
           background-position: bottom;
           background-repeat: no-repeat;
@@ -636,10 +672,9 @@ button{
       top: 0;
       transition: all 0.5s;
       right: 85px;
-
       @media all and (min-width:768px){
         right: 80px;
-        top: 46px;
+        top: 42px;
       }
       @media all and (min-width:850px){
         right: 100px;
@@ -787,10 +822,19 @@ button{
       }
       &.menu-logo{
         border-bottom: 0 !important;
+        padding: 0 10px !important;
         @media all and (max-width:767px)  {
           display:none;
         }
       }
+      &.customer-signin{
+        @media all and (max-width:768px)  {
+          visibility: hidden !important;
+        }
+      }
+    }
+    .logo-header{
+      padding:0 10px !important;
     }
     .nav-3, .nav-5, .nav-6, .nav-7, .nav-8, .nav-9{
       @media all and (max-width:767px)  {
@@ -833,9 +877,9 @@ button{
 .minicart-wrapper{
   position: absolute;
   right:20px;
-  top:5px;
+  top:39px;
   @media all and (max-width:767px){
-    top:-2px;
+    top:-4px;
   }
   @media all and (max-width:639px){
     margin-top:0;
@@ -1135,10 +1179,10 @@ button{
   }
   }
   .carousel{
-        margin-top: 94px !important;
-        @media all and (max-width: 768px)
+        margin-top: 105px !important;
+        @media all and (max-width: 767px)
         {
-            margin-top: 79px !important;
+          margin-top: 76px !important;
         }
     .owl-carousel{
       .owl-stage-outer{
