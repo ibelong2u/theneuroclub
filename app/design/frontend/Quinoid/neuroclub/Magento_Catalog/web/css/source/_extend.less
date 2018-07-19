@@ -273,6 +273,8 @@ button{
     .plp-item
     {
       padding:4em 0;
+      background-image: url(../images/plp-texture.png);
+      background-size: contain;
       &:nth-child(odd)
       {
         .item-image
@@ -297,22 +299,22 @@ button{
         }
       }
       &:nth-child(6n+1){
-        background: radial-gradient(#ffffff,#55ab5b);
+        background-color:#59b460;
       }
       &:nth-child(6n+2){
-        background: radial-gradient(#ffffff,#e1b736);
+        background-color:#f5c94d;
       }
       &:nth-child(6n+3){
-        background: radial-gradient(#ffffff,#ce6398);
+        background-color:#c74f76;
       }
       &:nth-child(6n+4){
-        background: radial-gradient(#ffffff,#3a7ba9);
+        background-color:#62baf3;
       }
       &:nth-child(6n+5){
-        background: radial-gradient(#ffffff,#745e96);
+        background-color:#9d82dc;
       }
       &:nth-child(6n+6){
-        background: radial-gradient(#ffffff,#b63139);
+        background-color:#d15057;
       }
       @media all and (max-width: 768px)
       {
@@ -342,6 +344,7 @@ button{
         box-sizing: border-box;
         padding-right: 5em;
         padding-left: 5em;
+        text-align:center;
         @media all and (max-width:1280px)
         {
           padding-right:2em;
@@ -359,7 +362,7 @@ button{
           a
           {
             font-size: 18px;
-            color: #374076;
+            color: #fff;
             font-weight:600;
             text-transform:uppercase;
             @media only screen and (min-width: 468px){
@@ -379,7 +382,7 @@ button{
           {
             margin:1em 0;
             margin-top:10px;
-            color:#374076;
+            color:#fff;
             font-weight:600;
             text-transform: uppercase;
             font-size: 14px;
@@ -395,7 +398,7 @@ button{
         {
           p
           {
-            color:#434242;
+            color:#fff;
             font-size:13px;
             @media only screen and (min-width: 768px){
               font-size: 14px;
@@ -414,23 +417,17 @@ button{
           }
           .actions-primary
           {
-            @media all and (max-width:768px)
-            {
-              display:block;
-            }
+            display:block;
             .plp-item-button
             {
-              text-align: left;
-              @media all and (max-width:768px)
-              {
-                text-align: center;
-              }
+              text-align: center;
               button
               {
-                background: #e66698;
-                border: 1px solid #e66698;
+                background: #fff;
+                border: 1px solid #fff;
                 padding:10px 20px;
                 font-size: 16px;
+                color:#757575;
                 @media only screen and (min-width: 468px){
                   font-size: 17px;
                 }
@@ -443,6 +440,8 @@ button{
                 span
                 {
                   text-transform: capitalize;
+                  color:#757575;
+                  font-weight:400;
                 }
               }
             }
