@@ -7,9 +7,9 @@
         <iframe src="<?php echo $product->getCustomAttribute('product_video')->getValue() ?>" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
       <?php if (null !== $product->getCustomAttribute('product_video_description')): ?>
-      <div class="video-description">
+      <!-- <div class="video-description">
         <?php echo $product->getCustomAttribute('product_video_description')->getValue() ?>
-      </div>
+      </div> -->
       <?php endif; ?>
     </div>
   </div>

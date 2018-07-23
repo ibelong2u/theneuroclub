@@ -21,14 +21,14 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
             <span>get started</span>
           </a>
         </li>
-        <li class="level0 nav-2 first last level-top ui-menu-item nav-link" role="presentation">
-          <a href="<?php echo $block->getBaseUrl(); ?>how-it-works" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
-            <span>how it works</span>
-          </a>
-        </li>
         <li class="level0 nav-3 first level-top ui-menu-item nav-link" role="presentation">
           <a href="<?php echo $baseUrl .'products';?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
             <span>products</span>
+          </a>
+        </li>
+        <li class="level0 nav-5 first level-top ui-menu-item nav-link" role="presentation">
+          <a href="<?php echo $block->getBaseUrl(); ?>nootropics" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
+            <span>why us</span>
           </a>
         </li>
         <li class="level0 nav-4 first last level-top ui-menu-item logo-header">
@@ -36,17 +36,25 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
           <img src="<?php echo $block->getViewFileUrl('images/logo.png'); ?>" />
         </a>
         </li>
-
+        <li class="level0 nav-2 first last level-top ui-menu-item nav-link" role="presentation">
+          <a href="<?php echo $block->getBaseUrl(); ?>how-it-works" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
+            <span>how it works</span>
+          </a>
+        </li>
+        <!-- <li class="level0 nav-5 first level-top ui-menu-item nav-link" role="presentation">
+          <a href="<?php echo $block->getBaseUrl(); ?>nootropics" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
+            <span>why us</span>
+          </a>
+        </li> -->
         <?php echo $this->getChildHtml('customer');?>
         <li class="level0 first last level-top ui-menu-item desktop-none nav-link" role="presentation">
           <a href="<?php echo $baseUrl . 'customer/account/logout/'; ?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
             <span>Sign Out</span>
           </a>
         </li>
-        <li class="level0 nav-6 first level-top ui-menu-item nav-link" role="presentation"></li>
         <li class="level0 nav-7 first level-top ui-menu-item nav-link" role="presentation"></li>
-        <li class="level0 nav-8 first level-top ui-menu-item nav-link" role="presentation"></li>
-        <li class="level0 nav-9 first level-top ui-menu-item nav-link" role="presentation"></li>
+        <!-- <li class="level0 nav-8 first level-top ui-menu-item nav-link" role="presentation"></li> -->
+        <!-- <li class="level0 nav-9 first level-top ui-menu-item nav-link" role="presentation"></li> -->
   </ul>
 </nav>
     </div>

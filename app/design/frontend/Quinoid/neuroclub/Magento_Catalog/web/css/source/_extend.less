@@ -430,6 +430,7 @@ button{
                 padding:10px 20px;
                 font-size: 16px;
                 color:#757575;
+                transition:all 0.25s;
                 @media only screen and (min-width: 468px){
                   font-size: 17px;
                 }
@@ -444,6 +445,25 @@ button{
                   text-transform: capitalize;
                   color:#757575;
                   font-weight:400;
+                  transition:all 0.25s;
+                }
+                &:hover,&:active,&:focus,&:visited{
+                  background:#e6e6e6;
+                  border:1px solid #e6e6e6;
+                  color:#424242;
+                  transition:all 0.25s;
+                  span{
+                    color:#424242;
+                    transition:all 0.25s;
+                    @media all and (max-width:1024px){
+                      color:#757575;
+                    }
+                  }
+                  @media all and (max-width:1024px){
+                    background:#fff;
+                    border:1px solid #fff;
+                    color:#757575;
+                  }
                 }
               }
             }
@@ -558,10 +578,16 @@ button{
     width: auto !important;
     line-height: 2.2rem;
     font-size: 1.8rem;
-    &:hover
+    transition: all 0.25s;
+    &:hover,&:active,&:visited,&:focus
     {
-      background: #e66698;
-      border: 1px solid #e66698;
+      background: #ff6aa2;
+      border: 1px solid #ff6aa2;
+      transition: all 0.25s;
+      @media all and (max-width:1024px){
+        background:#e66698;
+        border:1px solid #e66698;
+      }
     }
     .price
     {
@@ -570,19 +596,23 @@ button{
   }
   .product-info-content,.product-info-extra,.pdp-video-container
   {
-    max-width: 1160px;
+    max-width: 1220px;
     margin: 0 auto;
+    padding-left: 30px;
+    box-sizing: border-box;
     @media all and (max-width: 1280px)
     {
       max-width:100%;
       padding:30px 50px;
+      padding-right:30px;
       box-sizing:border-box;
     }
     @media all and (max-width: 1025px){
       padding:30px 45px;
+      padding-right:30px;
     }
     @media all and (max-width: 991px){
-      padding:30px 35px;
+      padding:30px 28px;
     }
     @media all and (max-width: 768px)
     {
@@ -762,6 +792,7 @@ button{
       margin-top:0;
     }
     .plp-bottom{
+      display:none;
       .inner-container
   {
         max-width: 1350px;
@@ -813,9 +844,9 @@ button{
     }
   .product-info-extra{
     .pdp-bundle-suggestion{
-      margin-top: 140px;
+      margin-top: 0px;
       @media all and (max-width:768px){
-          margin-top: 20px;
+          margin-top: 0px;
       }
       .product-item-info{
         width: 100%;
@@ -1228,8 +1259,13 @@ button{
             {
               .action.primary:hover
               {
-                background: #e66698;
-                border: 1px solid #e66698;
+                background: #ff6aa2;
+                border: 1px solid #ff6aa2;
+                transition: all 0.25s;
+                @media all and (max-width: 1024px){
+                  background: #e66698;
+                  border:1px solid #e66698;
+                }
               }
             }
           }
@@ -1286,8 +1322,22 @@ button{
                         width: auto !important;
                         line-height: 2.2rem;
                         font-size: 1.8rem;
+                        transition: all 0.25s;
+                        &:hover,&:active,&:visited,&:focus
+                        {
+                          background: #ff6aa2;
+                          border: 1px solid #ff6aa2;
+                          transition: all 0.25s;
+                          @media all and (max-width:1024px){
+                            background:#e66698;
+                            border:1px solid #e66698;
+                          }
+                        }
                         @media all and (max-width:479px){
                           font-size:14px;
+                        }
+                        &:focus{
+                          box-shadow: none;
                         }
                       }
             }
@@ -1466,6 +1516,7 @@ button{
   }
   .pdp-additional-info
   {
+    display:none;
     clear: both;
     overflow: hidden;
     width: 100%;
@@ -1694,13 +1745,19 @@ button{
     height:auto !important;
     line-height: 2.2rem;
     font-size: 1.8rem !important;
+    transition: all 0.25s;
     @media all and (max-width:767px){
       margin-bottom:0;
     }
     &:hover,&:active,&:visited,&:focus
     {
-      background: #e66698;
-      border: 1px solid #e66698;
+      background: #ff6aa2;
+      border: 1px solid #ff6aa2;
+      transition: all 0.25s;
+      @media all and (max-width:1024px){
+        background:#e66698;
+        border:1px solid #e66698;
+      }
     }
   }
 }

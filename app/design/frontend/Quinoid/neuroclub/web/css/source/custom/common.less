@@ -145,6 +145,24 @@
                         color:#757575;
                         font-weight:400;
                       }
+                      &:hover,&:active,&:focus,&:visited{
+                        background:#e6e6e6;
+                        border:1px solid #e6e6e6;
+                        color:#424242;
+                        transition:all 0.25s;
+                        span{
+                          color:#424242;
+                          transition:all 0.25s;
+                          @media all and (max-width:1024px){
+                            color:#757575;
+                          }
+                        }
+                        @media all and (max-width:1024px){
+                          background:#fff;
+                          border:1px solid #fff;
+                          color:#757575;
+                        }
+                      }
                     }
                   }
                   h5{
@@ -1030,8 +1048,8 @@
             button{
               font-size: 20px;
               cursor: pointer;
-              background: #374076;
-              border: 1px solid #374076;
+              background: #e66698;
+              border: 1px solid #e66698;
               border-radius: 50px;
               color: #fff;
               padding: 12px 55px;
