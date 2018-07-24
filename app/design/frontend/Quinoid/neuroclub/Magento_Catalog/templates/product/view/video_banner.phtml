@@ -1,0 +1,15 @@
+<?php $product = $block->getProduct() ?>
+<?php if (null !== $product->getCustomAttribute('product_video')): ?>
+  <div class="pdp-video-banner-container">
+    <div class="video-content">
+      <div class="video-outer">
+        <iframe src="<?php echo $product->getCustomAttribute('product_video')->getValue() ?>" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+      <?php if (null !== $product->getCustomAttribute('product_video_description')): ?>
+      <!-- <div class="video-description">
+        <?php echo $product->getCustomAttribute('product_video_description')->getValue() ?>
+      </div> -->
+      <?php endif; ?>
+    </div>
+  </div>
+<?php endif; ?>

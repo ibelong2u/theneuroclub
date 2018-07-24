@@ -9,6 +9,7 @@
   <body>
     <referenceContainer name="content.top">
       <block class="Magento\Framework\View\Element\Template" name="primary.banner" template="Magento_Catalog::product/view/primary-banner.phtml" before="-"/>
+      <block class="Magento\Catalog\Block\Product\AbstractProduct" name="product.info.video1" template="Magento_Catalog::product/view/video_banner.phtml" before="-"/>
     </referenceContainer>
     <referenceContainer name="page.bottom.container">
       <block class="Magento\Framework\View\Element\Template" name="secondary.banner" before="page.bottom" template="Magento_Catalog::product/view/secondary-banner.phtml"/>
