@@ -29,7 +29,8 @@
 						<div class="actions-primary">
 							<?php if ($_item->isSaleable()): ?>
 								<button class="button button-style-1" data-mage-init='{"redirectUrl":{"url":"<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>"}}' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
-									<span><?php echo $block->escapeHtml(__('Subscribe')) ?></span> | <?= /* @escapeNotVerified */ $priceHelper->currency($_item->getFinalPrice(), true, false) ?>
+									<span><?php echo $block->escapeHtml(__('Get Started')) ?></span>
+									 <?php /* @escapeNotVerified $priceHelper->currency($_item->getFinalPrice(), true, false) */  ?>
 								</button>
 							<?php else: ?>
 								<?php if ($_item->getIsSalable()): ?>
@@ -66,7 +67,7 @@
 									<?php
 									}
 								}
-							}	 
+							}
 							?>
               		</div>
             	</div>

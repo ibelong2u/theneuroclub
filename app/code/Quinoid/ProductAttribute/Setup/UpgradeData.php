@@ -18,9 +18,9 @@ class UpgradeData implements UpgradeDataInterface {
    }
 
 	public function upgrade( ModuleDataSetupInterface $setup, ModuleContextInterface $context) {
-		
+
 		if (version_compare($context->getVersion(), '1.0.1', '<')) {
-            
+
             $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
 
             $eavSetup->addAttribute(
@@ -41,7 +41,7 @@ class UpgradeData implements UpgradeDataInterface {
                     'group' => 'Attributes',
                 ]
             );
-            
+
 			$eavSetup->addAttribute(
                 \Magento\Catalog\Model\Product::ENTITY,
                 'bundle_items_features',
@@ -61,9 +61,9 @@ class UpgradeData implements UpgradeDataInterface {
                 ]
             );
         }
-        
+
         if (version_compare($context->getVersion(), '1.0.2', '<')) {
-            
+
             $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
 
             $eavSetup->addAttribute(
@@ -84,6 +84,31 @@ class UpgradeData implements UpgradeDataInterface {
                     'group' => 'Content',
                 ]
             );
-		}
+			}
+
+			if (version_compare($context->getVersion(), '1.0.3', '<')) {
+
+				$eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+
+				$eavSetup->addAttribute(
+						\Magento\Catalog\Model\Product::ENTITY,
+						'product_youtube_video',
+            [
+                'label' => 'Product Youtube Video URL (Embedded Youtube)',
+                'type' => 'varchar',
+                'description' => 'Youtube URL',
+                'input' => 'text',
+                'required' => false,
+                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+                'wysiwyg_enabled' => true,
+                'is_html_allowed_on_front' => true,
+                'unique' => false,
+                'is_used_in_grid' => false,
+                'is_filterable_in_grid' => false,
+                'group' => 'Attributes',
+
+            ]
+				);
+			}
 	}
 }
