@@ -199,7 +199,7 @@ switch ($type = $block->getType()) {
     </div>
     <?php if ($_item->isSaleable()): ?>
         <button class="action tocart primary" data-mage-init='{"redirectUrl":{"url":"<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>"}}' type="button" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
-            <span><?php echo $block->escapeHtml(__('Subscribe')) ?></span> | <?= /* @escapeNotVerified */ $priceHelper->currency($_item->getFinalPrice(), true, false) ?>
+            <span><?php echo $block->escapeHtml(__('Get Started')) ?></span>
         </button>
     <?php else: ?>
         <?php if ($_item->getIsSalable()): ?>
