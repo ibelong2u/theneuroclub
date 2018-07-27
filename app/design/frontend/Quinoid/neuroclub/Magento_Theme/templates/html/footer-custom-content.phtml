@@ -20,65 +20,6 @@
     <img src="<?php echo $block->getViewFileUrl('images/footer-logo.png'); ?>" />
   </div>
   <div class="clearfix"></div>
-  
-  <!-- Footer Links -->
-  <div class="footer-links">
-    <?php
-
-      echo $this->getLayout()
-              ->createBlock('Magento\Cms\Block\Block')
-              ->setBlockId('footer-links1')
-              ->toHtml();
-      echo $this->getLayout()
-              ->createBlock('Magento\Cms\Block\Block')
-              ->setBlockId('footer-links2')
-              ->toHtml();
-    ?>
-  </div>
-  <div class="footer-content">
-    <div class="footer-accordion ui-accordion ui-widget ui-helper-reset" role="tablist">
-      <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all" role="tab" id="ui-accordion-1-header-0" aria-controls="ui-accordion-1-panel-0" aria-selected="false" aria-expanded="true" tabindex="0"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Neuroclub</h3>
-      <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-1-panel-0" aria-labelledby="ui-accordion-1-header-0" role="tabpanel" aria-hidden="true" style="display: none;">
-        <p><a href="/nootropics">Why Us</a></p>
-        <p><a href="/get-started">Get Started</a></p>
-        <p><a href="/how-it-works">How it Works</a></p>
-        <p><a href="/club-referals">Club Referals</a></p>
-      </div>
-  </div>
-  <div class="footer-accordion ui-accordion ui-widget ui-helper-reset" role="tablist">
-    <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all" role="tab" id="ui-accordion-1-header-0" aria-controls="ui-accordion-1-panel-0" aria-selected="false" aria-expanded="true" tabindex="0"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Security</h3>
-    <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-1-panel-0" aria-labelledby="ui-accordion-1-header-0" role="tabpanel" aria-hidden="true" style="display: none;">
-      <p><a href="#">Priavcy Policy</a></p>
-      <p><a href="#">Terms &amp; Condition</a></p>
-      <p><a href="#">Cancellation</a></p>
-    </div>
-  </div>
-  </div>
-  <script>
-        require ([
-            "jquery",
-            "jquery/ui"
-        ], function($){
-            $(".footer-accordion").accordion({
-                collapsible: true,
-                heightStyle: "content",
-                active: '',
-                animate: 500
-            });
-
-            $('a[href^="#"]').on('click', function(event) {
-                var target = $(this.getAttribute('href'));
-                if( target.length ) {
-                    event.preventDefault();
-                    $('html, body').stop().animate({
-                        scrollTop: target.offset().top
-                    }, 1000);
-                }
-            });
-        });
-
-        </script>
-
   <!-- Footer Disclaimer Block -->
   <div class="footer-disclaimer">
     <?php
