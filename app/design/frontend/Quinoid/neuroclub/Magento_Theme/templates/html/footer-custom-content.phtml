@@ -21,6 +21,14 @@
   </div>
   <div class="clearfix"></div>
   <!-- Footer Disclaimer Block -->
+  <div class="footer-cms-links">
+    <?php
+        echo $this->getLayout()
+                ->createBlock('Magento\Cms\Block\Block')
+                ->setBlockId('footer-cms-links')
+                ->toHtml();
+    ?>
+  </div>
   <div class="footer-disclaimer">
     <?php
         echo $this->getLayout()

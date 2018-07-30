@@ -60,4 +60,19 @@ class ProductsList extends \Magento\CatalogWidget\Block\Product\ProductsList
       return $this->_bundleSelection->getChildrenIds($parentId, $required);
     }
 
+    public function array_swap_assoc($key1, $key2, $array)  //change the product listing for health kit
+    {
+      $newArray = array ();
+      foreach ($array as $key => $value) {
+        if ($key == $key1) {
+          $newArray[$key2] = $array[$key2];
+        } elseif ($key == $key2) {
+          $newArray[$key1] = $array[$key1];
+        } else {
+          $newArray[$key] = $value;
+        }
+      }
+      return $newArray;
+    }
+
 }

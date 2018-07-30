@@ -4,6 +4,10 @@
  */
 ?>
 <?php
+
+$blockObjCustom = $block->getLayout()->createBlock('Quinoid\CatalogWidget\Block\Product\ProductsList');
+
+
 $_item = $block->getProduct();
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
@@ -15,7 +19,14 @@ $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
         <form post="" method="post" action="<?= $block->getUrl('subscription/cart/addcustombundle') ?>">
             <div class="row">
                 <?php foreach ($requiredChildrenIds as $key => $childIdArr): ?><?php endforeach; ?>
-                <?php if ($childIdArr != null): ?>
+                <?php if ($childIdArr != null):
+
+                  //change the product listing for health kit
+                  if($_item->getId() == 8){
+                    $childIdArr = $blockObjCustom->array_swap_assoc(1,4,$childIdArr);
+									}
+                  ?>
+
                     <?php foreach ($childIdArr as $childId): ?>
                         <?php $childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId) ?>
                         <div class="sub-product" style="position:relative;">

@@ -19,7 +19,7 @@
 					<div class="product-title">
 						<a title="<?php echo $block->escapeHtml($_item->getName()) ?>"
 							href="<?php echo $block->escapeUrl($block->getProductUrl($_item)) ?>">
-							<?php echo $block->escapeHtml($_item->getName()) ?>
+							<?php echo $block->escapeHtml($_item->getName()); ?>
 						</a>
 					</div>
 					<h5>
@@ -47,9 +47,17 @@
 							<?php
 							$typeInstance = $_item->getTypeInstance();
 							$requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
+
+
 							if ($requiredChildrenIds != null) {
 								foreach ($requiredChildrenIds as $key => $childIdArr) {}
 								if ($childIdArr != null) {
+
+									//change the product listing for health kit
+									if($_item->getId() == 8){
+										$childIdArr = $block->array_swap_assoc(1,4,$childIdArr);
+									}
+
 									foreach ($childIdArr as $childId) {
 										$childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId);
 										?>
