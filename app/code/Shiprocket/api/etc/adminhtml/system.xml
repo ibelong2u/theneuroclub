@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
+<system>
+	<tab 
+		id="foggyline" translate="label" sortOrder="200">
+			<label>Shiprocket</label>
+	</tab>
+	<section 
+		id="shiprocket_api" translate="label" type="text"
+		sortOrder="110" showInDefault="1"
+		showInWebsite="1" showInStore="1">
+			<label>Shiprocket Panel</label>
+				<tab>foggyline</tab>
+			<resource>Foggyline_Helpdesk::helpdesk</resource>
+            <group id="form" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Thanks for choosing Shiprocket – India’s leading Ecommerce Shipping Solution.</label>
+                <field id="fname" translate="label" type="submit" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                </field>
+				<comment><![CDATA[<b>Shiprocket Features</b><br /><br />1.   Auto Sync your Magento orders to Shiprocket.<br /><br />2. <b>  Lowest shipping rates -</b> Reduce your shipping cost by 50%.<br /><br />3.   <b>Maximum COD pincodes covered across India -</b> Over 13000+ pin codes.<br /><br />4.   <b>Ship with multiple courier partners –</b> Aramex, FedEx, EcomExpress, Delhivery & Ups.<br /><br />5.   <b>Fully Automated Shipping –</b> Automate your shipping completely.<br /><br />6. <b>   Courier recommendation engine –</b> Choose the best courier partner to ship your orders.<br /><br />7. <b> COD Reconciliation - </b>Automated COD reconciliation and regular remittance.<br /><br /><a href="https://www.google.com/url?q=https%3A%2F%2Fapp.shiprocket.in%2Fregister%3Futm_source%3DMagento-Marketplace%26utm_medium%3DReferal%26utm_campaign%3DMagento-App-Download&sa=D&sntz=1&usg=AFQjCNFtkaQfrufknTnxZgSBiVWkfNHOjA" target="_blank">Start saving your shipping cost now.</a>]]></comment>
+            </group>
+	</section>
+</system>
+</config>

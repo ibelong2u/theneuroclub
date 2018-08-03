@@ -71,7 +71,8 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
 
         if(!empty($params['customitems']) && count($params['customitems']) > 0) {
           
-          /*  if (count($params['customitems']) > 1) {
+            //add bundle products as a single kit to the cart start
+            if (count($params['customitems']) > 1) {
                 // Getting the details of Bundle Product item
                 $bundleItem = $this->_bundleHelper->getParentBundle($params['customitems'],count($params['customitems']));
                 $bundleItemArr = $this->_jsonHelper->jsonDecode($bundleItem);
@@ -107,19 +108,7 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
                 }
             }
 
-            //Adding the Product Item to Subscription Cart
-            $cartItem
-                ->setProductId($itemDetails['product'])
-                ->setBuyRequest($this->getBuyRequestSerialized($itemDetails));
-            if (isset($itemDetails['qty'])) {
-                $cartItem->setQty($itemDetails['qty']);
-            }
-            $cartItem = $this->cartManagement->add($cart, $cartItem);
-            $this->cartPersistor->setCartId($cart->getCartId());
-          */
 
-          foreach($params['customitems'] as $key=>$val){
-            $itemDetails = array('product'=>$val, 'form_key'=>$this->_formKey->getFormKey(), 'qty'=>1);
             //Adding the Product Item to Subscription Cart
             $cartItem
                 ->setProductId($itemDetails['product'])
@@ -129,7 +118,26 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
             }
             $cartItem = $this->cartManagement->add($cart, $cartItem);
             $this->cartPersistor->setCartId($cart->getCartId());
-          }
+
+            //add bundle products as a single kit to the cart ends
+
+            /*
+            //add bundle product as multiple single products to the cart start
+            foreach($params['customitems'] as $key=>$val) {
+                $itemDetails = array('product'=>$val, 'form_key'=>$this->_formKey->getFormKey(), 'qty'=>1);
+                //Adding the Product Item to Subscription Cart
+                $cartItem
+                    ->setProductId($itemDetails['product'])
+                    ->setBuyRequest($this->getBuyRequestSerialized($itemDetails));
+                if (isset($itemDetails['qty'])) {
+                    $cartItem->setQty($itemDetails['qty']);
+                }
+                $cartItem = $this->cartManagement->add($cart, $cartItem);
+                $this->cartPersistor->setCartId($cart->getCartId());
+            }
+            //add bundle products as multiple single products to the cart end here
+            */
+
             //to delete simple items if customized bundle item is found
             if(count($deleting)>0){
                 foreach($deleting as $pid => $itemid) {
