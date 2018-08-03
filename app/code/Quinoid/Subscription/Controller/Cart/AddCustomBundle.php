@@ -32,7 +32,7 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
     protected $cartItemRepo;
 
     protected $subscriber;
-    
+
     public function __construct(
         Context $context,
         \Quinoid\Subscription\Helper\Data $helper,
@@ -44,9 +44,9 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
         CartPersistor $cartPersistor,
         ItemRepository $cartItemRepo,
         SubscriptionsCartItemInterfaceFactory $itemFactory,
-        Subscribe $subscriber        
+        Subscribe $subscriber
     ) {
-        
+
         parent::__construct($context);
         $this->_helper = $helper;
         $this->_bundleHelper = $bundleHelper;
@@ -57,20 +57,21 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
         $this->cartPersistor = $cartPersistor;
         $this->cartItemRepo  = $cartItemRepo;
         $this->itemFactory = $itemFactory;
-        $this->subscribe = $subscriber;    
+        $this->subscribe = $subscriber;
     }
 
     public function execute()
-    {   
+    {
         $params = $this->getRequest()->getParams();
         $result ='';
         $deleting = array();
         $cart = $this->cartPersistor->getSubscriptionCart();
-            
+
         $cartItem = $this->itemFactory->create();
-    
+
         if(!empty($params['customitems']) && count($params['customitems']) > 0) {
-            if (count($params['customitems']) > 1) {
+          
+          /*  if (count($params['customitems']) > 1) {
                 // Getting the details of Bundle Product item
                 $bundleItem = $this->_bundleHelper->getParentBundle($params['customitems'],count($params['customitems']));
                 $bundleItemArr = $this->_jsonHelper->jsonDecode($bundleItem);
@@ -81,7 +82,7 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
                     $itemDetails['bundle_option'] = $this->_bundleHelper->getBundledItemsDetails($bundleItemArr['bundleid']);
                     $itemDetails['qty'] = 1;
                 }
-            } 
+            }
             elseif (count($params['customitems']) == 1) {
                 //Getting the detail of Simple Product
                 $itemDetails = array();
@@ -92,10 +93,10 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
                 if ($cartId != '' && isset($cartId)) {
                     $result = $this->subscribe->getBundledItem($itemDetails['product'],$cart->getCartId(),$itemDetails['form_key']);
                     if(isset($result)){
-                        $resultData = $this->_jsonHelper->jsonDecode($result);            
-                        //Existing cart items to be deleted 
+                        $resultData = $this->_jsonHelper->jsonDecode($result);
+                        //Existing cart items to be deleted
                         $deleting = $resultData['deleted'];
-                
+
                         $params   = $resultData['params'];
                         // var_dump($itemDetails['form_key']);
                         // var_dump($params);
@@ -103,7 +104,7 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
                         $itemDetails['product'] = $params['product'];
                         $itemDetails['bundle_option'] = $params["bundle_option"];
                     }
-                } 
+                }
             }
 
             //Adding the Product Item to Subscription Cart
@@ -115,11 +116,24 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
             }
             $cartItem = $this->cartManagement->add($cart, $cartItem);
             $this->cartPersistor->setCartId($cart->getCartId());
+          */
 
+          foreach($params['customitems'] as $key=>$val){
+            $itemDetails = array('product'=>$val, 'form_key'=>$this->_formKey->getFormKey(), 'qty'=>1);
+            //Adding the Product Item to Subscription Cart
+            $cartItem
+                ->setProductId($itemDetails['product'])
+                ->setBuyRequest($this->getBuyRequestSerialized($itemDetails));
+            if (isset($itemDetails['qty'])) {
+                $cartItem->setQty($itemDetails['qty']);
+            }
+            $cartItem = $this->cartManagement->add($cart, $cartItem);
+            $this->cartPersistor->setCartId($cart->getCartId());
+          }
             //to delete simple items if customized bundle item is found
-            if(count($deleting)>0){  
-                foreach($deleting as $pid => $itemid) { 
-                   $this->cartItemRepo->deleteById($cartId,$itemid); 
+            if(count($deleting)>0){
+                foreach($deleting as $pid => $itemid) {
+                   $this->cartItemRepo->deleteById($cartId,$itemid);
                 }
             }
 
@@ -130,7 +144,7 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
             $resultRedirect = $this->resultRedirect->create(ResultFactory::TYPE_REDIRECT);
             $resultRedirect->setPath('aw_sarp/cart/index');
             return $resultRedirect;
-            
+
         }
         else {
             // Redirection to PDP if no item is selected
@@ -142,7 +156,7 @@ class AddCustomBundle extends \Magento\Framework\App\Action\Action
             }
         }
     }
-    
+
     private function getBuyRequestSerialized($params)
     {
         if (isset($params['form_key'])) {
