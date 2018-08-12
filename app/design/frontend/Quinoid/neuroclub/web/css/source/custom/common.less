@@ -118,11 +118,19 @@
                       font-size: 23px;
                       font-weight: 600;
                       text-transform:uppercase;
+                      transition:all 0.25s;
                       @media only screen and (min-width: 468px){
                         font-size: 25px;
                       }
                       @media only screen and (min-width: 1024px){
                         font-size: 30px;
+                      }
+                      &:hover,&:active,&:focus,&:visited{
+                        color:#e8e8e8;
+                        transition:all 0.25s;
+                        @media all and (max-width:1024px){
+                          color:#fff;
+                        }
                       }
                     }
                   }
@@ -179,6 +187,7 @@
                     font-size: 14px;
                     font-weight: 500;
                     margin-bottom: 25px;
+                    text-align:justify;
                     @media only screen and (min-width: 468px){
                       font-size: 15px;
                     }
