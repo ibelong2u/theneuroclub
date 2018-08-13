@@ -55,6 +55,8 @@
               display:flex;
               align-items:center;
               padding:30px 15%;
+              background-size:cover;
+              background-repeat:no-repeat;
               @media all and (max-width:1200px){
                 padding:30px 10%;
               }
@@ -65,14 +67,29 @@
                 display:block;
               }
               &.work-kit{
+                background-image: url('../../../images/Work_Kit_Banner_bg.png');
                 background-color:#59bae5;
+                background-position:left center;
+                @media all and (max-width:767px){
+                  background-position:center center;
+                }
               }
               &.study-kit{
-                background-color:#cd9bde;
+                background-image: url('../../../images/Study_Kit_Banner_bg.png');
                 flex-direction:row-reverse;
+                background-color:#ce9bde;
+                background-position:right center;
+                @media all and (max-width:767px){
+                  background-position:center center;
+                }
               }
               &.health-kit{
-                background-color:#abd985;
+                background-image: url('../../../images/Health_kit_banner_bg.png');
+                background-color:#acd986;
+                background-position:left center;
+                @media all and (max-width:767px){
+                  background-position:center center;
+                }
               }
               .kit-image{
                 width: 30%;
