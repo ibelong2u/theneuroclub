@@ -647,7 +647,7 @@ button{
       transition: all 0.5s;
       right:20px;
       @media all and (min-width:768px){
-        top: 39px;
+        top: 32px;
       }
       // @media all and (min-width:850px){
       //   right: 100px;
@@ -664,16 +664,19 @@ button{
       // @media all and (min-width:1260px){
       //   right: 210px;
       // }
+      @media all and (max-width:768px){
+        right:10px;
+      }
       @media all and (max-width:767px){
-        top:5px;
+        top:0px;
         right:5px;
       }
       @media all and (max-width:639px){
         margin-top:0;
       }
       .aw-sarp-cart-link{
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
         display: block;
         background-image: url(../images/cart-icon.png);
         background-position: bottom;
@@ -689,10 +692,9 @@ button{
           font-size: 14px;
           position: relative;
           right: -17px;
-          bottom: -2px;
+          bottom: 0px;
           @media all and (max-width:767px){
             line-height:24px;
-            bottom: 0;
           }
         }
       }
@@ -785,7 +787,9 @@ button{
     }
     .level-top {
       border-color:#fff !important;
-      padding: 0 !important;
+      &.ui-menu-item{
+        padding: 0 !important;
+      }
       a{
         span{
           color:#000;

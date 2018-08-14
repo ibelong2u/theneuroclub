@@ -521,10 +521,12 @@ button{
     max-width: 100% !important;
     padding: 0;
     box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.1);
-    padding-bottom: 80px;
     margin-top:105px !important;
     @media all and (max-width:767px){
       margin-top:76px !important;
+    }
+    .columns .column.main{
+      padding-bottom: 0;
     }
     .primary_banner-outer
     {
@@ -813,9 +815,8 @@ button{
       margin-top:0;
     }
     .plp-bottom{
-      display:none;
       .inner-container
-  {
+      {
         max-width: 1350px;
         margin: 0 auto;
         padding-left: 1px;
@@ -987,9 +988,9 @@ button{
     display: none;
   }
   .howitworks-outer{
+    display: none;
     .pdp-video-container
     {
-      display: none;
       h4
       {
         font-size: 40px;
@@ -1814,5 +1815,15 @@ button{
     {
       display: none;
     }
+  }
+}
+.catalog-product-view{
+  .product-info-extra{
+    display:none;
+  }
+}
+.page-product-bundle{
+  .product-info-extra{
+    display:block;
   }
 }
