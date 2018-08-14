@@ -172,7 +172,7 @@ switch ($type = $block->getType()) {
         </h4>
         <?php $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product') ?>
         <?php if($product->getCustomAttribute('tagline')): ?>
-            <h5><?= $product->getCustomAttribute('tagline')->getValue() ?></h5>
+            <!-- <h5><?= $product->getCustomAttribute('tagline')->getValue() ?></h5> -->
         <?php endif;  ?>
     <div class="product-image">
       <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>" class="product photo product-item-photo">
