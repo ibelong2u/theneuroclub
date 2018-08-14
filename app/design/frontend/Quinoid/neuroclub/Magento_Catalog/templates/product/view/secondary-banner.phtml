@@ -1,12 +1,31 @@
+
+<div class="plp-bottom">
+  <div class="inner-container">
+    <div class="row plp-bottom-container">
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance() ?>
+<?php $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product') ?>
+<?php if (null !== $product->getCustomAttribute('secondary_banner')): ?>
+  <div class="pdp-bottom-container">
+    <?php $content = $product->getCustomAttribute('secondary_banner')->getValue() ?>
+    <?php $filteredContent = $objectManager->get('Magento\Cms\Model\Template\FilterProvider')->getPageFilter()->filter($content) ?>
+    <?php echo $filteredContent ?>
+    <div class="banner-content">
+    <!-- <h6>Finibus Bonorum et Malorum <br /> quisquam is that</h6>
+    <p>Neque porro quisquam is that dolorem <br /> ipsum quia dolor sit amet</p>
+    <a class="button-style-1" href="#">View all</a></div> -->
+  </div>
+<?php endif; ?>
+
+</div>
+</div>
+</div>
+<!--
 <div class="plp-bottom">
   <div class="inner-container">
     <div class="row plp-bottom-container">
       <?php
-        echo $this->getLayout()
-                   ->createBlock('Magento\Cms\Block\Block')
-                   ->setBlockId('pdp-secondary-banner')
-                   ->toHtml();
+        //echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('pdp-secondary-banner')->toHtml();
      ?>
    </div>
   </div>
-</div>
+</div>-->
