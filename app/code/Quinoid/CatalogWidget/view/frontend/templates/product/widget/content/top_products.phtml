@@ -23,7 +23,7 @@
 						</a>
 					</div>
 					<h5>
-					<?php echo $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
+					<?php echo $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getAdditionalInfo(), 'additional_info') ?>
 					</h5>
 					<?php if ($showCart): ?>
 						<div class="actions-primary">

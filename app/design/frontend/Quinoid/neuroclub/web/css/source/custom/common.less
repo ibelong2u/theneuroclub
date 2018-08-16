@@ -571,6 +571,7 @@
                              padding:10px 0;
                              p{
                                font-size:14px;
+                               text-align:justify;
                              }
                            }
                          }
@@ -613,6 +614,7 @@
                            .more-link{
                              font-size: 14px;
                              color:#374076;
+                             display:none;
                              &:hover , &:focus, &:active {
                                text-decoration: underline;
                                @media all and (max-width:1024px){
@@ -740,8 +742,13 @@
           .item-col-text{
             box-sizing: border-box;
             float: left;
-            width: 48%;
+            width: 100%;
             float: right;
+            text-align: left !important;
+            padding:0 !important;
+            @media all and (max-width:768px){
+              padding:10px 30px !important;
+            }
             .head{
                 h1{
                   font-size: 21px;
@@ -770,6 +777,7 @@
             box-sizing: border-box;
             float: left;
             width:48%;
+            display: none;
             img{
               max-width: 100%;
             }
@@ -778,6 +786,33 @@
             content: '';
             display: table;
             clear: both;
+          }
+          &:nth-child(1){
+            .item-col-text{
+              text-align: right !important;
+              width:52%;
+              padding-right: 25px !important;
+              @media all and (max-width: 768px){
+                width:100%;
+                padding:10px 30px !important;
+                text-align: left !important;
+              }
+              .description{
+                p{
+                  text-align: justify;
+                  @media all and (max-width:768px){
+                    text-align:justify !important;
+                  }
+                }
+              }
+            }
+            .item-col-img{
+              display: block;
+              padding-left:25px !important;
+              @media all and (max-width:768px){
+                padding:0 !important;
+              }
+            }
           }
         }
         .institutions{
@@ -872,9 +907,9 @@
         padding: 0px;
       }
       .item-col-text{
-        padding: 10px 30px!important;
+        padding: 10px 30px !important;
         width: 100%!important;
-        text-align: center!important;
+        text-align: justify !important;
         padding: 0px;
       }
     }
