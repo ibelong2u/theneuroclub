@@ -751,7 +751,7 @@
             float: left;
             width: 100%;
             float: right;
-            text-align: justify !important;
+            text-align: center !important;
             padding:0 !important;
             @media all and (max-width:768px){
               padding:10px 30px !important;
@@ -778,6 +778,23 @@
                 font-size: 15px;
                 color: #939393;
               }
+              table{
+                tbody{
+                  tr{
+                    border-bottom: 1px solid #000;
+                    &:last-child{
+                      border-bottom:none;
+                    }
+                    td{
+                      width:50%;
+                      border-right:1px solid #000;
+                      &:last-child{
+                        border-right:none;
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
           .item-col-img{
@@ -793,22 +810,6 @@
             content: '';
             display: table;
             clear: both;
-          }
-          &:nth-child(1){
-            .item-col-text{
-              text-align: justify !important;
-              @media all and (max-width: 768px){
-                text-align: left !important;
-              }
-              .description{
-                p{
-                  text-align: justify;
-                  @media all and (max-width:768px){
-                    text-align:justify !important;
-                  }
-                }
-              }
-            }
           }
         }
         .institutions{
