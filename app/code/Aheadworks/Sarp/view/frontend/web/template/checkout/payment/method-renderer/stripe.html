@@ -9,14 +9,14 @@
         </label>
     </div>
     <div class="payment-method-content">
-        <!-- ko foreach: getRegion('messages') -->
-        <!-- ko template: getTemplate() --><!-- /ko -->
-        <!--/ko-->
         <div class="payment-method-billing-address">
             <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
             <!-- ko template: getTemplate() --><!-- /ko -->
             <!--/ko-->
         </div>
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
         <form class="form" action="#" method="post" data-bind="mageInit: {'validation':[]}" data-role="stripe-cc-form">
             <!-- ko template: 'Magento_Payment/payment/cc-form' --><!-- /ko -->
         </form>
