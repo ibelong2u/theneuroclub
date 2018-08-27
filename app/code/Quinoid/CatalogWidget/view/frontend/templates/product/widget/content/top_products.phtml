@@ -23,7 +23,9 @@
 						</a>
 					</div>
 					<h5>
-					<?php echo $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
+					<?php // echo $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
+
+					<?php	echo $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_item, $_item->getAdditionalInfo(), 'additional_info'); ?>
 					</h5>
 					<?php if ($showCart): ?>
 						<div class="actions-primary">
@@ -54,9 +56,9 @@
 								if ($childIdArr != null) {
 
 									//change the product listing for health kit
-									if($_item->getId() == 8){
+									/* if($_item->getId() == 8){
 										$childIdArr = $block->array_swap_assoc(1,4,$childIdArr);
-									}
+									}*/
 
 									foreach ($childIdArr as $childId) {
 										$childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId);
@@ -64,10 +66,10 @@
 										<div class="sub-product">
 											<a href="<?php echo $block->getBaseUrl() . $childItem->getUrlKey(); ?>">
 												<img src="<?php echo $block->getBaseUrl() . "pub/media/catalog/product" . $childItem->getData('image'); ?>" height="70" alt="docs-org" />
-												<h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4>
+												<!-- <h4><?php echo $block->escapeHtml($childItem->getName()); ?></h4> -->
 												<!-- <h4>30 Capsule pack</h4> -->
 												<?php if (null !== $childItem->getCustomAttribute('tagline')): ?>
-													<h5><?= $childItem->getCustomAttribute('tagline')->getValue() ?></h5>
+													<!-- <h5><?= $childItem->getCustomAttribute('tagline')->getValue() ?></h5> -->
 												<?php endif;  ?>
 												<p><?= /* @escapeNotVerified */ $priceHelper->currency($childItem->getPrice(), true, false) ?></p>
 											</a>
