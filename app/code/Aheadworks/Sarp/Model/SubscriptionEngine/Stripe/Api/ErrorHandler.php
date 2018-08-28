@@ -61,7 +61,7 @@ class ErrorHandler
 
         /** @var LocalizedException $exception */
         $exception = $this->exceptionFactory->create(
-            ['phrase' => __('Gateway has rejected request. %1', $errorText)]
+          ['phrase' => __('Sorry! As per the RBI norms for subscriptions to work in India, your Debit/Credit card should be activated for international payments. Activate and come back within 10-15 minutes to continue shopping')]
         );
         throw $exception;
     }

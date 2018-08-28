@@ -54,9 +54,9 @@
 								if ($childIdArr != null) {
 
 									//change the product listing for health kit
-									if($_item->getId() == 8){
+									/*if($_item->getId() == 8){
 										$childIdArr = $block->array_swap_assoc(1,4,$childIdArr);
-									}
+									}*/
 
 									foreach ($childIdArr as $childId) {
 										$childItem = $objectManager->get('Magento\Catalog\Model\Product')->load($childId);
