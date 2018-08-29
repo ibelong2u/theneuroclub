@@ -1,6 +1,6 @@
 <?php
 
-$_productCollection = $block->getLoadedProductCollection();
+//$_productCollection = $block->getLoadedProductCollection();
 
 $_helper = $this->helper('Magento\Catalog\Helper\Output');
 
@@ -13,9 +13,9 @@ $productBundleCollection = $objectManager->create('Magento\Catalog\Model\Resourc
 ->addAttributeToFilter('visibility', 4)->addAttributeToselect('*');
 
 
-/*$_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection')
+$_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection')
 ->addAttributeToFilter('type_id', array( 'in' => array('simple')))
-->addAttributeToFilter('visibility', 4)->addAttributeToselect('*')*/
+->addAttributeToFilter('visibility', 4)->addAttributeToselect('*')
 
 ?>
 <style>
