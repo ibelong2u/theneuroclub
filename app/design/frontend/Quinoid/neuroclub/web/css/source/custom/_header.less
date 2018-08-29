@@ -39,5 +39,41 @@
 	}
 .level-top{
 	color: #000000;
+
+	.dropbtn
+    {
+      background: white;
+      color: black;
+      text-transform: uppercase;
+      &:hover
+      {
+        border: none;
+      }
+      @media all and (max-width: 767px)
+      {
+        width: 100%;
+        text-align: left;
+      }
+    }
+    .dropdown-content
+    {
+      a
+      {
+        font-size: 14px;
+        letter-spacing: 1px;
+        font-weight: 600;
+        background: white;
+        &:hover
+        {
+          background: whitesmoke;
+        }
+      }
+      @media all and (max-width: 767px)
+      {
+        width: 100%;
+        background: whitesmoke;
+        position: static;
+      }
+    }
 	}
 }

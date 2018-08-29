@@ -3,6 +3,46 @@ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
 $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB);
 ?>
+<style>
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+</style>
 <div class="sections nav-sections">
   <div class="section-items nav-sections-items" data-mage-init='{"tabs":{"openedState":"active"}}'>
     <div class="section-item-title nav-sections-item-title" data-role="collapsible">
@@ -17,14 +57,25 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
       </a>
       </li>
         <li class="level0 nav-1 first last level-top ui-menu-item nav-link" role="presentation">
-          <a href="<?php echo $block->getBaseUrl(); ?>get-started" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
-            <span>get started</span>
-          </a>
+          <!-- <a href="<?php echo $block->getBaseUrl(); ?>get-started" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem"> -->
+          <button class="dropbtn">get started</button>
+            <div class="dropdown-content">
+              <a href="#home">Home</a>
+              <a href="#about">About</a>
+              <a href="#contact">Contact</a>
+            </div>
+        
+          <!-- </a> -->
         </li>
         <li class="level0 nav-3 first level-top ui-menu-item nav-link" role="presentation">
-          <a href="<?php echo $baseUrl .'products';?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
-            <span>products</span>
-          </a>
+          <!-- <a href="<?php echo $baseUrl .'products';?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem"> -->
+            <button class="dropbtn">products</button>
+            <div class="dropdown-content">
+              <a href="#home">Home</a>
+              <a href="#about">About</a>
+              <a href="#contact">Contact</a>
+            </div>
+          <!-- </a> -->
         </li>
         <li class="level0 nav-4 first last level-top ui-menu-item logo-header">
           <a href="<?php echo $block->getBaseUrl(); ?>" class="level-top ui-corner-all  menu-logo" id="ui-id-3" tabindex="-1" role="menuitem">
@@ -60,3 +111,35 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
     </div>
   </div>
 </div>
+
+
+<script>
+
+
+require([
+      'jquery',
+
+  ], function($) {
+
+
+$(".dropbtn").click(function()
+{
+   $(this).next(".dropdown-content").toggleClass("show");
+});
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+
+  });
+</script>
