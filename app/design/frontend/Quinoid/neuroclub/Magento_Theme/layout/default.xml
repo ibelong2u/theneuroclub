@@ -11,7 +11,7 @@
        <referenceBlock name="catalog.topnav" remove="true" />
        <referenceBlock name="form.subscribe" remove="true" />
       <referenceContainer name="page.wrapper">
-        <block class="Magento\Framework\View\Element\Template" name="menu_links" after="header-wrapper" template="Magento_Theme::html/customnav.phtml"/>
+        <block class="Magento\Catalog\Block\Product\ListProduct" name="menu_links" after="header-wrapper" template="Magento_Theme::html/customnav.phtml"/>
       </referenceContainer>
     	<referenceContainer name="footer-container">
         <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="footer content">
