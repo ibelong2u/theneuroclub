@@ -40,29 +40,74 @@
 .level-top{
 	color: #000000;
 
+  &.dropdown{
+    position: relative;
+    @media all and (max-width:767px){
+      display: block;
+    }
+    &:after{
+        position: absolute;
+        right: -5px;
+        top: 15px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 13px;
+        line-height: inherit;
+        color: inherit;
+        content: '\e622';
+        font-family: 'luma-icons';
+        vertical-align: middle;
+        display: inline-block;
+        font-weight: normal;
+        overflow: hidden;
+        speak: none;
+        text-align: center;
+      @media all and (max-width:767px){
+        right: 13px;
+        top: 12px;
+      }
+    }
+  }
+
 	.dropbtn
     {
-      background: white;
-      color: black;
+      background: white !important;
+      color: black !important;
       text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-size: 12px;
+      @media only screen and (min-width: 468px) {
+        font-size: 14px;
+      }
+      @media only screen and (min-width: 768px){
+        font-size: 16px;
+      }
       &:hover
       {
         border: none;
       }
-      @media all and (max-width: 767px)
-      {
-        width: 100%;
-        text-align: left;
+      @media all and (max-width:767px){
+        border-width:0px !important;
+        margin-right: 50px;
       }
     }
     .dropdown-content
     {
       a
       {
+        color:#374096 !important;
         font-size: 14px;
         letter-spacing: 1px;
         font-weight: 600;
         background: white;
+        text-transform: capitalize;
+        @media all and (max-width: 767px){
+          font-size:12px;
+        }
+        @media all and (max-width: 467px){
+          font-size:11px;
+        }
         &:hover
         {
           background: whitesmoke;
@@ -73,6 +118,9 @@
         width: 100%;
         background: whitesmoke;
         position: static;
+        box-shadow: none;
+        border-bottom: 1px solid rgba(197,197,197,0.21);
+        border-top: 1px solid rgba(197,197,197,0.21);
       }
     }
 	}

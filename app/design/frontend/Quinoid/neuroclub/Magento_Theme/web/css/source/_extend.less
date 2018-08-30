@@ -555,7 +555,6 @@ button{
         font-weight: 600;
         @media all and (min-width: 768px){
           color:#000;
-          font-weight:400;
           letter-spacing: 1px;
         }
       }
@@ -809,6 +808,9 @@ button{
       &.customer-signin{
         @media all and (max-width:768px)  {
           visibility: hidden !important;
+        }
+        @media all and (max-width:767px){
+          display: none !important;
         }
       }
     }
@@ -1909,6 +1911,7 @@ button{
         h3{
           padding-bottom: 15px;
           text-transform: uppercase;
+          color:#fff;
         }
       }
       .footer-logo{

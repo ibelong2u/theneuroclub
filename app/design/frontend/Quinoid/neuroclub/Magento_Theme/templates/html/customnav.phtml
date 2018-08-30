@@ -20,16 +20,11 @@ $_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceMode
 ?>
 <style>
 .dropbtn {
-    background-color: #3498DB;
+    background-color: #4CAF50;
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
-    cursor: pointer;
-}
-
-.dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
 }
 
 .dropdown {
@@ -42,7 +37,6 @@ $_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceMode
     position: absolute;
     background-color: #f1f1f1;
     min-width: 160px;
-    overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
@@ -54,9 +48,13 @@ $_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceMode
     display: block;
 }
 
-.dropdown a:hover {background-color: #ddd;}
+.dropdown-content a:hover {background-color: #ddd;}
 
-.show {display: block;}
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.show{display:block;}
 </style>
 <div class="sections nav-sections">
   <div class="section-items nav-sections-items" data-mage-init='{"tabs":{"openedState":"active"}}'>
@@ -72,9 +70,10 @@ $_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceMode
       </a>
       </li>
       <?php // echo $items->count(); ?>
-        <li class="level0 nav-1 first last level-top ui-menu-item nav-link" role="presentation">
-          <!-- <a href="<?php echo $block->getBaseUrl(); ?>get-started" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem"> -->
-          <button class="dropbtn">get started</button>
+        <li class="level0 nav-1 first last level-top nav-link dropdown" role="presentation">
+          <a href="<?php echo $block->getBaseUrl(); ?>get-started" class="level-top ui-corner-all dropbtn" id="ui-id-3" tabindex="-1" role="menuitem">
+            get started
+          </a>
             <div class="dropdown-content">
               <?php if($productBundleCollection->count()){ ?>
                 <?php foreach ($productBundleCollection as $_product1): ?>
@@ -84,12 +83,11 @@ $_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceMode
                 <?php endforeach; ?>
               <?php } ?>
             </div>
-        
-          <!-- </a> -->
         </li>
-        <li class="level0 nav-3 first level-top ui-menu-item nav-link" role="presentation">
-          <!-- <a href="<?php echo $baseUrl .'products';?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem"> -->
-            <button class="dropbtn">products</button>
+        <li class="level0 nav-3 first level-top nav-link dropdown" role="presentation">
+          <a href="<?php echo $baseUrl .'products';?>" class="level-top ui-corner-all dropbtn" id="ui-id-3" tabindex="-1" role="menuitem">
+            products
+          </a>
             <div class="dropdown-content">
 
             <?php if($_productCollection->count()){ ?>
@@ -101,7 +99,6 @@ $_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceMode
               <?php endforeach; ?>
             <?php } ?>
             </div>
-          <!-- </a> -->
         </li>
         <li class="level0 nav-4 first last level-top ui-menu-item logo-header">
           <a href="<?php echo $block->getBaseUrl(); ?>" class="level-top ui-corner-all  menu-logo" id="ui-id-3" tabindex="-1" role="menuitem">
@@ -148,24 +145,33 @@ require([
   ], function($) {
 
 
-$(".dropbtn").click(function()
-{
-   $(this).next(".dropdown-content").toggleClass("show");
-});
-    // Close the dropdown if the user clicks outside of it
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn')) {
+    var mq = window.matchMedia( "(max-width: 1024px)" );
+    if (mq.matches) {
+      $(".dropbtn").click(function()
+      {
+         $(this).next(".dropdown-content").toggleClass("show");
+      });
+          // Close the dropdown if the user clicks outside of it
+          window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
 
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
+              var dropdowns = document.getElementsByClassName("dropdown-content");
+              var i;
+              for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+                }
+              }
+            }
           }
-        }
-      }
-    }
+}
+$(document).ready(function () {
+   var $rows = $(".level-top.dropdown");
+   setTimeout(function() {
+       $rows.removeClass("ui-menu-item");
+   }, 800);
+});
 
   });
 </script>
