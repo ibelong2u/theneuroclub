@@ -45,6 +45,13 @@
     @media all and (max-width:767px){
       display: block;
     }
+    &:hover{
+      .dropdown-content{
+        @media all and (max-width:767px){
+          display: none;
+        }
+      }
+    }
     &:after{
         position: absolute;
         right: -5px;
@@ -63,8 +70,34 @@
         speak: none;
         text-align: center;
       @media all and (max-width:767px){
-        right: 13px;
-        top: 12px;
+        content:'';
+      }
+    }
+    .dropdown-button{
+      display:none;
+      @media all and (max-width:767px){
+        top: 4px;
+        display: block;
+        width: 50px;
+        height: 33px;
+        position: absolute;
+        right: 0;
+        text-align: center;
+      }
+      &:after{
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          font-size: 13px;
+          line-height: inherit;
+          color: inherit;
+          content: '\e622';
+          font-family: 'luma-icons';
+          vertical-align: middle;
+          display: inline-block;
+          font-weight: normal;
+          overflow: hidden;
+          speak: none;
+          text-align: center;
       }
     }
   }

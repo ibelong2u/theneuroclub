@@ -74,6 +74,8 @@ $_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceMode
           <a href="<?php echo $block->getBaseUrl(); ?>get-started" class="level-top ui-corner-all dropbtn" id="ui-id-3" tabindex="-1" role="menuitem">
             get started
           </a>
+          <div class="dropdown-button">
+          </div>
             <div class="dropdown-content">
               <?php if($productBundleCollection->count()){ ?>
                 <?php foreach ($productBundleCollection as $_product1): ?>
@@ -88,6 +90,8 @@ $_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceMode
           <a href="<?php echo $baseUrl .'products';?>" class="level-top ui-corner-all dropbtn" id="ui-id-3" tabindex="-1" role="menuitem">
             products
           </a>
+          <div class="dropdown-button">
+          </div>
             <div class="dropdown-content">
 
             <?php if($_productCollection->count()){ ?>
@@ -173,5 +177,15 @@ $(document).ready(function () {
    }, 800);
 });
 
+var mqs = window.matchMedia( "(max-width: 767px)" );
+if(mqs.matches){
+  $('body').click(function() {
+     $('.dropdown-content').hide();
+  });
+  $('.dropdown-button').on('click', function(event) {
+            event.stopPropagation();
+            $(this).next(".dropdown-content").toggle("show");
+       });
+}
   });
 </script>
