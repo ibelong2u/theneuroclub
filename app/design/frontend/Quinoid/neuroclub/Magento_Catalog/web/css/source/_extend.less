@@ -1493,7 +1493,6 @@ button{
                       {
                         span.product-image-container
                         {
-                          width: 280px !important;
                           padding-top: 20px;
                           span.product-image-wrapper
                           {
@@ -1816,5 +1815,12 @@ button{
 .catalog-product-view{
   .product-info-extra{
     display:none;
+  }
+}
+.catalog-product-view{
+  &.page-product-bundle {
+    .product-info-extra{
+      display:block;
+    }
   }
 }
