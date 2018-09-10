@@ -1,0 +1,85 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="YoastSEO" translate="label" sortOrder="110">
+            <label>YoastSEO</label>
+        </tab>
+        <section id="yoastseo" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>SEO Settings</label>
+            <tab>YoastSEO</tab>
+            <resource>MaxServ_YoastSeo::admin</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable_sitelink_searchbox" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Sitelink Searchbox</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="company_name" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Company Name</label>
+                </field>
+                <field id="alternate_urls" translate="label commen" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Alternate URL's</label>
+                    <comment>Enter other URL's which also represent your company. E.g. Facebook page, Twitter page, etc. Enter one URL per line.</comment>
+                </field>
+            </group>
+            <group id="products" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Products</label>
+                <field id="attribute_group_code" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>SEO Attribute Group Code</label>
+                </field>
+                <group id="redirect_deleted" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Create Redirect On Delete</label>
+                    <field id="redirect_delete" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Redirect to</label>
+                        <source_model>MaxServ\YoastSeo\Model\Config\Source\Product\RedirectDeletedOptions</source_model>
+                        <config_path>yoastseo/products/redirect_delete</config_path>
+                    </field>
+                    <field id="category" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Category</label>
+                        <source_model>MaxServ\YoastSeo\Model\Config\Source\Category</source_model>
+                        <config_path>yoastseo/products/redirect_delete_category</config_path>
+                        <depends>
+                            <field id="redirect_delete">to_category</field>
+                        </depends>
+                    </field>
+                    <field id="cms_page" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>CMS Page</label>
+                        <source_model>MaxServ\YoastSeo\Model\Config\Source\Cms\Page</source_model>
+                        <config_path>yoastseo/products/redirect_delete_cms_page</config_path>
+                        <depends>
+                            <field id="redirect_delete">to_cms_page</field>
+                        </depends>
+                    </field>
+                </group>
+            </group>
+            <group id="categories" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Categories</label>
+                <field id="attribute_group_code" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>SEO Attribute Group Code</label>
+                </field>
+            </group>
+            <group id="facebook" translate="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Facebook Settings</label>
+                <field id="app_id" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Facebook App Id</label>
+                </field>
+                <field id="admin_ids" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Admin Ids</label>
+                </field>
+                <field id="facebook_pages" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Facebook Pages</label>
+                </field>
+            </group>
+            <group id="twitter" translate="label" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Twitter Settings</label>
+                <field id="company_account" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Company Twitter Account</label>
+                    <comment>Full account name, e.g. @company</comment>
+                </field>
+                <field id="manager_account" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Content Manager Account</label>
+                    <comment>Full acount name, e.g. @content_manager</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
