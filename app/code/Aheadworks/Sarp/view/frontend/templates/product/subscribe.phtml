@@ -16,12 +16,13 @@ $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instanc
 $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data'); // Instance of Pricing Helper
 $productPrice = $priceHelper->currency($block->getProduct()->getFinalPrice(), true, false);
 ?>
-
+<a href='<?php echo $block->getProduct()->getAmazonUrl() ?> ' target="_blank">
+   <img class="amazon_btn" src="<?php echo $block->getViewFileUrl('images/order-amazon.png'); ?>" /> </a>
 <div class="aw-sarp-subscribe-button__container"
      data-role="aw-sarp-product-subscribe-button-container"
      style="display: none;"
 >
-    <button type="button"
+    <!-- <button type="button"
             title="<?php echo $block->escapeHtml(__('Subscribe')) ?>"
             class="action subscribe"
             data-product-id="<?php /* @noEscape */ echo $block->getProduct()->getId() ?>"
@@ -33,13 +34,13 @@ $productPrice = $priceHelper->currency($block->getProduct()->getFinalPrice(), tr
             }}'>
         <span data-role="button-text"><?php echo $block->escapeHtml(__('Subscribe')) . ' | ' . $productPrice ?></span>
         <script data-role="title-with-saving-estimation" type="text/x-magento-template"><?php /* @noEscape */ echo __('Subscribe & Save <%- amount %> %') ?></script>
-    </button>
+    </button>-->
     <?php if (!empty($tooltipContent)): ?>
         <div class="tooltip">
             <a href="#" class="tooltip-action">
                 <?php echo $block->escapeHtml(__('What is this?')) ?>
             </a>
-            <div class="tooltip-content"><?php /* @noEscape */ echo $tooltipContent ?></div>
+            <div class="tooltip-content" target="_blank"><?php /* @noEscape */ echo $tooltipContent ?></div>
         </div>
     <?php endif; ?>
 </div>
