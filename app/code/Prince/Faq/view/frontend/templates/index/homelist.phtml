@@ -1,4 +1,25 @@
-<?php $isEnable = $block->getConfig('faqtab/general/enable') ?>
+<?php
+
+//changes according to the group
+$id = $this->getRequest()->getParam('id');
+$ObjectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$productDetail = $ObjectManager->create('Magento\Catalog\Model\Product')->load($id);
+$productName = $productDetail->getName();
+$cmsPage = $ObjectManager->get('\Magento\Cms\Model\Page');
+$cmsPageName = $cmsPage->getIdentifier();
+if($productName){
+  $urlKey = $productName;
+}
+if($cmsPageName){
+  $urlKey = "General";
+}
+$getFaqGroupId = $block->getFaqID($urlKey);
+$faqGroupId = $getFaqGroupId->getData();
+//changes according to the group ends
+ ?>
+
+
+ <?php $isEnable = $block->getConfig('faqtab/general/enable') ?>
 <?php $showGroup = $block->getConfig('faqtab/general/showgroup') ?>
 <?php //$showGroupTitle = $block->getConfig('faqtab/general/showgrouptitle') ?>
 <?php $faqGroupCollection = $block->getFaqGroupCollection() ?>
@@ -12,8 +33,12 @@
         <div class="faq-content">
             <?php //foreach ($faqGroupCollection as $group) : ?>
                 <div class="faq-accordion">
-                <?php $faqLatest = $block->getFaqLatest(); ?>
-                    <?php if (count($faqLatest) > 0) : ?>
+
+                  <?php if(count($faqGroupId) > 0):
+                    $getId = $faqGroupId[0]; ?>
+                <?php $faqLatest = $block->getFaqCollection($getId['faqgroup_id']); ?>
+                <?php //$faqLatest = $block->getFaqLatest(); ?>
+                    <?php // if (count($faqLatest) > 0) : ?>
                       <?php //var_dump($faqLatest);?>
                         <?php foreach ($faqLatest as $faq) : ?>
                             <h3><?php /* @noEscape */ echo $faq['title']; ?></h3>

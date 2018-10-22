@@ -124,4 +124,26 @@ class Index extends \Magento\Framework\View\Element\Template
       return $faqCollection;
 
     }
+
+    public function getFaqID($getFaqGroupId)
+   {
+     $faqGroupCollection = $this->faqGroupCollectionFactory->create();
+     $faqGroupCollection->addFieldToFilter('groupname', ['like' => '%'.$getFaqGroupId.'%']);
+     $faqGroupCollection->addFieldToFilter('status', 1);
+     $faqGroupCollection->addFieldToFilter(
+       'customer_group',
+       [
+         ['null' => true],
+         ['finset' => $this->getCurrentCustomer()]
+       ]
+       );
+     $faqGroupCollection->addFieldToFilter(
+       'storeview',
+       [
+         ['eq' => 0],
+         ['finset' => $this->getCurrentStore()]
+       ]
+       );
+     return $faqGroupCollection;
+   }
 }
