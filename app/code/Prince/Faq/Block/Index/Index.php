@@ -125,6 +125,7 @@ class Index extends \Magento\Framework\View\Element\Template
 
     }
 
+
     public function getFaqID($getFaqGroupId)
    {
      $faqGroupCollection = $this->faqGroupCollectionFactory->create();
