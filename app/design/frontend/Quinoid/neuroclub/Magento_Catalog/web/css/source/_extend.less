@@ -690,6 +690,15 @@ button{
         @media all and (max-width:767px){
           margin:20px 0;
         }
+        .fieldset {
+          .actions {
+            .amazon_btn {
+                          width: 200px;
+
+
+            }
+          }
+        }
       }
       .stock{
         margin-top: 20px;
@@ -1138,7 +1147,7 @@ button{
                 width: 90%;
                 margin: 0 auto 20px;
                 padding: 20px 20px 0 20px;
-                height: 200px;
+                height: auto;
                 border-right: 1px solid #cecece;
                 @media only screen and (max-width: 799px)
                 {
@@ -1347,6 +1356,32 @@ button{
               }
             }
           }
+          .bundle_btn_wrapper {
+            .amazon_btn {
+              img {
+                max-width: 17%;
+                @media all and (max-width: 1199px) {
+                  max-width: 20%;
+                }
+                @media all and (max-width: 991px) {
+                  max-width: 25%;
+                }
+                @media all and (max-width: 767px) {
+                  max-width: 30%;
+                }
+                @media all and (max-width: 599px) {
+                  max-width: 35%;
+                }
+                @media all and (max-width: 476px) {
+                  max-width: 45%;
+                }
+                @media all and (max-width: 375px) {
+                  max-width: 59%;
+                }
+              }
+            }
+          }
+
             .bundle_btn_wrapper{
                   text-align: center;
                   margin-top: 40px;
@@ -1492,7 +1527,6 @@ button{
                       {
                         span.product-image-container
                         {
-                          width: 280px !important;
                           padding-top: 20px;
                           span.product-image-wrapper
                           {
@@ -1813,6 +1847,21 @@ button{
     .product-image-container
     {
       display: none;
+    }
+  }
+}
+.catalog-product-view{
+  .product-info-extra{
+    display:none;
+  }
+}
+.catalog-product-view{
+  &.page-product-bundle {
+    .product-info-extra{
+      display:block;
+      .pdp-additional-info{
+        display:none;
+      }
     }
   }
 }

@@ -110,5 +110,31 @@ class UpgradeData implements UpgradeDataInterface {
             ]
 				);
 			}
+
+            if (version_compare($context->getVersion(), '1.0.4', '<')) {
+
+                $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+
+                $eavSetup->addAttribute(
+                        \Magento\Catalog\Model\Product::ENTITY,
+                        'amazon_url',
+            [
+                'label' => 'Amazon Sale URL',
+                'type' => 'varchar',
+                'description' => 'Sales URL',
+                'input' => 'text',
+                'required' => false,
+                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+                'wysiwyg_enabled' => true,
+                'is_html_allowed_on_front' => true,
+                'unique' => false,
+                'is_used_in_grid' => false,
+                'is_filterable_in_grid' => false,
+                'group' => 'Attributes',
+
+            ]
+                );
+            }
+    
 	}
 }

@@ -1,8 +1,61 @@
 <?php
+
+//$_productCollection = $block->getLoadedProductCollection();
+
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
 $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB);
+
+$productBundleCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection')
+->addAttributeToFilter('type_id', array( 'in' => array('bundle')))
+->addAttributeToFilter('visibility', 4)->addAttributeToselect('*');
+
+
+$_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection')
+->addAttributeToFilter('type_id', array( 'in' => array('simple')))
+->addAttributeToFilter('visibility', 4)->addAttributeToselect('*')
+
 ?>
+<style>
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.show{display:block;}
+</style>
 <div class="sections nav-sections">
   <div class="section-items nav-sections-items" data-mage-init='{"tabs":{"openedState":"active"}}'>
     <div class="section-item-title nav-sections-item-title" data-role="collapsible">
@@ -16,15 +69,40 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
         <img src="<?php echo $block->getViewFileUrl('images/logo.png'); ?>" />
       </a>
       </li>
-        <li class="level0 nav-1 first last level-top ui-menu-item nav-link" role="presentation">
-          <a href="<?php echo $block->getBaseUrl(); ?>get-started" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
-            <span>get started</span>
+      <?php // echo $items->count(); ?>
+        <li class="level0 nav-1 first last level-top nav-link dropdown" role="presentation">
+          <a href="<?php echo $block->getBaseUrl(); ?>get-started" class="level-top ui-corner-all dropbtn" id="ui-id-3" tabindex="-1" role="menuitem">
+            get started
           </a>
+          <div class="dropdown-button">
+          </div>
+            <div class="dropdown-content">
+              <?php if($productBundleCollection->count()){ ?>
+                <?php foreach ($productBundleCollection as $_product1): ?>
+                  <a href="<?php echo $_product1->getProductUrl() ?>">
+                  <?php echo $_product1->getName();//$_helper->productAttribute($_product1, $_product1->getName(), 'name') ?></a>
+
+                <?php endforeach; ?>
+              <?php } ?>
+            </div>
         </li>
-        <li class="level0 nav-3 first level-top ui-menu-item nav-link" role="presentation">
-          <a href="<?php echo $baseUrl .'products';?>" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
-            <span>products</span>
+        <li class="level0 nav-3 first level-top nav-link dropdown" role="presentation">
+          <a href="<?php echo $baseUrl .'products';?>" class="level-top ui-corner-all dropbtn" id="ui-id-3" tabindex="-1" role="menuitem">
+            products
           </a>
+          <div class="dropdown-button">
+          </div>
+            <div class="dropdown-content">
+
+            <?php if($_productCollection->count()){ ?>
+              <?php foreach ($_productCollection as $_product): ?>
+
+                <a href="<?php echo $_product->getProductUrl() ?>">
+                <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
+
+              <?php endforeach; ?>
+            <?php } ?>
+            </div>
         </li>
         <li class="level0 nav-5 first level-top ui-menu-item nav-link" role="presentation">
           <a href="<?php echo $block->getBaseUrl(); ?>nootropics" class="level-top ui-corner-all" id="ui-id-3" tabindex="-1" role="menuitem">
@@ -60,3 +138,54 @@ $baseUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface
     </div>
   </div>
 </div>
+
+
+<script>
+
+
+require([
+      'jquery',
+
+  ], function($) {
+
+
+    var mq = window.matchMedia( "(max-width: 1024px)" );
+    if (mq.matches) {
+      $(".dropbtn").click(function()
+      {
+         $(this).next(".dropdown-content").toggleClass("show");
+      });
+          // Close the dropdown if the user clicks outside of it
+          window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+
+              var dropdowns = document.getElementsByClassName("dropdown-content");
+              var i;
+              for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+                }
+              }
+            }
+          }
+}
+$(document).ready(function () {
+   var $rows = $(".level-top.dropdown");
+   setTimeout(function() {
+       $rows.removeClass("ui-menu-item");
+   }, 800);
+});
+
+var mqs = window.matchMedia( "(max-width: 767px)" );
+if(mqs.matches){
+  $('body').click(function() {
+     $('.dropdown-content').hide();
+  });
+  $('.dropdown-button').on('click', function(event) {
+            event.stopPropagation();
+            $(this).next(".dropdown-content").toggle("show");
+       });
+}
+  });
+</script>

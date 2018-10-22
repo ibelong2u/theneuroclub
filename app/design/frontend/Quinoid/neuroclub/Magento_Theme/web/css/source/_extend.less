@@ -554,6 +554,7 @@ button{
         font-weight: 600;
         @media all and (min-width: 768px){
           color:#000;
+          letter-spacing: 1px;
         }
       }
     }
@@ -803,16 +804,15 @@ button{
         @media all and (max-width:768px)  {
           visibility: hidden !important;
         }
+        @media all and (max-width:767px){
+          display: none !important;
+        }
       }
     }
     .logo-header{
       padding:0px !important;
     }
-    .nav-3, .nav-5, .nav-6, .nav-7, .nav-8, .nav-9{
-      @media all and (max-width:767px)  {
-        display: none !important;
-      }
-    }
+
     .nav-0{
       display: block !important;
       @media all and (min-width:1200px)  {
@@ -1793,8 +1793,10 @@ button{
   //footer-logo
   .page-footer{
     border-top:1px solid #ececec;
-    background: #ffffff !important;
+    background: #374076 !important;
     padding-bottom: 15px;
+    width:100%;
+    float:left;
     @media all and (max-width:768px)
     {
       clear:both;
@@ -1896,6 +1898,7 @@ button{
         h3{
           padding-bottom: 15px;
           text-transform: uppercase;
+          color:#fff;
         }
       }
       .footer-logo{
@@ -1926,7 +1929,7 @@ button{
       }
       a{
         font-size:12px;
-        color: #374096;
+        color: white;
         font-weight:600;
       }
     }
@@ -1941,7 +1944,7 @@ button{
         font-size: 12px;
         margin-bottom: 0;
         font-weight: 600;
-        color: #000;
+        color: white;
       }
     }
     .footer-copyright{
@@ -1952,8 +1955,8 @@ button{
         text-align: center;
       }
       .copyright{
-        background-color:  #ffffff;
-        color: #000000;
+        background:none;
+        color: white;
         font-weight: 600;
         @media only screen and (max-width: 991px){
           padding: 0;

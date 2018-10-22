@@ -1,0 +1,35 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="yoastseo" xsi:type="array">
+                    <item name="class" xsi:type="string">MaxServ\YoastSeo\Ui\Catalog\DataProvider\Product\Form\Modifier\YoastSeo</item>
+                    <item name="sortOrder" xsi:type="number">100000</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="MaxServ\YoastSeo\Controller\Adminhtml\Image\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">MaxServ\YoastSeo\Model\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="MaxServ\YoastSeo\Observer\PreparePageSaveObserver">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">MaxServ\YoastSeo\Model\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="MaxServ\YoastSeo\Observer\PrepareCategorySaveObserver">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">MaxServ\YoastSeo\Model\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Cms\Model\Page\DataProvider">
+        <plugin name="maxserv_yoastseo_cms_page_dataproviderplugin"
+                type="MaxServ\YoastSeo\Plugin\Cms\PageDataProviderPlugin" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Magento\Catalog\Model\Category\DataProvider">
+        <plugin name="maxserv_yoastseo_category_dataproviderplugin"
+                type="MaxServ\YoastSeo\Plugin\Catalog\CategoryDataProviderPlugin" sortOrder="1" disabled="false"/>
+    </type>
+</config>

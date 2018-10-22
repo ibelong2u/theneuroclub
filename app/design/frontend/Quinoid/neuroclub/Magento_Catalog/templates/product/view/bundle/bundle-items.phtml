@@ -46,9 +46,14 @@ $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
             </div>
             <input type="hidden" name="urlkey" value="<?= $_item->getUrlKey() ?>"/>
             <div class="bundle_btn_wrapper">
-              <input type="submit" name="" value="Add Customized Bundle Items">
+              <a class="amazon_btn" href='<?php echo $_item->getAmazonUrl(); ?>' target="_blank">
+                <img src="<?php echo $block->getViewFileUrl('images/order-amazon.png'); ?>" />
+              </a>
+              <!-- <input type="submit" name="" value="Add Customized Bundle Items "> -->
             </div>
+
         </form>
+
     </div>
 <?php endif; ?>
 <div class="curve">
