@@ -36,7 +36,7 @@ class Index extends \Magento\Framework\View\Element\Template
     public function getFaqCollection($group)
     {
         $faqCollection = $this->faqCollectionFactory->create();
-        $faqCollection->addFieldToFilter('group', ['like' => '%'.$group.'%']);
+        $faqCollection->addFieldToFilter('group', ['finset' => $group]);
         $faqCollection->addFieldToFilter('status', 1);
         $faqCollection->addFieldToFilter(
             'customer_group',
