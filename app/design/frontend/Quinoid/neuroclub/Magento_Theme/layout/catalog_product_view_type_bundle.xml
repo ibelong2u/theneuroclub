@@ -9,7 +9,7 @@
     <body>
       <container name="product.page.container" htmlClass="product-page-container" htmlTag="div">
         <referenceContainer name="content.top">
-          <block class="Magento\Catalog\Block\Product\AbstractProduct" name="bundle.items.features" template="Magento_Catalog::product/view/bundle/bundle-items-features.phtml" after="page.main.title" />
+          <block class="Magento\Catalog\Block\Product\AbstractProduct" name="bundle.items.features" template="Magento_Catalog::product/view/bundle/bundle-items-features.phtml" before="bundle.items" />
         </referenceContainer>
         <referenceContainer name="content">
           <container name="product.info.basic" htmlClass="product-info-content" htmlTag="div">
@@ -18,7 +18,7 @@
         </referenceContainer>
         <referenceContainer name="content.bottom">
           <container name="product.info.additional" htmlClass="product-info-extra" htmlTag="div">
-            <block class="Magento\Framework\View\Element\Template" name="product.additional.info" template="Magento_Catalog::product/view/additional-info.phtml" after="additional.info"/>
+            <block class="Magento\Framework\View\Element\Template" name="product.additional.info" template="Magento_Catalog::product/view/additional-info.phtml" before="additional.info"/>
             <block class="Magento\Catalog\Block\Product\ProductList\Upsell" name="product.info.upsell" template="Magento_Catalog::product/list/upsell-items-bundle.phtml" after="product.additional.info">
                 <arguments>
                     <argument name="type" xsi:type="string">upsell</argument>
@@ -33,6 +33,12 @@
       <move element="product.info.description" destination="product.info.basic" after="product.info"/>
       <move element="bundle.items" destination="product.info.basic" after="product.info.description"/>
       <move element="product.info.media.image" destination="product.info.basic" before="-"/>
+      <move element="bundle.items.features" destination="product.info.basic" before="bundle.items"/>
+      <move element="primary.banner" destination="product.info.basic" before="-"/>
+
+      <!-- <move element="product.additional.info" destination="product.info.basic" before="bundle.items"/> -->
+
+
         <!-- <referenceContainer name="content">
             <block class="Magento\Catalog\Block\Product\AbstractProduct" name="bundle.items.features" template="Magento_Catalog::product/view/bundle/bundle-items-features.phtml" before="-" />
         </referenceContainer> -->

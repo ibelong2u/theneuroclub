@@ -15,7 +15,10 @@ $productBundleCollection = $objectManager->create('Magento\Catalog\Model\Resourc
 
 $_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection')
 ->addAttributeToFilter('type_id', array( 'in' => array('simple')))
-->addAttributeToFilter('visibility', 4)->addAttributeToselect('*')
+->addAttributeToFilter('visibility', 4)
+->addAttributeToselect('*');
+
+$_productCollection->addAttributeToSort('product_position','ASC');
 
 ?>
 <style>
@@ -98,7 +101,7 @@ $_productCollection = $objectManager->create('Magento\Catalog\Model\ResourceMode
               <?php foreach ($_productCollection as $_product): ?>
 
                 <a href="<?php echo $_product->getProductUrl() ?>">
-                <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
+                <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name');?></a>
 
               <?php endforeach; ?>
             <?php } ?>

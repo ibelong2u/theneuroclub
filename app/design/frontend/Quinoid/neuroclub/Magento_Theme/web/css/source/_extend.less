@@ -847,7 +847,6 @@ button{
     }
 // minicart styling
 .minicart-wrapper{
-  display: none;
   position: absolute;
   right:20px;
   top:39px;
@@ -864,7 +863,7 @@ button{
       line-height: 20px;
       position: absolute;
       right: -2px;
-      top: 40px;
+      top: 0px;
       transition: 0.5s all;
       @media all and (max-width:767px){
         line-height:24px;
@@ -927,6 +926,9 @@ button{
               {
                 font-size:16px;
               }
+          }
+          .checkout.paypal-logo {
+            display: none;
           }
         }
         .minicart-items-wrapper{

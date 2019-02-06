@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Author: Sooraj Sathyan
  */
@@ -45,11 +45,11 @@ $requiredChildrenIds = $typeInstance->getChildrenIds($_item->getId(), true);
                 <?php endif; ?>
             </div>
             <input type="hidden" name="urlkey" value="<?= $_item->getUrlKey() ?>"/>
-            <div class="bundle_btn_wrapper">
-              <a class="amazon_btn" href='<?php echo $_item->getAmazonUrl(); ?>' target="_blank">
+            <div class="bundle_btn_wrapper" style="display:none;">
+             <!-- <a class="amazon_btn" href='<?php echo $_item->getAmazonUrl(); ?>' target="_blank">
                 <img src="<?php echo $block->getViewFileUrl('images/order-amazon.png'); ?>" />
-              </a>
-              <!-- <input type="submit" name="" value="Add Customized Bundle Items "> -->
+              </a> -->
+              <input type="submit" name="" value="Add Customized Bundle Items " style="display:none;"> 
             </div>
 
         </form>

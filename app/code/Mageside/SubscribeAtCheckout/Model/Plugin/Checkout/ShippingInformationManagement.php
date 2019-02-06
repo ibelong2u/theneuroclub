@@ -44,14 +44,19 @@ class ShippingInformationManagement
         $cartId,
         ShippingInformationInterface $addressInformation
     ) {
-        if ($this->_helper->getConfigModule('enabled')) {
+    if ($this->_helper->getConfigModule('enabled')) {
             if ($this->_helper->getConfigModule('checkout_subscribe') == 3 ||
                 $this->_helper->getConfigModule('checkout_subscribe') == 4
             ) {
                 $newsletterSubscribe = 1;
             } else {
-                $extAttributes = $addressInformation->getExtensionAttributes();
-                $newsletterSubscribe = $extAttributes->getNewsletterSubscribe() ? 1 : 0;
+ 
+                if(!empty($addressInformation->getExtensionAttributes())) {
+                    $extAttributes = $addressInformation->getExtensionAttributes();
+                    $newsletterSubscribe = $extAttributes->getNewsletterSubscribe() ? 1 : 0;
+                } else { 
+                    $newsletterSubscribe = 0;
+                }    
             }
             $quote = $this->_quoteRepository->getActive($cartId);
             $quote->setNewsletterSubscribe($newsletterSubscribe);

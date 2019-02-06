@@ -534,6 +534,7 @@ button{
       }
     }
     .pdp-video-banner-container{
+	margin-bottom: 70px;
       .video-content
       {
         .video-outer
@@ -646,19 +647,18 @@ button{
   .product-info-content
   {
     height: auto;
-    margin-top: 70px;
+    margin-top: 0;
     overflow: auto;
-    @media all and (max-width:767px){
-      margin-top:20px;
-    }
+    padding-left:0;
     .product-info-description-outer{
-      width: 50%;
+      width: 100%;
       @media all and (max-width: 768px){
         width:100%;
         clear: both;
         padding-top: 30px;
       }
       .page-title-wrapper{
+        text-align: center;
         margin-bottom: 40px;
         @media all and (max-width: 768px){
             text-align: center;
@@ -701,6 +701,7 @@ button{
         }
       }
       .stock{
+        text-align: center;
         margin-top: 20px;
         text-transform: uppercase;
         font-weight: 600;
@@ -712,6 +713,7 @@ button{
         }
       }
       .product-add-form{
+        text-align: center;
         @media all and (max-width: 768px){
             text-align: center;
         }
@@ -720,6 +722,7 @@ button{
     .product-info-slider-outer{
       float: right;
       width: 50%;
+      display: none;
       @media all and (max-width: 768px)
       {
         width: 100%;
@@ -822,13 +825,19 @@ button{
       margin-top:0;
     }
     .plp-bottom{
-      display:none;
+      //display:none;
       .inner-container
-  {
+  	{
         max-width: 1350px;
         margin: 0 auto;
         padding-left: 1px;
         padding-right: 1px;
+	.plp-bottom-container {
+          h2 {
+            width: 100%;
+            text-transform: uppercase;
+          }
+        }
       }
     }
   }
@@ -1024,6 +1033,11 @@ button{
           width: 100%;
           padding-bottom: 57%;
           position: relative;
+          margin-top: 70px;
+          overflow: auto;
+          @media all and (max-width:767px){
+            margin-top:20px;
+          }
           iframe
           {
             width: 100%;
@@ -1059,6 +1073,21 @@ button{
         }
       }
 
+    }
+  }
+&.product-agilin,
+  &.product-enkodin,
+  &.product-metanine,
+  &.product-myeliv,
+  &.product-seraxil,
+  &.product-xance {
+    .page-main {
+      padding-bottom: 0;
+      .columns {
+        .column.main {
+          padding-bottom: 0;
+        }
+      }
     }
   }
 }
@@ -1116,6 +1145,8 @@ button{
           }
           .feature-content
           {
+            clear: both;
+            overflow: hidden;
             .feature-content-block
             {
               width: 33%;
@@ -1225,6 +1256,9 @@ button{
       .product-info-content
       {
         max-width: 100%;
+	@media only screen and (max-width: 1280px) {
+          padding: 0;
+        }
         #owl-product-pdp
         {
           display: none;
@@ -1295,7 +1329,7 @@ button{
 
         .box-tocart
         {
-          display:none;
+          margin-top:30px;
           text-align: center;
           .fieldset
           {
@@ -1469,6 +1503,7 @@ button{
               {
                 .owl-stage
                 {
+                	margin: 0 auto;
                   .owl-item
                   {
                     .item

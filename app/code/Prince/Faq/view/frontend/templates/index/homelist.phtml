@@ -1,45 +1,39 @@
 <?php
-
-//changes according to the group
-$id = $this->getRequest()->getParam('id');
-$ObjectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$productDetail = $ObjectManager->create('Magento\Catalog\Model\Product')->load($id);
-$productName = $productDetail->getName();
-$cmsPage = $ObjectManager->get('\Magento\Cms\Model\Page');
-$cmsPageName = $cmsPage->getIdentifier();
-if($productName){
-  $urlKey = $productName;
-}
-if($cmsPageName){
-  $urlKey = "General";
-}
-$getFaqGroupId = $block->getFaqID($urlKey);
-$faqGroupId = $getFaqGroupId->getData();
-//changes according to the group ends
+  $id = $this->getRequest()->getParam('id');
+  $ObjectManager = \Magento\Framework\App\ObjectManager::getInstance();
+  $productDetail = $ObjectManager->create('Magento\Catalog\Model\Product')->load($id);
+  $productName = $productDetail->getName();
+  $cmsPage = $ObjectManager->get('\Magento\Cms\Model\Page');
+  $cmsPageName = $cmsPage->getIdentifier();
+    if($productName){
+      $urlKey = $productName;
+    }
+  if($cmsPageName){
+    $urlKey = "General";
+  }
+  $getFaqGroupId = $block->getFaqID($urlKey);
+  $faqGroupId = $getFaqGroupId->getData();
  ?>
 
-
- <?php $isEnable = $block->getConfig('faqtab/general/enable') ?>
+<?php $isEnable = $block->getConfig('faqtab/general/enable') ?>
 <?php $showGroup = $block->getConfig('faqtab/general/showgroup') ?>
 <?php //$showGroupTitle = $block->getConfig('faqtab/general/showgrouptitle') ?>
 <?php $faqGroupCollection = $block->getFaqGroupCollection() ?>
 <?php if ($faqGroupCollection->getSize()) : ?>
     <?php if ($isEnable) : ?>
       <div class="home-container">
-    <div class="faq-collection margin">
-    <div class="section-heading">
-      <h2><strong>Frequently </strong>Asked Questions</h2>
-    </div>
-        <div class="faq-content">
-            <?php //foreach ($faqGroupCollection as $group) : ?>
-                <div class="faq-accordion">
-
-                  <?php if(count($faqGroupId) > 0):
-                    $getId = $faqGroupId[0]; ?>
-                  <?php if($getId['status'] == 1): ?>
+        <div class="faq-collection margin">
+        <div class="section-heading">
+          <h2><strong><?php echo __("Frequently ") ?></strong><?php echo __("Asked Questions") ?></h2>
+        </div>
+            <div class="faq-content">
+                <?php //foreach ($faqGroupCollection as $group) : ?>
+                    <div class="faq-accordion">
+                      <?php if(count($faqGroupId) > 0):
+                        $getId = $faqGroupId[0]; ?>
+                      <?php if($getId['status'] == 1): ?>
                     <?php $faqLatest = $block->getFaqCollection($getId['faqgroup_id']); ?>
-                    <?php //$faqLatest = $block->getFaqLatest(); ?>
-                        <?php // if (count($faqLatest) > 0) : ?>
+                        <?php //if (count($faqLatest) > 0) : ?>
                           <?php //var_dump($faqLatest);?>
                             <?php foreach ($faqLatest as $faq) : ?>
                                 <h3><?php /* @noEscape */ echo $faq['title']; ?></h3>
@@ -47,24 +41,28 @@ $faqGroupId = $getFaqGroupId->getData();
                                     <p><?php /* @noEscape */ echo $block->filterOutputHtml($faq['content']); ?></p>
                                 </div>
                             <?php endforeach; ?>
+                          <?php else : ?>
+                              <div><?php /* @noEscape */ //echo __('No FAQ available'); ?></div>
+                              <style>.page-bottom {display: none;}</style>
+                          <?php endif; ?>
                         <?php else : ?>
-                            <div><?php /* @noEscape */ echo __('No FAQ available'); ?></div>
+                            <div><?php /* @noEscape */ //echo __('No FAQ available'); ?></div>
+                            <style>.page-bottom {display: none;}</style>
                         <?php endif; ?>
-                    <?php else : ?>
-                        <div><?php /* @noEscape */ echo __('No FAQ available'); ?></div>
-                    <?php endif; ?>
-                </div>
-            <?php //endforeach; ?>
+                    </div>
+                <?php //endforeach; ?>
+            </div>
+            <div class="clearfix"></div>
+            <div class="section-button">
+            <a href="<?php echo $block->getBaseUrl(); ?>faq"><button type="button">VIEW ALL</button></a>
+          </div>
         </div>
-        <div class="clearfix"></div>
-        <div class="section-button">
-        <a href="<?php echo $block->getBaseUrl(); ?>faq"><button type="button">VIEW ALL</button></a>
-      </div>
-    </div>
     </div>
     <?php endif; ?>
 <?php else : ?>
     <div>
-        <h1><?php /* @noEscape */ echo __('No FAQ Group available'); ?></h1>
+        <h1><?php /* @noEscape */ //echo __('No FAQ Group available'); ?></h1>
+        <style>.page-bottom {display: none;}</style>
     </div>
 <?php endif; ?>
+

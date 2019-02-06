@@ -1,12 +1,17 @@
 <div class="plp-bottom">
-  <div class="inner-container">
-    <div class="row plp-bottom-container">
-      <?php
-        echo $this->getLayout()
-                   ->createBlock('Magento\Cms\Block\Block')
-                   ->setBlockId('pdp-secondary-banner')
-                   ->toHtml();
-     ?>
-   </div>
-  </div>
+  <?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance() ?>
+  <?php $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product') ?>
+  <?php if (null !== $product->getCustomAttribute('secondary_banner')): ?>
+    <div class="inner-container">
+      <div class="row plp-bottom-container">
+          <?php $content = $product->getCustomAttribute('secondary_banner')->getValue() ?>
+          <?php $filteredContent = $objectManager->get('Magento\Cms\Model\Template\FilterProvider')->getPageFilter()->filter($content) ?>
+          <?php echo $filteredContent ?>
+          <?php
+          /*  echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')
+                       ->setBlockId('pdp-secondary-banner')->toHtml();*/
+                       ?>
+     </div>
+    </div>
+  <?php endif ?>
 </div>
