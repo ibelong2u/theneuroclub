@@ -160,5 +160,28 @@ class UpgradeData implements UpgradeDataInterface {
 						]
 					);
 			}
+
+			if (version_compare($context->getVersion(), '1.0.6', '<')) {
+
+			    $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+          $eavSetup->addAttribute(
+			             \Magento\Catalog\Model\Product::ENTITY,
+			             'product_bg_color',
+			              [
+			                  'label' => 'Product Baground Color',
+			                  'type' => 'varchar',
+			                  'description' => 'Product Baground Color for Mobile App',
+			                  'input' => 'text',
+			                  'required' => false,
+			                  'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+			                  'wysiwyg_enabled' => true,
+			                  'is_html_allowed_on_front' => true,
+			                  'unique' => false,
+			                  'is_used_in_grid' => false,
+			                  'is_filterable_in_grid' => false,
+			                  'group' => 'Attributes',
+                    ]
+          );
+      }
 	}
 }
